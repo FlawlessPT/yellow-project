@@ -26,7 +26,7 @@ function App() {
           />
         </CustomRoutes>
         {/* Resources/Tables To Be Configure
-          /* Example to list and edit a todos table -- this table needs to existe on supabase
+          /* Example to list and edit a todos table -- this table needs to exist on supabase
           <Resource name="todos" list={ListGuesser} edit={EditGuesser} />
         */}
       </Admin>
