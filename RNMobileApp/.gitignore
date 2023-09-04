@@ -64,3 +64,7 @@ yarn-error.log
 
 # testing
 /coverage
+
+# supabase configs
+# Supabase file configs to sdk integration -- ignored to not expose keys on git repository
+**/supabase.configs.ts

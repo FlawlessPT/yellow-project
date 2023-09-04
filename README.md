@@ -1,6 +1,6 @@
 # Supabase configs
 
-TODO: explain here process to integrate with supabase using configs.example.ts
+TODO: explain here process to integrate with supabase using supabase.configs.example.ts at RNMobileApp/lib
 
 # Database
 
