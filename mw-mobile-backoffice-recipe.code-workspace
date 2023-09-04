@@ -1,0 +1,25 @@
+{
+  "folders": [
+    {
+      "name": "project-root",
+      "path": "./"
+    },
+    {
+      "name": "supabase",
+      "path": "supabase"
+    },
+    {
+      "name": "RNMobileApp",
+      "path": "RNMobileApp"
+    },
+    {
+      "name": "supabase-functions",
+      "path": "supabase/functions"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "supabase/functions/": true
+    }
+  }
+}

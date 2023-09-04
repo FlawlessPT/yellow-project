@@ -1,0 +1,6 @@
+# Supabase
+.branches
+.temp
+
+# Supabase file configs to sdk integration -- ignored to not expose keys on git repository
+configs.ts
