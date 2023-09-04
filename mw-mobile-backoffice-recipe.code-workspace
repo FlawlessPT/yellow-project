@@ -9,6 +9,10 @@
       "path": "supabase"
     },
     {
+      "name": "BackofficeCMS",
+      "path": "BackofficeCMS"
+    },
+    {
       "name": "RNMobileApp",
       "path": "RNMobileApp"
     },

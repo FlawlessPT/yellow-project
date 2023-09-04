@@ -1,7 +1,7 @@
 import 'react-native-url-polyfill/auto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createClient} from '@supabase/supabase-js';
-import {supabaseProjectURL, supbaseAnonKey} from './supabase.configs';
+import {supabaseProjectURL, supabaseAnonKey} from './supabase.configs';
 // TODO: NEEDS TO USER A BETTER LIBRARY FOR SECURITY PURPOSES INSTEAD OF AsyncStorage
 const SecureStoreAdapter = {
   getItem: (key: string) => {
@@ -15,7 +15,7 @@ const SecureStoreAdapter = {
   },
 };
 
-export const supabase = createClient(supabaseProjectURL, supbaseAnonKey, {
+export const supabase = createClient(supabaseProjectURL, supabaseAnonKey, {
   auth: {
     storage: SecureStoreAdapter as any,
     autoRefreshToken: true,
