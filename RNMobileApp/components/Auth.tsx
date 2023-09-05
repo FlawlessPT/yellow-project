@@ -39,6 +39,21 @@ export default function Auth() {
     setLoading(false);
   }
 
+  async function forgotPassword() {
+    setLoading(true);
+    const {error} = await supabase.auth.resetPasswordForEmail(email, {
+      /* TODO: this can not be hard coded -- should be configurable */
+      /* Here we are using a route configured at BackofficeCMS App -- but for a mobile app a deep link could for more sense */
+      /* TO BE TESTED in the future */
+      redirectTo: '/account/update-password',
+    });
+
+    if (error) {
+      Alert.alert(error.message);
+    }
+    setLoading(false);
+  }
+
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -74,6 +89,13 @@ export default function Auth() {
           title="Sign up"
           disabled={loading}
           onPress={() => signUpWithEmail()}
+        />
+      </View>
+      <View style={styles.verticallySpaced}>
+        <Button
+          title="Forgot password"
+          disabled={loading}
+          onPress={() => forgotPassword()}
         />
       </View>
     </View>
