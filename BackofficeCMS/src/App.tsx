@@ -1,9 +1,16 @@
-import { Admin, Resource, ListGuesser, EditGuesser } from "react-admin";
-import { LoginPage } from "ra-supabase";
+import {
+  Admin,
+  Resource,
+  ListGuesser,
+  EditGuesser,
+  CustomRoutes,
+} from "react-admin";
+import { ForgotPasswordPage, LoginPage } from "ra-supabase";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { dataProvider } from "./lib/supabase.dataProvider";
 import { authProvider } from "./lib/supabase.authProvider";
-import { UpdatePasswordForm } from "./UpdatePassword";
+import { UpdatePasswordForm } from "./UpdatePasswordForm";
+import { ForgotPasswordForm } from "./ForgotPasswordForm";
 
 function BackofficeAdmin() {
   return (
@@ -12,6 +19,16 @@ function BackofficeAdmin() {
       authProvider={authProvider}
       loginPage={LoginPage}
     >
+      <CustomRoutes noLayout>
+        <Route
+          path="/account/update-password"
+          element={<UpdatePasswordForm />}
+        />
+        <Route
+          path={ForgotPasswordPage.path}
+          element={<ForgotPasswordForm />}
+        />
+      </CustomRoutes>
       {/* Resources/Tables To Be Configure
        /* Example to list and edit a todos table -- this table needs to exist on supabase
           <Resource name="todos" list={ListGuesser} edit={EditGuesser} />
@@ -25,7 +42,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/*" element={<BackofficeAdmin />} />
-        {/* Styles should be the same layout as admin */}
+        {/* Styles should be the same layout as admin
         <Route
           path="/account/update-password"
           element={
@@ -39,6 +56,7 @@ function App() {
             </div>
           }
         />
+        */}
       </Routes>
     </BrowserRouter>
   );

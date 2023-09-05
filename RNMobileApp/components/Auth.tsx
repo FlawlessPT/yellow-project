@@ -41,12 +41,12 @@ export default function Auth() {
 
   async function forgotPassword() {
     setLoading(true);
-    const {error} = await supabase.auth.resetPasswordForEmail(email, {
-      /* TODO: this can not be hard coded -- should be configurable */
-      /* Here we are using a route configured at BackofficeCMS App -- but for a mobile app a deep link could for more sense */
-      /* TO BE TESTED in the future */
-      redirectTo: 'http://localhost:5173/account/update-password',
-    });
+    /* This assumes that BackofficeCMS route at /account/update-password is going to be used and template is configured for that */
+    /* Check supabase/templates/recovery_password.html and supbase/configs.toml varialbes:
+      site_url
+      auth.email.template.recovery
+    */
+    const {error} = await supabase.auth.resetPasswordForEmail(email);
 
     if (error) {
       Alert.alert(error.message);
