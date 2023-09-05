@@ -45,7 +45,7 @@ export default function Auth() {
       /* TODO: this can not be hard coded -- should be configurable */
       /* Here we are using a route configured at BackofficeCMS App -- but for a mobile app a deep link could for more sense */
       /* TO BE TESTED in the future */
-      redirectTo: '/account/update-password',
+      redirectTo: 'http://localhost:5173/account/update-password',
     });
 
     if (error) {
