@@ -5,13 +5,15 @@ pipelines:
     - parallel:
       - step:
           name: 'Build Backoffice web app'
-          script:          
+          script:
             - cd supabase
             - yarn install
             - yarn supabase-configs-backoffice
             - cd ../BackofficeCMS
             - yarn install
             - yarn build
+          artifacts:
+            - dist/**
       - step:
           name: 'Lint Backoffice web app'
           script:
@@ -24,7 +26,15 @@ pipelines:
         name: 'Deployment of Backoffice web app to staging'
         deployment: staging
         script:
-          - echo "Your deployment to staging script goes here..."
+          - cd supabase
+          - yarn install
+          - yarn supabase-configs-backoffice
+          - cd ../BackofficeCMS
+          - yarn install
+          - npm install --global vercel
+          - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+          - vercel build --prod --token=$VERCEL_TOKEN
+          - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
     - step:
         name: 'Deployment of Backoffice web app to production'
         deployment: production
