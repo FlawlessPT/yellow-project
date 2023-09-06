@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "supabase-configs-mobile": "node scripts/generate-configs.js ../RNMobileApp/lib/supabase.configs.ts",
-    "supabase-configs-backoffice": "node scripts/generate-configs.js ../BackofficeCMS/src/lib/supabase.configs.ts"
+    "supabase-configs-backoffice": "node scripts/generate-configs.js ../BackofficeCMS/src/lib/supabase.configs.ts",
+    "supabase-configs": "yarn supabase-configs-mobile && yarn supabase-configs-backoffice"
   },
   "keywords": [],
   "author": "",
