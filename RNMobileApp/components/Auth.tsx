@@ -28,6 +28,7 @@ export default function Auth() {
       email: email,
       password: password,
       options: {
+        emailRedirectTo: 'mw://signup',
         data: {
           email,
         },
@@ -42,12 +43,10 @@ export default function Auth() {
 
   async function forgotPassword() {
     setLoading(true);
-    /* This assumes that BackofficeCMS route at /account/update-password is going to be used and template is configured for that */
-    /* Check supabase/templates/recovery_password.html and supbase/configs.toml varialbes:
-      site_url
-      auth.email.template.recovery
-    */
-    const {error} = await supabase.auth.resetPasswordForEmail(email);
+
+    const {error} = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: 'mw://recoverpassword',
+    });
 
     if (error) {
       Alert.alert(error.message);

@@ -12,11 +12,7 @@ export const ForgotPasswordForm = () => {
     if (!values.email) return;
 
     await supabaseClient.auth.resetPasswordForEmail(values.email, {
-      /* /account/update-password is going to be added on template configured for that */
-      /* Check supabase/templates/recovery_password.html and supbase/configs.toml varialbes:
-        auth.email.template.recovery
-      */
-      redirectTo: window.location.origin,
+      redirectTo: `${window.location.origin}/account/update-password`,
     });
   };
 

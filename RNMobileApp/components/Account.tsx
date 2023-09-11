@@ -9,6 +9,7 @@ export default function Account({session}: {session: Session}) {
   const [username, setUsername] = useState('');
   const [fullname, setFullname] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [password, setPassword] = useState('');
 
   const getProfile = useCallback(
     async function getProfile() {
@@ -53,10 +54,12 @@ export default function Account({session}: {session: Session}) {
     newUsername,
     newFullname,
     avatar_url,
+    newPassword,
   }: {
     newUsername: string;
     newFullname: string;
     avatar_url: string;
+    newPassword: string;
   }) {
     try {
       setLoading(true);
@@ -75,6 +78,12 @@ export default function Account({session}: {session: Session}) {
       let {error} = await supabase.from('profiles').upsert(updates);
       if (error) {
         throw error;
+      }
+
+      if (password) {
+        await supabase.auth.updateUser({
+          password: newPassword,
+        });
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -104,17 +113,29 @@ export default function Account({session}: {session: Session}) {
           onChangeText={text => setFullname(text)}
         />
       </View>
+      <View style={styles.verticallySpaced}>
+        <Input
+          label="Password"
+          leftIcon={{type: 'font-awesome', name: 'lock'}}
+          onChangeText={text => setPassword(text)}
+          value={password}
+          secureTextEntry={true}
+          placeholder="Password"
+          autoCapitalize={'none'}
+        />
+      </View>
 
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Button
           title={loading ? 'Loading ...' : 'Update'}
-          onPress={() =>
+          onPress={() => {
             updateProfile({
               newUsername: username,
               newFullname: fullname,
               avatar_url: avatarUrl,
-            })
-          }
+              newPassword: password,
+            });
+          }}
           disabled={loading}
         />
       </View>

@@ -23,6 +23,7 @@ export const UpdatePasswordForm = () => {
             label={translate("ra.auth.password", {
               _: "Password",
             })}
+            type="password"
             fullWidth
             validate={required()}
           />
