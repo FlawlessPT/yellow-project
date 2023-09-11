@@ -137,7 +137,13 @@ docker stop $(docker ps -a -q)
 ```
 
 ```sh
-docker rmi -f $(docker image -aq)
+docker rmi -f $(docker images -aq)
+```
+
+If you need to remove all volumes run (this will remove all database/data storages inside docker):
+
+```sh
+docker volume rm $(docker volume ls -q --filter dangling=true)
 ```
 
 Go to **supabse** folder and execute:
@@ -208,6 +214,12 @@ npx supabase link --project-ref <project-id>
 Replace <project-id> with correct value. It can be found at **Project Settings -> API**.
 
 More information about it could be found [here](https://supabase.com/docs/guides/cli/local-development#link-your-project).
+
+**Note:** If you are not, you first need to authenticated to supabase cloud through the terminal by executing the following command and following the instructions:
+
+```sh
+npx supabase login
+```
 
 And then execute:
 
