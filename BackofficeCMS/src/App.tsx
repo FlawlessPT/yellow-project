@@ -108,7 +108,7 @@ function BackOfficeAdmin() {
               /* TODO: improve -- Just a text for now */
               return (
                 <Create>
-                  <SimpleForm>
+                  <SimpleForm style={{ maxWidth: "640px" }}>
                     {t.schema.map(({ columnName, columnType, isRequired }) => {
                       if (
                         ["id", "created_at", "updated_at"].includes(
@@ -118,11 +118,15 @@ function BackOfficeAdmin() {
                       )
                         return null;
 
-                      const inputProps: InputProps & { key: string } = {
+                      const inputProps: InputProps & {
+                        key: string;
+                        fullWidth?: boolean;
+                      } = {
                         key: columnName,
                         label: columnName,
                         source: columnName,
                         validate: isRequired ? [required()] : undefined,
+                        fullWidth: true,
                       };
 
                       if (
@@ -164,14 +168,12 @@ function BackOfficeAdmin() {
                         return <NumberInput {...inputProps} />;
                       }
 
-                      if (["character varying"].includes(columnType)) {
-                        return (
-                          <TextInput {...inputProps} fullWidth multiline />
-                        );
+                      if (["character varying", "json"].includes(columnType)) {
+                        return <TextInput {...inputProps} multiline />;
                       }
 
                       if (["text"].includes(columnType)) {
-                        return <RichTextInput {...inputProps} fullWidth />;
+                        return <RichTextInput {...inputProps} />;
                       }
 
                       return null;

@@ -248,3 +248,5 @@ And open [http://localhost:5173/](http://localhost:5173/).
 ### Pipelines and deployment
 
 TO BE DONE
+
+Vercel integration: https://vercel.com/guides/how-can-i-use-bitbucket-pipelines-with-vercel
