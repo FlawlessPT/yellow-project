@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
 import {supabase} from '../lib/supabase';
 import {Button, Input} from 'react-native-elements';
+import * as WebBrowser from 'expo-web-browser';
 
 export default function Auth() {
   const [email, setEmail] = useState('');
@@ -54,6 +55,24 @@ export default function Auth() {
     setLoading(false);
   }
 
+  async function gitHubSignIn() {
+    const {error, data} = await supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        redirectTo: 'mw://signin/github',
+      },
+    });
+
+    if (data.url) {
+      WebBrowser.openBrowserAsync(data.url);
+    }
+
+    if (error) {
+      Alert.alert(error.message);
+    }
+    setLoading(false);
+  }
+
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -89,6 +108,13 @@ export default function Auth() {
           title="Sign up"
           disabled={loading}
           onPress={() => signUpWithEmail()}
+        />
+      </View>
+      <View style={styles.verticallySpaced}>
+        <Button
+          title="Github Sign in"
+          disabled={loading}
+          onPress={() => gitHubSignIn()}
         />
       </View>
       <View style={styles.verticallySpaced}>

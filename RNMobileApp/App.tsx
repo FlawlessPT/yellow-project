@@ -3,8 +3,9 @@ import React, {useState, useEffect} from 'react';
 import {supabase} from './lib/supabase';
 import Auth from './components/Auth';
 import Account from './components/Account';
-import {View} from 'react-native';
+import {View, Linking} from 'react-native';
 import {Session} from '@supabase/supabase-js';
+import * as WebBrowser from 'expo-web-browser';
 
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
@@ -15,8 +16,37 @@ export default function App() {
     });
 
     supabase.auth.onAuthStateChange((_event, s) => {
+      console.log('event', _event);
+      console.log('session', s);
       setSession(s);
     });
+  }, []);
+
+  useEffect(() => {
+    Linking.addEventListener('url', event => {
+      let urlString = event.url.replace('#', '?');
+      const url = new URL(urlString);
+
+      const refreshToken = url.searchParams.get('refresh_token');
+      const accessToken = url.searchParams.get('access_token');
+
+      if (accessToken && refreshToken) {
+        supabase.auth
+          .setSession({
+            refresh_token: refreshToken,
+            access_token: accessToken,
+          })
+          .then(() => {
+            if (url.hostname === 'signin' && url.pathname === '/github') {
+              WebBrowser.dismissBrowser();
+            }
+          })
+          .catch(err => console.log({err}));
+      }
+    });
+    return () => {
+      Linking.removeAllListeners('url');
+    };
   }, []);
 
   return (

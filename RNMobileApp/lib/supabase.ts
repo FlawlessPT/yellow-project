@@ -20,6 +20,6 @@ export const supabase = createClient(supabaseProjectURL, supabaseAnonKey, {
     storage: SecureStoreAdapter as any,
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: false,
+    detectSessionInUrl: true,
   },
 });
