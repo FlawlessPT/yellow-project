@@ -20,9 +20,9 @@ pipelines:
             - yarn install
             - yarn supabase-configs-backoffice
             - cd ../BackofficeCMS
-            - yarn build
             - yarn install
             - npm install --global vercel
+            - yarn build
             - vercel pull --yes --token=$VERCEL_TOKEN
             - vercel build --token=$VERCEL_TOKEN
             - vercel deploy --prebuilt --token=$VERCEL_TOKEN
