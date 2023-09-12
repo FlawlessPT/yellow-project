@@ -12,10 +12,10 @@ This a repository that works as a starter for a full stack mobile application an
 ## Main features included:
 
 - Basic Authentication features:
-  - Sign up email / password;
-  - Sign in email / password;
-  - Recover password process;
-  - Authentication using provider like github, facebook, etc (TO BE DONE);
+  - Sign up email / password (Mobile App);
+  - Sign in email / password (Mobile App);
+  - Recover password process (Mobile App and Backoffice);
+  - Authentication using github provider (Mobile App);
 - Initial Back Office automatically generated from supabase database schema (customizations may be needed for each case);
 - Base pipelines (customizations may be needed for each case, for now deployment phase only considers Back Office Web App);
 
@@ -229,9 +229,123 @@ npx supabase db push
 
 It will update your remote database with **supabase/migrations**. After that you should be able to check database changes on remote project by going to its dashboard.
 
+## Deep Linking
+
+For authentication process to work well on mobile, deep linking was implemented for the following features:
+
+- Reset password (email link redirect to mw://recoverpassword);
+- Github sign in (after github authentication, user is redirected to mw://signin/github);
+- Email confirmation after signup (confirmation email link redirect to mw://signup scheme);
+
+For that **mw** scheme was defined for the application (below follow instructions to change the scheme for your application);
+
+For the redirects to work well you need to go to your supabase remote project at **Authentication -> URL Configuration -> Redirect URLs** and add:
+
+- mw://recoverpassword;
+- mw://signin/github;
+- mw://signup;
+
+Anytime you have any different **redirect URL** related with supabase authentication you need to add it here.
+
+**Note:** If you change the **scheme** of your application, update the URLs accordingly.
+
+More about deep linking [here](https://reactnavigation.org/docs/deep-linking/). You not need to do any extra configuration than what is already done in this repository.
+
+### Change scheme application
+
+You should update the **scheme** of your application, instead of using **mw**. For that you need to do the following:
+
+**Android**:
+Look for **<data android:scheme="mw"/>** at **android/app/src/main/AndroidManifest.xml** and change **mw** to your scheme;
+
+**iOS**:
+Look for **CFBundleURLSchemes** at **ios/RNMobileApp/Info.plist** and change **mw** to your scheme;
+
+On **RNMobileApp** project look for all references to **mw://** and change it accordingly.
+
+## Github Authentication
+
+For github authentication to work you need to create a github application and configure it at **Authentication -> Providers -> Github** on your supabase remote project dashboard.
+
+Follow the instructions [here](https://supabase.com/docs/guides/auth/social-login/auth-github#create-a-github-oauth-app).
+
+This process should be similar for all auth providers.
+
+In mobile for the authentication to work some more work is required since we need to show the provider authentication page as in this example for github (components/auth.tsx):
+
+```tsx
+import * as WebBrowser from "expo-web-browser";
+
+const { error, data } = await supabase.auth.signInWithOAuth({
+  provider: "github",
+  options: {
+    redirectTo: "mw://signin/github",
+  },
+});
+
+if (data.url) {
+  WebBrowser.openBrowserAsync(data.url);
+}
+```
+
+We are using **expo-web-browser** library to open provider page.
+
+Then at **App.tsx** we are listening to deep link events and update supabase session when **access_token** and **refresh_token** parameters are passed:
+
+```tsx
+useEffect(() => {
+  Linking.addEventListener("url", (event) => {
+    let urlString = event.url.replace("#", "?");
+    const url = new URL(urlString);
+
+    const refreshToken = url.searchParams.get("refresh_token");
+    const accessToken = url.searchParams.get("access_token");
+
+    if (accessToken && refreshToken) {
+      supabase.auth
+        .setSession({
+          refresh_token: refreshToken,
+          access_token: accessToken,
+        })
+        .then(() => {
+          if (url.hostname === "signin" && url.pathname === "/github") {
+            WebBrowser.dismissBrowser();
+          }
+        })
+        .catch((err) => console.log({ err }));
+    }
+  });
+  return () => {
+    Linking.removeAllListeners("url");
+  };
+}, []);
+```
+
+In some situation we also close the pending open browser, like for github authentication:
+
+```tsx
+WebBrowser.dismissBrowser();
+```
+
 ## Mobile Application
 
-TO BE DONE -- technical information
+The **RNMobileAPP** folder is a bare react-native project already configured to support expo modules because some modules were useful to implement some features like github authentication.
+
+This is a simple application with base examples for the following features:
+
+- Sign up email / password;
+- Sign in email / password;
+- Recover password process;
+- Authentication using github provider;
+- Update user account;
+
+Being the important code in the following files:
+
+- **App.tsx**: application entry were deep linking listeners are configured and supabase session state is defined;
+- **components/Auth.tsx**: examples with code needed for authentication features mentioned above;
+- **components/Account.tsx**:form example for user to update account information;
+
+No visual details our user experience optimizations were considered and it should be updated from project to project according to requirements.
 
 ### Local development
 
@@ -262,3 +376,5 @@ And open [http://localhost:5173/](http://localhost:5173/).
 TO BE DONE
 
 Vercel integration: https://vercel.com/guides/how-can-i-use-bitbucket-pipelines-with-vercel
+
+Environment vars in staging only
