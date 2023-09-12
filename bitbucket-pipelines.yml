@@ -1,16 +1,16 @@
 image: node:18
 
 pipelines:
-  branches:
-    *:
-      - parallel:
-        - step:
-            name: 'Lint Backoffice web app'
-            script:
-              - cd BackofficeCMS
-              - yarn install
-              - yarn lint
+  default:
+    - parallel:
+      - step:
+          name: 'Lint Backoffice web app'
+          script:
+            - cd BackofficeCMS
+            - yarn install
+            - yarn lint
 
+  branches:
     main:
       - step:
           name: 'Deployment of Backoffice web app to staging'
@@ -20,6 +20,7 @@ pipelines:
             - yarn install
             - yarn supabase-configs-backoffice
             - cd ../BackofficeCMS
+            - yarn build
             - yarn install
             - npm install --global vercel
             - vercel pull --yes --token=$VERCEL_TOKEN
