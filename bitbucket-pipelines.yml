@@ -10,31 +10,33 @@ pipelines:
             - yarn install
             - yarn lint
 
-    - step:
-        name: 'Deployment of Backoffice web app to staging'
-        deployment: staging
-        script:
-          - cd supabase
-          - yarn install
-          - yarn supabase-configs-backoffice
-          - cd ../BackofficeCMS
-          - yarn install
-          - npm install --global vercel
-          - vercel pull --yes --token=$VERCEL_TOKEN
-          - vercel build --token=$VERCEL_TOKEN
-          - vercel deploy --prebuilt --token=$VERCEL_TOKEN
+  branches:
+    main:
+      - step:
+          name: 'Deployment of Backoffice web app to staging'
+          deployment: Staging
+          script:
+            - cd supabase
+            - yarn install
+            - yarn supabase-configs-backoffice
+            - cd ../BackofficeCMS
+            - yarn install
+            - npm install --global vercel
+            - vercel pull --yes --token=$VERCEL_TOKEN
+            - vercel build --token=$VERCEL_TOKEN
+            - vercel deploy --prebuilt --token=$VERCEL_TOKEN
 
-    - step:
-        name: 'Deployment of Backoffice web app to production'
-        deployment: production
-        trigger: 'manual'
-        script:
-          - cd supabase
-          - yarn install
-          - yarn supabase-configs-backoffice
-          - cd ../BackofficeCMS
-          - yarn install
-          - npm install --global vercel
-          - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
-          - vercel build --prod --token=$VERCEL_TOKEN
-          - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+      - step:
+          name: 'Deployment of Backoffice web app to production'
+          deployment: Production
+          trigger: 'manual'
+          script:
+            - cd supabase
+            - yarn install
+            - yarn supabase-configs-backoffice
+            - cd ../BackofficeCMS
+            - yarn install
+            - npm install --global vercel
+            - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+            - vercel build --prod --token=$VERCEL_TOKEN
+            - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
