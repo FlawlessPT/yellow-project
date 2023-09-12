@@ -1,16 +1,16 @@
 image: node:18
 
 pipelines:
-  default:
-    - parallel:
-      - step:
-          name: 'Lint Backoffice web app'
-          script:
-            - cd BackofficeCMS
-            - yarn install
-            - yarn lint
-
   branches:
+    *:
+      - parallel:
+        - step:
+            name: 'Lint Backoffice web app'
+            script:
+              - cd BackofficeCMS
+              - yarn install
+              - yarn lint
+
     main:
       - step:
           name: 'Deployment of Backoffice web app to staging'
