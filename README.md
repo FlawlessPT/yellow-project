@@ -16,8 +16,10 @@ This a repository that works as a starter for a full stack mobile application an
   - Sign in email / password (Mobile App);
   - Recover password process (Mobile App and Backoffice);
   - Authentication using github provider (Mobile App);
-- Initial Back Office automatically generated from supabase database schema (customizations may be needed for each case);
-- Base pipelines (customizations may be needed for each case, for now deployment phase only considers Back Office Web App);
+  - Logout (Mobile App and Backoffice);
+  - Update user account (Mobile App);
+  - Initial Back Office automatically generated from supabase database schema (customizations may be needed for each case);
+  - Base pipelines (customizations may be needed for each case, for now deployment phase only considers Back Office Web App);
 
 ## Goals
 
@@ -338,12 +340,13 @@ This is a simple application with base examples for the following features:
 - Recover password process;
 - Authentication using github provider;
 - Update user account;
+- Logout;
 
 Being the important code in the following files:
 
 - **App.tsx**: application entry were deep linking listeners are configured and supabase session state is defined;
 - **components/Auth.tsx**: examples with code needed for authentication features mentioned above;
-- **components/Account.tsx**:form example for user to update account information;
+- **components/Account.tsx**:form example for user to update account information and logout;
 
 No visual details our user experience optimizations were considered and it should be updated from project to project according to requirements.
 

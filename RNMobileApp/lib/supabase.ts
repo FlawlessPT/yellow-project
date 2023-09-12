@@ -1,17 +1,17 @@
 import 'react-native-url-polyfill/auto';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import {createClient} from '@supabase/supabase-js';
 import {supabaseProjectURL, supabaseAnonKey} from './supabase.configs';
-// TODO: NEEDS TO USER A BETTER LIBRARY FOR SECURITY PURPOSES INSTEAD OF AsyncStorage
+
 const SecureStoreAdapter = {
   getItem: (key: string) => {
-    return AsyncStorage.getItem(key);
+    return SecureStore.getItemAsync(key);
   },
   setItem: (key: string, value: string) => {
-    AsyncStorage.setItem(key, value);
+    SecureStore.setItemAsync(key, value);
   },
   removeItem: (key: string) => {
-    AsyncStorage.removeItem(key);
+    SecureStore.deleteItemAsync(key);
   },
 };
 
