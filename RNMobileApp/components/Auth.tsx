@@ -72,6 +72,24 @@ export default function Auth() {
     setLoading(false);
   }
 
+  async function googleSignIn() {
+    const {error, data} = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: 'mw://signin/google',
+      },
+    });
+
+    if (data.url) {
+      WebBrowser.openBrowserAsync(data.url);
+    }
+
+    if (error) {
+      Alert.alert(error.message);
+    }
+    setLoading(false);
+  }
+
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -114,6 +132,13 @@ export default function Auth() {
           title="Github Sign in"
           disabled={loading}
           onPress={() => gitHubSignIn()}
+        />
+      </View>
+      <View style={styles.verticallySpaced}>
+        <Button
+          title="Google Sign in"
+          disabled={loading}
+          onPress={() => googleSignIn()}
         />
       </View>
       <View style={styles.verticallySpaced}>

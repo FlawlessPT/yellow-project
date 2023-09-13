@@ -238,6 +238,7 @@ For authentication process to work well on mobile, deep linking was implemented 
 - Reset password (email link redirect to mw://recoverpassword);
 - Github sign in (after github authentication, user is redirected to mw://signin/github);
 - Email confirmation after signup (confirmation email link redirect to mw://signup scheme);
+- Google sign in using web oauth (after google authentication, user is redirected to mw://signin/google);
 
 For that **mw** scheme was defined for the application (below follow instructions to change the scheme for your application);
 
@@ -246,6 +247,7 @@ For the redirects to work well you need to go to your supabase remote project at
 - mw://recoverpassword;
 - mw://signin/github;
 - mw://signup;
+- mw://signin/google;
 
 Anytime you have any different **redirect URL** related with supabase authentication you need to add it here.
 
@@ -265,13 +267,17 @@ Look for **CFBundleURLSchemes** at **ios/RNMobileApp/Info.plist** and change **m
 
 On **RNMobileApp** project look for all references to **mw://** and change it accordingly.
 
-## Github Authentication
+## Github or Google Authentication
 
 For github authentication to work you need to create a github application and configure it at **Authentication -> Providers -> Github** on your supabase remote project dashboard.
 
 Follow the instructions [here](https://supabase.com/docs/guides/auth/social-login/auth-github#create-a-github-oauth-app).
 
-This process should be similar for all auth providers.
+For google authentication you need to create a OAuth Client Id and configure **Authentication -> Providers -> Google** on your supabase remote project dashboard.
+
+**Note:** This example is not using Android Native sign in, but web oauth.
+
+Follow the instructions [here](https://supabase.com/docs/guides/auth/social-login/auth-google#configuration-web).
 
 In mobile for the authentication to work some more work is required since we need to show the provider authentication page as in this example for github (components/auth.tsx):
 
@@ -279,9 +285,9 @@ In mobile for the authentication to work some more work is required since we nee
 import * as WebBrowser from "expo-web-browser";
 
 const { error, data } = await supabase.auth.signInWithOAuth({
-  provider: "github",
+  provider: "github" /* "google" */,
   options: {
-    redirectTo: "mw://signin/github",
+    redirectTo: "mw://signin/github" /* "mw://signin/google" */,
   },
 });
 
@@ -310,7 +316,10 @@ useEffect(() => {
           access_token: accessToken,
         })
         .then(() => {
-          if (url.hostname === "signin" && url.pathname === "/github") {
+          if (
+            url.hostname === "signin" &&
+            ["/github", "/google"].includes(url.pathname)
+          ) {
             WebBrowser.dismissBrowser();
           }
         })

@@ -37,7 +37,10 @@ export default function App() {
             access_token: accessToken,
           })
           .then(() => {
-            if (url.hostname === 'signin' && url.pathname === '/github') {
+            if (
+              url.hostname === 'signin' &&
+              ['/github', '/google'].includes(url.pathname)
+            ) {
               WebBrowser.dismissBrowser();
             }
           })
