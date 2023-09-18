@@ -116,8 +116,3 @@ port = 54327
 vector_port = 54328
 # Configure one of the supported backends: `postgres`, `bigquery`
 backend = "postgres"
-
-######## ADDED FROM INITIAL FILE ################
-[auth.email.template.recovery]
-subject = "Recovery password"
-content_path = "./supabase/templates/recovery_password.html"
