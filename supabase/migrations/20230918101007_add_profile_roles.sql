@@ -1,0 +1,1 @@
+alter table "public"."profiles" add column "roles" text[] not null default '{}'::text[];

@@ -92,6 +92,20 @@ It will update your remote database with **supabase/migrations**. After that you
 
 Your serverless database is now configured and ready to be used.
 
+If you change your database directly on remote project using the Supabase Studio you need to pull those changes, locally, to have migrations updated on code and syncronise you local database:
+
+```sh
+npx supabase db pull
+```
+
+You should now find new migration files at **supabase/migrations**. After that execute:
+
+```sh
+npx supabase db reset
+```
+
+To update you local database with last changes.
+
 **Authentication Email templates:**
 
 Go to **supabase/templates** folder and copy content from \*.html files to template configurations at **Authentication -> Email Templates** on your supabase dashboard.
@@ -205,6 +219,30 @@ You could also create your tables directly from [Dashboard Studio](https://local
 
 Now your local database is configured and ready to be used.
 
+### Create migration
+
+To create new migration, locally, you need to execute:
+
+```sh
+npx supabase migration new migration_name
+```
+
+A new file at **supabase/migrations** will be created for you to fill it with desired sql code.
+
+After that you should execute:
+
+```sh
+npx supabase db reset
+```
+
+To update you local database. You also need to _pull_ those changes to remote project, if you have it, using:
+
+```sh
+npx supabase db pull
+```
+
+More about it below. You can find documentation about migration commands [here](https://supabase.com/docs/reference/cli/supabase-migration-new).
+
 ### Syncronize with remote supabase project
 
 In case you already have a remote supabase project you should link it with your repository by doing:
@@ -217,7 +255,7 @@ Replace <project-id> with correct value. It can be found at **Project Settings -
 
 More information about it could be found [here](https://supabase.com/docs/guides/cli/local-development#link-your-project).
 
-**Note:** If you are not, you first need to authenticated to supabase cloud through the terminal by executing the following command and following the instructions:
+**Note:** If you are not, you first need to be authenticated to supabase cloud through the terminal by executing the following command and following the instructions:
 
 ```sh
 npx supabase login
