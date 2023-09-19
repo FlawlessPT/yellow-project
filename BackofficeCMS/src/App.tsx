@@ -84,27 +84,30 @@ function BackOfficeAdmin() {
         />
       </CustomRoutes>
 
-      {tables.map((t) =>
-        !tablesToExclude.includes(t.name) ? (
+      {tables.map((t) => {
+        const isEditable = isViewModeEnabledForResource({
+          tableName: t.name,
+          viewMode: "edit",
+        });
+        const isCreatable = isViewModeEnabledForResource({
+          tableName: t.name,
+          viewMode: "create",
+        });
+
+        return !tablesToExclude.includes(t.name) ? (
           <Resource
             key={t.name}
             name={t.name}
             list={ListGuesser}
             edit={
-              isViewModeEnabledForResource({
-                tableName: t.name,
-                viewMode: "edit",
-              })
+              isEditable
                 ? () => (
                     <CustomResourceFormGuesser tableInfo={t} viewMode="edit" />
                   )
                 : undefined
             }
             create={
-              isViewModeEnabledForResource({
-                tableName: t.name,
-                viewMode: "create",
-              })
+              isCreatable
                 ? () => (
                     <CustomResourceFormGuesser
                       tableInfo={t}
@@ -114,8 +117,8 @@ function BackOfficeAdmin() {
                 : undefined
             }
           />
-        ) : null
-      )}
+        ) : null;
+      })}
     </Admin>
   );
 }
