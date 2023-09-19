@@ -15,7 +15,7 @@ export const authProvider = supabaseAuthProvider(supabaseClient, {
 
     // if user is not ADMIN, user is logged out
     if (data && !(data.roles as string[]).includes("ADMIN")) {
-      supabaseClient.auth.signOut();
+      await supabaseClient.auth.signOut();
       window.location.reload();
     }
 
