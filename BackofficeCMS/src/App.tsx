@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Admin, CustomRoutes, Resource, ListGuesser } from "react-admin";
+import { Admin, CustomRoutes, Resource } from "react-admin";
 import { ForgotPasswordPage, LoginPage } from "ra-supabase";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { dataProvider } from "./lib/supabase.dataProvider";
