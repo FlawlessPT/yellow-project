@@ -4,9 +4,9 @@ import {
   CustomRoutes,
   Resource,
   ListGuesser,
-  EditGuesser,
   ShowGuesser,
   Create,
+  Edit,
   SimpleForm,
   TextInput,
   DateInput,
@@ -25,6 +25,28 @@ import { UpdatePasswordForm } from "./UpdatePasswordForm";
 import { ForgotPasswordForm } from "./ForgotPasswordForm";
 import { supabaseClient } from "./lib/supabase";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
+
+const overrideConfigs: {
+  [tableName: string]:
+    | {
+        create?: { [columnName: string]: { type: string } | undefined };
+        edit?: { [columnName: string]: { type: string } | undefined };
+      }
+    | undefined;
+} = {
+  custom_pages: {
+    edit: {
+      content: {
+        type: "rich_text",
+      },
+    },
+    create: {
+      content: {
+        type: "rich_text",
+      },
+    },
+  },
+};
 
 function BackOfficeAdmin() {
   const [isLoading, setLoading] = useState(false);
@@ -102,19 +124,21 @@ function BackOfficeAdmin() {
             key={t.name}
             name={t.name}
             list={ListGuesser}
-            edit={EditGuesser}
-            show={ShowGuesser}
-            create={() => {
-              /* TODO: improve -- Just a text for now */
+            edit={() => {
+              /* TODO: improve -- Just a test for now */
               return (
-                <Create>
+                <Edit>
                   <SimpleForm style={{ maxWidth: "640px" }}>
                     {t.schema.map(({ columnName, columnType, isRequired }) => {
+                      const tableInfo = overrideConfigs[t.name]?.edit;
+                      const resourceInfo = tableInfo && tableInfo[columnName];
+                      const resourceType = resourceInfo?.type || columnType;
+
                       if (
                         ["id", "created_at", "updated_at"].includes(
                           columnName
                         ) ||
-                        ["json", "jsonb"].includes(columnType)
+                        ["json", "jsonb"].includes(resourceType)
                       )
                         return null;
 
@@ -133,12 +157,12 @@ function BackOfficeAdmin() {
                         [
                           "timestamp with time zone",
                           "timestamp without time zone",
-                        ].includes(columnType)
+                        ].includes(resourceType)
                       ) {
                         return <DateTimeInput {...inputProps} />;
                       }
 
-                      if (["data"].includes(columnType)) {
+                      if (["data"].includes(resourceType)) {
                         return <DateInput {...inputProps} />;
                       }
                       /* TODO: needs to review because it is returning date as well
@@ -151,7 +175,7 @@ function BackOfficeAdmin() {
                         );
                       }
                       */
-                      if ("boolean" === columnType) {
+                      if ("boolean" === resourceType) {
                         return <BooleanInput {...inputProps} />;
                       }
 
@@ -163,16 +187,107 @@ function BackOfficeAdmin() {
                           "real",
                           "double precision",
                           "numberic",
-                        ].includes(columnType)
+                        ].includes(resourceType)
                       ) {
                         return <NumberInput {...inputProps} />;
                       }
 
-                      if (["character varying", "json"].includes(columnType)) {
+                      if (
+                        ["character varying", "json", "text"].includes(
+                          resourceType
+                        )
+                      ) {
                         return <TextInput {...inputProps} multiline />;
                       }
 
-                      if (["text"].includes(columnType)) {
+                      if (["rich_text"].includes(resourceType)) {
+                        return <RichTextInput {...inputProps} />;
+                      }
+
+                      return null;
+                    })}
+                  </SimpleForm>
+                </Edit>
+              );
+            }}
+            show={ShowGuesser}
+            create={() => {
+              /* TODO: improve -- Just a test for now */
+              return (
+                <Create>
+                  <SimpleForm style={{ maxWidth: "640px" }}>
+                    {t.schema.map(({ columnName, columnType, isRequired }) => {
+                      const tableInfo = overrideConfigs[t.name]?.create;
+                      const resourceInfo = tableInfo && tableInfo[columnName];
+                      const resourceType = resourceInfo?.type || columnType;
+
+                      if (
+                        ["id", "created_at", "updated_at"].includes(
+                          columnName
+                        ) ||
+                        ["json", "jsonb"].includes(resourceType)
+                      )
+                        return null;
+
+                      const inputProps: InputProps & {
+                        key: string;
+                        fullWidth?: boolean;
+                      } = {
+                        key: columnName,
+                        label: columnName,
+                        source: columnName,
+                        validate: isRequired ? [required()] : undefined,
+                        fullWidth: true,
+                      };
+
+                      if (
+                        [
+                          "timestamp with time zone",
+                          "timestamp without time zone",
+                        ].includes(resourceType)
+                      ) {
+                        return <DateTimeInput {...inputProps} />;
+                      }
+
+                      if (["data"].includes(resourceType)) {
+                        return <DateInput {...inputProps} />;
+                      }
+                      /* TODO: needs to review because it is returning date as well
+                      if (["time without time zone"].includes(columnType)) {
+                        return (
+                          <TimeInput
+                            {...inputProps}
+                            validate={isRequired ? [required()] : undefined}
+                          />
+                        );
+                      }
+                      */
+                      if ("boolean" === resourceType) {
+                        return <BooleanInput {...inputProps} />;
+                      }
+
+                      if (
+                        [
+                          "bigint",
+                          "smallint",
+                          "integer",
+                          "real",
+                          "double precision",
+                          "numberic",
+                        ].includes(resourceType)
+                      ) {
+                        return <NumberInput {...inputProps} />;
+                      }
+
+                      if (
+                        ["character varying", "json", "text"].includes(
+                          resourceType
+                        )
+                      ) {
+                        return <TextInput {...inputProps} multiline />;
+                      }
+
+                      if (["rich_text"].includes(resourceType)) {
                         return <RichTextInput {...inputProps} />;
                       }
 
