@@ -1,13 +1,20 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
-import {supabase} from '../lib/supabase';
+import {supabase} from '../../lib/supabase';
 import {Button, Input} from 'react-native-elements';
 import * as WebBrowser from 'expo-web-browser';
+import {useNavigation} from '@react-navigation/native';
+import {NoneAuthenticatedStackScreenPropsGeneric} from '../../types';
 
-export default function Auth() {
+export const Auth = function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const navigation =
+    useNavigation<
+      NoneAuthenticatedStackScreenPropsGeneric<'Auth'>['navigation']
+    >();
 
   async function signInWithEmail() {
     setLoading(true);
@@ -148,9 +155,23 @@ export default function Auth() {
           onPress={() => forgotPassword()}
         />
       </View>
+      <View style={styles.verticallySpaced}>
+        <Button
+          title="Terms and conditions"
+          disabled={loading}
+          onPress={() => navigation.navigate('TermsAndConditions')}
+        />
+      </View>
+      <View style={styles.verticallySpaced}>
+        <Button
+          title="Privacy policy"
+          disabled={loading}
+          onPress={() => navigation.navigate('PrivacyPolicy')}
+        />
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
