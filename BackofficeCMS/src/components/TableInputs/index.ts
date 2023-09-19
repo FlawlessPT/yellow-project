@@ -1,0 +1,1 @@
+export { TableInputs } from "./TableInputs";

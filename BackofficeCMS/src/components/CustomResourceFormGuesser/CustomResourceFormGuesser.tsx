@@ -2,7 +2,7 @@ import { Create, Edit } from "react-admin";
 import { overridesForResource } from "../../configs";
 import { TableInfoType, ViewMode } from "../../types";
 import { ResourceFormWrapper } from "../ResourceFormWrapper";
-import { TableInputs } from "../TableInputs/TableInputs";
+import { TableInputs } from "../TableInputs";
 
 const ViewModeResourceMap: {
   [viewMode in ViewMode]?: (props: {

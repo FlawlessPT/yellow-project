@@ -11,6 +11,7 @@ import { PostgrestSingleResponse } from "@supabase/supabase-js";
 import { ColumnType, TableInfoType } from "./types";
 import { CustomResourceFormGuesser } from "./components/CustomResourceFormGuesser";
 import { getGeneralOverrides, isViewModeEnabledForResource } from "./configs";
+import { CustomResourceListGuesser } from "./components/CustomResourceListGuesser";
 
 function BackOfficeAdmin() {
   const [isLoading, setLoading] = useState(false);
@@ -98,7 +99,7 @@ function BackOfficeAdmin() {
           <Resource
             key={t.name}
             name={t.name}
-            list={ListGuesser}
+            list={() => <CustomResourceListGuesser tableInfo={t} />}
             edit={
               isEditable
                 ? () => (

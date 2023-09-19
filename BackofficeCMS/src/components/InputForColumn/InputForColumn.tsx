@@ -10,6 +10,7 @@ import {
 } from "react-admin";
 import { RichTextInput } from "ra-input-rich-text";
 import { InputType } from "../../types";
+import { isFieldToRenderForGeneralOptions } from "../../configs";
 
 export function InputForColumn({
   columnName,
@@ -22,11 +23,9 @@ export function InputForColumn({
   isRequired: boolean;
   options?: { id: string; name: string }[];
 }) {
-  if (
-    ["id", "created_at", "updated_at"].includes(columnName) ||
-    ["jsonb", "none"].includes(inputType)
-  )
+  if (!isFieldToRenderForGeneralOptions({ columnName, inputType })) {
     return null;
+  }
 
   const inputProps: InputProps & {
     key: string;

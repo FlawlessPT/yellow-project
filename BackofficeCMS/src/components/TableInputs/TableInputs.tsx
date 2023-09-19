@@ -14,7 +14,7 @@ export function TableInputs({
 
     return (
       <InputForColumn
-        key={resourceType}
+        key={columnName}
         inputType={resourceType}
         columnName={columnName}
         isRequired={isRequired}

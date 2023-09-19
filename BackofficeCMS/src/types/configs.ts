@@ -11,6 +11,8 @@ export type ViewMode = "edit" | "create";
 export type AdminOverrides = {
   general?: {
     tablesToExclude?: string[];
+    columnsToExclude?: string[];
+    inputTypesToExclude?: InputType[];
   };
   resources?: {
     [resourceName: string]:
