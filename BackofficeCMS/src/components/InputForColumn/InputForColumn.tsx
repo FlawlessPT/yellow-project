@@ -6,6 +6,7 @@ import {
   NumberInput,
   required,
   InputProps,
+  SelectArrayInput,
 } from "react-admin";
 import { RichTextInput } from "ra-input-rich-text";
 import { InputType } from "../../types";
@@ -14,10 +15,12 @@ export function InputForColumn({
   columnName,
   inputType,
   isRequired,
+  options,
 }: {
-  columnName: string;
   inputType: InputType;
+  columnName: string;
   isRequired: boolean;
+  options?: { id: string; name: string }[];
 }) {
   if (
     ["id", "created_at", "updated_at"].includes(columnName) ||
@@ -83,6 +86,10 @@ export function InputForColumn({
 
   if (["rich_text"].includes(inputType)) {
     return <RichTextInput {...inputProps} />;
+  }
+
+  if (inputType === "select" && options) {
+    return <SelectArrayInput {...inputProps} choices={options} />;
   }
 
   return null;

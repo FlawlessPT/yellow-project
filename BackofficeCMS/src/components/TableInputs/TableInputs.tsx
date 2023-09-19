@@ -18,6 +18,7 @@ export function TableInputs({
         inputType={resourceType}
         columnName={columnName}
         isRequired={isRequired}
+        options={resourceInfo?.options}
       />
     );
   });

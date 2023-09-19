@@ -1,5 +1,8 @@
 import { AdminOverrides, ViewMode } from "../types";
 
+/* To be customizable for each project: by default only ADMIN role exist and no roles using empty array: [], the default for new users */
+export const rolesOptions = [{ id: "ADMIN", name: "Admin" }];
+
 const overrideConfigs: AdminOverrides = {
   general: {
     tablesToExclude: [],
@@ -7,6 +10,12 @@ const overrideConfigs: AdminOverrides = {
   resources: {
     profiles: {
       create: null,
+      edit: {
+        roles: {
+          type: "select",
+          options: rolesOptions,
+        },
+      },
     },
     custom_pages: {
       edit: {

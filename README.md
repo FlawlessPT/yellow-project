@@ -98,7 +98,7 @@ If you change your database directly on remote project using the Supabase Studio
 npx supabase db pull
 ```
 
-You should now find new migration files at **supabase/migrations**. After that execute:
+You should now find a new migration files at **supabase/migrations**. After that execute:
 
 ```sh
 npx supabase db reset
