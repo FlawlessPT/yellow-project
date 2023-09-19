@@ -1,22 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Admin,
-  CustomRoutes,
-  Resource,
-  ListGuesser,
-  ShowGuesser,
-  Create,
-  Edit,
-  SimpleForm,
-  TextInput,
-  DateInput,
-  DateTimeInput,
-  BooleanInput,
-  NumberInput,
-  required,
-  InputProps,
-} from "react-admin";
-import { RichTextInput } from "ra-input-rich-text";
+import { Admin, CustomRoutes, Resource, ListGuesser } from "react-admin";
 import { ForgotPasswordPage, LoginPage } from "ra-supabase";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { dataProvider } from "./lib/supabase.dataProvider";
@@ -25,37 +8,13 @@ import { UpdatePasswordForm } from "./UpdatePasswordForm";
 import { ForgotPasswordForm } from "./ForgotPasswordForm";
 import { supabaseClient } from "./lib/supabase";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
-
-const overrideConfigs: {
-  [tableName: string]:
-    | {
-        create?: { [columnName: string]: { type: string } | undefined };
-        edit?: { [columnName: string]: { type: string } | undefined };
-      }
-    | undefined;
-} = {
-  custom_pages: {
-    edit: {
-      content: {
-        type: "rich_text",
-      },
-    },
-    create: {
-      content: {
-        type: "rich_text",
-      },
-    },
-  },
-};
+import { ColumnType, TableInfoType } from "./types";
+import { CustomResourceFormGuesser } from "./components/CustomResourceFormGuesser";
+import { getGeneralOverrides, isViewModeEnabledForResource } from "./configs";
 
 function BackOfficeAdmin() {
   const [isLoading, setLoading] = useState(false);
-  const [tables, setTables] = useState<
-    {
-      name: string;
-      schema: { columnName: string; columnType: string; isRequired: boolean }[];
-    }[]
-  >([]);
+  const [tables, setTables] = useState<TableInfoType[]>([]);
 
   useEffect(() => {
     async function fetchTableNames() {
@@ -79,7 +38,11 @@ function BackOfficeAdmin() {
       allTableInfoResults.forEach(
         (
           response: PostgrestSingleResponse<
-            { column_name: string; data_type: string; is_nullable: string }[]
+            {
+              column_name: string;
+              data_type: ColumnType;
+              is_nullable: string;
+            }[]
           >,
           i
         ) => {
@@ -99,8 +62,11 @@ function BackOfficeAdmin() {
     fetchTableNames();
   }, []);
 
+  const generalOverrides = getGeneralOverrides();
+  const tablesToExclude = generalOverrides?.tablesToExclude || [];
+
   return isLoading ? (
-    <p>Your BackOffice is being loading</p>
+    <p>Your BackOffice is being loaded</p>
   ) : (
     <Admin
       dataProvider={dataProvider}
@@ -119,184 +85,34 @@ function BackOfficeAdmin() {
       </CustomRoutes>
 
       {tables.map((t) =>
-        t.name !== "profiles" ? (
+        !tablesToExclude.includes(t.name) ? (
           <Resource
             key={t.name}
             name={t.name}
             list={ListGuesser}
-            edit={() => {
-              /* TODO: improve -- Just a test for now */
-              return (
-                <Edit>
-                  <SimpleForm style={{ maxWidth: "640px" }}>
-                    {t.schema.map(({ columnName, columnType, isRequired }) => {
-                      const tableInfo = overrideConfigs[t.name]?.edit;
-                      const resourceInfo = tableInfo && tableInfo[columnName];
-                      const resourceType = resourceInfo?.type || columnType;
-
-                      if (
-                        ["id", "created_at", "updated_at"].includes(
-                          columnName
-                        ) ||
-                        ["json", "jsonb"].includes(resourceType)
-                      )
-                        return null;
-
-                      const inputProps: InputProps & {
-                        key: string;
-                        fullWidth?: boolean;
-                      } = {
-                        key: columnName,
-                        label: columnName,
-                        source: columnName,
-                        validate: isRequired ? [required()] : undefined,
-                        fullWidth: true,
-                      };
-
-                      if (
-                        [
-                          "timestamp with time zone",
-                          "timestamp without time zone",
-                        ].includes(resourceType)
-                      ) {
-                        return <DateTimeInput {...inputProps} />;
-                      }
-
-                      if (["data"].includes(resourceType)) {
-                        return <DateInput {...inputProps} />;
-                      }
-                      /* TODO: needs to review because it is returning date as well
-                      if (["time without time zone"].includes(columnType)) {
-                        return (
-                          <TimeInput
-                            {...inputProps}
-                            validate={isRequired ? [required()] : undefined}
-                          />
-                        );
-                      }
-                      */
-                      if ("boolean" === resourceType) {
-                        return <BooleanInput {...inputProps} />;
-                      }
-
-                      if (
-                        [
-                          "bigint",
-                          "smallint",
-                          "integer",
-                          "real",
-                          "double precision",
-                          "numberic",
-                        ].includes(resourceType)
-                      ) {
-                        return <NumberInput {...inputProps} />;
-                      }
-
-                      if (
-                        ["character varying", "json", "text"].includes(
-                          resourceType
-                        )
-                      ) {
-                        return <TextInput {...inputProps} multiline />;
-                      }
-
-                      if (["rich_text"].includes(resourceType)) {
-                        return <RichTextInput {...inputProps} />;
-                      }
-
-                      return null;
-                    })}
-                  </SimpleForm>
-                </Edit>
-              );
-            }}
-            show={ShowGuesser}
-            create={() => {
-              /* TODO: improve -- Just a test for now */
-              return (
-                <Create>
-                  <SimpleForm style={{ maxWidth: "640px" }}>
-                    {t.schema.map(({ columnName, columnType, isRequired }) => {
-                      const tableInfo = overrideConfigs[t.name]?.create;
-                      const resourceInfo = tableInfo && tableInfo[columnName];
-                      const resourceType = resourceInfo?.type || columnType;
-
-                      if (
-                        ["id", "created_at", "updated_at"].includes(
-                          columnName
-                        ) ||
-                        ["json", "jsonb"].includes(resourceType)
-                      )
-                        return null;
-
-                      const inputProps: InputProps & {
-                        key: string;
-                        fullWidth?: boolean;
-                      } = {
-                        key: columnName,
-                        label: columnName,
-                        source: columnName,
-                        validate: isRequired ? [required()] : undefined,
-                        fullWidth: true,
-                      };
-
-                      if (
-                        [
-                          "timestamp with time zone",
-                          "timestamp without time zone",
-                        ].includes(resourceType)
-                      ) {
-                        return <DateTimeInput {...inputProps} />;
-                      }
-
-                      if (["data"].includes(resourceType)) {
-                        return <DateInput {...inputProps} />;
-                      }
-                      /* TODO: needs to review because it is returning date as well
-                      if (["time without time zone"].includes(columnType)) {
-                        return (
-                          <TimeInput
-                            {...inputProps}
-                            validate={isRequired ? [required()] : undefined}
-                          />
-                        );
-                      }
-                      */
-                      if ("boolean" === resourceType) {
-                        return <BooleanInput {...inputProps} />;
-                      }
-
-                      if (
-                        [
-                          "bigint",
-                          "smallint",
-                          "integer",
-                          "real",
-                          "double precision",
-                          "numberic",
-                        ].includes(resourceType)
-                      ) {
-                        return <NumberInput {...inputProps} />;
-                      }
-
-                      if (
-                        ["character varying", "json", "text"].includes(
-                          resourceType
-                        )
-                      ) {
-                        return <TextInput {...inputProps} multiline />;
-                      }
-
-                      if (["rich_text"].includes(resourceType)) {
-                        return <RichTextInput {...inputProps} />;
-                      }
-
-                      return null;
-                    })}
-                  </SimpleForm>
-                </Create>
-              );
-            }}
+            edit={
+              isViewModeEnabledForResource({
+                tableName: t.name,
+                viewMode: "edit",
+              })
+                ? () => (
+                    <CustomResourceFormGuesser tableInfo={t} viewMode="edit" />
+                  )
+                : undefined
+            }
+            create={
+              isViewModeEnabledForResource({
+                tableName: t.name,
+                viewMode: "create",
+              })
+                ? () => (
+                    <CustomResourceFormGuesser
+                      tableInfo={t}
+                      viewMode="create"
+                    />
+                  )
+                : undefined
+            }
           />
         ) : null
       )}

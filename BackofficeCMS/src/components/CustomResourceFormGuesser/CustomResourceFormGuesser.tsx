@@ -1,0 +1,40 @@
+import { Create, Edit } from "react-admin";
+import { overridesForResource } from "../../configs";
+import { TableInfoType, ViewMode } from "../../types";
+import { ResourceFormWrapper } from "../ResourceFormWrapper";
+import { TableInputs } from "../TableInputs/TableInputs";
+
+const ViewModeResourceMap: {
+  [viewMode in ViewMode]?: (props: {
+    children: React.ReactNode;
+  }) => JSX.Element;
+} = {
+  create: Create,
+  edit: Edit,
+};
+
+export function CustomResourceFormGuesser({
+  tableInfo,
+  viewMode,
+}: {
+  viewMode: ViewMode;
+  tableInfo: TableInfoType;
+}) {
+  const ResourceComponent = ViewModeResourceMap[viewMode];
+
+  if (!ResourceComponent) return null;
+
+  return (
+    <ResourceComponent>
+      <ResourceFormWrapper>
+        <TableInputs
+          overrides={overridesForResource({
+            viewMode,
+            tableName: tableInfo.name,
+          })}
+          tableInfo={tableInfo}
+        />
+      </ResourceFormWrapper>
+    </ResourceComponent>
+  );
+}
