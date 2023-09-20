@@ -89,8 +89,9 @@ export function InputForColumn({
         reactJsonOptions={{
           name: null,
           collapsed: false,
-          enableClipboard: true,
+          enableClipboard: false,
           displayDataTypes: false,
+          sortKeys: true,
           defaultValue: "",
         }}
       />
