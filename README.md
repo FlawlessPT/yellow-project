@@ -326,7 +326,9 @@ FOR UPDATE
 TO authenticated USING (check_user_permission(auth.uid(), array['ADMIN'])) WITH CHECK (check_user_permission(auth.uid(), array['ADMIN']));
 ```
 
-You will also find configuration to only allow ADMIN users to update roles, to avoid having anyone to be able to change their roles to ADMIN.
+For more details about this implementation we recommend you to read this article [here](https://medium.com/@jimmyruann/row-level-security-custom-permission-base-authorization-with-supabase-91389e6fc48c).
+
+You will also find configuration to only allow ADMIN users to update roles, to avoid having anyone to be able to change their roles to ADMIN. For this case a trick suggest [here](https://stackoverflow.com/a/71167428) was used.
 
 You find more about policies [here](https://supabase.com/docs/learn/auth-deep-dive/auth-policies).
 
