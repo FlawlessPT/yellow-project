@@ -1,7 +1,7 @@
 import { supabaseAuthProvider } from "ra-supabase";
 import { supabaseClient } from "./supabase";
 
-export const authProvider = supabaseAuthProvider(supabaseClient, {
+const baseAuthProvider = supabaseAuthProvider(supabaseClient, {
   getIdentity: async (user) => {
     const { data, error } = await supabaseClient
       .from("profiles")
@@ -13,15 +13,39 @@ export const authProvider = supabaseAuthProvider(supabaseClient, {
       throw new Error();
     }
 
-    // if user is not ADMIN, user is logged out
-    if (data && !(data.roles as string[]).includes("ADMIN")) {
-      await supabaseClient.auth.signOut();
-      window.location.reload();
-    }
-
     return {
       id: data.id,
       fullName: data.full_name,
     };
   },
 });
+export const authProvider = {
+  ...baseAuthProvider,
+  login: async (params: { email: string; password: string }) => {
+    const loginPromise = await baseAuthProvider.login(params);
+
+    // checking if logged in user as the ADMIN role
+    const { error: sessionError, data: sessionData } =
+      await supabaseClient.auth.getSession();
+
+    if (sessionData && sessionData.session?.user) {
+      const { data, error } = await supabaseClient
+        .from("profiles")
+        .select("id, roles")
+        .match({ id: sessionData.session.user.id })
+        .single();
+
+      if (
+        !data ||
+        error ||
+        (data && !(data.roles as string[]).includes("ADMIN"))
+      ) {
+        throw new Error();
+      }
+    } else if (sessionError) {
+      throw new Error();
+    }
+
+    return loginPromise;
+  },
+};
