@@ -4,10 +4,11 @@ pipelines:
   default:
     - parallel:
       - step:
-          name: 'Lint Backoffice web app'
+          name: 'Lint and type check Backoffice web app'
           script:
             - cd BackofficeCMS
             - yarn install
+            - yarn type-check
             - yarn lint
 
   branches:

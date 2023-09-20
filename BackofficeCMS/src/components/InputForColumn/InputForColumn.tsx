@@ -32,10 +32,6 @@ export function InputForColumn({
     fullWidth?: boolean;
   } = {
     key: columnName,
-    label: (columnName.charAt(0).toUpperCase() + columnName.slice(1)).replace(
-      "_",
-      " "
-    ),
     source: columnName,
     validate: isRequired ? [required()] : undefined,
     fullWidth: true,
