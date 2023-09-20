@@ -1,16 +1,18 @@
 import { Form, required, useTranslate } from "ra-core";
 import { CardActions, styled } from "@mui/material";
 import { TextInput, SaveButton } from "ra-ui-materialui";
-import { supabaseClient } from "./lib/supabase";
+import { supabaseClient } from "../../lib/supabase";
 
 /**
  * A component that renders a form for updating the user password.
  */
-export const UpdatePasswordForm = () => {
+export const ForgotPasswordForm = () => {
   const translate = useTranslate();
   const submit = async (values: FormData) => {
-    await supabaseClient.auth.updateUser({
-      password: values.password,
+    if (!values.email) return;
+
+    await supabaseClient.auth.resetPasswordForEmail(values.email, {
+      redirectTo: `${window.location.origin}/account/update-password`,
     });
   };
 
@@ -19,11 +21,11 @@ export const UpdatePasswordForm = () => {
       <div className={SupabaseLoginFormClasses.container}>
         <div className={SupabaseLoginFormClasses.input}>
           <TextInput
-            source="password"
-            label={translate("ra.auth.password", {
-              _: "Password",
+            source="email"
+            label={translate("ra.auth.email", {
+              _: "Email",
             })}
-            type="password"
+            autoComplete="email"
             fullWidth
             validate={required()}
           />
@@ -35,7 +37,7 @@ export const UpdatePasswordForm = () => {
           type="submit"
           className={SupabaseLoginFormClasses.button}
           label={translate("ra.action.reset_password", {
-            _: "Save",
+            _: "Reset password",
           })}
         />
       </CardActions>
@@ -44,10 +46,10 @@ export const UpdatePasswordForm = () => {
 };
 
 interface FormData {
-  password?: string;
+  email?: string;
 }
 
-const PREFIX = "RaSupabaseUpdatePasswordForm";
+const PREFIX = "RaSupabaseForgotPasswordForm";
 
 const SupabaseLoginFormClasses = {
   container: `${PREFIX}-container`,
