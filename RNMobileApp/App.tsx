@@ -1,7 +1,8 @@
 import 'react-native-url-polyfill/auto';
-import React, {useState, useEffect} from 'react';
+import 'intl-pluralrules';
+import React, {useState, useEffect, Suspense} from 'react';
 import {supabase} from './lib/supabase';
-import {Linking} from 'react-native';
+import {Linking, Text, View} from 'react-native';
 import {Session} from '@supabase/supabase-js';
 import * as WebBrowser from 'expo-web-browser';
 import {NavigationContainer} from '@react-navigation/native';
@@ -10,6 +11,31 @@ import {Account} from './screens/Account';
 import {TermsAndConditions} from './screens/TermsAndConditions';
 import {Auth} from './screens/Auth';
 import {PrivacyPolicy} from './screens/PrivacyPolicy';
+import i18n from 'i18next';
+import {initReactI18next} from 'react-i18next';
+import Backend from 'i18next-http-backend';
+import {supabaseProjectURL} from './lib/supabase.configs';
+
+i18n
+  .use(initReactI18next)
+  .use(Backend)
+  .init({
+    backend: {
+      loadPath: `${supabaseProjectURL}/rest/v1/rpc/json_mobile_international_messages_for?language={{lng}}&namespace={{ns}}`,
+    },
+
+    // To be configured for each project
+    lng: 'en',
+    fallbackLng: 'en',
+
+    interpolation: {
+      escapeValue: false,
+    },
+
+    react: {
+      useSuspense: false,
+    },
+  });
 
 const Stack = createNativeStackNavigator();
 
@@ -60,32 +86,39 @@ export default function App() {
 
   const isLoggedIn = Boolean(session && session.user);
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Auth'}>
-        {isLoggedIn ? (
-          <Stack.Screen name="Home" options={{headerShown: false}}>
-            {props => <Account {...props} session={session!} />}
-          </Stack.Screen>
-        ) : (
-          <>
-            <Stack.Screen
-              name="TermsAndConditions"
-              component={TermsAndConditions}
-              options={{title: ''}}
-            />
-            <Stack.Screen
-              name="PrivacyPolicy"
-              component={PrivacyPolicy}
-              options={{title: ''}}
-            />
-            <Stack.Screen
-              name="Auth"
-              component={Auth}
-              options={{headerShown: false}}
-            />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Suspense
+      fallback={
+        <View>
+          <Text>Loading...</Text>
+        </View>
+      }>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Auth'}>
+          {isLoggedIn ? (
+            <Stack.Screen name="Home" options={{headerShown: false}}>
+              {props => <Account {...props} session={session!} />}
+            </Stack.Screen>
+          ) : (
+            <>
+              <Stack.Screen
+                name="TermsAndConditions"
+                component={TermsAndConditions}
+                options={{title: ''}}
+              />
+              <Stack.Screen
+                name="PrivacyPolicy"
+                component={PrivacyPolicy}
+                options={{title: ''}}
+              />
+              <Stack.Screen
+                name="Auth"
+                component={Auth}
+                options={{headerShown: false}}
+              />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Suspense>
   );
 }

@@ -32,6 +32,10 @@ export function CustomResourceListGuesser({
             return null;
           }
 
+          if (columnType === "json") {
+            return null;
+          }
+
           return <TextField source={columnName} key={columnName} />;
         })}
       </Datagrid>

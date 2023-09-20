@@ -10,7 +10,9 @@ const ViewModeResourceMap: {
   }) => JSX.Element;
 } = {
   create: Create,
-  edit: Edit,
+  edit: ({ children }: { children?: React.ReactNode }) => (
+    <Edit mutationMode="pessimistic">{children}</Edit>
+  ),
 };
 
 export function CustomResourceFormGuesser({

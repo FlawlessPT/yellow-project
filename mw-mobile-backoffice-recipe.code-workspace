@@ -24,6 +24,18 @@
   "settings": {
     "files.exclude": {
       "supabase/functions/": true
-    }
+    },
+    "i18n-ally.localesPaths": [
+      "RNMobileApp/ios/Pods/Flipper-Folly/folly/lang",
+      "RNMobileApp/ios/Pods/Flipper-Boost-iOSX/boost/locale",
+      "RNMobileApp/ios/Pods/RCT-Folly/folly/lang",
+      "RNMobileApp/ios/Pods/boost/boost/locale",
+      "RNMobileApp/ios/Pods/Flipper-Boost-iOSX/boost/predef/language",
+      "RNMobileApp/ios/Pods/boost/boost/predef/language",
+      "RNMobileApp/ios/Pods/Headers/Private/Flipper-Folly/folly/lang",
+      "RNMobileApp/ios/Pods/Headers/Private/RCT-Folly/folly/lang",
+      "RNMobileApp/ios/Pods/Headers/Public/Flipper-Folly/folly/lang",
+      "RNMobileApp/ios/Pods/Headers/Public/RCT-Folly/folly/lang"
+    ]
   }
 }

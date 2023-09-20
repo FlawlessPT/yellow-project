@@ -465,6 +465,62 @@ Being the important code in the following files:
 
 No visual details or user experience optimizations were considered and it should be updated from project to project according to requirements.
 
+### Internationalization (i18n)
+
+A table called **mobile_international_messages** was configured to allow you to configure your **i18n** message to be using for **RNMobileApp** project. Check migration at **supabase/migrations/20230920095720_add_mobile_international_messages_table.sql** for more details.
+
+This migration also contains a function called **json_mobile_international_messages_for** that is going to be used has the endpoint for **[i18next-http-backend](https://www.i18next.com/how-to/add-or-load-translations#load-using-a-backend-plugin)** while using **[react-i18next](https://react.i18next.com/)**, as you can check on our **i18n** config at **App.tsx**:
+
+```tsx
+import { initReactI18next } from "react-i18next";
+import Backend from "i18next-http-backend";
+import { supabaseProjectURL } from "./lib/supabase.configs";
+
+i18n
+  .use(initReactI18next)
+  .use(Backend)
+  .init({
+    backend: {
+      loadPath: `${supabaseProjectURL}/rest/v1/rpc/json_mobile_international_messages_for?language={{lng}}&namespace={{ns}}`,
+    },
+
+    // To be configured for each project
+    lng: "en",
+    fallbackLng: "en",
+
+    interpolation: {
+      escapeValue: false,
+    },
+
+    react: {
+      useSuspense: false,
+    },
+  });
+```
+
+#### Usage Example
+
+```tsx
+import { useTranslation } from "react-i18next";
+
+function Component() {
+  const { t } = useTranslation();
+
+  return (
+    <View>
+      <Text>{t("namespace:message_key")}</Text>
+    </View>
+  );
+}
+```
+
+#### What the benefits of this
+
+- You can update your translations directly on our back office;
+- You can let your client/project owner change it directly on our back office as well;
+- Messages can be changed without needing a new build and deploy;
+- For a developer it is easy to go directly to supabase dashboard and paste the needed json for messages;
+
 ### Local development
 
 Go to **RNMobileApp** project and execute
@@ -542,9 +598,15 @@ const overrideConfigs: AdminOverrides = {
 };
 ```
 
+### Internationalization (i18n)
+
+A table called **mobile_international_messages** was configured to allow you to configure your **i18n** message to be using for **RNMobileApp** project. Check migration at **supabase/migrations/20230920095720_add_mobile_international_messages_table.sql** for more details.
+
+To edit json properties with **react-admin** we are using **[react-admin-json-view](https://github.com/MrHertal/react-admin-json-view)** library.
+
 ### Local development
 
-Go to **RNMobileApp** project and execute
+Go to **BackofficeCMS** project and execute
 
 ```sh
 yarn dev

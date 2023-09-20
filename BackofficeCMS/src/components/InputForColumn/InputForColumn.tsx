@@ -11,6 +11,7 @@ import {
 import { RichTextInput } from "ra-input-rich-text";
 import { InputType } from "../../types";
 import { isFieldToRenderForGeneralOptions } from "../../configs";
+import { JsonInput } from "react-admin-json-view";
 
 export function InputForColumn({
   columnName,
@@ -75,8 +76,25 @@ export function InputForColumn({
     return <NumberInput {...inputProps} />;
   }
 
-  if (["character varying", "json", "text"].includes(inputType)) {
+  if (["character varying", "text"].includes(inputType)) {
     return <TextInput {...inputProps} multiline />;
+  }
+
+  if (["json"].includes(inputType)) {
+    return (
+      <JsonInput
+        key={inputProps.key}
+        source={inputProps.source}
+        validate={inputProps.validate}
+        reactJsonOptions={{
+          name: null,
+          collapsed: false,
+          enableClipboard: true,
+          displayDataTypes: false,
+          defaultValue: "",
+        }}
+      />
+    );
   }
 
   if (["rich_text"].includes(inputType)) {
