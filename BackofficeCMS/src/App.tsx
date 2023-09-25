@@ -12,6 +12,7 @@ import { ColumnType, TableInfoType } from "@types";
 import { CustomResourceFormGuesser } from "@components/CustomResourceFormGuesser";
 import { getGeneralOverrides, isViewModeEnabledForResource } from "@configs";
 import { CustomResourceListGuesser } from "@components/CustomResourceListGuesser";
+import { TablesContext } from "@utils/contexts/tables";
 
 function BackOfficeAdmin() {
   const [isLoading, setLoading] = useState(false);
@@ -70,58 +71,63 @@ function BackOfficeAdmin() {
   return isLoading ? (
     <p>Your BackOffice is being loaded</p>
   ) : (
-    <Admin
-      dataProvider={dataProvider}
-      authProvider={authProvider}
-      loginPage={LoginPage}
-    >
-      <CustomRoutes noLayout>
-        <Route
-          path="/account/update-password"
-          element={<UpdatePasswordForm />}
-        />
-        <Route
-          path={ForgotPasswordPage.path}
-          element={<ForgotPasswordForm />}
-        />
-      </CustomRoutes>
-
-      {tables.map((t) => {
-        const isEditable = isViewModeEnabledForResource({
-          tableName: t.name,
-          viewMode: "edit",
-        });
-        const isCreatable = isViewModeEnabledForResource({
-          tableName: t.name,
-          viewMode: "create",
-        });
-
-        return !tablesToExclude.includes(t.name) ? (
-          <Resource
-            key={t.name}
-            name={t.name}
-            list={() => <CustomResourceListGuesser tableInfo={t} />}
-            edit={
-              isEditable
-                ? () => (
-                    <CustomResourceFormGuesser tableInfo={t} viewMode="edit" />
-                  )
-                : undefined
-            }
-            create={
-              isCreatable
-                ? () => (
-                    <CustomResourceFormGuesser
-                      tableInfo={t}
-                      viewMode="create"
-                    />
-                  )
-                : undefined
-            }
+    <TablesContext.Provider value={{ tables }}>
+      <Admin
+        dataProvider={dataProvider}
+        authProvider={authProvider}
+        loginPage={LoginPage}
+      >
+        <CustomRoutes noLayout>
+          <Route
+            path="/account/update-password"
+            element={<UpdatePasswordForm />}
           />
-        ) : null;
-      })}
-    </Admin>
+          <Route
+            path={ForgotPasswordPage.path}
+            element={<ForgotPasswordForm />}
+          />
+        </CustomRoutes>
+
+        {tables.map((t) => {
+          const isEditable = isViewModeEnabledForResource({
+            tableName: t.name,
+            viewMode: "edit",
+          });
+          const isCreatable = isViewModeEnabledForResource({
+            tableName: t.name,
+            viewMode: "create",
+          });
+
+          return !tablesToExclude.includes(t.name) ? (
+            <Resource
+              key={t.name}
+              name={t.name}
+              list={() => <CustomResourceListGuesser tableInfo={t} />}
+              edit={
+                isEditable
+                  ? () => (
+                      <CustomResourceFormGuesser
+                        tableInfo={t}
+                        viewMode="edit"
+                      />
+                    )
+                  : undefined
+              }
+              create={
+                isCreatable
+                  ? () => (
+                      <CustomResourceFormGuesser
+                        tableInfo={t}
+                        viewMode="create"
+                      />
+                    )
+                  : undefined
+              }
+            />
+          ) : null;
+        })}
+      </Admin>
+    </TablesContext.Provider>
   );
 }
 
