@@ -9,7 +9,7 @@ export function TableInputs({
   overrides?: ResourceOverrides;
 }) {
   return tableInfo.schema.map(({ columnName, columnType, isRequired }) => {
-    const resourceInfo = overrides && overrides[columnName];
+    const resourceInfo = overrides?.columns && overrides.columns[columnName];
     const resourceType = resourceInfo?.type || columnType;
 
     return (

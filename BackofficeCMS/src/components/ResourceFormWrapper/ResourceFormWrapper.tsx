@@ -1,9 +1,5 @@
-import { SimpleForm } from "react-admin";
+import { SimpleForm, SimpleFormProps } from "react-admin";
 
-export function ResourceFormWrapper({
-  children,
-}: {
-  children?: React.ReactNode;
-}) {
-  return <SimpleForm style={{ maxWidth: "640px" }}>{children}</SimpleForm>;
+export function ResourceFormWrapper(props: SimpleFormProps) {
+  return <SimpleForm {...props} style={{ maxWidth: "640px" }} />;
 }

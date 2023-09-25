@@ -13,24 +13,32 @@ const overrideConfigs: AdminOverrides = {
     profiles: {
       create: null,
       edit: {
-        roles: {
-          type: "select",
-          options: rolesOptions,
+        isDeletable: false,
+        columns: {
+          roles: {
+            type: "select",
+            options: rolesOptions,
+          },
         },
       },
     },
     custom_pages: {
       edit: {
-        content: {
-          type: "rich_text",
-        },
-        slug: {
-          type: "none",
+        isDeletable: false,
+        columns: {
+          content: {
+            type: "rich_text",
+          },
+          slug: {
+            type: "none",
+          },
         },
       },
       create: {
-        content: {
-          type: "rich_text",
+        columns: {
+          content: {
+            type: "rich_text",
+          },
         },
       },
     },

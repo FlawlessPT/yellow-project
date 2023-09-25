@@ -1,4 +1,4 @@
-import { Create, Edit } from "react-admin";
+import { Create, DeleteButton, Edit, SaveButton, Toolbar } from "react-admin";
 import { overridesForResource } from "../../configs";
 import { TableInfoType, ViewMode } from "../../types";
 import { ResourceFormWrapper } from "../ResourceFormWrapper";
@@ -15,6 +15,13 @@ const ViewModeResourceMap: {
   ),
 };
 
+const EditToolbar = ({ isDeletable }: { isDeletable: boolean }) => (
+  <Toolbar>
+    <SaveButton />
+    {isDeletable && <DeleteButton />}
+  </Toolbar>
+);
+
 export function CustomResourceFormGuesser({
   tableInfo,
   viewMode,
@@ -26,9 +33,28 @@ export function CustomResourceFormGuesser({
 
   if (!ResourceComponent) return null;
 
+  // check if we want to show delete button on toolbar when in edit mode
+  let toolbar: JSX.Element | undefined;
+  if (viewMode === "edit") {
+    let isDeletable = true;
+    const resourceEditOverrides = overridesForResource({
+      tableName: tableInfo.name,
+      viewMode: "edit",
+    });
+
+    if (
+      typeof resourceEditOverrides?.isDeletable === "boolean" &&
+      !resourceEditOverrides?.isDeletable
+    ) {
+      isDeletable = false;
+    }
+
+    toolbar = <EditToolbar isDeletable={isDeletable} />;
+  }
+
   return (
     <ResourceComponent>
-      <ResourceFormWrapper>
+      <ResourceFormWrapper toolbar={viewMode === "edit" ? toolbar : undefined}>
         <TableInputs
           overrides={overridesForResource({
             viewMode,
