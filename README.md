@@ -12,9 +12,15 @@ This is a repository that works as a starter for a full stack mobile application
 
 ## Requirements:
 
-- NodeJs@18;
+- NodeJs@18 (it is recommend you to use [volta](https://docs.volta.sh/guide/getting-started), read below);
 - Docker;
 - iOS and Android as mentioned [here](https://reactnative.dev/docs/environment-setup?guide=native&os=macos&platform=android) (chose your Development OS and Target OS accordingly to your case);
+
+### Volta
+
+With Volta, you can select a Node engine once and then stop worrying about it. You can switch between projects and stop having to manually switch between Nodes. You can install npm package binaries in your toolchain without having to periodically reinstall them or figure out why they’ve stopped working.
+
+All projects here are pinned to a specific node version. This is important to make sure all developers are working with same version. If you use volta the version will configured correctly when you change to project folder.
 
 ## Main features included:
 
