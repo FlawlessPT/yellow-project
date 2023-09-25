@@ -1,0 +1,15 @@
+{
+  "name": "mw-mobile-backoffice-recipe",
+  "version": "0.0.1-beta",
+  "description": "This is a repository that works as a starter for a full stack mobile application and includes a Back Office Web App.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "husky": "^8.0.3"
+  }
+}

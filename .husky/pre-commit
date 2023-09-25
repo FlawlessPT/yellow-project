@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+cd BackofficeCMS && yarn pre-commit-check && cd ../RNMobileApp && yarn pre-commit-check
