@@ -1,0 +1,1 @@
+ALTER TABLE mobile_international_messages ALTER COLUMN ns SET NOT NULL;

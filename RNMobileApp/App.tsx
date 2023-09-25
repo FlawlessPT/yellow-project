@@ -15,17 +15,21 @@ import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import Backend from 'i18next-http-backend';
 import {supabaseProjectURL} from './lib/supabase.configs';
+import {getLocales} from 'react-native-localize';
+
+const locales = getLocales() || [];
 
 i18n
   .use(initReactI18next)
   .use(Backend)
   .init({
+    debug: __DEV__,
     backend: {
       loadPath: `${supabaseProjectURL}/rest/v1/rpc/json_mobile_international_messages_for?language={{lng}}&namespace={{ns}}`,
     },
 
     // To be configured for each project
-    lng: 'en',
+    lng: locales.length > 0 ? locales[0].languageCode : 'en',
     fallbackLng: 'en',
 
     interpolation: {

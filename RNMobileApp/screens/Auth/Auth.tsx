@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 import {supabase} from '../../lib/supabase';
 import {Button, Input} from 'react-native-elements';
 import * as WebBrowser from 'expo-web-browser';
@@ -10,6 +11,8 @@ export const Auth = function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const {t} = useTranslation();
 
   const navigation =
     useNavigation<
@@ -101,7 +104,7 @@ export const Auth = function Auth() {
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input
-          label="Email"
+          label={t('common.email_label')}
           leftIcon={{type: 'font-awesome', name: 'envelope'}}
           onChangeText={text => setEmail(text)}
           value={email}
@@ -111,60 +114,60 @@ export const Auth = function Auth() {
       </View>
       <View style={styles.verticallySpaced}>
         <Input
-          label="Password"
+          label={t('common.password_label')}
           leftIcon={{type: 'font-awesome', name: 'lock'}}
           onChangeText={text => setPassword(text)}
           value={password}
           secureTextEntry={true}
-          placeholder="Password"
+          placeholder={t('common.password_label')}
           autoCapitalize={'none'}
         />
       </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Button
-          title="Sign in"
+          title={t('auth.sign_in')}
           disabled={loading}
           onPress={() => signInWithEmail()}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title="Sign up"
+          title={t('auth.sign_up')}
           disabled={loading}
           onPress={() => signUpWithEmail()}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title="Github Sign in"
+          title={t('auth.sign_in_github')}
           disabled={loading}
           onPress={() => gitHubSignIn()}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title="Google Sign in"
+          title={t('auth.sign_in_google')}
           disabled={loading}
           onPress={() => googleSignIn()}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title="Forgot password"
+          title={t('auth.forgot_password')}
           disabled={loading}
           onPress={() => forgotPassword()}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title="Terms and conditions"
+          title={t('auth.terms_and_conditions')}
           disabled={loading}
           onPress={() => navigation.navigate('TermsAndConditions')}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title="Privacy policy"
+          title={t('auth.privacy_policy')}
           disabled={loading}
           onPress={() => navigation.navigate('PrivacyPolicy')}
         />

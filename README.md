@@ -520,6 +520,7 @@ function Component() {
 - You can let your client/project owner change it directly on our back office as well;
 - Messages can be changed without needing a new build and deploy;
 - For a developer it is easy to go directly to supabase dashboard and paste the needed json for messages;
+- No extra costs;
 
 ### Local development
 

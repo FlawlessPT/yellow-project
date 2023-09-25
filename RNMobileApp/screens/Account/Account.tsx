@@ -2,6 +2,7 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {supabase} from '../../lib/supabase';
 import {StyleSheet, View, Alert} from 'react-native';
 import {Button, Input} from 'react-native-elements';
+import {useTranslation} from 'react-i18next';
 import {Session} from '@supabase/supabase-js';
 
 export const Account = function Account({session}: {session: Session}) {
@@ -10,6 +11,8 @@ export const Account = function Account({session}: {session: Session}) {
   const [fullname, setFullname] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [password, setPassword] = useState('');
+
+  const {t} = useTranslation();
 
   const getProfile = useCallback(
     async function getProfile() {
@@ -97,37 +100,41 @@ export const Account = function Account({session}: {session: Session}) {
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Input label="Email" value={session?.user?.email} disabled />
+        <Input
+          label={t('common.email_label')}
+          value={session?.user?.email}
+          disabled
+        />
       </View>
       <View style={styles.verticallySpaced}>
         <Input
-          label="Username"
+          label={t('common.username_label')}
           value={username || ''}
           onChangeText={text => setUsername(text)}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Input
-          label="Fullname"
+          label={t('common.fullname_label')}
           value={fullname || ''}
           onChangeText={text => setFullname(text)}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Input
-          label="Password"
+          label={t('common.password_label')}
           leftIcon={{type: 'font-awesome', name: 'lock'}}
           onChangeText={text => setPassword(text)}
           value={password}
           secureTextEntry={true}
-          placeholder="Password"
+          placeholder={t('common.password_label')}
           autoCapitalize={'none'}
         />
       </View>
 
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Button
-          title={loading ? 'Loading ...' : 'Update'}
+          title={loading ? 'Loading ...' : t('common.update')}
           onPress={() => {
             updateProfile({
               newUsername: username,
@@ -141,7 +148,10 @@ export const Account = function Account({session}: {session: Session}) {
       </View>
 
       <View style={styles.verticallySpaced}>
-        <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
+        <Button
+          title={t('auth.sign_out')}
+          onPress={() => supabase.auth.signOut()}
+        />
       </View>
     </View>
   );

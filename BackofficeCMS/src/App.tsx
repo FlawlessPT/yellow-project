@@ -43,6 +43,7 @@ function BackOfficeAdmin() {
               column_name: string;
               data_type: ColumnType;
               is_nullable: string;
+              default_value: string | null;
             }[]
           >,
           i
@@ -51,7 +52,7 @@ function BackOfficeAdmin() {
             response.data?.map((c) => ({
               columnName: c.column_name,
               columnType: c.data_type,
-              isRequired: c.is_nullable === "NO",
+              isRequired: c.is_nullable === "NO" && c.default_value === null,
             })) || [];
         }
       );

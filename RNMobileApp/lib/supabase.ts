@@ -17,7 +17,7 @@ const SecureStoreAdapter = {
 
 export const supabase = createClient(supabaseProjectURL, supabaseAnonKey, {
   auth: {
-    storage: SecureStoreAdapter as any,
+    storage: SecureStoreAdapter,
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true,
