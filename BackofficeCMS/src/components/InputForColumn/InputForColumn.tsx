@@ -9,8 +9,8 @@ import {
   SelectArrayInput,
 } from "react-admin";
 import { RichTextInput } from "ra-input-rich-text";
-import { InputType } from "../../types";
-import { isFieldToRenderForGeneralOptions } from "../../configs";
+import { InputType } from "@types";
+import { isFieldToRenderForGeneralOptions } from "@configs";
 import { JsonInput } from "react-admin-json-view";
 
 export function InputForColumn({

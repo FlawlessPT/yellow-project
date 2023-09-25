@@ -1,6 +1,6 @@
 import { Create, DeleteButton, Edit, SaveButton, Toolbar } from "react-admin";
-import { overridesForResource } from "../../configs";
-import { TableInfoType, ViewMode } from "../../types";
+import { overridesForResource } from "@configs";
+import { TableInfoType, ViewMode } from "@types";
 import { ResourceFormWrapper } from "../ResourceFormWrapper";
 import { TableInputs } from "../TableInputs";
 

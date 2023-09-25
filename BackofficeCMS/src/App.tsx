@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { Admin, CustomRoutes, Resource } from "react-admin";
 import { ForgotPasswordPage, LoginPage } from "ra-supabase";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { dataProvider } from "./lib/supabase.dataProvider";
-import { authProvider } from "./lib/supabase.authProvider";
-import { UpdatePasswordForm } from "./pages/UpdatePasswordForm";
-import { ForgotPasswordForm } from "./pages/ForgotPasswordForm";
-import { supabaseClient } from "./lib/supabase";
+import { dataProvider } from "@utils/supabase.dataProvider";
+import { authProvider } from "@utils/supabase.authProvider";
+import { UpdatePasswordForm } from "@pages/UpdatePasswordForm";
+import { ForgotPasswordForm } from "@pages/ForgotPasswordForm";
+import { supabaseClient } from "@utils/supabase";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
-import { ColumnType, TableInfoType } from "./types";
-import { CustomResourceFormGuesser } from "./components/CustomResourceFormGuesser";
-import { getGeneralOverrides, isViewModeEnabledForResource } from "./configs";
-import { CustomResourceListGuesser } from "./components/CustomResourceListGuesser";
+import { ColumnType, TableInfoType } from "@types";
+import { CustomResourceFormGuesser } from "@components/CustomResourceFormGuesser";
+import { getGeneralOverrides, isViewModeEnabledForResource } from "@configs";
+import { CustomResourceListGuesser } from "@components/CustomResourceListGuesser";
 
 function BackOfficeAdmin() {
   const [isLoading, setLoading] = useState(false);

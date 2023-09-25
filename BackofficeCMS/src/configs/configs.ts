@@ -1,4 +1,4 @@
-import { AdminOverrides, InputType, ViewMode } from "../types";
+import { AdminOverrides, InputType, ViewMode } from "@types";
 
 /* To be customizable for each project: by default only ADMIN role exist and no roles using empty array: [], the default for new users */
 export const rolesOptions = [{ id: "ADMIN", name: "Admin" }];

@@ -1,4 +1,4 @@
-import { ResourceOverrides, TableInfoType } from "../../types";
+import { ResourceOverrides, TableInfoType } from "@types";
 import { InputForColumn } from "../InputForColumn";
 
 export function TableInputs({

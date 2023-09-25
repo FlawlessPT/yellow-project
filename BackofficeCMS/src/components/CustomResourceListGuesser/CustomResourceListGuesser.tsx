@@ -9,7 +9,7 @@ import { TableInfoType } from "../../types";
 import {
   isFieldToRenderForGeneralOptions,
   overridesForResource,
-} from "../../configs";
+} from "@configs";
 
 const ListActions = () => (
   <TopToolbar>
