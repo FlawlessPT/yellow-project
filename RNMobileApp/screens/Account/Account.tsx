@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {supabase} from '../../lib/supabase';
+import {supabase} from '@utils/supabase';
 import {StyleSheet, View, Alert} from 'react-native';
 import {Button, Input} from 'react-native-elements';
 import {useTranslation} from 'react-i18next';

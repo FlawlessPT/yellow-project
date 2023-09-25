@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
-import {supabase} from '../../lib/supabase';
+import {supabase} from '@utils/supabase';
 import {Button, Input} from 'react-native-elements';
 import * as WebBrowser from 'expo-web-browser';
 import {useNavigation} from '@react-navigation/native';
-import {NoneAuthenticatedStackScreenPropsGeneric} from '../../types';
+import {NoneAuthenticatedStackScreenPropsGeneric} from '@types';
 
 export const Auth = function Auth() {
   const [email, setEmail] = useState('');

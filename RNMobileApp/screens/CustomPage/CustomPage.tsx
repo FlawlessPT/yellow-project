@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, useWindowDimensions} from 'react-native';
 import RenderHtml from 'react-native-render-html';
 import {useNavigation} from '@react-navigation/native';
-import {supabase} from '../../lib/supabase';
+import {supabase} from '@utils/supabase';
 import {
   CustomPageSlugEnum,
   NoneAuthenticatedStackScreenPropsGeneric,
-} from '../../types';
+} from '@types';
 
 /* Idea got here to adjust list items: https://github.com/meliorence/react-native-render-html/issues/592 */
 const tagsStyles: any = {

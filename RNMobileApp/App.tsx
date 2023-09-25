@@ -1,20 +1,20 @@
 import 'react-native-url-polyfill/auto';
 import 'intl-pluralrules';
 import React, {useState, useEffect, Suspense} from 'react';
-import {supabase} from './lib/supabase';
+import {supabase} from '@utils/supabase';
 import {Linking, Text, View} from 'react-native';
 import {Session} from '@supabase/supabase-js';
 import * as WebBrowser from 'expo-web-browser';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Account} from './screens/Account';
-import {TermsAndConditions} from './screens/TermsAndConditions';
-import {Auth} from './screens/Auth';
-import {PrivacyPolicy} from './screens/PrivacyPolicy';
+import {Account} from '@screens/Account';
+import {TermsAndConditions} from '@screens/TermsAndConditions';
+import {Auth} from '@screens/Auth';
+import {PrivacyPolicy} from '@screens/PrivacyPolicy';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import Backend from 'i18next-http-backend';
-import {supabaseProjectURL} from './lib/supabase.configs';
+import {supabaseProjectURL} from '@utils/supabase.configs';
 import {getLocales} from 'react-native-localize';
 
 const locales = getLocales() || [];
