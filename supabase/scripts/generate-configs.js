@@ -2,9 +2,10 @@ const fs = require("fs");
 require("dotenv").config({ path: ".env" });
 
 const configsFilePath = process.argv[2];
+const mock = Boolean(process.argv[3]);
 
-const supabaseProjectURL = process.env.SUPABASE_URL;
-const supabaseAnonKey = process.env.SUPBASE_API_KEY;
+const supabaseProjectURL = mock ? "mock" : process.env.SUPABASE_URL;
+const supabaseAnonKey = mock ? "mock" : process.env.SUPBASE_API_KEY;
 
 console.log("SUPABASE_URL: ", supabaseProjectURL);
 console.log("SUPBASE_API_KEY: ", supabaseAnonKey);

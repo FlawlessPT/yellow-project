@@ -2,24 +2,53 @@ image: node:18
 
 pipelines:
   default:
-    - parallel:
-      - step:
-          name: 'Lint and type check Backoffice web app'
-          script:
-            - cd BackofficeCMS
-            - yarn install
-            - yarn type-check
-            - yarn lint
+    - step:
+        name: Backoffice lint and type checks
+        script:
+          - cd supabase
+          - yarn install
+          - yarn supabase-configs-backoffice true
+          - cd ../BackofficeCMS
+          - yarn install
+          - yarn type-check
+          - yarn lint
+
+    - step:
+        name: 'Deployment of Backoffice web app to preview'
+        deployment: Staging
+        script:
+          - cd supabase
+          - yarn install
+          - yarn supabase-configs-backoffice
+          - cd ../BackofficeCMS
+          - yarn install
+          - npm install --global vercel
+          - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+          - vercel build --token=$VERCEL_TOKEN
+          - vercel deploy --prebuilt  --token=$VERCEL_TOKEN
 
   branches:
     main:
       - step:
-          name: 'Deployment of Backoffice web app to staging'
+          name: Backoffice lint and type checks
           deployment: Staging
           script:
             - cd supabase
             - yarn install
             - yarn supabase-configs-backoffice
+            - cd ../BackofficeCMS
+            - yarn install
+            - yarn type-check
+            - yarn lint
+
+      - step:
+          name: 'Deployment of Backoffice web app to staging'
+          script:
+            - cd supabase
+            - yarn install
+            - yarn supabase-configs-backoffice
+            - npx supabase link --project-ref $SUPABASE_PROJECT_ID
+            - npx supabase db push
             - cd ../BackofficeCMS
             - yarn install
             - npm install --global vercel
@@ -35,6 +64,8 @@ pipelines:
             - cd supabase
             - yarn install
             - yarn supabase-configs-backoffice
+            - npx supabase link --project-ref $SUPABASE_PROJECT_ID
+            - npx supabase db push
             - cd ../BackofficeCMS
             - yarn install
             - npm install --global vercel
