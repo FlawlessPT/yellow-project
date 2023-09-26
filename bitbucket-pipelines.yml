@@ -53,8 +53,8 @@ pipelines:
             - yarn install
             - npm install --global vercel
             - vercel pull --yes --token=$VERCEL_TOKEN
-            - vercel build --token=$VERCEL_TOKEN
-            - vercel deploy --prebuilt --token=$VERCEL_TOKEN
+            - vercel build --prod --token=$VERCEL_TOKEN
+            - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
 
       - step:
           name: 'Deployment of Backoffice web app to production'
