@@ -22,7 +22,7 @@ function BackOfficeAdmin() {
     async function fetchTableNames() {
       setLoading(true);
 
-      const { data: tablesInfo } = await supabaseClient.rpc(
+      const { data: tablesInfo = [] } = await supabaseClient.rpc(
         "get_all_table_name"
       );
       const backOfficeTablesScheme: typeof tables = (
