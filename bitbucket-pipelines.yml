@@ -58,7 +58,9 @@ pipelines:
             - vercel pull --yes --token=$VERCEL_TOKEN
             - vercel build --prod --token=$VERCEL_TOKEN
             - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
-            - cd ../RNMobileApp/android
+            - cd ../RNMobileApp
+            - yarn install
+            - cd android
             - chmod +x gradlew
             - ./gradlew assembleRelease
 
