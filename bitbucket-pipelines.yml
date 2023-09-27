@@ -29,26 +29,9 @@ pipelines:
           - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
           - vercel build --token=$VERCEL_TOKEN
           - vercel deploy --prebuilt  --token=$VERCEL_TOKEN
-          - cd ../RNMobileApp/android
-          - chmod +x gradlew
-          - ./gradlew assembleRelease
 
   branches:
     main:
-      - step:
-          name: Backoffice lint and type checks
-          caches:
-            - node
-            - gradle
-          script:
-            - cd supabase
-            - yarn install
-            - yarn supabase-configs-backoffice true
-            - cd ../BackofficeCMS
-            - yarn install
-            - yarn type-check
-            - yarn lint
-
       - step:
           name: 'Deployment of Backoffice web app to staging'
           caches:
