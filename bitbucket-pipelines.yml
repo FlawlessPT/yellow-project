@@ -1,11 +1,17 @@
 image: mingc/android-build-box:latest
 
+definitions:
+  caches:
+    nodecustom: ./node_modules
+    yarn: /usr/local/share/.cache/yarn
+
 pipelines:
   default:
     - step:
         name: Backoffice lint and type checks
         caches:
-          - node
+          - nodecustom
+          - yarn
           - gradle
         script:
           - cd supabase
@@ -16,7 +22,8 @@ pipelines:
     - step:
         name: 'Deployment of Backoffice web app to preview'
         caches:
-          - node
+          - nodecustom
+          - yarn
           - gradle
         deployment: Staging
         script:
@@ -35,7 +42,8 @@ pipelines:
       - step:
           name: 'Deployment of Backoffice web app to staging'
           caches:
-            - node
+            - nodecustom
+            - yarn
             - gradle
           deployment: Staging
           script:
@@ -50,11 +58,15 @@ pipelines:
             - vercel pull --yes --token=$VERCEL_TOKEN
             - vercel build --prod --token=$VERCEL_TOKEN
             - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+            - cd ../RNMobileApp/android
+            - chmod +x gradlew
+            - ./gradlew assembleRelease
 
       - step:
           name: 'Deployment of Backoffice web app to production'
           caches:
-            - node
+            - nodecustom
+            - yarn
             - gradle
           deployment: Production
           trigger: 'manual'
