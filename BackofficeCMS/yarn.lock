@@ -1002,6 +1002,11 @@
   resolved "https://registry.yarnpkg.com/@types/phoenix/-/phoenix-1.6.1.tgz#9551cd77a8f4c70c5d81db899f2af762066aabde"
   integrity sha512-g2/8Ogi2zfiS25jdGT5iDSo5yjruhhXaOuOJCkOxMW28w16VxFvjtAXjBNRo7WlRS4+UXAMj3mK46UwieNM/5g==
 
+"@types/pluralize@^0.0.31":
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/@types/pluralize/-/pluralize-0.0.31.tgz#9e7408526c28e265795e83454a141ec8375d3508"
+  integrity sha512-MQh69PPwFlYAL2qz/Mw5Zc34VTdt7pTck0Xbb6pbPSzdt5oaLB87iyJJxEMS5Dco/s7lXHunEezAvQurZZdrsQ==
+
 "@types/prop-types@*", "@types/prop-types@^15.7.5":
   version "15.7.5"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
@@ -2712,6 +2717,11 @@ picomatch@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
+
+pluralize@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
+  integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
 postcss@^8.4.27:
   version "8.4.29"

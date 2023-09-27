@@ -1,12 +1,14 @@
-import { ResourceOverrides, TableInfoType } from "@types";
+import { ResourceOverrides, TableInfoType, ViewMode } from "@types";
 import { InputForColumn } from "../InputForColumn";
 
 export function TableInputs({
   tableInfo,
   overrides,
+  viewMode,
 }: {
   tableInfo: TableInfoType;
   overrides?: ResourceOverrides;
+  viewMode: ViewMode;
 }) {
   return tableInfo.schema.map(({ columnName, columnType, isRequired }) => {
     const resourceInfo = overrides?.columns && overrides.columns[columnName];
@@ -19,6 +21,8 @@ export function TableInputs({
         columnName={columnName}
         isRequired={isRequired}
         options={resourceInfo?.options}
+        referenceData={resourceInfo?.referenceData}
+        viewMode={viewMode}
       />
     );
   });

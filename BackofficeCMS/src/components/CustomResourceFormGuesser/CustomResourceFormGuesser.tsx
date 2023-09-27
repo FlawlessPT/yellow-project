@@ -56,6 +56,7 @@ export function CustomResourceFormGuesser({
     <ResourceComponent>
       <ResourceFormWrapper toolbar={viewMode === "edit" ? toolbar : undefined}>
         <TableInputs
+          viewMode={viewMode}
           overrides={overridesForResource({
             viewMode,
             tableName: tableInfo.name,

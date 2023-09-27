@@ -7,24 +7,32 @@ import {
   required,
   InputProps,
   SelectArrayInput,
+  ReferenceInput,
 } from "react-admin";
 import { RichTextInput } from "ra-input-rich-text";
-import { InputType } from "@types";
+import { InputType, ReferenceDataType, ViewMode } from "@types";
 import { isFieldToRenderForGeneralOptions } from "@configs";
 import { JsonInput } from "react-admin-json-view";
+import { useTablesContext } from "@utils/contexts/tables";
 
 export function InputForColumn({
   columnName,
   inputType,
   isRequired,
   options,
+  referenceData,
+  viewMode,
 }: {
   inputType: InputType;
   columnName: string;
   isRequired: boolean;
+  viewMode: ViewMode;
   options?: { id: string; name: string }[];
+  referenceData?: Pick<ReferenceDataType, "tableName">;
 }) {
-  if (!isFieldToRenderForGeneralOptions({ columnName, inputType })) {
+  const { isReference, getReferenceDataFor } = useTablesContext();
+
+  if (!isFieldToRenderForGeneralOptions({ columnName, inputType, viewMode })) {
     return null;
   }
 
@@ -38,6 +46,37 @@ export function InputForColumn({
     fullWidth: true,
   };
 
+  if (inputType === "reference" && referenceData?.tableName) {
+    return (
+      <ReferenceInput
+        key={inputProps.key}
+        source={columnName}
+        reference={referenceData.tableName}
+        validate={inputProps.validate}
+      />
+    );
+  } else {
+    // trying to discover reference
+    const referenceSearchFilter = { inputType, columnName };
+    const discoveredReferenceData =
+      isReference(referenceSearchFilter) &&
+      getReferenceDataFor(referenceSearchFilter);
+
+    if (
+      discoveredReferenceData &&
+      discoveredReferenceData.recordRepresentationColumn
+    ) {
+      return (
+        <ReferenceInput
+          key={inputProps.key}
+          source={discoveredReferenceData.sourceColumn}
+          reference={discoveredReferenceData.tableName}
+          validate={inputProps.validate}
+        />
+      );
+    }
+  }
+
   if (
     ["timestamp with time zone", "timestamp without time zone"].includes(
       inputType
@@ -49,6 +88,7 @@ export function InputForColumn({
   if (["date"].includes(inputType)) {
     return <DateInput {...inputProps} />;
   }
+
   /* TODO: needs to review because it is returning date as well
     if (["time without time zone"].includes(columnType)) {
       return (
@@ -59,6 +99,7 @@ export function InputForColumn({
       );
     }
     */
+
   if ("boolean" === inputType) {
     return <BooleanInput {...inputProps} />;
   }
@@ -76,7 +117,7 @@ export function InputForColumn({
     return <NumberInput {...inputProps} />;
   }
 
-  if (["character varying", "text"].includes(inputType)) {
+  if (["character varying", "text", "uuid"].includes(inputType)) {
     return <TextInput {...inputProps} multiline />;
   }
 

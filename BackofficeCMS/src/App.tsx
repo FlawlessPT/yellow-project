@@ -10,7 +10,11 @@ import { supabaseClient } from "@utils/supabase";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
 import { ColumnType, TableInfoType } from "@types";
 import { CustomResourceFormGuesser } from "@components/CustomResourceFormGuesser";
-import { getGeneralOverrides, isViewModeEnabledForResource } from "@configs";
+import {
+  getGeneralOverrides,
+  isViewModeEnabledForResource,
+  recordRepresentationForResource,
+} from "@configs";
 import { CustomResourceListGuesser } from "@components/CustomResourceListGuesser";
 import { TablesContext } from "@utils/contexts/tables";
 
@@ -102,6 +106,9 @@ function BackOfficeAdmin() {
             <Resource
               key={t.name}
               name={t.name}
+              recordRepresentation={recordRepresentationForResource({
+                tableName: t.name,
+              })}
               list={() => <CustomResourceListGuesser tableInfo={t} />}
               edit={
                 isEditable

@@ -8,6 +8,7 @@ export type ColumnType =
   | "character varying"
   | "json"
   | "text"
+  | "uuid"
   | "boolean"
   | "timestamp with time zone"
   | "timestamp without time zone"
@@ -18,4 +19,10 @@ export type ColumnType =
 export type TableInfoType = {
   name: string;
   schema: { columnName: string; columnType: ColumnType; isRequired: boolean }[];
+};
+
+export type ReferenceDataType = {
+  sourceColumn: string;
+  tableName: string;
+  recordRepresentationColumn?: string;
 };

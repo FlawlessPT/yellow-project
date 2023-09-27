@@ -1,4 +1,4 @@
-import { AdminOverrides, InputType, ViewMode } from "@types";
+import { AdminOverrides, SearchConfigsFilterType, ViewMode } from "@types";
 
 /* To be customizable for each project: by default only ADMIN role exist and no roles using empty array: [], the default for new users */
 export const rolesOptions = [{ id: "ADMIN", name: "Admin" }];
@@ -6,11 +6,20 @@ export const rolesOptions = [{ id: "ADMIN", name: "Admin" }];
 const overrideConfigs: AdminOverrides = {
   general: {
     tablesToExclude: [],
-    columnsToExclude: ["id", "created_at", "updated_at"],
-    inputTypesToExclude: ["jsonb", "none"],
+    columnsToExclude: {
+      create: ["id", "created_at", "updated_at"],
+      edit: ["id", "created_at", "updated_at"],
+      list: ["created_at", "updated_at"],
+    },
+    inputTypesToExclude: {
+      create: ["jsonb", "none"],
+      edit: ["jsonb", "none"],
+      list: ["jsonb", "none"],
+    },
   },
   resources: {
     profiles: {
+      recordRepresentationColumn: "username",
       create: null,
       edit: {
         isDeletable: false,
@@ -42,6 +51,31 @@ const overrideConfigs: AdminOverrides = {
         },
       },
     },
+    /* TODO: remove -- reference example configuration todos table connected to profiles through profile_id column
+        When not configured the system tries to discover it when *_id column is found
+    todos: {
+      edit: {
+        columns: {
+          profile_id: {
+            type: "reference",
+            referenceData: {
+              tableName: "profiles",
+            },
+          },
+        },
+      },
+      create: {
+        columns: {
+          profile_id: {
+            type: "reference",
+            referenceData: {
+              tableName: "profiles",
+            },
+          },
+        },
+      },
+    },
+    */
   },
 };
 
@@ -60,6 +94,16 @@ export function overridesForResource({
 
   return tableOverridesForMode;
 }
+
+export function recordRepresentationForResource({
+  tableName,
+}: Pick<OverridesForResourceSearchType, "tableName">) {
+  const tableOverrides =
+    overrideConfigs.resources && overrideConfigs.resources[tableName];
+
+  return tableOverrides?.recordRepresentationColumn;
+}
+
 export function isViewModeEnabledForResource(
   filter: OverridesForResourceSearchType
 ) {
@@ -73,15 +117,17 @@ export function getGeneralOverrides() {
 export function isFieldToRenderForGeneralOptions({
   columnName,
   inputType,
-}: {
-  columnName: string;
-  inputType: InputType;
-}) {
+  viewMode,
+}: SearchConfigsFilterType) {
   const generalOverrides = getGeneralOverrides();
+  const columnsToExcludeForViewMode = (generalOverrides?.columnsToExclude ||
+    {})[viewMode];
+  const inputTypesToExcludeForViewMode =
+    (generalOverrides?.inputTypesToExclude || {})[viewMode];
 
   if (
-    (generalOverrides?.columnsToExclude || []).includes(columnName) ||
-    (generalOverrides?.inputTypesToExclude || []).includes(inputType)
+    (columnsToExcludeForViewMode || []).includes(columnName) ||
+    (inputTypesToExcludeForViewMode || []).includes(inputType)
   ) {
     return false;
   }
