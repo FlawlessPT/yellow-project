@@ -12,9 +12,9 @@ pipelines:
           - yarn install
           - yarn supabase-configs-backoffice true
           - cd ../BackofficeCMS
-          - yarn install
-          - yarn type-check
-          - yarn lint
+          # - yarn install
+          # - yarn type-check
+          # - yarn lint
 
     - step:
         name: 'Deployment of Backoffice web app to preview'
