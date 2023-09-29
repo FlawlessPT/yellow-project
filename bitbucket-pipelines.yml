@@ -73,10 +73,10 @@ pipelines:
             - yarn install
             - yarn supabase-configs-mobile
             - cd ../RNMobileApp
-            - yarn install --production=true
+            - yarn install
             - cd android
             - chmod +x gradlew
-            - ./gradlew assembleRelease --no-daemon
+            - ./gradlew assembleRelease
             - npm install -g appcenter-cli
             - appcenter distribute release --app joao.antunes-mobiweb.pt/mw-framework --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
 
