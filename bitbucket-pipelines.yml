@@ -70,18 +70,18 @@ pipelines:
             - node
           deployment: android-staging
           trigger: 'manual'
-          image: mingc/android-build-box:latest
+          image: reactnativecommunity/react-native-android:latest
           size: 2x
           artifacts:
-            - RNMobileApp/android/app/build/outputs/apk/release/**
+            - RNMobileApp/android/app/build/outputs/**
           script:
             - cd supabase
             - yarn install
             - yarn supabase-configs-mobile
             - cd ../RNMobileApp
-            - yarn install --frozen-lockfile
-            - cd android
-            - chmod +x gradlew
+            - npm i -g envinfo && envinfo
+            - yarn install
+            - cd android && chmod +x gradlew
             - ./gradlew assembleRelease
             - npm install -g appcenter-cli
             - appcenter distribute release --app joao.antunes-mobiweb.pt/mw-framework --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
