@@ -15,10 +15,10 @@ pipelines:
           - yarn
         script:
           - cd supabase
-          - yarn install
+          - yarn install --frozen-lockfile
           - yarn supabase-configs-backoffice true
           - cd ../BackofficeCMS
-          - yarn install
+          - yarn install --frozen-lockfile
           - yarn type-check
           - yarn lint
 
@@ -30,10 +30,10 @@ pipelines:
         deployment: Staging
         script:
           - cd supabase
-          - yarn install
+          - yarn install --frozen-lockfile
           - yarn supabase-configs
           - cd ../BackofficeCMS
-          - yarn install
+          - yarn install --frozen-lockfile
           - npm install --global vercel
           - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
           - vercel build --token=$VERCEL_TOKEN
@@ -49,12 +49,12 @@ pipelines:
           deployment: Staging
           script:
             - cd supabase
-            - yarn install
+            - yarn install --frozen-lockfile
             - yarn supabase-configs-backoffice
             - npx supabase link --project-ref $SUPABASE_PROJECT_ID
             - npx supabase db push
             - cd ../BackofficeCMS
-            - yarn install --production=true
+            - yarn install --frozen-lockfile
             - npm install --global vercel
             - vercel pull --yes --token=$VERCEL_TOKEN
             - vercel build --prod --token=$VERCEL_TOKEN
@@ -62,7 +62,7 @@ pipelines:
 
       - step:
           name: 'Deployment of Android App to staging'
-          max-time: 30
+          max-time: 15
           caches:
             - yarn
             - gradle
@@ -76,15 +76,14 @@ pipelines:
             - RNMobileApp/android/app/build/outputs/**
           script:
             - cd supabase
-            - yarn install
+            - yarn install --frozen-lockfile
             - yarn supabase-configs-mobile
             - cd ../RNMobileApp
-            - npm i -g envinfo && envinfo
-            - yarn install
+            - yarn install --frozen-lockfile
             - cd android && chmod +x gradlew
             - ./gradlew assembleRelease
             - npm install -g appcenter-cli
-            - appcenter distribute release --app joao.antunes-mobiweb.pt/mw-framework --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
+            - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
 
       - step:
           name: 'Deployment of Backoffice web app to production'
