@@ -4,6 +4,7 @@ definitions:
   caches:
     yarn: /usr/local/share/.cache/yarn
     gradle: ~/.gradle/caches
+    gradle-wrapper: ~/.gradle/wrapper
 
 pipelines:
   default:
@@ -11,7 +12,6 @@ pipelines:
         name: Backoffice lint and type checks
         caches:
           - yarn
-          - gradle
         script:
           - cd supabase
           - yarn install
@@ -25,7 +25,6 @@ pipelines:
         name: 'Deployment of Backoffice web app to preview'
         caches:
           - yarn
-          - gradle
         deployment: Staging
         script:
           - cd supabase
@@ -44,7 +43,6 @@ pipelines:
           name: 'Deployment of Backoffice web app to staging'
           caches:
             - yarn
-            - gradle
           deployment: Staging
           script:
             - cd supabase
@@ -65,9 +63,11 @@ pipelines:
           caches:
             - yarn
             - gradle
+            - gradle-wrapper
           deployment: android-staging
           trigger: 'manual'
           image: mingc/android-build-box:latest
+          size: 2x
           script:
             - cd supabase
             - yarn install
@@ -76,7 +76,7 @@ pipelines:
             - yarn install --production=true
             - cd android
             - chmod +x gradlew
-            - ./gradlew assembleRelease
+            - ./gradlew assembleRelease --no-daemon
             - npm install -g appcenter-cli
             - appcenter distribute release --app joao.antunes-mobiweb.pt/mw-framework --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
 
@@ -84,7 +84,6 @@ pipelines:
           name: 'Deployment of Backoffice web app to production'
           caches:
             - yarn
-            - gradle
           deployment: Production
           trigger: 'manual'
           script:
