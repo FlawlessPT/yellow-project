@@ -5,6 +5,7 @@ definitions:
     yarn: /usr/local/share/.cache/yarn
     gradle: ~/.gradle/caches
     gradle-wrapper: ~/.gradle/wrapper
+    node: /usr/local/lib/node_modules
 
 pipelines:
   default:
@@ -25,6 +26,7 @@ pipelines:
         name: 'Deployment of Backoffice web app to preview'
         caches:
           - yarn
+          - node
         deployment: Staging
         script:
           - cd supabase
@@ -43,6 +45,7 @@ pipelines:
           name: 'Deployment of Backoffice web app to staging'
           caches:
             - yarn
+            - node
           deployment: Staging
           script:
             - cd supabase
@@ -64,6 +67,7 @@ pipelines:
             - yarn
             - gradle
             - gradle-wrapper
+            - node
           deployment: android-staging
           trigger: 'manual'
           image: mingc/android-build-box:latest
@@ -75,8 +79,7 @@ pipelines:
             - yarn install
             - yarn supabase-configs-mobile
             - cd ../RNMobileApp
-            - yarn install --production=true
-            - npm install -g @react-native/js-polyfills metro-config @react-native/metro-babel-transformer metro-runtime @react-native/metro-config
+            - yarn install --frozen-lockfile
             - cd android
             - chmod +x gradlew
             - ./gradlew assembleRelease
@@ -87,6 +90,7 @@ pipelines:
           name: 'Deployment of Backoffice web app to production'
           caches:
             - yarn
+            - node
           deployment: Production
           trigger: 'manual'
           script:
