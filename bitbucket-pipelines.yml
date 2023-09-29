@@ -64,6 +64,7 @@ pipelines:
 
       - step:
           name: 'Deployment of Android App to staging'
+          max-time: 30
           caches:
             - nodecustom
             - yarn
