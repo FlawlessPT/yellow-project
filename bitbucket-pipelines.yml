@@ -23,6 +23,19 @@ pipelines:
           - yarn lint
 
     - step:
+        name: Mobile app lint and type checks
+        caches:
+          - yarn
+        script:
+          - cd supabase
+          - yarn install --frozen-lockfile
+          - yarn supabase-configs-mobile true
+          - cd ../RNMobileApp
+          - yarn install --frozen-lockfile
+          - yarn type-check
+          - yarn lint
+
+    - step:
         name: 'Deployment of Backoffice web app to preview'
         caches:
           - yarn
@@ -41,6 +54,32 @@ pipelines:
 
   branches:
     main:
+      - step:
+          name: Backoffice lint and type checks
+          caches:
+            - yarn
+          script:
+            - cd supabase
+            - yarn install --frozen-lockfile
+            - yarn supabase-configs-backoffice true
+            - cd ../BackofficeCMS
+            - yarn install --frozen-lockfile
+            - yarn type-check
+            - yarn lint
+
+      - step:
+          name: Mobile app lint and type checks
+          caches:
+            - yarn
+          script:
+            - cd supabase
+            - yarn install --frozen-lockfile
+            - yarn supabase-configs-mobile true
+            - cd ../RNMobileApp
+            - yarn install --frozen-lockfile
+            - yarn type-check
+            - yarn lint
+
       - step:
           name: 'Deployment of Backoffice web app to staging'
           caches:
