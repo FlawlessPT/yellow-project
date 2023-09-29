@@ -62,14 +62,17 @@ pipelines:
 
       - step:
           name: 'Deployment of Android App to staging'
-          max-time: 15
+          condition:
+            changesets:
+              includePaths:
+                - "RNMobileApp/*"
+          max-time: 30
           caches:
             - yarn
             - gradle
             - gradle-wrapper
             - node
           deployment: android-staging
-          trigger: 'manual'
           image: reactnativecommunity/react-native-android:latest
           size: 2x
           artifacts:
