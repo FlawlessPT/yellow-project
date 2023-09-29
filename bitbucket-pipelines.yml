@@ -68,12 +68,15 @@ pipelines:
           trigger: 'manual'
           image: mingc/android-build-box:latest
           size: 2x
+          artifacts:
+            - RNMobileApp/android/app/build/outputs/apk/release/**
           script:
             - cd supabase
             - yarn install
             - yarn supabase-configs-mobile
             - cd ../RNMobileApp
-            - yarn install
+            - yarn install --production=true
+            - npm install -g @react-native/js-polyfills metro-config @react-native/metro-babel-transformer metro-runtime @react-native/metro-config
             - cd android
             - chmod +x gradlew
             - ./gradlew assembleRelease
