@@ -11,6 +11,10 @@ pipelines:
   default:
     - step:
         name: Backoffice lint and type checks
+        condition:
+          changesets:
+            includePaths:
+              - "BackofficeCMS/*"
         caches:
           - yarn
         script:
@@ -24,6 +28,10 @@ pipelines:
 
     - step:
         name: Mobile app lint and type checks
+        condition:
+          changesets:
+            includePaths:
+              - "RNMobileApp/*"
         caches:
           - yarn
         script:
@@ -37,6 +45,10 @@ pipelines:
 
     - step:
         name: 'Deployment of Backoffice web app to preview'
+        condition:
+          changesets:
+            includePaths:
+              - "BackofficeCMS/*"
         caches:
           - yarn
           - node
@@ -56,6 +68,10 @@ pipelines:
     main:
       - step:
           name: Backoffice lint and type checks
+          condition:
+            changesets:
+              includePaths:
+                - "BackofficeCMS/*"
           caches:
             - yarn
           script:
@@ -69,6 +85,10 @@ pipelines:
 
       - step:
           name: Mobile app lint and type checks
+          condition:
+            changesets:
+              includePaths:
+                - "RNMobileApp/*"
           caches:
             - yarn
           script:
@@ -82,6 +102,10 @@ pipelines:
 
       - step:
           name: 'Deployment of Backoffice web app to staging'
+          condition:
+            changesets:
+              includePaths:
+                - "BackofficeCMS/*"
           caches:
             - yarn
             - node
