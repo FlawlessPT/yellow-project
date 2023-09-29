@@ -1,4 +1,4 @@
-image: mingc/android-build-box:latest
+image: node:18
 
 definitions:
   caches:
@@ -18,6 +18,9 @@ pipelines:
           - yarn install
           - yarn supabase-configs-backoffice true
           - cd ../BackofficeCMS
+          - yarn install
+          - yarn type-check
+          - yarn lint
 
     - step:
         name: 'Deployment of Backoffice web app to preview'
@@ -53,16 +56,32 @@ pipelines:
             - npx supabase link --project-ref $SUPABASE_PROJECT_ID
             - npx supabase db push
             - cd ../BackofficeCMS
-            - yarn install
+            - yarn install --production=true
             - npm install --global vercel
             - vercel pull --yes --token=$VERCEL_TOKEN
             - vercel build --prod --token=$VERCEL_TOKEN
             - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
-            - cd ../RNMobileApp
+
+      - step:
+          name: 'Deployment of Android App to staging'
+          caches:
+            - nodecustom
+            - yarn
+            - gradle
+          deployment: android-staging
+          trigger: 'manual'
+          image: mingc/android-build-box:latest
+          script:
+            - cd supabase
             - yarn install
+            - yarn supabase-configs-backoffice
+            - cd ../RNMobileApp
+            - yarn install --production=true
             - cd android
             - chmod +x gradlew
             - ./gradlew assembleRelease
+            - npm install -g appcenter-cli
+            - appcenter distribute release --app joao.antunes-mobiweb.pt/mw-framework --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
 
       - step:
           name: 'Deployment of Backoffice web app to production'
@@ -74,12 +93,12 @@ pipelines:
           trigger: 'manual'
           script:
             - cd supabase
-            - yarn install
+            - yarn install --production=true
             - yarn supabase-configs-backoffice
             - npx supabase link --project-ref $SUPABASE_PROJECT_ID
             - npx supabase db push
             - cd ../BackofficeCMS
-            - yarn install
+            - yarn install --production=true
             - npm install --global vercel
             - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
             - vercel build --prod --token=$VERCEL_TOKEN
