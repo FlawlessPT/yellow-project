@@ -1,21 +1,19 @@
-import { Create, DeleteButton, Edit, SaveButton, Toolbar } from "react-admin";
-import { overridesForResource } from "@configs";
-import { TableInfoType, ViewMode } from "@types";
-import { ResourceFormWrapper } from "../ResourceFormWrapper";
-import { TableInputs } from "../TableInputs";
+import {Create, DeleteButton, Edit, SaveButton, Toolbar} from 'react-admin';
+import {overridesForResource} from '@configs';
+import {TableInfoType, ViewMode} from '@types';
+import {ResourceFormWrapper} from '../ResourceFormWrapper';
+import {TableInputs} from '../TableInputs';
 
 const ViewModeResourceMap: {
-  [viewMode in ViewMode]?: (props: {
-    children: React.ReactNode;
-  }) => JSX.Element;
+  [viewMode in ViewMode]?: (props: {children: React.ReactNode}) => JSX.Element;
 } = {
   create: Create,
-  edit: ({ children }: { children?: React.ReactNode }) => (
+  edit: ({children}: {children?: React.ReactNode}) => (
     <Edit mutationMode="pessimistic">{children}</Edit>
   ),
 };
 
-const EditToolbar = ({ isDeletable }: { isDeletable: boolean }) => (
+const EditToolbar = ({isDeletable}: {isDeletable: boolean}) => (
   <Toolbar>
     <SaveButton />
     {isDeletable && <DeleteButton />}
@@ -35,15 +33,15 @@ export function CustomResourceFormGuesser({
 
   // check if we want to show delete button on toolbar when in edit mode
   let toolbar: JSX.Element | undefined;
-  if (viewMode === "edit") {
+  if (viewMode === 'edit') {
     let isDeletable = true;
     const resourceEditOverrides = overridesForResource({
       tableName: tableInfo.name,
-      viewMode: "edit",
+      viewMode: 'edit',
     });
 
     if (
-      typeof resourceEditOverrides?.isDeletable === "boolean" &&
+      typeof resourceEditOverrides?.isDeletable === 'boolean' &&
       !resourceEditOverrides?.isDeletable
     ) {
       isDeletable = false;
@@ -54,7 +52,7 @@ export function CustomResourceFormGuesser({
 
   return (
     <ResourceComponent>
-      <ResourceFormWrapper toolbar={viewMode === "edit" ? toolbar : undefined}>
+      <ResourceFormWrapper toolbar={viewMode === 'edit' ? toolbar : undefined}>
         <TableInputs
           viewMode={viewMode}
           overrides={overridesForResource({

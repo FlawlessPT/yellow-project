@@ -1,1 +1,1 @@
-export { TableInputs } from "./TableInputs";
+export {TableInputs} from './TableInputs';

@@ -1,1 +1,1 @@
-export { UpdatePasswordForm } from "./UpdatePasswordForm";
+export {UpdatePasswordForm} from './UpdatePasswordForm';

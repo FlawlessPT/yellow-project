@@ -1,31 +1,31 @@
-import { AdminOverrides, SearchConfigsFilterType, ViewMode } from "@types";
+import {AdminOverrides, SearchConfigsFilterType, ViewMode} from '@types';
 
 /* To be customizable for each project: by default only ADMIN role exist and no roles using empty array: [], the default for new users */
-export const rolesOptions = [{ id: "ADMIN", name: "Admin" }];
+export const rolesOptions = [{id: 'ADMIN', name: 'Admin'}];
 
 const overrideConfigs: AdminOverrides = {
   general: {
     tablesToExclude: [],
     columnsToExclude: {
-      create: ["id", "created_at", "updated_at"],
-      edit: ["id", "created_at", "updated_at"],
-      list: ["created_at", "updated_at"],
+      create: ['id', 'created_at', 'updated_at'],
+      edit: ['id', 'created_at', 'updated_at'],
+      list: ['created_at', 'updated_at'],
     },
     inputTypesToExclude: {
-      create: ["jsonb", "none"],
-      edit: ["jsonb", "none"],
-      list: ["jsonb", "none"],
+      create: ['jsonb', 'none'],
+      edit: ['jsonb', 'none'],
+      list: ['jsonb', 'none'],
     },
   },
   resources: {
     profiles: {
-      recordRepresentationColumn: "username",
+      recordRepresentationColumn: 'username',
       create: null,
       edit: {
         isDeletable: false,
         columns: {
           roles: {
-            type: "select",
+            type: 'select',
             options: rolesOptions,
           },
         },
@@ -36,17 +36,17 @@ const overrideConfigs: AdminOverrides = {
         isDeletable: false,
         columns: {
           content: {
-            type: "rich_text",
+            type: 'rich_text',
           },
           slug: {
-            type: "none",
+            type: 'none',
           },
         },
       },
       create: {
         columns: {
           content: {
-            type: "rich_text",
+            type: 'rich_text',
           },
         },
       },
@@ -97,7 +97,7 @@ export function overridesForResource({
 
 export function recordRepresentationForResource({
   tableName,
-}: Pick<OverridesForResourceSearchType, "tableName">) {
+}: Pick<OverridesForResourceSearchType, 'tableName'>) {
   const tableOverrides =
     overrideConfigs.resources && overrideConfigs.resources[tableName];
 
@@ -105,7 +105,7 @@ export function recordRepresentationForResource({
 }
 
 export function isViewModeEnabledForResource(
-  filter: OverridesForResourceSearchType
+  filter: OverridesForResourceSearchType,
 ) {
   return overridesForResource(filter) !== null;
 }

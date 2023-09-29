@@ -1,16 +1,16 @@
-import { createContext, useContext } from "react";
+import {createContext, useContext} from 'react';
 import {
   InputType,
   ReferenceDataType,
   SearchConfigsFilterType,
   TableInfoType,
-} from "@types";
-import pluralize from "pluralize";
-import { recordRepresentationForResource } from "@configs";
+} from '@types';
+import pluralize from 'pluralize';
+import {recordRepresentationForResource} from '@configs';
 
 export const TablesContext = createContext<{
   tables: TableInfoType[];
-}>({ tables: [] });
+}>({tables: []});
 
 export const useTablesContext = () => {
   const tablesInfo = useContext(TablesContext);
@@ -21,15 +21,15 @@ export const useTablesContext = () => {
   }: {
     inputType: InputType;
     columnName: string;
-  }) => inputType === "uuid" && columnName.endsWith("_id");
+  }) => inputType === 'uuid' && columnName.endsWith('_id');
 
   const getReferenceDataFor = (
-    filter: Omit<SearchConfigsFilterType, "viewMode">
+    filter: Omit<SearchConfigsFilterType, 'viewMode'>,
   ): ReferenceDataType | null => {
     if (!isReference(filter)) return null;
 
-    const tableName = pluralize(filter.columnName.replace("_id", ""));
-    const tableInfo = tablesInfo.tables.find((t) => t.name === tableName);
+    const tableName = pluralize(filter.columnName.replace('_id', ''));
+    const tableInfo = tablesInfo.tables.find(t => t.name === tableName);
 
     return {
       sourceColumn: filter.columnName,
@@ -38,8 +38,8 @@ export const useTablesContext = () => {
         recordRepresentationForResource({
           tableName,
         }) ||
-        tableInfo?.schema.find((c) =>
-          ["text", "character varying"].includes(c.columnType)
+        tableInfo?.schema.find(c =>
+          ['text', 'character varying'].includes(c.columnType),
         )?.columnName,
     };
   };

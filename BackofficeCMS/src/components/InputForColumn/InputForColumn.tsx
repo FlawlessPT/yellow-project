@@ -8,12 +8,12 @@ import {
   InputProps,
   SelectArrayInput,
   ReferenceInput,
-} from "react-admin";
-import { RichTextInput } from "ra-input-rich-text";
-import { InputType, ReferenceDataType, ViewMode } from "@types";
-import { isFieldToRenderForGeneralOptions } from "@configs";
-import { JsonInput } from "react-admin-json-view";
-import { useTablesContext } from "@utils/contexts/tables";
+} from 'react-admin';
+import {RichTextInput} from 'ra-input-rich-text';
+import {InputType, ReferenceDataType, ViewMode} from '@types';
+import {isFieldToRenderForGeneralOptions} from '@configs';
+import {JsonInput} from 'react-admin-json-view';
+import {useTablesContext} from '@utils/contexts/tables';
 
 export function InputForColumn({
   columnName,
@@ -27,12 +27,12 @@ export function InputForColumn({
   columnName: string;
   isRequired: boolean;
   viewMode: ViewMode;
-  options?: { id: string; name: string }[];
-  referenceData?: Pick<ReferenceDataType, "tableName">;
+  options?: {id: string; name: string}[];
+  referenceData?: Pick<ReferenceDataType, 'tableName'>;
 }) {
-  const { isReference, getReferenceDataFor } = useTablesContext();
+  const {isReference, getReferenceDataFor} = useTablesContext();
 
-  if (!isFieldToRenderForGeneralOptions({ columnName, inputType, viewMode })) {
+  if (!isFieldToRenderForGeneralOptions({columnName, inputType, viewMode})) {
     return null;
   }
 
@@ -46,7 +46,7 @@ export function InputForColumn({
     fullWidth: true,
   };
 
-  if (inputType === "reference" && referenceData?.tableName) {
+  if (inputType === 'reference' && referenceData?.tableName) {
     return (
       <ReferenceInput
         key={inputProps.key}
@@ -57,7 +57,7 @@ export function InputForColumn({
     );
   } else {
     // trying to discover reference
-    const referenceSearchFilter = { inputType, columnName };
+    const referenceSearchFilter = {inputType, columnName};
     const discoveredReferenceData =
       isReference(referenceSearchFilter) &&
       getReferenceDataFor(referenceSearchFilter);
@@ -78,14 +78,14 @@ export function InputForColumn({
   }
 
   if (
-    ["timestamp with time zone", "timestamp without time zone"].includes(
-      inputType
+    ['timestamp with time zone', 'timestamp without time zone'].includes(
+      inputType,
     )
   ) {
     return <DateTimeInput {...inputProps} />;
   }
 
-  if (["date"].includes(inputType)) {
+  if (['date'].includes(inputType)) {
     return <DateInput {...inputProps} />;
   }
 
@@ -100,28 +100,28 @@ export function InputForColumn({
     }
     */
 
-  if ("boolean" === inputType) {
+  if ('boolean' === inputType) {
     return <BooleanInput {...inputProps} />;
   }
 
   if (
     [
-      "bigint",
-      "smallint",
-      "integer",
-      "real",
-      "double precision",
-      "numberic",
+      'bigint',
+      'smallint',
+      'integer',
+      'real',
+      'double precision',
+      'numberic',
     ].includes(inputType)
   ) {
     return <NumberInput {...inputProps} />;
   }
 
-  if (["character varying", "text", "uuid"].includes(inputType)) {
+  if (['character varying', 'text', 'uuid'].includes(inputType)) {
     return <TextInput {...inputProps} multiline />;
   }
 
-  if (["json"].includes(inputType)) {
+  if (['json'].includes(inputType)) {
     return (
       <JsonInput
         key={inputProps.key}
@@ -133,17 +133,17 @@ export function InputForColumn({
           enableClipboard: false,
           displayDataTypes: false,
           sortKeys: true,
-          defaultValue: "",
+          defaultValue: '',
         }}
       />
     );
   }
 
-  if (["rich_text"].includes(inputType)) {
+  if (['rich_text'].includes(inputType)) {
     return <RichTextInput {...inputProps} />;
   }
 
-  if (inputType === "select" && options) {
+  if (inputType === 'select' && options) {
     return <SelectArrayInput {...inputProps} choices={options} />;
   }
 

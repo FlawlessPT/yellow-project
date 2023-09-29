@@ -1,1 +1,1 @@
-export { CustomResourceListGuesser } from "./CustomResourceListGuesser";
+export {CustomResourceListGuesser} from './CustomResourceListGuesser';

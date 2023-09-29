@@ -1,1 +1,1 @@
-export { InputForColumn } from "./InputForColumn";
+export {InputForColumn} from './InputForColumn';

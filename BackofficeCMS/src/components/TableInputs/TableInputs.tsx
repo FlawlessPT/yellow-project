@@ -1,5 +1,5 @@
-import { ResourceOverrides, TableInfoType, ViewMode } from "@types";
-import { InputForColumn } from "../InputForColumn";
+import {ResourceOverrides, TableInfoType, ViewMode} from '@types';
+import {InputForColumn} from '../InputForColumn';
 
 export function TableInputs({
   tableInfo,
@@ -10,7 +10,7 @@ export function TableInputs({
   overrides?: ResourceOverrides;
   viewMode: ViewMode;
 }) {
-  return tableInfo.schema.map(({ columnName, columnType, isRequired }) => {
+  return tableInfo.schema.map(({columnName, columnType, isRequired}) => {
     const resourceInfo = overrides?.columns && overrides.columns[columnName];
     const resourceType = resourceInfo?.type || columnType;
 

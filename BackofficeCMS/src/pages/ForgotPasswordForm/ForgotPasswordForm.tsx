@@ -1,7 +1,7 @@
-import { Form, required, useTranslate } from "ra-core";
-import { CardActions, styled } from "@mui/material";
-import { TextInput, SaveButton } from "ra-ui-materialui";
-import { supabaseClient } from "@utils/supabase";
+import {Form, required, useTranslate} from 'ra-core';
+import {CardActions, styled} from '@mui/material';
+import {TextInput, SaveButton} from 'ra-ui-materialui';
+import {supabaseClient} from '@utils/supabase';
 
 /**
  * A component that renders a form for updating the user password.
@@ -22,8 +22,8 @@ export const ForgotPasswordForm = () => {
         <div className={SupabaseLoginFormClasses.input}>
           <TextInput
             source="email"
-            label={translate("ra.auth.email", {
-              _: "Email",
+            label={translate('ra.auth.email', {
+              _: 'Email',
             })}
             autoComplete="email"
             fullWidth
@@ -36,8 +36,8 @@ export const ForgotPasswordForm = () => {
           variant="contained"
           type="submit"
           className={SupabaseLoginFormClasses.button}
-          label={translate("ra.action.reset_password", {
-            _: "Reset password",
+          label={translate('ra.action.reset_password', {
+            _: 'Reset password',
           })}
         />
       </CardActions>
@@ -49,7 +49,7 @@ interface FormData {
   email?: string;
 }
 
-const PREFIX = "RaSupabaseForgotPasswordForm";
+const PREFIX = 'RaSupabaseForgotPasswordForm';
 
 const SupabaseLoginFormClasses = {
   container: `${PREFIX}-container`,
@@ -62,12 +62,12 @@ const Root = styled(Form, {
   overridesResolver: (_, styles) => styles.root,
 })(() => ({
   [`& .${SupabaseLoginFormClasses.container}`]: {
-    padding: "0 1em 1em 1em",
+    padding: '0 1em 1em 1em',
   },
   [`& .${SupabaseLoginFormClasses.input}`]: {
-    marginTop: "1em",
+    marginTop: '1em',
   },
   [`& .${SupabaseLoginFormClasses.button}`]: {
-    width: "100%",
+    width: '100%',
   },
 }));

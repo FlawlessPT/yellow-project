@@ -1,1 +1,1 @@
-export { CustomResourceFormGuesser } from "./CustomResourceFormGuesser";
+export {CustomResourceFormGuesser} from './CustomResourceFormGuesser';

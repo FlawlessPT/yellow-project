@@ -1,1 +1,1 @@
-export { ResourceFormWrapper } from "./ResourceFormWrapper";
+export {ResourceFormWrapper} from './ResourceFormWrapper';
