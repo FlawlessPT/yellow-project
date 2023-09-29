@@ -74,7 +74,7 @@ pipelines:
           script:
             - cd supabase
             - yarn install
-            - yarn supabase-configs-backoffice
+            - yarn supabase-configs-mobile
             - cd ../RNMobileApp
             - yarn install --production=true
             - cd android
