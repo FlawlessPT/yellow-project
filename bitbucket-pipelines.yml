@@ -2,15 +2,14 @@ image: node:18
 
 definitions:
   caches:
-    nodecustom: ./node_modules
     yarn: /usr/local/share/.cache/yarn
+    gradle: ~/.gradle/caches
 
 pipelines:
   default:
     - step:
         name: Backoffice lint and type checks
         caches:
-          - nodecustom
           - yarn
           - gradle
         script:
@@ -25,7 +24,6 @@ pipelines:
     - step:
         name: 'Deployment of Backoffice web app to preview'
         caches:
-          - nodecustom
           - yarn
           - gradle
         deployment: Staging
@@ -45,7 +43,6 @@ pipelines:
       - step:
           name: 'Deployment of Backoffice web app to staging'
           caches:
-            - nodecustom
             - yarn
             - gradle
           deployment: Staging
@@ -66,7 +63,6 @@ pipelines:
           name: 'Deployment of Android App to staging'
           max-time: 30
           caches:
-            - nodecustom
             - yarn
             - gradle
           deployment: android-staging
@@ -87,7 +83,6 @@ pipelines:
       - step:
           name: 'Deployment of Backoffice web app to production'
           caches:
-            - nodecustom
             - yarn
             - gradle
           deployment: Production
