@@ -6,7 +6,7 @@ import {supabase} from '@utils/supabase';
 import {
   CustomPageSlugEnum,
   NoneAuthenticatedStackScreenPropsGeneric,
-} from '@types';
+} from '../../types';
 
 /* Idea got here to adjust list items: https://github.com/meliorence/react-native-render-html/issues/592 */
 const tagsStyles: any = {
