@@ -31,7 +31,7 @@ pipelines:
         condition:
           changesets:
             includePaths:
-              - "RNMobileApp/*"
+              - "RNMobileApp/**"
         caches:
           - yarn
         script:
@@ -48,7 +48,7 @@ pipelines:
         condition:
           changesets:
             includePaths:
-              - "BackofficeCMS/*"
+              - "BackofficeCMS/**"
         caches:
           - yarn
           - node
@@ -88,7 +88,7 @@ pipelines:
           condition:
             changesets:
               includePaths:
-                - "RNMobileApp/*"
+                - "RNMobileApp/**"
           caches:
             - yarn
           script:
@@ -105,7 +105,7 @@ pipelines:
           condition:
             changesets:
               includePaths:
-                - "BackofficeCMS/*"
+                - "BackofficeCMS/**"
           caches:
             - yarn
             - node
@@ -131,7 +131,7 @@ pipelines:
           condition:
             changesets:
               includePaths:
-                - "RNMobileApp/*"
+                - "RNMobileApp/**"
           max-time: 30
           caches:
             - yarn
