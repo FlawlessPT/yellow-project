@@ -15,8 +15,8 @@ import {
   isViewModeEnabledForResource,
   recordRepresentationForResource,
 } from '@configs';
-import {CustomResourceListGuesser} from '@components/CustomResourceListGuesser';
 import {TablesContext} from '@utils/contexts/tables';
+import {CustomResourceListGuesser} from '@components/CustomResourceListGuesser';
 
 function BackOfficeAdmin() {
   const [isLoading, setLoading] = useState(false);
