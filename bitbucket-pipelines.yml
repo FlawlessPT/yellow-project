@@ -14,7 +14,7 @@ pipelines:
         condition:
           changesets:
             includePaths:
-              - "BackofficeCMS/*"
+              - "BackofficeCMS/**"
         caches:
           - yarn
         script:
