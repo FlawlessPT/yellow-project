@@ -52,7 +52,7 @@ pipelines:
         caches:
           - yarn
           - node
-        deployment: Staging
+        deployment: backoffice-staging
         script:
           - cd supabase
           - yarn install --frozen-lockfile
@@ -109,12 +109,15 @@ pipelines:
           caches:
             - yarn
             - node
-          deployment: Staging
+          deployment: backoffice-staging
           script:
+            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
+            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
+            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs-backoffice
-            - npx supabase link --project-ref $SUPABASE_PROJECT_ID
+            - npx supabase link --project-ref $SUPABASE_PROJECT_ID_STAGING
             - npx supabase db push
             - cd ../BackofficeCMS
             - yarn install --frozen-lockfile
@@ -141,33 +144,39 @@ pipelines:
           artifacts:
             - RNMobileApp/android/app/build/outputs/**
           script:
+            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
+            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
+            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs-mobile
-            - npx supabase link --project-ref $SUPABASE_PROJECT_ID
+            - npx supabase link --project-ref $SUPABASE_PROJECT_ID_STAGING
             - npx supabase db push
             - cd ../RNMobileApp
             - yarn install --frozen-lockfile
             - cd android && chmod +x gradlew
             - ./gradlew assembleRelease
             - npm install -g appcenter-cli
-            - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
+            - appcenter distribute release --app $APP_CENTER_PROJECT --version $BITBUCKET_COMMIT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
 
       - step:
           name: 'Deployment of Backoffice web app to production'
           caches:
             - yarn
             - node
-          deployment: Production
+          deployment: backoffice-production
           trigger: 'manual'
           script:
+            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_PRODUCTION
+            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_PRODUCTION
+            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_PRODUCTION
             - cd supabase
-            - yarn install --production=true
+            - yarn install --frozen-lockfile
             - yarn supabase-configs-backoffice
-            - npx supabase link --project-ref $SUPABASE_PROJECT_ID
+            - npx supabase link --project-ref $SUPABASE_PROJECT_ID_PRODUCTION
             - npx supabase db push
             - cd ../BackofficeCMS
-            - yarn install --production=true
+            - yarn install --frozen-lockfile
             - npm install --global vercel
             - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
             - vercel build --prod --token=$VERCEL_TOKEN

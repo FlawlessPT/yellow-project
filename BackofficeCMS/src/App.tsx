@@ -26,8 +26,9 @@ function BackOfficeAdmin() {
     async function fetchTableNames() {
       setLoading(true);
 
-      const {data: tablesInfo = []} =
-        await supabaseClient.rpc('get_all_table_name');
+      const {data: tablesInfo = []} = await supabaseClient.rpc(
+        'get_all_table_name',
+      );
       const backOfficeTablesScheme: typeof tables = (
         tablesInfo as Array<{table_name: string}>
       ).map((t: {table_name: string}) => ({
