@@ -58,7 +58,7 @@ export default function App() {
 
   useEffect(() => {
     Linking.addEventListener('url', event => {
-      let urlString = event.url.replace('#', '?');
+      const urlString = event.url.replace('#', '?');
       const url = new URL(urlString);
 
       const refreshToken = url.searchParams.get('refresh_token');
@@ -96,9 +96,9 @@ export default function App() {
       }>
       <NavigationContainer>
         <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Auth'}>
-          {isLoggedIn ? (
+          {isLoggedIn && session ? (
             <Stack.Screen name="Home" options={{headerShown: false}}>
-              {props => <Account {...props} session={session!} />}
+              {props => <Account {...props} session={session} />}
             </Stack.Screen>
           ) : (
             <>

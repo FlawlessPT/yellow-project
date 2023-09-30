@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, useWindowDimensions} from 'react-native';
-import RenderHtml from 'react-native-render-html';
+import RenderHtml, {MixedStyleRecord} from 'react-native-render-html';
 import {useNavigation} from '@react-navigation/native';
 import {supabase} from '@utils/supabase';
 import {
@@ -9,14 +9,14 @@ import {
 } from '../../types';
 
 /* Idea got here to adjust list items: https://github.com/meliorence/react-native-render-html/issues/592 */
-const tagsStyles: any = {
+const tagsStyles: MixedStyleRecord = {
   body: {
-    padding: '8px',
+    padding: 8,
   },
   p: {
-    margin: '0px',
-    padding: '0px',
-    lineHeight: '20px',
+    margin: 0,
+    padding: 0,
+    lineHeight: 20,
     fontSize: '14px',
     fontWeight: '400',
   },
@@ -30,11 +30,12 @@ const tagsStyles: any = {
     alignItems: 'baseline',
   },
   li: {
-    display: 'inline-block',
-    lineHeight: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    lineHeight: 20,
     fontWeight: '400',
     paddingBottom: '0px',
-    margin: '0px',
+    margin: 0,
   },
 };
 
@@ -52,7 +53,7 @@ export const CustomPage = function CustomPage({
 
   useEffect(() => {
     async function fetchTermsAndConditionsInfo() {
-      let {data} = await supabase
+      const {data} = await supabase
         .from('custom_pages')
         .select('title, content')
         .eq('slug', slug)

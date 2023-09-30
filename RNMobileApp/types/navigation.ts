@@ -13,21 +13,18 @@ export type NoneAuthenticatedRoutesKeys = keyof NoneAuthenticatedRoutesParams;
 
 export type NoneAuthenticatedStackScreenPropsGeneric<
   R extends NoneAuthenticatedRoutesKeys = NoneAuthenticatedRoutesKeys,
-  S extends string = any,
 > = NativeStackScreenProps<
   {
     Auth: undefined;
     TermsAndConditions: undefined;
     PrivacyPolicy: undefined;
   },
-  R,
-  S
+  R
 >;
 
 /* Usage Examples
 type AuthScreenProps = NoneAuthenticatedStackScreenPropsGeneric<
   'Auth',
-  'MyStack'
 >;
 type AuthScreenNavigationProps = AuthScreenProps['navigation'];
 const navigation = useNavigation<AuthScreenNavigationProps>();

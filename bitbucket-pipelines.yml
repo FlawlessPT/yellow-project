@@ -144,6 +144,8 @@ pipelines:
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs-mobile
+            - npx supabase link --project-ref $SUPABASE_PROJECT_ID
+            - npx supabase db push
             - cd ../RNMobileApp
             - yarn install --frozen-lockfile
             - cd android && chmod +x gradlew
