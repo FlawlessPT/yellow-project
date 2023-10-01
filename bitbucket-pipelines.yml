@@ -157,7 +157,7 @@ pipelines:
             - cd android && chmod +x gradlew
             - ./gradlew assembleRelease
             - npm install -g appcenter-cli
-            - appcenter distribute release --app $APP_CENTER_PROJECT --build-version $BITBUCKET_COMMIT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
+            - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
 
       - step:
           name: 'Deployment of Backoffice web app to production'
