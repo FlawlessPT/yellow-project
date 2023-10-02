@@ -61,6 +61,7 @@ pipelines:
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
             - export VITE_SENTRY_DNS=$SENTRY_DNS
+            - export VITE_SUPABASE_PROJECT_URL=$SUPABASE_PROJECT_URL_STAGING
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs
@@ -124,6 +125,7 @@ pipelines:
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
             - export VITE_SENTRY_DNS=$SENTRY_DNS
+            - export VITE_SUPABASE_PROJECT_URL=$SUPABASE_PROJECT_URL_STAGING
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs-backoffice

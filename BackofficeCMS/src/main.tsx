@@ -9,7 +9,10 @@ if (process.env.NODE_ENV === 'production') {
     integrations: [
       new Sentry.BrowserTracing({
         // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
-        tracePropagationTargets: ['localhost'],
+        tracePropagationTargets: [
+          'localhost',
+          import.meta.env.VITE_SUPABASE_PROJECT_URL,
+        ],
       }),
       new Sentry.Replay(),
     ],
