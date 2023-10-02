@@ -46,7 +46,7 @@ export const ForgotPasswordForm = () => {
             console.log('Probability of error: ', p);
             if (p > 30) {
               console.log('Error');
-              throw new Error('Error');
+              throw new Error('NEW Error');
             }
           }}
           type="button">
