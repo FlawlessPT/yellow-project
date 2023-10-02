@@ -59,7 +59,6 @@ export default function App() {
 
   useEffect(() => {
     Linking.addEventListener('url', event => {
-      console.log('LINK event: ', event);
       const urlString = event.url.replace('#', '?');
       const url = new URL(urlString);
 

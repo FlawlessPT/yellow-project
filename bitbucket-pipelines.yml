@@ -158,7 +158,7 @@ pipelines:
             - yarn install --frozen-lockfile
             - cd android && chmod +x gradlew
             # following suggestion here to pass version code and name: https://stackoverflow.com/a/36221899
-            - ./gradlew assembleRelease -PversionCode==$BITBUCKET_BUILD_NUMBER -PversionName=$BITBUCKET_COMMIT
+            - ./gradlew assembleRelease -PversionCode=$BITBUCKET_BUILD_NUMBER -PversionName=$BITBUCKET_COMMIT
             - npm install -g appcenter-cli
             - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
 
