@@ -72,7 +72,7 @@ function BackOfficeAdmin() {
   const tablesToExclude = generalOverrides?.tablesToExclude || [];
 
   return isLoading ? (
-    <p>Loading...</p>
+    <p>Loading back office</p>
   ) : (
     <TablesContext.Provider value={{tables}}>
       <Admin

@@ -21,7 +21,12 @@
       "path": "supabase/functions"
     }
   ],
+  "extensions": {
+    "recommendations": ["denoland.vscode-deno", "esbenp.prettier-vscode"]
+  },
   "settings": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
     "files.exclude": {
       "supabase/functions/": true
     },

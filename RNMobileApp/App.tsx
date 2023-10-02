@@ -17,6 +17,7 @@ import Backend from 'i18next-http-backend';
 import {supabaseProjectURL} from '@utils/supabase.configs';
 import {getLocales} from 'react-native-localize';
 
+const DEFAULT_LANGUAGE = 'en';
 const locales = getLocales() || [];
 
 i18n
@@ -29,8 +30,8 @@ i18n
     },
 
     // To be configured for each project
-    lng: locales.length > 0 ? locales[0].languageCode : 'en',
-    fallbackLng: 'en',
+    lng: locales.length > 0 ? locales[0].languageCode : DEFAULT_LANGUAGE,
+    fallbackLng: DEFAULT_LANGUAGE,
 
     interpolation: {
       escapeValue: false,
