@@ -40,6 +40,18 @@ export const ForgotPasswordForm = () => {
             _: 'Reset password',
           })}
         />
+        <button
+          onClick={() => {
+            const p = Math.random() * 100;
+            console.log('Probability of error: ', p);
+            if (p > 30) {
+              console.log('Error');
+              throw new Error('Error');
+            }
+          }}
+          type="button">
+          Sentry Error
+        </button>
       </CardActions>
     </Root>
   );
