@@ -68,6 +68,18 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
+def getMyVersionCode = { ->
+    def code = project.hasProperty('versionCode') ? versionCode.toInteger() : 1
+    println "VersionCode is set to $code"
+    return code
+}
+
+def getMyVersionName = { ->
+    def name = project.hasProperty('versionName') ? versionName : "1.0"
+    println "VersionName is set to $name"
+    return name
+}
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -78,8 +90,8 @@ android {
         applicationId "com.rnmobileapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode getMyVersionCode()
+        versionName getMyVersionName()
     }
     signingConfigs {
         debug {

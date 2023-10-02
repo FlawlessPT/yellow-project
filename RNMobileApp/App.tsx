@@ -14,7 +14,7 @@ import {PrivacyPolicy} from '@screens/PrivacyPolicy';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import Backend from 'i18next-http-backend';
-import {supabaseProjectURL} from '@utils/supabase.configs';
+import {supabaseAnonKey, supabaseProjectURL} from '@utils/supabase.configs';
 import {getLocales} from 'react-native-localize';
 
 const DEFAULT_LANGUAGE = 'en';
@@ -26,7 +26,7 @@ i18n
   .init({
     debug: __DEV__,
     backend: {
-      loadPath: `${supabaseProjectURL}/rest/v1/rpc/json_mobile_international_messages_for?language={{lng}}&namespace={{ns}}`,
+      loadPath: `${supabaseProjectURL}/rest/v1/rpc/json_mobile_international_messages_for?language={{lng}}&namespace={{ns}}&apikey=${supabaseAnonKey}`,
     },
 
     // To be configured for each project
@@ -59,6 +59,7 @@ export default function App() {
 
   useEffect(() => {
     Linking.addEventListener('url', event => {
+      console.log('LINK event: ', event);
       const urlString = event.url.replace('#', '?');
       const url = new URL(urlString);
 
