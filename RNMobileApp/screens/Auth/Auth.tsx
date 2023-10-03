@@ -126,7 +126,7 @@ export const Auth = function Auth() {
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title="Sentry error"
+          title="Sentry"
           disabled={loading}
           onPress={() => {
             Sentry.captureException(new Error('First error'));
