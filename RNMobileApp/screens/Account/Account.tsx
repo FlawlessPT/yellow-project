@@ -145,6 +145,16 @@ export const Account = function Account({session}: {session: Session}) {
           }}
           disabled={loading}
         />
+        {/*  TODO: to remove -- testing sentry */}
+        <View style={styles.verticallySpaced}>
+          <Button
+            title="Sentry"
+            disabled={loading}
+            onPress={() => {
+              throw new Error('Account Error');
+            }}
+          />
+        </View>
       </View>
 
       <View style={styles.verticallySpaced}>

@@ -63,6 +63,13 @@ function App() {
     });
 
     supabase.auth.onAuthStateChange((_event, s) => {
+      if (s?.user) {
+        Sentry.setUser({
+          id: s?.user.id,
+          email: s?.user.email,
+        });
+      }
+
       setSession(s);
     });
   }, []);
