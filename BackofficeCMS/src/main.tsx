@@ -5,7 +5,8 @@ import App from './App.tsx';
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
-    dsn: import.meta.env.VITE_SENTRY_DNS,
+    dsn: import.meta.env.VITE_SENTRY_DSN,
+    environment: import.meta.env.VITE_SENTRY_ENVIRONMENT,
     integrations: [
       new Sentry.BrowserTracing({
         // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
