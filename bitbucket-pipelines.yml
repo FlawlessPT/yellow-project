@@ -102,8 +102,9 @@ pipelines:
             - cd ../RNMobileApp
             - yarn install --frozen-lockfile
             - cd android && chmod +x gradlew
-            # following suggestion here to pass version code and name: https://stackoverflow.com/a/36221899
-            - ./gradlew assembleRelease -PversionCode=$BITBUCKET_BUILD_NUMBER -PversionName=preview-$BITBUCKET_COMMIT
+            - echo "VERSION_CODE=$BITBUCKET_BUILD_NUMBER" >> .env
+            - echo "VERSION_NAME=preview-$BITBUCKET_COMMIT" >> .env
+            - ./gradlew assembleRelease
             - npm install -g appcenter-cli
             - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
 
@@ -204,8 +205,9 @@ pipelines:
             - cd ../RNMobileApp
             - yarn install --frozen-lockfile
             - cd android && chmod +x gradlew
-            # following suggestion here to pass version code and name: https://stackoverflow.com/a/36221899
-            - ./gradlew assembleRelease -PversionCode=$BITBUCKET_BUILD_NUMBER -PversionName=$BITBUCKET_COMMIT
+            - echo "VERSION_CODE=$BITBUCKET_BUILD_NUMBER" >> .env
+            - echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
+            - ./gradlew assembleRelease
             - npm install -g appcenter-cli
             - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
 

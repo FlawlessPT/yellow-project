@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -68,18 +69,6 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
-def getMyVersionCode = { ->
-    def code = project.hasProperty('versionCode') ? versionCode.toInteger() : 1
-    println "VersionCode is set to $code"
-    return code
-}
-
-def getMyVersionName = { ->
-    def name = project.hasProperty('versionName') ? versionName : "1.0"
-    println "VersionName is set to $name"
-    return name
-}
-
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -90,8 +79,8 @@ android {
         applicationId "com.rnmobileapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode getMyVersionCode()
-        versionName getMyVersionName()
+        versionCode project.env.get("VERSION_CODE") != null ? project.env.get("VERSION_CODE").toInteger() : 1
+        versionName project.env.get("VERSION_NAME") != null ? project.env.get("VERSION_NAME") : "1.0"
     }
     signingConfigs {
         debug {
