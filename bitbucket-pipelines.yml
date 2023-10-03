@@ -72,6 +72,41 @@ pipelines:
             - vercel build --token=$VERCEL_TOKEN
             - vercel deploy --prebuilt  --token=$VERCEL_TOKEN
 
+      - step:
+          name: 'Deployment of Android App to preview'
+          condition:
+            changesets:
+              includePaths:
+                - "RNMobileApp/**"
+          max-time: 30
+          caches:
+            - yarn
+            - gradle
+            - gradle-wrapper
+            - node
+          deployment: android-preview
+          trigger: 'manual'
+          image: reactnativecommunity/react-native-android:latest
+          size: 2x
+          artifacts:
+            - RNMobileApp/android/app/build/outputs/**
+          script:
+            - echo Version code - $BITBUCKET_BUILD_NUMBER
+            - echo Version name - preview-$BITBUCKET_COMMIT
+            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
+            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
+            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
+            - cd supabase
+            - yarn install --frozen-lockfile
+            - yarn supabase-configs-mobile
+            - cd ../RNMobileApp
+            - yarn install --frozen-lockfile
+            - cd android && chmod +x gradlew
+            # following suggestion here to pass version code and name: https://stackoverflow.com/a/36221899
+            - ./gradlew assembleRelease -PversionCode=$BITBUCKET_BUILD_NUMBER -PversionName=preview-$BITBUCKET_COMMIT
+            - npm install -g appcenter-cli
+            - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
+
   branches:
     main:
       - parallel:
@@ -156,6 +191,8 @@ pipelines:
           artifacts:
             - RNMobileApp/android/app/build/outputs/**
           script:
+            - echo Version code - $BITBUCKET_BUILD_NUMBER
+            - echo Version name - $BITBUCKET_COMMIT
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
