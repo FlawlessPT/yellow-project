@@ -6,7 +6,7 @@ const baseAuthProvider = supabaseAuthProvider(supabaseClient, {
   getIdentity: async user => {
     const {data, error} = await supabaseClient
       .from('profiles')
-      .select('id, full_name, roles')
+      .select('id, full_name, roles, email')
       .match({id: user.id})
       .single();
 
@@ -15,8 +15,8 @@ const baseAuthProvider = supabaseAuthProvider(supabaseClient, {
     }
 
     Sentry.setUser({
-      id: user.id,
-      email: user.email,
+      id: data.id,
+      email: data.email,
     });
 
     return {
