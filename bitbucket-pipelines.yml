@@ -60,8 +60,10 @@ pipelines:
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
-            - export VITE_SENTRY_DNS=$SENTRY_DNS
+            - export VITE_SENTRY_DSN=$SENTRY_DSN_BACKOFFICE
             - export VITE_SUPABASE_PROJECT_URL=$SUPABASE_PROJECT_URL_STAGING
+            - export VITE_SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH
+            - export SENTRY_PROJECT=$SENTRY_PROJECT_BACKOFFICE
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs
@@ -91,8 +93,6 @@ pipelines:
           artifacts:
             - RNMobileApp/android/app/build/outputs/**
           script:
-            - echo Version code - $BITBUCKET_BUILD_NUMBER
-            - echo Version name - preview-$BITBUCKET_COMMIT
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
@@ -103,7 +103,9 @@ pipelines:
             - yarn install --frozen-lockfile
             - cd android && chmod +x gradlew
             - echo "VERSION_CODE=$BITBUCKET_BUILD_NUMBER" >> .env
-            - echo "VERSION_NAME=preview-$BITBUCKET_COMMIT" >> .env
+            - echo "VERSION_NAME=preview-$BITBUCKET_BRANCH-$BITBUCKET_COMMIT" >> .env
+            - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
+            - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
             - ./gradlew assembleRelease
             - npm install -g appcenter-cli
             - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
@@ -160,8 +162,10 @@ pipelines:
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
-            - export VITE_SENTRY_DNS=$SENTRY_DNS
+            - export VITE_SENTRY_DSN=$SENTRY_DSN_BACKOFFICE
             - export VITE_SUPABASE_PROJECT_URL=$SUPABASE_PROJECT_URL_STAGING
+            - export VITE_SENTRY_ENVIRONMENT=staging
+            - export SENTRY_PROJECT=$SENTRY_PROJECT_BACKOFFICE
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs-backoffice
@@ -207,6 +211,8 @@ pipelines:
             - cd android && chmod +x gradlew
             - echo "VERSION_CODE=$BITBUCKET_BUILD_NUMBER" >> .env
             - echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
+            - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
+            - echo "SENTRY_ENVIRONMENT=staging" >> .env
             - ./gradlew assembleRelease
             - npm install -g appcenter-cli
             - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
@@ -222,6 +228,10 @@ pipelines:
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_PRODUCTION
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_PRODUCTION
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_PRODUCTION
+            - export VITE_SENTRY_DSN=$SENTRY_DSN_BACKOFFICE
+            - export VITE_SUPABASE_PROJECT_URL=$SUPABASE_PROJECT_URL_PRODUCTION
+            - export VITE_SENTRY_ENVIRONMENT=production
+            - export SENTRY_PROJECT=$SENTRY_PROJECT_BACKOFFICE
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs-backoffice

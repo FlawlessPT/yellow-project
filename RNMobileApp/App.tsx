@@ -16,6 +16,13 @@ import {initReactI18next} from 'react-i18next';
 import Backend from 'i18next-http-backend';
 import {supabaseAnonKey, supabaseProjectURL} from '@utils/supabase.configs';
 import {getLocales} from 'react-native-localize';
+import * as Sentry from '@sentry/react-native';
+import Config from 'react-native-config';
+
+Sentry.init({
+  dsn: Config.SENTRY_DSN,
+  environment: Config.SENTRY_ENVIRONMENT,
+});
 
 const DEFAULT_LANGUAGE = 'en';
 const locales = getLocales() || [];
@@ -44,7 +51,7 @@ i18n
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+function App() {
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
@@ -126,3 +133,5 @@ export default function App() {
     </Suspense>
   );
 }
+
+export default Sentry.wrap(App);
