@@ -19,10 +19,13 @@ import {getLocales} from 'react-native-localize';
 import * as Sentry from '@sentry/react-native';
 import Config from 'react-native-config';
 
-Sentry.init({
-  dsn: Config.SENTRY_DSN,
-  environment: Config.SENTRY_ENVIRONMENT,
-});
+// Init Sentry only in production
+if (!__DEV__) {
+  Sentry.init({
+    dsn: Config.SENTRY_DSN,
+    environment: Config.SENTRY_ENVIRONMENT,
+  });
+}
 
 const DEFAULT_LANGUAGE = 'en';
 const locales = getLocales() || [];

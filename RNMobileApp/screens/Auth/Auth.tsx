@@ -6,7 +6,6 @@ import {Button, Input} from 'react-native-elements';
 import * as WebBrowser from 'expo-web-browser';
 import {useNavigation} from '@react-navigation/native';
 import {NoneAuthenticatedStackScreenPropsGeneric} from '../../types';
-import * as Sentry from '@sentry/react-native';
 
 export const Auth = function Auth() {
   const [email, setEmail] = useState('');
@@ -122,15 +121,6 @@ export const Auth = function Auth() {
           secureTextEntry={true}
           placeholder={t('common.password_label')}
           autoCapitalize={'none'}
-        />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          title="Sentry"
-          disabled={loading}
-          onPress={() => {
-            Sentry.captureException(new Error('First error'));
-          }}
         />
       </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
