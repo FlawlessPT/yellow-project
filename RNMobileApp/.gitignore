@@ -71,3 +71,6 @@ yarn-error.log
 
 # environment files
 .env
+
+# sentry
+sentry.properties
