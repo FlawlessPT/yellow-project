@@ -66,16 +66,6 @@ function BackOfficeAdmin() {
     }
 
     fetchTableNames();
-
-    // TODO: to remove -- testing sentry
-    setInterval(() => {
-      const p = Math.random() * 100;
-      console.log('Probability of error: ', p);
-      if (p > 30) {
-        console.log('Error');
-        throw new Error('Another Error');
-      }
-    }, 30000);
   }, []);
 
   const generalOverrides = getGeneralOverrides();
