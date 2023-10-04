@@ -21,5 +21,6 @@ export const supabase = createClient(supabaseProjectURL, supabaseAnonKey, {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true,
+    debug: __DEV__,
   },
 });

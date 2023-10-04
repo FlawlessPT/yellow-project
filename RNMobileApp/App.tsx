@@ -144,4 +144,6 @@ function App() {
   );
 }
 
-export default Sentry.wrap(App);
+const HOCApp = __DEV__ ? App : Sentry.wrap(App);
+
+export default HOCApp;

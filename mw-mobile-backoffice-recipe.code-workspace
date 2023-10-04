@@ -15,10 +15,6 @@
     {
       "name": "RNMobileApp",
       "path": "RNMobileApp"
-    },
-    {
-      "name": "supabase-functions",
-      "path": "supabase/functions"
     }
   ],
   "extensions": {
