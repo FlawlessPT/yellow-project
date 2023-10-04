@@ -146,7 +146,6 @@ export const Account = function Account({session}: {session: Session}) {
           disabled={loading}
         />
       </View>
-
       <View style={styles.verticallySpaced}>
         <Button
           title={t('auth.sign_out')}

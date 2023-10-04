@@ -1,5 +1,6 @@
 import {supabaseAuthProvider} from 'ra-supabase';
 import {supabaseClient} from './supabase';
+import * as Sentry from '@sentry/react';
 
 const baseAuthProvider = supabaseAuthProvider(supabaseClient, {
   getIdentity: async user => {
@@ -12,6 +13,11 @@ const baseAuthProvider = supabaseAuthProvider(supabaseClient, {
     if (!data || error) {
       throw new Error();
     }
+
+    Sentry.setUser({
+      id: user.id,
+      email: user.email,
+    });
 
     return {
       id: data.id,
