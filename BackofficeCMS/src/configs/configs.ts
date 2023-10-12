@@ -51,6 +51,28 @@ const overrideConfigs: AdminOverrides = {
         },
       },
     },
+    feature_flags: {
+      edit: {
+        columns: {
+          users_ids: {
+            type: 'reference_array',
+            referenceData: {
+              tableName: 'profiles',
+            },
+          },
+        },
+      },
+      create: {
+        columns: {
+          users_ids: {
+            type: 'reference_array',
+            referenceData: {
+              tableName: 'profiles',
+            },
+          },
+        },
+      },
+    },
     /* TODO: remove -- reference example configuration todos table connected to profiles through profile_id column
         When not configured the system tries to discover it when *_id column is found
     todos: {

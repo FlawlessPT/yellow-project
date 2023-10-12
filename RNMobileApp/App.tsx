@@ -18,6 +18,7 @@ import {supabaseAnonKey, supabaseProjectURL} from '@utils/supabase.configs';
 import {getLocales} from 'react-native-localize';
 import * as Sentry from '@sentry/react-native';
 import Config from 'react-native-config';
+import {FeatureFlagsContextProvider} from '@utils/contexts';
 
 // Init Sentry only in production
 if (!__DEV__) {
@@ -113,33 +114,35 @@ function App() {
           <Text>Loading...</Text>
         </View>
       }>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Auth'}>
-          {isLoggedIn && session ? (
-            <Stack.Screen name="Home" options={{headerShown: false}}>
-              {props => <Account {...props} session={session} />}
-            </Stack.Screen>
-          ) : (
-            <>
-              <Stack.Screen
-                name="TermsAndConditions"
-                component={TermsAndConditions}
-                options={{title: ''}}
-              />
-              <Stack.Screen
-                name="PrivacyPolicy"
-                component={PrivacyPolicy}
-                options={{title: ''}}
-              />
-              <Stack.Screen
-                name="Auth"
-                component={Auth}
-                options={{headerShown: false}}
-              />
-            </>
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
+      <FeatureFlagsContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Auth'}>
+            {isLoggedIn && session ? (
+              <Stack.Screen name="Home" options={{headerShown: false}}>
+                {props => <Account {...props} session={session} />}
+              </Stack.Screen>
+            ) : (
+              <>
+                <Stack.Screen
+                  name="TermsAndConditions"
+                  component={TermsAndConditions}
+                  options={{title: ''}}
+                />
+                <Stack.Screen
+                  name="PrivacyPolicy"
+                  component={PrivacyPolicy}
+                  options={{title: ''}}
+                />
+                <Stack.Screen
+                  name="Auth"
+                  component={Auth}
+                  options={{headerShown: false}}
+                />
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FeatureFlagsContextProvider>
     </Suspense>
   );
 }

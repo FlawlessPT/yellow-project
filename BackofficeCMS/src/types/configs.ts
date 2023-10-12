@@ -5,6 +5,7 @@ export type InputType =
   | 'rich_text'
   | 'select'
   | 'reference'
+  | 'reference_array'
   | 'none';
 export type ResourceOverrides = {
   isDeletable?: boolean;

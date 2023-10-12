@@ -6,6 +6,7 @@ import {Button, Input} from 'react-native-elements';
 import * as WebBrowser from 'expo-web-browser';
 import {useNavigation} from '@react-navigation/native';
 import {NoneAuthenticatedStackScreenPropsGeneric} from '../../types';
+import {useFeatureFlag} from '@utils/contexts';
 
 export const Auth = function Auth() {
   const [email, setEmail] = useState('');
@@ -13,6 +14,9 @@ export const Auth = function Auth() {
   const [loading, setLoading] = useState(false);
 
   const {t} = useTranslation();
+  const gitHubSignInFeatureFlag = useFeatureFlag({
+    featureFlagKey: 'GITHUB_SIGN_IN',
+  });
 
   const navigation =
     useNavigation<
@@ -137,13 +141,15 @@ export const Auth = function Auth() {
           onPress={() => signUpWithEmail()}
         />
       </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          title={t('auth.sign_in_github')}
-          disabled={loading}
-          onPress={() => gitHubSignIn()}
-        />
-      </View>
+      {gitHubSignInFeatureFlag.isActive && (
+        <View style={styles.verticallySpaced}>
+          <Button
+            title={t('auth.sign_in_github')}
+            disabled={loading}
+            onPress={() => gitHubSignIn()}
+          />
+        </View>
+      )}
       <View style={styles.verticallySpaced}>
         <Button
           title={t('auth.sign_in_google')}

@@ -8,6 +8,7 @@ import {
   InputProps,
   SelectArrayInput,
   ReferenceInput,
+  ReferenceArrayInput,
 } from 'react-admin';
 import {RichTextInput} from 'ra-input-rich-text';
 import {InputType, ReferenceDataType, ViewMode} from '@types';
@@ -75,6 +76,15 @@ export function InputForColumn({
         />
       );
     }
+  }
+
+  if (inputType === 'reference_array' && referenceData?.tableName) {
+    return (
+      <ReferenceArrayInput
+        source={columnName}
+        reference={referenceData.tableName}
+      />
+    );
   }
 
   if (

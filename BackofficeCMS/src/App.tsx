@@ -104,9 +104,17 @@ function BackOfficeAdmin() {
             <Resource
               key={t.name}
               name={t.name}
-              recordRepresentation={recordRepresentationForResource({
-                tableName: t.name,
-              })}
+              recordRepresentation={record => {
+                const recordRepresentationColumn =
+                  recordRepresentationForResource({
+                    tableName: t.name,
+                  });
+
+                return (
+                  recordRepresentationColumn &&
+                  (record[recordRepresentationColumn] || record['id'])
+                );
+              }}
               list={() => <CustomResourceListGuesser tableInfo={t} />}
               edit={
                 isEditable
