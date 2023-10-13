@@ -124,6 +124,11 @@ function App() {
             ) : (
               <>
                 <Stack.Screen
+                  name="Auth"
+                  component={Auth}
+                  options={{headerShown: false}}
+                />
+                <Stack.Screen
                   name="TermsAndConditions"
                   component={TermsAndConditions}
                   options={{title: ''}}
@@ -132,11 +137,6 @@ function App() {
                   name="PrivacyPolicy"
                   component={PrivacyPolicy}
                   options={{title: ''}}
-                />
-                <Stack.Screen
-                  name="Auth"
-                  component={Auth}
-                  options={{headerShown: false}}
                 />
               </>
             )}

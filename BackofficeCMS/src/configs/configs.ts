@@ -60,6 +60,10 @@ const overrideConfigs: AdminOverrides = {
               tableName: 'profiles',
             },
           },
+          roles: {
+            type: 'select',
+            options: rolesOptions,
+          },
         },
       },
       create: {
@@ -69,6 +73,10 @@ const overrideConfigs: AdminOverrides = {
             referenceData: {
               tableName: 'profiles',
             },
+          },
+          roles: {
+            type: 'select',
+            options: rolesOptions,
           },
         },
       },
