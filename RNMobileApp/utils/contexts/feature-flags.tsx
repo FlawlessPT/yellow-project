@@ -25,7 +25,7 @@ export const FeatureFlagsContextProvider = ({
     const fetchFeatureFlags = async () => {
       const {data} = await supabase
         .from('feature_flags')
-        .select('key, users_ids, environments, active');
+        .select('key, users_ids, active');
 
       if (data) {
         setFeatureFlags(
