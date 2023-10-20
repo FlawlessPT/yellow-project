@@ -111,6 +111,31 @@ pipelines:
             - npm install -g appcenter-cli
             - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
 
+      - step:
+          name: 'Deployment of IOS App to preview'
+          runs-on:
+            - self.hosted
+            - macos
+          deployment: ios-preview
+          trigger: 'manual'
+          script:
+            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
+            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
+            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
+            - export SENTRY_PROJECT=$SENTRY_PROJECT_RNAPP
+            - cd supabase
+            - yarn install --frozen-lockfile
+            - yarn supabase-configs-mobile
+            - cd ../RNMobileApp
+            - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
+            - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
+            - echo '-----BEGIN PRIVATE KEY-----' >> authkey.p8
+            - echo $APP_STORE_AUTH_KEY_P8 >> authkey.p8
+            - echo '-----END PRIVATE KEY-----' >> authkey.p8
+            - yarn install
+            - yarn ios:clean:pod-install
+            - fastlane ios deploy_to_test_flight
+
   branches:
     main:
       - parallel:
@@ -218,6 +243,30 @@ pipelines:
             - ./gradlew assembleRelease
             - npm install -g appcenter-cli
             - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
+
+      - step:
+          name: 'Deployment of IOS App to staging'
+          runs-on:
+            - self.hosted
+            - macos
+          deployment: ios-staging
+          script:
+            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
+            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
+            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
+            - export SENTRY_PROJECT=$SENTRY_PROJECT_RNAPP
+            - cd supabase
+            - yarn install --frozen-lockfile
+            - yarn supabase-configs-mobile
+            - cd ../RNMobileApp
+            - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
+            - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
+            - echo '-----BEGIN PRIVATE KEY-----' >> authkey.p8
+            - echo $APP_STORE_AUTH_KEY_P8 >> authkey.p8
+            - echo '-----END PRIVATE KEY-----' >> authkey.p8
+            - yarn install
+            - yarn ios:clean:pod-install
+            - fastlane ios deploy_to_test_flight
 
       - step:
           name: 'Deployment of Backoffice web app to production'
