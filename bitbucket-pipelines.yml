@@ -119,6 +119,7 @@ pipelines:
           deployment: ios-preview
           trigger: 'manual'
           script:
+            - export APP_TEST_FLIGHT_CHANGE_LOG='Preview app from branch $BITBUCKET_BRANCH and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
@@ -251,6 +252,7 @@ pipelines:
             - macos
           deployment: ios-staging
           script:
+            - export APP_TEST_FLIGHT_CHANGE_LOG='Staging app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
