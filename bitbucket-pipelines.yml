@@ -90,8 +90,6 @@ pipelines:
           trigger: 'manual'
           image: reactnativecommunity/react-native-android:latest
           size: 2x
-          artifacts:
-            - RNMobileApp/android/app/build/outputs/**
           script:
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
@@ -113,6 +111,10 @@ pipelines:
 
       - step:
           name: 'Deployment of IOS App to preview'
+          condition:
+            changesets:
+              includePaths:
+                - "RNMobileApp/**"
           runs-on:
             - self.hosted
             - macos
@@ -176,6 +178,18 @@ pipelines:
                 - yarn lint
 
       - step:
+          name: 'Deployment of supabase changes to staging'
+          caches:
+            - yarn
+            - node
+          deployment: supabase-staging
+          script:
+            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
+            - cd supabase
+            - npx supabase link --project-ref $SUPABASE_PROJECT_ID_STAGING
+            - npx supabase db push
+
+      - step:
           name: 'Deployment of Backoffice web app to staging'
           condition:
             changesets:
@@ -186,7 +200,6 @@ pipelines:
             - node
           deployment: backoffice-staging
           script:
-            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
             - export VITE_SENTRY_DSN=$SENTRY_DSN_BACKOFFICE
@@ -196,8 +209,6 @@ pipelines:
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs-backoffice
-            - npx supabase link --project-ref $SUPABASE_PROJECT_ID_STAGING
-            - npx supabase db push
             - cd ../BackofficeCMS
             - yarn install --frozen-lockfile
             - npm install --global vercel
@@ -225,15 +236,12 @@ pipelines:
           script:
             - echo Version code - $BITBUCKET_BUILD_NUMBER
             - echo Version name - $BITBUCKET_COMMIT
-            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
             - export SENTRY_PROJECT=$SENTRY_PROJECT_RNAPP
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs-mobile
-            - npx supabase link --project-ref $SUPABASE_PROJECT_ID_STAGING
-            - npx supabase db push
             - cd ../RNMobileApp
             - yarn install --frozen-lockfile
             - cd android && chmod +x gradlew
@@ -247,6 +255,10 @@ pipelines:
 
       - step:
           name: 'Deployment of IOS App to staging'
+          condition:
+            changesets:
+              includePaths:
+                - "RNMobileApp/**"
           runs-on:
             - self.hosted
             - macos
@@ -271,6 +283,19 @@ pipelines:
             - fastlane ios deploy_to_test_flight
 
       - step:
+          name: 'Deployment of supabase changes to production'
+          caches:
+            - yarn
+            - node
+          deployment: supabase-production
+          trigger: 'manual'
+          script:
+            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_PRODUCTION
+            - cd supabase
+            - npx supabase link --project-ref $SUPABASE_PROJECT_ID_PRODUCTION
+            - npx supabase db push
+
+      - step:
           name: 'Deployment of Backoffice web app to production'
           caches:
             - yarn
@@ -278,7 +303,6 @@ pipelines:
           deployment: backoffice-production
           trigger: 'manual'
           script:
-            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_PRODUCTION
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_PRODUCTION
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_PRODUCTION
             - export VITE_SENTRY_DSN=$SENTRY_DSN_BACKOFFICE
@@ -288,8 +312,6 @@ pipelines:
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs-backoffice
-            - npx supabase link --project-ref $SUPABASE_PROJECT_ID_PRODUCTION
-            - npx supabase db push
             - cd ../BackofficeCMS
             - yarn install --frozen-lockfile
             - npm install --global vercel
