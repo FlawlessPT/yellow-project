@@ -26,10 +26,6 @@ platform :ios do
 
   desc 'Build and Deploy to test flight'
   lane :deploy_to_test_flight do
-    increment_build_number({
-      build_number: latest_testflight_build_number + 1
-    })
-
     build
 
     api_key = app_store_connect_api_key(
@@ -44,7 +40,11 @@ platform :ios do
       api_key: api_key,
       changelog: ENV['APP_TEST_FLIGHT_CHANGE_LOG'],
       skip_waiting_for_build_processing: true,
-      notify_external_testers: true
+      notify_external_testers: true,
+      build_number: latest_testflight_build_number(
+        api_key: api_key,
+        team_id: ENV['APP_STORE_TEAM_ID']
+      )
     )
   end
 end
