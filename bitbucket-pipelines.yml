@@ -6,6 +6,7 @@ definitions:
     gradle: ~/.gradle/caches
     gradle-wrapper: ~/.gradle/wrapper
     node: /usr/local/lib/node_modules
+    bundler: /var/lib/gems
 
 pipelines:
   pull-requests:
@@ -85,29 +86,40 @@ pipelines:
             - yarn
             - gradle
             - gradle-wrapper
+            - bundler
             - node
           deployment: android-preview
           trigger: 'manual'
           image: reactnativecommunity/react-native-android:latest
           size: 2x
           script:
-            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
             - export SENTRY_PROJECT=$SENTRY_PROJECT_RNAPP
+            # https://docs.fastlane.tools/getting-started/ios/setup/#set-up-environment-variables
+            - export LC_ALL=en_US.UTF-8
+            - export LANG=en_US.UTF-8
+            - gem install fastlane
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs-mobile
             - cd ../RNMobileApp
             - yarn install --frozen-lockfile
-            - cd android && chmod +x gradlew
             - echo "VERSION_CODE=$BITBUCKET_BUILD_NUMBER" >> .env
             - echo "VERSION_NAME=preview-$BITBUCKET_BRANCH-$BITBUCKET_COMMIT" >> .env
             - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
             - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
-            - ./gradlew assembleRelease
+            - echo "ANDROID_APPLICATION_ID=$ANDROID_APPLICATION_ID" >> .env
+            - cd android
+            - echo $ANDROID_KEY_STORE_64 | base64 -d > app/my-upload-key.keystore
+            - echo "MYAPP_UPLOAD_STORE_FILE=my-upload-key.keystore" >> gradle.properties
+            - echo "MYAPP_UPLOAD_KEY_ALIAS=my-key-alias" >> gradle.properties
+            - echo "MYAPP_UPLOAD_STORE_PASSWORD=$ANDROID_KEY_STORE_PASSWORD" >> gradle.properties
+            - echo "MYAPP_UPLOAD_KEY_PASSWORD=$ANDROID_KEY_STORE_PASSWORD" >> gradle.properties
+            - cd ..
+            - fastlane android build
             - npm install -g appcenter-cli
-            - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
+            - appcenter distribute release --app $APP_CENTER_PROJECT --file ./android/app/build/outputs/bundle/release/app-release.aab --group "Collaborators" --token $APP_CENTER_TOKEN
 
       - step:
           name: 'Deployment of IOS App to preview'
@@ -227,18 +239,19 @@ pipelines:
             - yarn
             - gradle
             - gradle-wrapper
+            - bundler
             - node
           deployment: android-staging
           image: reactnativecommunity/react-native-android:latest
           size: 2x
-          artifacts:
-            - RNMobileApp/android/app/build/outputs/**
           script:
-            - echo Version code - $BITBUCKET_BUILD_NUMBER
-            - echo Version name - $BITBUCKET_COMMIT
             - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
             - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
             - export SENTRY_PROJECT=$SENTRY_PROJECT_RNAPP
+            # https://docs.fastlane.tools/getting-started/ios/setup/#set-up-environment-variables
+            - export LC_ALL=en_US.UTF-8
+            - export LANG=en_US.UTF-8
+            - gem install fastlane
             - cd supabase
             - yarn install --frozen-lockfile
             - yarn supabase-configs-mobile
@@ -249,9 +262,17 @@ pipelines:
             - echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
             - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
             - echo "SENTRY_ENVIRONMENT=staging" >> .env
-            - ./gradlew assembleRelease
+            - echo "ANDROID_APPLICATION_ID=$ANDROID_APPLICATION_ID" >> .env
+            - cd android
+            - echo $ANDROID_KEY_STORE_64 | base64 -d > app/my-upload-key.keystore
+            - echo "MYAPP_UPLOAD_STORE_FILE=my-upload-key.keystore" >> gradle.properties
+            - echo "MYAPP_UPLOAD_KEY_ALIAS=my-key-alias" >> gradle.properties
+            - echo "MYAPP_UPLOAD_STORE_PASSWORD=$ANDROID_KEY_STORE_PASSWORD" >> gradle.properties
+            - echo "MYAPP_UPLOAD_KEY_PASSWORD=$ANDROID_KEY_STORE_PASSWORD" >> gradle.properties
+            - cd ..
+            - fastlane android build
             - npm install -g appcenter-cli
-            - appcenter distribute release --app $APP_CENTER_PROJECT --file ./app/build/outputs/apk/release/app-release.apk --group "Collaborators" --token $APP_CENTER_TOKEN
+            - appcenter distribute release --app $APP_CENTER_PROJECT --file ./android/app/build/outputs/bundle/release/app-release.aab --group "Collaborators" --token $APP_CENTER_TOKEN
 
       - step:
           name: 'Deployment of IOS App to staging'

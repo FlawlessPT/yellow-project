@@ -44,3 +44,11 @@ platform :ios do
     )
   end
 end
+
+platform :android do
+  desc 'Build the Android application.'
+  lane :build do
+    gradle(task: 'clean', project_dir: 'android/')
+    gradle(task: 'bundle', build_type: 'release', project_dir: 'android/')
+  end
+end
