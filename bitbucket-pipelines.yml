@@ -257,7 +257,6 @@ pipelines:
             - yarn supabase-configs-mobile
             - cd ../RNMobileApp
             - yarn install --frozen-lockfile
-            - cd android && chmod +x gradlew
             - echo "VERSION_CODE=$BITBUCKET_BUILD_NUMBER" >> .env
             - echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
             - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
