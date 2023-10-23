@@ -45,7 +45,7 @@ platform :ios do
         api_key: api_key,
         team_id: ENV['APP_STORE_TEAM_ID'],
         app_identifier: ENV['APP_STORE_BUNDLE_ID']
-      )
+      ).to_s
     )
   end
 end
