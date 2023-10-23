@@ -43,7 +43,8 @@ platform :ios do
       notify_external_testers: true,
       build_number: latest_testflight_build_number(
         api_key: api_key,
-        team_id: ENV['APP_STORE_TEAM_ID']
+        team_id: ENV['APP_STORE_TEAM_ID'],
+        app_identifier: ENV['APP_STORE_BUNDLE_ID']
       )
     )
   end
