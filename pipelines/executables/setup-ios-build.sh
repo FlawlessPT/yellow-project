@@ -6,3 +6,4 @@ cd ../RNMobileApp
 yarn install
 yarn ios:clean:pod-install
 echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
+cd ..
