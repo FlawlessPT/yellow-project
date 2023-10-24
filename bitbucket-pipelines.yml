@@ -86,12 +86,7 @@ pipelines:
           image: reactnativecommunity/react-native-android:latest
           size: 2x
           script:
-            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
-            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
-            - export SENTRY_PROJECT=$SENTRY_PROJECT_RNAPP
-            # https://docs.fastlane.tools/getting-started/ios/setup/#set-up-environment-variables
-            - export LC_ALL=en_US.UTF-8
-            - export LANG=en_US.UTF-8
+            - source ./pipelines/executables/setup-mobile-app-staging-env.sh
             - gem install fastlane
             - cd supabase
             - yarn install --frozen-lockfile
@@ -126,21 +121,11 @@ pipelines:
           deployment: ios-preview
           trigger: 'manual'
           script:
+            - source ./pipelines/executables/setup-mobile-app-staging-env.sh
             - export APP_TEST_FLIGHT_CHANGE_LOG='Preview app from branch $BITBUCKET_BRANCH and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
-            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
-            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
-            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
-            - export SENTRY_PROJECT=$SENTRY_PROJECT_RNAPP
-            - cd supabase
-            - yarn install --frozen-lockfile
-            - yarn supabase-configs-mobile
-            - cd ../RNMobileApp
-            - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
+            - source ./pipelines/executables/setup-ios-build.sh
             - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
-            - echo $APP_STORE_AUTH_KEY_P8_64 | base64 -d > authkey.p8
-            - yarn install
-            - yarn ios:clean:pod-install
-            - fastlane ios deploy_to_test_flight
+            - source ./pipelines/executables/ios-deploy-testflight.sh
 
   branches:
     main:
@@ -157,9 +142,8 @@ pipelines:
           deployment: supabase-staging
           script:
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
-            - cd supabase
-            - npx supabase link --project-ref $SUPABASE_PROJECT_ID_STAGING
-            - npx supabase db push
+            - export SUPABASE_PROJECT_ID=SUPABASE_PROJECT_ID_STAGING
+            - source ./pipelines/executables/supabase-db-push.sh
 
       - step:
           name: 'Deployment of Backoffice web app to staging'
@@ -195,12 +179,7 @@ pipelines:
           image: reactnativecommunity/react-native-android:latest
           size: 2x
           script:
-            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
-            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
-            - export SENTRY_PROJECT=$SENTRY_PROJECT_RNAPP
-            # https://docs.fastlane.tools/getting-started/ios/setup/#set-up-environment-variables
-            - export LC_ALL=en_US.UTF-8
-            - export LANG=en_US.UTF-8
+            - source ./pipelines/executables/setup-mobile-app-staging-env.sh
             - gem install fastlane
             - cd supabase
             - yarn install --frozen-lockfile
@@ -234,21 +213,11 @@ pipelines:
             - macos
           deployment: ios-staging
           script:
+            - source ./pipelines/executables/setup-mobile-app-staging-env.sh
             - export APP_TEST_FLIGHT_CHANGE_LOG='Staging app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
-            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
-            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
-            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
-            - export SENTRY_PROJECT=$SENTRY_PROJECT_RNAPP
-            - cd supabase
-            - yarn install --frozen-lockfile
-            - yarn supabase-configs-mobile
-            - cd ../RNMobileApp
-            - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
-            - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
-            - echo $APP_STORE_AUTH_KEY_P8_64 | base64 -d > authkey.p8
-            - yarn install
-            - yarn ios:clean:pod-install
-            - fastlane ios deploy_to_test_flight
+            - source ./pipelines/executables/setup-ios-build.sh
+            - echo "SENTRY_ENVIRONMENT=staging >> .env
+            - source ./pipelines/executables/ios-deploy-testflight.sh
 
       - step:
           name: 'Deployment of supabase changes to production'
@@ -259,9 +228,8 @@ pipelines:
           trigger: 'manual'
           script:
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_PRODUCTION
-            - cd supabase
-            - npx supabase link --project-ref $SUPABASE_PROJECT_ID_PRODUCTION
-            - npx supabase db push
+            - export SUPABASE_PROJECT_ID=SUPABASE_PROJECT_ID_PRODUCTION
+            - source ./pipelines/executables/supabase-db-push.sh
 
       - step:
           name: 'Deployment of Backoffice web app to production'
