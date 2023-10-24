@@ -61,22 +61,12 @@ pipelines:
             - node
           deployment: backoffice-staging
           script:
-            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
-            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
-            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
-            - export VITE_SENTRY_DSN=$SENTRY_DSN_BACKOFFICE
-            - export VITE_SUPABASE_PROJECT_URL=$SUPABASE_PROJECT_URL_STAGING
+            - source ./pipelines/executables/setup-backoffice-staging-env.sh
             - export VITE_SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH
-            - export SENTRY_PROJECT=$SENTRY_PROJECT_BACKOFFICE
-            - cd supabase
-            - yarn install --frozen-lockfile
-            - yarn supabase-configs
-            - cd ../BackofficeCMS
-            - yarn install --frozen-lockfile
-            - npm install --global vercel
+            - source ./pipelines/executables/setup-backoffice-build.sh
             - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
             - vercel build --token=$VERCEL_TOKEN
-            - vercel deploy --prebuilt  --token=$VERCEL_TOKEN
+            - vercel deploy --prebuilt --token=$VERCEL_TOKEN
 
       - step:
           name: 'Deployment of Android App to preview'
@@ -182,18 +172,8 @@ pipelines:
             - node
           deployment: backoffice-staging
           script:
-            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_STAGING
-            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_STAGING
-            - export VITE_SENTRY_DSN=$SENTRY_DSN_BACKOFFICE
-            - export VITE_SUPABASE_PROJECT_URL=$SUPABASE_PROJECT_URL_STAGING
-            - export VITE_SENTRY_ENVIRONMENT=staging
-            - export SENTRY_PROJECT=$SENTRY_PROJECT_BACKOFFICE
-            - cd supabase
-            - yarn install --frozen-lockfile
-            - yarn supabase-configs-backoffice
-            - cd ../BackofficeCMS
-            - yarn install --frozen-lockfile
-            - npm install --global vercel
+            - ./pipelines/executables/setup-backoffice-staging-env.sh
+            - ./pipelines/executables/setup-backoffice-build.sh
             - vercel pull --yes --token=$VERCEL_TOKEN
             - vercel build --prod --token=$VERCEL_TOKEN
             - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
@@ -291,18 +271,8 @@ pipelines:
           deployment: backoffice-production
           trigger: 'manual'
           script:
-            - export SUPABASE_URL=$SUPABASE_PROJECT_URL_PRODUCTION
-            - export SUPABASE_API_KEY=$SUPABASE_API_KEY_PRODUCTION
-            - export VITE_SENTRY_DSN=$SENTRY_DSN_BACKOFFICE
-            - export VITE_SUPABASE_PROJECT_URL=$SUPABASE_PROJECT_URL_PRODUCTION
-            - export VITE_SENTRY_ENVIRONMENT=production
-            - export SENTRY_PROJECT=$SENTRY_PROJECT_BACKOFFICE
-            - cd supabase
-            - yarn install --frozen-lockfile
-            - yarn supabase-configs-backoffice
-            - cd ../BackofficeCMS
-            - yarn install --frozen-lockfile
-            - npm install --global vercel
+            - source ./pipelines/executables/setup-backoffice-production-env.sh
+            - source ./pipelines/executables/setup-backoffice-build.sh
             - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
             - vercel build --prod --token=$VERCEL_TOKEN
             - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
