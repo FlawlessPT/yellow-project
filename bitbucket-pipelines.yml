@@ -144,9 +144,7 @@ pipelines:
             - cd ../RNMobileApp
             - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
             - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
-            - echo '-----BEGIN PRIVATE KEY-----' >> authkey.p8
-            - echo $APP_STORE_AUTH_KEY_P8 >> authkey.p8
-            - echo '-----END PRIVATE KEY-----' >> authkey.p8
+            - echo $APP_STORE_AUTH_KEY_P8_64 | base64 -d > authkey.p8
             - yarn install
             - yarn ios:clean:pod-install
             - fastlane ios deploy_to_test_flight
@@ -295,9 +293,7 @@ pipelines:
             - cd ../RNMobileApp
             - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
             - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
-            - echo '-----BEGIN PRIVATE KEY-----' >> authkey.p8
-            - echo $APP_STORE_AUTH_KEY_P8 >> authkey.p8
-            - echo '-----END PRIVATE KEY-----' >> authkey.p8
+            - echo $APP_STORE_AUTH_KEY_P8_64 | base64 -d > authkey.p8
             - yarn install
             - yarn ios:clean:pod-install
             - fastlane ios deploy_to_test_flight
