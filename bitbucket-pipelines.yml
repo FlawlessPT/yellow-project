@@ -186,7 +186,7 @@ pipelines:
             - source ./pipelines/executables/setup-mobile-app-staging-env.sh
             - export APP_TEST_FLIGHT_CHANGE_LOG='Staging app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
             - source ./pipelines/executables/setup-ios-build.sh
-            - echo "SENTRY_ENVIRONMENT=staging >> .env
+            - echo "SENTRY_ENVIRONMENT=staging" >> .env
             - source ./pipelines/executables/ios-build-and-deploy-staging.sh
 
       - step:
