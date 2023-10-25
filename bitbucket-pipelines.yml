@@ -167,21 +167,21 @@ pipelines:
               - cd ..
               - source ./pipelines/executables/android-build-and-deploy.sh
 
-      - step:
-          name: 'Deployment of IOS App to staging'
-          condition:
-            changesets:
-              includePaths:
-                - "RNMobileApp/**"
-          runs-on:
-            - self.hosted
-            - macos
-          deployment: ios-staging
-          script:
-            - export APP_TEST_FLIGHT_CHANGE_LOG='Staging app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
-            - source ./pipelines/executables/setup-ios-build.sh
-            - echo "SENTRY_ENVIRONMENT=staging" >> .env
-            - source ./pipelines/executables/ios-build-and-deploy.sh
+        - step:
+            name: 'Deployment of IOS App to staging'
+            condition:
+              changesets:
+                includePaths:
+                  - "RNMobileApp/**"
+            runs-on:
+              - self.hosted
+              - macos
+            deployment: ios-staging
+            script:
+              - export APP_TEST_FLIGHT_CHANGE_LOG='Staging app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
+              - source ./pipelines/executables/setup-ios-build.sh
+              - echo "SENTRY_ENVIRONMENT=staging" >> .env
+              - source ./pipelines/executables/ios-build-and-deploy.sh
 
       - parallel:
         - step:
