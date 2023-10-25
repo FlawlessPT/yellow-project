@@ -102,7 +102,6 @@ function App() {
   }, []);
 
   const isLoggedIn = Boolean(session && session.user);
-
   return (
     <Suspense
       fallback={

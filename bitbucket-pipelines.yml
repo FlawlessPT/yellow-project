@@ -50,63 +50,64 @@ pipelines:
             - step: *backoffice-linting
             - step: *mobile-app-linting
 
-      - step:
-          name: 'Deployment of Backoffice web app to preview'
-          condition:
-            changesets:
-              includePaths:
-                - "BackofficeCMS/**"
-          caches:
-            - yarn
-            - node
-          deployment: backoffice-staging
-          script:
-            - source ./pipelines/executables/setup-backoffice-staging-env.sh
-            - export VITE_SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH
-            - source ./pipelines/executables/setup-backoffice-build.sh
-            - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
-            - vercel build --token=$VERCEL_TOKEN
-            - vercel deploy --prebuilt --token=$VERCEL_TOKEN
+      - parallel:
+        - step:
+            name: 'Deployment of Backoffice web app to preview'
+            condition:
+              changesets:
+                includePaths:
+                  - "BackofficeCMS/**"
+            caches:
+              - yarn
+              - node
+            deployment: backoffice-staging
+            script:
+              - source ./pipelines/executables/setup-backoffice-staging-env.sh
+              - export VITE_SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH
+              - source ./pipelines/executables/setup-backoffice-build.sh
+              - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+              - vercel build --token=$VERCEL_TOKEN
+              - vercel deploy --prebuilt --token=$VERCEL_TOKEN
 
-      - step:
-          name: 'Deployment of Android App to preview'
-          condition:
-            changesets:
-              includePaths:
-                - "RNMobileApp/**"
-          max-time: 30
-          caches:
-            - yarn
-            - gradle
-            - gradle-wrapper
-            - bundler
-            - node
-          deployment: android-preview
-          image: reactnativecommunity/react-native-android:latest
-          size: 2x
-          script:
-            - source ./pipelines/executables/setup-android-build.sh
-            - cd RNMobileApp
-            - echo "VERSION_NAME=preview-$BITBUCKET_BRANCH-$BITBUCKET_COMMIT" >> .env
-            - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
-            - cd ..
-            - source ./pipelines/executables/android-build-and-deploy.sh
+        - step:
+            name: 'Deployment of Android App to preview'
+            condition:
+              changesets:
+                includePaths:
+                  - "RNMobileApp/**"
+            max-time: 30
+            caches:
+              - yarn
+              - gradle
+              - gradle-wrapper
+              - bundler
+              - node
+            deployment: android-preview
+            image: reactnativecommunity/react-native-android:latest
+            size: 2x
+            script:
+              - source ./pipelines/executables/setup-android-build.sh
+              - cd RNMobileApp
+              - echo "VERSION_NAME=preview-$BITBUCKET_BRANCH-$BITBUCKET_COMMIT" >> .env
+              - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
+              - cd ..
+              - source ./pipelines/executables/android-build-and-deploy.sh
 
-      - step:
-          name: 'Deployment of IOS App to preview'
-          condition:
-            changesets:
-              includePaths:
-                - "RNMobileApp/**"
-          runs-on:
-            - self.hosted
-            - macos
-          deployment: ios-preview
-          script:
-            - export APP_TEST_FLIGHT_CHANGE_LOG='Preview app from branch $BITBUCKET_BRANCH and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
-            - source ./pipelines/executables/setup-ios-build.sh
-            - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
-            - source ./pipelines/executables/ios-build-and-deploy.sh
+        - step:
+            name: 'Deployment of IOS App to preview'
+            condition:
+              changesets:
+                includePaths:
+                  - "RNMobileApp/**"
+            runs-on:
+              - self.hosted
+              - macos
+            deployment: ios-preview
+            script:
+              - export APP_TEST_FLIGHT_CHANGE_LOG='Preview app from branch $BITBUCKET_BRANCH and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
+              - source ./pipelines/executables/setup-ios-build.sh
+              - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
+              - source ./pipelines/executables/ios-build-and-deploy.sh
 
   branches:
     main:
@@ -115,55 +116,56 @@ pipelines:
             - step: *backoffice-linting
             - step: *mobile-app-linting
 
-      - step:
-          name: 'Deployment of supabase changes to staging'
-          caches:
-            - yarn
-            - node
-          deployment: supabase-staging
-          script:
-            - source ./pipelines/executables/supabase-db-push.sh
+      - parallel:
+        - step:
+            name: 'Deployment of supabase changes to staging'
+            caches:
+              - yarn
+              - node
+            deployment: supabase-staging
+            script:
+              - source ./pipelines/executables/supabase-db-push.sh
 
-      - step:
-          name: 'Deployment of Backoffice web app to staging'
-          condition:
-            changesets:
-              includePaths:
-                - "BackofficeCMS/**"
-          caches:
-            - yarn
-            - node
-          deployment: backoffice-staging
-          script:
-            - ./pipelines/executables/setup-backoffice-staging-env.sh
-            - ./pipelines/executables/setup-backoffice-build.sh
-            - vercel pull --yes --token=$VERCEL_TOKEN
-            - vercel build --prod --token=$VERCEL_TOKEN
-            - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+        - step:
+            name: 'Deployment of Backoffice web app to staging'
+            condition:
+              changesets:
+                includePaths:
+                  - "BackofficeCMS/**"
+            caches:
+              - yarn
+              - node
+            deployment: backoffice-staging
+            script:
+              - ./pipelines/executables/setup-backoffice-staging-env.sh
+              - ./pipelines/executables/setup-backoffice-build.sh
+              - vercel pull --yes --token=$VERCEL_TOKEN
+              - vercel build --prod --token=$VERCEL_TOKEN
+              - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
 
-      - step:
-          name: 'Deployment of Android App to staging'
-          condition:
-            changesets:
-              includePaths:
-                - "RNMobileApp/**"
-          max-time: 30
-          caches:
-            - yarn
-            - gradle
-            - gradle-wrapper
-            - bundler
-            - node
-          deployment: android-staging
-          image: reactnativecommunity/react-native-android:latest
-          size: 2x
-          script:
-            - source ./pipelines/executables/setup-android-build.sh
-            - cd RNMobileApp
-            - echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
-            - echo "SENTRY_ENVIRONMENT=staging" >> .env
-            - cd ..
-            - source ./pipelines/executables/android-build-and-deploy.sh
+        - step:
+            name: 'Deployment of Android App to staging'
+            condition:
+              changesets:
+                includePaths:
+                  - "RNMobileApp/**"
+            max-time: 30
+            caches:
+              - yarn
+              - gradle
+              - gradle-wrapper
+              - bundler
+              - node
+            deployment: android-staging
+            image: reactnativecommunity/react-native-android:latest
+            size: 2x
+            script:
+              - source ./pipelines/executables/setup-android-build.sh
+              - cd RNMobileApp
+              - echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
+              - echo "SENTRY_ENVIRONMENT=staging" >> .env
+              - cd ..
+              - source ./pipelines/executables/android-build-and-deploy.sh
 
       - step:
           name: 'Deployment of IOS App to staging'
@@ -181,76 +183,77 @@ pipelines:
             - echo "SENTRY_ENVIRONMENT=staging" >> .env
             - source ./pipelines/executables/ios-build-and-deploy.sh
 
-      - step:
-          name: 'Deployment of supabase changes to production'
-          condition:
-            changesets:
-              includePaths:
-                - "supabase/**"
-          caches:
-            - yarn
-            - node
-          deployment: supabase-production
-          trigger: 'manual'
-          script:
-            - source ./pipelines/executables/supabase-db-push.sh
+      - parallel:
+        - step:
+            name: 'Deployment of supabase changes to production'
+            condition:
+              changesets:
+                includePaths:
+                  - "supabase/**"
+            caches:
+              - yarn
+              - node
+            deployment: supabase-production
+            trigger: 'manual'
+            script:
+              - source ./pipelines/executables/supabase-db-push.sh
 
-      - step:
-          name: 'Deployment of Backoffice web app to production'
-          condition:
-            changesets:
-              includePaths:
-                - "BackofficeCMS/**"
-          caches:
-            - yarn
-            - node
-          deployment: backoffice-production
-          trigger: 'manual'
-          script:
-            - source ./pipelines/executables/setup-backoffice-production-env.sh
-            - source ./pipelines/executables/setup-backoffice-build.sh
-            - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
-            - vercel build --prod --token=$VERCEL_TOKEN
-            - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+        - step:
+            name: 'Deployment of Backoffice web app to production'
+            condition:
+              changesets:
+                includePaths:
+                  - "BackofficeCMS/**"
+            caches:
+              - yarn
+              - node
+            deployment: backoffice-production
+            trigger: 'manual'
+            script:
+              - source ./pipelines/executables/setup-backoffice-production-env.sh
+              - source ./pipelines/executables/setup-backoffice-build.sh
+              - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+              - vercel build --prod --token=$VERCEL_TOKEN
+              - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
 
-      - step:
-          name: 'Deployment of Android App to production'
-          condition:
-            changesets:
-              includePaths:
-                - "RNMobileApp/**"
-          max-time: 30
-          caches:
-            - yarn
-            - gradle
-            - gradle-wrapper
-            - bundler
-            - node
-          deployment: android-production
-          trigger: 'manual'
-          image: reactnativecommunity/react-native-android:latest
-          size: 2x
-          script:
-            - source ./pipelines/executables/setup-android-build.sh
-            - cd RNMobileApp
-            - echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
-            - echo "SENTRY_ENVIRONMENT=production" >> .env
-            - cd ..
-            - source ./pipelines/executables/android-build-and-deploy.sh
+        - step:
+            name: 'Deployment of Android App to production'
+            condition:
+              changesets:
+                includePaths:
+                  - "RNMobileApp/**"
+            max-time: 30
+            caches:
+              - yarn
+              - gradle
+              - gradle-wrapper
+              - bundler
+              - node
+            deployment: android-production
+            trigger: 'manual'
+            image: reactnativecommunity/react-native-android:latest
+            size: 2x
+            script:
+              - source ./pipelines/executables/setup-android-build.sh
+              - cd RNMobileApp
+              - echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
+              - echo "SENTRY_ENVIRONMENT=production" >> .env
+              - cd ..
+              - source ./pipelines/executables/android-build-and-deploy.sh
 
-      - step:
-          name: 'Deployment of IOS App to production'
-          condition:
-            changesets:
-              includePaths:
-                - "RNMobileApp/**"
-          runs-on:
-            - self.hosted
-            - macos
-          deployment: ios-production
-          trigger: 'manual'
-          script:
-            - export APP_TEST_FLIGHT_CHANGE_LOG='Production app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
-            - source ./pipelines/executables/setup-ios-build.sh
-            - echo "SENTRY_ENVIRONMENT=production" >> .env
-            - source ./pipelines/executables/ios-build-and-deploy.sh
+        - step:
+            name: 'Deployment of IOS App to production'
+            condition:
+              changesets:
+                includePaths:
+                  - "RNMobileApp/**"
+            runs-on:
+              - self.hosted
+              - macos
+            deployment: ios-production
+            trigger: 'manual'
+            script:
+              - export APP_TEST_FLIGHT_CHANGE_LOG='Production app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
+              - source ./pipelines/executables/setup-ios-build.sh
+              - echo "SENTRY_ENVIRONMENT=production" >> .env
+              - source ./pipelines/executables/ios-build-and-deploy.sh

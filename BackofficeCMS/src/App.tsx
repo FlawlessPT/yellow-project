@@ -40,6 +40,7 @@ function BackOfficeAdmin() {
       );
 
       const allTableInfoResults = await Promise.all(allTablePromises);
+
       allTableInfoResults.forEach(
         (
           response: PostgrestSingleResponse<
