@@ -85,7 +85,6 @@ pipelines:
           image: reactnativecommunity/react-native-android:latest
           size: 2x
           script:
-            - source ./pipelines/executables/setup-mobile-app-staging-env.sh
             - source ./pipelines/executables/setup-android-build.sh
             - cd RNMobileApp
             - echo "VERSION_NAME=preview-$BITBUCKET_BRANCH-$BITBUCKET_COMMIT" >> .env
@@ -104,7 +103,6 @@ pipelines:
             - macos
           deployment: ios-preview
           script:
-            - source ./pipelines/executables/setup-mobile-app-staging-env.sh
             - export APP_TEST_FLIGHT_CHANGE_LOG='Preview app from branch $BITBUCKET_BRANCH and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
             - source ./pipelines/executables/setup-ios-build.sh
             - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
@@ -124,8 +122,6 @@ pipelines:
             - node
           deployment: supabase-staging
           script:
-            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
-            - export SUPABASE_PROJECT_ID=$SUPABASE_PROJECT_ID_STAGING
             - source ./pipelines/executables/supabase-db-push.sh
 
       - step:
@@ -162,7 +158,6 @@ pipelines:
           image: reactnativecommunity/react-native-android:latest
           size: 2x
           script:
-            - source ./pipelines/executables/setup-mobile-app-staging-env.sh
             - source ./pipelines/executables/setup-android-build.sh
             - cd RNMobileApp
             - echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
@@ -181,7 +176,6 @@ pipelines:
             - macos
           deployment: ios-staging
           script:
-            - source ./pipelines/executables/setup-mobile-app-staging-env.sh
             - export APP_TEST_FLIGHT_CHANGE_LOG='Staging app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
             - source ./pipelines/executables/setup-ios-build.sh
             - echo "SENTRY_ENVIRONMENT=staging" >> .env
@@ -189,18 +183,24 @@ pipelines:
 
       - step:
           name: 'Deployment of supabase changes to production'
+          condition:
+            changesets:
+              includePaths:
+                - "supabase/**"
           caches:
             - yarn
             - node
           deployment: supabase-production
           trigger: 'manual'
           script:
-            - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_PRODUCTION
-            - export SUPABASE_PROJECT_ID=$SUPABASE_PROJECT_ID_PRODUCTION
             - source ./pipelines/executables/supabase-db-push.sh
 
       - step:
           name: 'Deployment of Backoffice web app to production'
+          condition:
+            changesets:
+              includePaths:
+                - "BackofficeCMS/**"
           caches:
             - yarn
             - node
@@ -215,6 +215,10 @@ pipelines:
 
       - step:
           name: 'Deployment of Android App to production'
+          condition:
+            changesets:
+              includePaths:
+                - "RNMobileApp/**"
           max-time: 30
           caches:
             - yarn
@@ -227,7 +231,6 @@ pipelines:
           image: reactnativecommunity/react-native-android:latest
           size: 2x
           script:
-            - source ./pipelines/executables/setup-mobile-app-production-env.sh
             - source ./pipelines/executables/setup-android-build.sh
             - cd RNMobileApp
             - echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
@@ -237,13 +240,16 @@ pipelines:
 
       - step:
           name: 'Deployment of IOS App to production'
+          condition:
+            changesets:
+              includePaths:
+                - "RNMobileApp/**"
           runs-on:
             - self.hosted
             - macos
           deployment: ios-production
           trigger: 'manual'
           script:
-            - source ./pipelines/executables/setup-mobile-app-production-env.sh
             - export APP_TEST_FLIGHT_CHANGE_LOG='Production app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
             - source ./pipelines/executables/setup-ios-build.sh
             - echo "SENTRY_ENVIRONMENT=production" >> .env
