@@ -39,7 +39,6 @@ i18n
     backend: {
       loadPath: `${supabaseProjectURL}/rest/v1/rpc/json_mobile_international_messages_for?language={{lng}}&namespace={{ns}}&apikey=${supabaseAnonKey}`,
     },
-    // To be configured for each project
     lng: locales.length > 0 ? locales[0].languageCode : DEFAULT_LANGUAGE,
     fallbackLng: DEFAULT_LANGUAGE,
     interpolation: {
