@@ -1,9 +1,6 @@
 #!/bin/sh
-cd supabase
-yarn install --frozen-lockfile
-yarn supabase-configs-mobile
-cd ../RNMobileApp
-yarn install
+source ./pipelines/executables/setup-mobile-app-for-build.sh
+cd RNMobileApp
 yarn ios:clean:pod-install
 echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
 cd ..

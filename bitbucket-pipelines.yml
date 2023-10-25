@@ -87,27 +87,12 @@ pipelines:
           size: 2x
           script:
             - source ./pipelines/executables/setup-mobile-app-staging-env.sh
-            - gem install fastlane
-            - cd supabase
-            - yarn install --frozen-lockfile
-            - yarn supabase-configs-mobile
-            - cd ../RNMobileApp
-            - yarn install --frozen-lockfile
-            - echo "VERSION_CODE=$BITBUCKET_BUILD_NUMBER" >> .env
+            - source ./pipelines/executables/setup-android-build.sh
+            - cd RNMobileApp
             - echo "VERSION_NAME=preview-$BITBUCKET_BRANCH-$BITBUCKET_COMMIT" >> .env
-            - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
             - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
-            - echo "ANDROID_APPLICATION_ID=$ANDROID_APPLICATION_ID" >> .env
-            - cd android
-            - echo $ANDROID_KEY_STORE_64 | base64 -d > app/my-upload-key.keystore
-            - echo "MYAPP_UPLOAD_STORE_FILE=my-upload-key.keystore" >> gradle.properties
-            - echo "MYAPP_UPLOAD_KEY_ALIAS=my-key-alias" >> gradle.properties
-            - echo "MYAPP_UPLOAD_STORE_PASSWORD=$ANDROID_KEY_STORE_PASSWORD" >> gradle.properties
-            - echo "MYAPP_UPLOAD_KEY_PASSWORD=$ANDROID_KEY_STORE_PASSWORD" >> gradle.properties
             - cd ..
-            - fastlane android build
-            - npm install -g appcenter-cli
-            - appcenter distribute release --app $APP_CENTER_PROJECT --file ./android/app/build/outputs/bundle/release/app-release.aab --group "Collaborators" --token $APP_CENTER_TOKEN
+            - source ./pipelines/executables/android-build-and-deploy-staging.sh
 
       - step:
           name: 'Deployment of IOS App to preview'
@@ -125,7 +110,7 @@ pipelines:
             - export APP_TEST_FLIGHT_CHANGE_LOG='Preview app from branch $BITBUCKET_BRANCH and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
             - source ./pipelines/executables/setup-ios-build.sh
             - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
-            - source ./pipelines/executables/ios-deploy-testflight.sh
+            - source ./pipelines/executables/ios-build-and-deploy-staging.sh
 
   branches:
     main:
@@ -180,27 +165,12 @@ pipelines:
           size: 2x
           script:
             - source ./pipelines/executables/setup-mobile-app-staging-env.sh
-            - gem install fastlane
-            - cd supabase
-            - yarn install --frozen-lockfile
-            - yarn supabase-configs-mobile
-            - cd ../RNMobileApp
-            - yarn install --frozen-lockfile
-            - echo "VERSION_CODE=$BITBUCKET_BUILD_NUMBER" >> .env
+            - source ./pipelines/executables/setup-android-build.sh
+            - cd RNMobileApp
             - echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
-            - echo "SENTRY_DSN=$SENTRY_DSN_RNAPP" >> .env
             - echo "SENTRY_ENVIRONMENT=staging" >> .env
-            - echo "ANDROID_APPLICATION_ID=$ANDROID_APPLICATION_ID" >> .env
-            - cd android
-            - echo $ANDROID_KEY_STORE_64 | base64 -d > app/my-upload-key.keystore
-            - echo "MYAPP_UPLOAD_STORE_FILE=my-upload-key.keystore" >> gradle.properties
-            - echo "MYAPP_UPLOAD_KEY_ALIAS=my-key-alias" >> gradle.properties
-            - echo "MYAPP_UPLOAD_STORE_PASSWORD=$ANDROID_KEY_STORE_PASSWORD" >> gradle.properties
-            - echo "MYAPP_UPLOAD_KEY_PASSWORD=$ANDROID_KEY_STORE_PASSWORD" >> gradle.properties
             - cd ..
-            - fastlane android build
-            - npm install -g appcenter-cli
-            - appcenter distribute release --app $APP_CENTER_PROJECT --file ./android/app/build/outputs/bundle/release/app-release.aab --group "Collaborators" --token $APP_CENTER_TOKEN
+            - source ./pipelines/executables/android-build-and-deploy-staging.sh
 
       - step:
           name: 'Deployment of IOS App to staging'
@@ -217,7 +187,7 @@ pipelines:
             - export APP_TEST_FLIGHT_CHANGE_LOG='Staging app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
             - source ./pipelines/executables/setup-ios-build.sh
             - echo "SENTRY_ENVIRONMENT=staging >> .env
-            - source ./pipelines/executables/ios-deploy-testflight.sh
+            - source ./pipelines/executables/ios-build-and-deploy-staging.sh
 
       - step:
           name: 'Deployment of supabase changes to production'
