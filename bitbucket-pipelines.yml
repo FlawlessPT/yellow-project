@@ -82,7 +82,6 @@ pipelines:
             - bundler
             - node
           deployment: android-preview
-          trigger: 'manual'
           image: reactnativecommunity/react-native-android:latest
           size: 2x
           script:
@@ -104,7 +103,6 @@ pipelines:
             - self.hosted
             - macos
           deployment: ios-preview
-          trigger: 'manual'
           script:
             - source ./pipelines/executables/setup-mobile-app-staging-env.sh
             - export APP_TEST_FLIGHT_CHANGE_LOG='Preview app from branch $BITBUCKET_BRANCH and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
@@ -225,6 +223,7 @@ pipelines:
             - bundler
             - node
           deployment: android-production
+          trigger: 'manual'
           image: reactnativecommunity/react-native-android:latest
           size: 2x
           script:
