@@ -10,7 +10,7 @@ platform :ios do
 
     Spaceship::ConnectAPI.token = token
 
-    match(app_identifier: ENV['APP_STORE_BUNDLE_ID'])
+    match(app_identifier: [ENV['APP_STORE_BUNDLE_ID'], ENV['APP_STORE_BUNDLE_ID'] + '.OneSignalNotificationServiceExtension'])
   end
 
   desc 'Fetch certificates. Build the iOS application.'

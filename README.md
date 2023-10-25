@@ -528,6 +528,53 @@ function Component() {
 - For a developer it is easy to go directly to supabase dashboard and paste the needed json for messages;
 - No extra costs;
 
+### Push notifications (OneSignal)
+
+OneSignal is a popular push notification service that allows you to send messages and notifications to users in your React Native mobile application.
+
+The first step is to OneSignal account. You can sign up for a free account at **[OneSignal website.](https://dashboard.onesignal.com/signup)**
+
+After creating your account, you need to create a new application on OneSignal dashboard, you can create a separate application for each platform (Android and iOS) or you can just create one.
+
+### - Platform Specific Configurations:
+
+##### - iOS Configuration
+
+To start the process you need a **p8 Authentication Token** or **p12 Push Notification Certificate**.
+
+If you don't have neither a **p8** or **p12** you can create one on **[Apple Developer Portal](https://developer.apple.com/account)** but you need an account with admin rights.
+
+- Option 1: **p8 Authentication Token**
+
+At the moment apple only allows you to have two **p8 tokens**. If you already have two tokens, creating a new one will replace one of tokens you already have.
+
+To see your existing **p8 tokens** you need to go to **Certificates, IDs & Profiles** and select **Keys** or you can just [click here](https://developer.apple.com/account/resources/authkeys/list).
+
+When creating a new **Token** make sure you select **Apple Push Notifications service (APNs)**.
+
+Once you have your token, just upload it to OneSignal.Get your OneSignal App ID and add it to your App.
+
+- Option 2: **p12 Push Notification Certificate**
+
+To create a **p12 Push Notification Certificate** you need to open **Keychain Access**, on the mac top bar click on
+**Keychain Access** -> **Certificate Assistant** -> **Request a Certificate From a Certificate Authority**.
+
+Fill the required information and save the certificate on your disk.
+
+Go to **[Apple Developer Portal](https://developer.apple.com/account/ios/identifier/bundle)** on **Certificates, Identifiers & Profiles** select **Identifiers** and select your Identifier, scroll down untill you see **Push Notifications** make sure is selected but do not click **Configure**.
+
+Go back to the **Certificates** menu and add a new one, under **Services**, select **Apple Push Notification service SSL (Sandbox & Production)** and click **Continue**. Select your application and upload the certificate you created on the previous step.
+
+Now download the **.cer certificate**, double click on it and add it to your **Login Keychain**. On your **Keychain** select the certificate and export it. After exporting the certificate go back to OneSignal dashboard and upload it.
+Get your OneSignal App ID and add it to your App.
+
+#### - Android Configuration
+
+To start the process you need to create a **Firebase Cloud Messaging (FCM) credentials**. You can obtain these credentials by opening **[Firebase Console](https://firebase.google.com)**. Create a new project or select an existing one and add a new Android app. Follow the setup instructions and download the **google-services.json** file.
+
+Once you have your **google-services.json** file, just upload it to OneSignal.
+Get your OneSignal App ID and add it to your App.
+
 ### Local development
 
 Go to **RNMobileApp** project and execute
