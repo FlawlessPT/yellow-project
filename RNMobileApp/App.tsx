@@ -19,27 +19,6 @@ import {getLocales} from 'react-native-localize';
 import * as Sentry from '@sentry/react-native';
 import Config from 'react-native-config';
 import {FeatureFlagsContextProvider} from '@utils/contexts';
-import {LogLevel, OneSignal} from 'react-native-onesignal';
-
-// Remove this method to stop OneSignal Debugging
-if (__DEV__) {
-  OneSignal.Debug.setLogLevel(LogLevel.Verbose);
-}
-
-// OneSignal Initialization
-if (Config.ONE_SIGNAL_APP_ID) {
-  OneSignal.initialize(Config.ONE_SIGNAL_APP_ID);
-
-  // requestPermission will show the native iOS or Android notification permission prompt.
-  // We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-  OneSignal.Notifications.requestPermission(true);
-
-  // Method for listening for notification clicks
-  OneSignal.Notifications.addEventListener('click', event => {
-    // TODO: by the team for project using code base
-    console.log('OneSignal: notification clicked:', event);
-  });
-}
 
 // Init Sentry only in production
 if (!__DEV__) {
@@ -123,6 +102,7 @@ function App() {
   }, []);
 
   const isLoggedIn = Boolean(session && session.user);
+
   return (
     <Suspense
       fallback={
