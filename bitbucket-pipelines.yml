@@ -142,7 +142,7 @@ pipelines:
           deployment: supabase-staging
           script:
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_STAGING
-            - export SUPABASE_PROJECT_ID=SUPABASE_PROJECT_ID_STAGING
+            - export SUPABASE_PROJECT_ID=$SUPABASE_PROJECT_ID_STAGING
             - source ./pipelines/executables/supabase-db-push.sh
 
       - step:
@@ -228,7 +228,7 @@ pipelines:
           trigger: 'manual'
           script:
             - export SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD_PRODUCTION
-            - export SUPABASE_PROJECT_ID=SUPABASE_PROJECT_ID_PRODUCTION
+            - export SUPABASE_PROJECT_ID=$SUPABASE_PROJECT_ID_PRODUCTION
             - source ./pipelines/executables/supabase-db-push.sh
 
       - step:
