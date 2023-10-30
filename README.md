@@ -783,7 +783,7 @@ Sequential flow to generate **review apps** about new pull request:
 
 - Deployment phase for staging environment (steps run in parallel):
 
-  - build and deployment of backoffice web app as a **review app**: review app link can be taken from pipeline logs, about last script, in regard to **Deployment of Backoffice web app to preview** step (**backoffice-staging** deployment environment);
+  - build and deployment of backoffice web app as a **review app**: review app link can be taken from pipeline logs, about last script, in regard to **Deployment of Backoffice web app to preview** step (**backoffice-preview** deployment environment);
   - build and deployment of android app as a **review app** using App Center (**android-preview** deployment environment);
   - build and deployment of ios app as a **review app** using TestFlight (**ios-preview** deployment environment);
 
@@ -829,6 +829,7 @@ To accomplish the flow for each pipeline described before we need to have the fo
 
 - supabase-staging;
 - backoffice-staging;
+- backoffice-preview;
 - android-staging;
 - ios-staging;
 - android-preview;
@@ -868,10 +869,10 @@ To accomplish the flow for each pipeline described before we need to have the fo
 
 For each deployment environment (needs to be configured on your bitbucket repository at "Deployments" option -> Settings option: "your-repository-path/admin/pipelines/repository-variables"):
 
-- VERCEL_PROJECT_ID: Project id on vercel, to be used for backoffice deployment, for deployment environment being configured. To get project id go to project settings on vercel dashboard (only for **backoffice-staging** and **backoffice-production** environments);
+- VERCEL_PROJECT_ID: Project id on vercel, to be used for backoffice deployment, for deployment environment being configured. To get project id go to project settings on vercel dashboard (only for **backoffice-staging**, **backoffice-preview** and **backoffice-production** environments);
 - SUPABASE_DB_PASSWORD: Database password used when supabase project was created, for deployment environment being configured (only for **supabase-staging** and **supabase-production** environments);
-- SUPABASE_URL: Supabase URL to communicate with supabase API, in regard to your project for deployment environment being configured. On supabase dashboard go to Project Settings -> Database -> API (only for **backoffice-staging**, **backoffice-production**, **backoffice-staging**, **android-staging**, **ios-staging**, **android-preview**, **ios-preview**, **android-production** and **ios-production** environments)
-- SUPABASE_API_KEY: Anon API Key to communicate with supabase API, in regard to your project for deployment environment being configured. On supabase dashboard go to Project Settings -> Database -> API (only for **backoffice-staging**, **backoffice-production**, **backoffice-staging**, **android-staging**, **ios-staging**, **android-preview**, **ios-preview**, **android-production** and **ios-production** environments)
+- SUPABASE_URL: Supabase URL to communicate with supabase API, in regard to your project for deployment environment being configured. On supabase dashboard go to Project Settings -> Database -> API (only for **backoffice-staging**, **backoffice-production**, **backoffice-staging**, **backoffice-preview**, **android-staging**, **ios-staging**, **android-preview**, **ios-preview**, **android-production** and **ios-production** environments)
+- SUPABASE_API_KEY: Anon API Key to communicate with supabase API, in regard to your project for deployment environment being configured. On supabase dashboard go to Project Settings -> Database -> API (only for **backoffice-staging**, **backoffice-production**, **backoffice-staging**, **backoffice-preview**, **android-staging**, **ios-staging**, **android-preview**, **ios-preview**, **android-production** and **ios-production** environments)
 - SUPABASE_PROJECT_ID: Supabase project id needed to deploy database changes, in regard to your project for deployment environment being configured.. On supabase dashboard go to Project Settings -> General Settings -> Reference ID (only for **supabase-staging** and **supabase-production** environments);
 - APP_CENTER_PROJECT: Name of app center project where to deploy android application. On App Center dashboard go to App settings -> App details (only for **android-staging**, **android-preview** and **android-production**);
 - ONE_SIGNAL_APP_ID: Id of onesignal app. On onesignal dashboard go to App Settings -> Keys & IDs -> OneSignal App ID (only for **android-staging**, **android-preview**, **ios-production**, **ios-staging**, **ios-preview** and **ios-production**);

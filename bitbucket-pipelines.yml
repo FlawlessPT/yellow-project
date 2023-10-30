@@ -60,7 +60,7 @@ pipelines:
             caches:
               - yarn
               - node
-            deployment: backoffice-staging
+            deployment: backoffice-preview
             script:
               - source ./pipelines/executables/setup-backoffice-staging-env.sh
               - export VITE_SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH
