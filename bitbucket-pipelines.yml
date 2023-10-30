@@ -139,8 +139,8 @@ pipelines:
               - node
             deployment: backoffice-staging
             script:
-              - ./pipelines/executables/setup-backoffice-staging-env.sh
-              - ./pipelines/executables/setup-backoffice-build.sh
+              - source ./pipelines/executables/setup-backoffice-staging-env.sh
+              - source ./pipelines/executables/setup-backoffice-build.sh
               - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
               - vercel build --prod --token=$VERCEL_TOKEN
               - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
