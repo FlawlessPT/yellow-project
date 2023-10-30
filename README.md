@@ -34,7 +34,7 @@ All projects here are pinned to a specific node version. This is important to ma
 - Initial Back office automatically generated from supabase database schema (customizations may be needed for each case);
 - Possibility to generate custom pages using a rich text editor (wysiwyg) that stores the corresponding html in the database (Back office);
 - "Terms and conditions" an "Privacy policy" screens using Back office feature mentioned in previous point. Content for those screens should be configured using Back office. (Mobile App);
-- Base pipelines (customizations will be needed for each project);
+- Core pipelines (customizations will be needed for each project);
 
 ## Goals
 
@@ -49,6 +49,8 @@ This repository is composed by 3 main folders/projects:
 - supabase: configurations needed for supabase database and integration with our applications;
 - RNMobileApp: mobile application using bare react-native;
 - BackofficeCMS: Single Page Application (web) for an auto generated Back office from supabase database, offering the possibility for **Admins** to change some data directly;
+
+Besides those 3 components, there is a big a core build around pipelines defined in this repository, using bitbucket pipelines (bitbucket-pipelines.yml). Those pipelines will be described in details in a later section.
 
 ## Getting Started - TLDR
 
@@ -658,6 +660,12 @@ A table called **mobile_international_messages** was configured to allow you to 
 
 To edit json properties with **react-admin** we are using **[react-admin-json-view](https://github.com/MrHertal/react-admin-json-view)** library.
 
+### Feature flags
+
+A table called **feature_flags** was configured to allow you to configure your feature flags while implementing a feature that you need to be hidden while not fully implemented, allowing the team follow continuous integration best practices.
+
+To create a new feature flags you just need to go to backoffice web apps of your project, in staging and production.
+
 ### Local development
 
 Go to **BackofficeCMS** project and execute
@@ -668,10 +676,247 @@ yarn dev
 
 And open [http://localhost:5173/](http://localhost:5173/).
 
-### Pipelines and deployment
+### Monitoring
 
-TO BE DONE
+To be always up to date on possible crashes and errors of our apps we have decided to use [Sentry](https://sentry.io/welcome) for that.
 
-Vercel integration: https://vercel.com/guides/how-can-i-use-bitbucket-pipelines-with-vercel
+Each project will need to configure its own Sentry projects, but using a company account is recommended.
 
-Environment vars in staging only
+### Infrastructure
+
+To have our applications working, as expected, there is a big infrastructure behind it that needs to be configured.
+
+Next we have list of components that needs to be configured. After that some environment variables needed to be configured on your bitbucket repository, for pipelines to work well. This will be mentioned in detail at **Pipelines** section.
+
+#### Supabase
+
+Create two projects:
+
+- staging;
+- production;
+
+#### Vercel
+
+Create two projects:
+
+- staging;
+- production;
+
+#### Sentry
+
+Create two projects:
+
+- backoffice;
+- react-native app;
+
+#### App Center
+
+Create two projects:
+
+- android-staging;
+- android-production (before sending to store, using production infrastructure);
+
+#### App Store Connect
+
+Create two apps:
+
+- ios-staging;
+- ios-production;
+
+#### One Signal
+
+Create two projects:
+
+- staging (android-staging, android-preview, ios-staging, ios-preview);
+- ios-production (android-production, ios-production);
+
+**Note:** Ideally, in future, this process will be automatized.
+
+### Pipelines
+
+In this section the core of pipelines will described in detail. This section will uncover the main benefits of using pipelines.
+
+This repository was configured to have two different pipelines:
+
+- main: triggered when code is pushed to main;
+- pull-requests: triggered when a new pull request is created;
+
+Next we explain the flow for each pipeline.
+
+#### Main pipeline
+
+Sequential flow:
+
+- Testing phase (steps run in parallel):
+
+  - Linting backoffice (check code with eslint for backoffice web app);
+  - Type check backoffice (check code types with typescript for backoffice web app);
+  - Linting react native app (check code with eslint for react native app);
+  - Type check react native app (check code types with typescript for react native app);
+
+- Deployment phase for staging environment (steps run in parallel):
+
+  - push database changes on supabase project to staging (**supabase-staging** deployment environment);
+  - build and deployment of backoffice web app to staging (**backoffice-staging** deployment environment);
+  - build and deployment of android app to staging using App Center (**android-staging** deployment environment);
+  - build and deployment of ios app to staging using TestFlight (**ios-staging** deployment environment);
+
+- Deployment phase for production environment (steps triggered manually):
+
+  - push database changes on supabase project to production (**supabase-production** deployment environment);
+  - build and deployment of backoffice web app to production (**backoffice-production** deployment environment);
+  - build and deployment of android app to production using App Center (**android-production** deployment environment);
+  - build and deployment of ios app to production using TestFlight (**ios-production** deployment environment);
+
+  **Note:** On production the deployments were configured to be triggered manually, on bitbucket, to allow the team to decide when it is best to deploy a new release.
+
+#### Pull-requests pipelines
+
+Sequential flow to generate **review apps** about new pull request:
+
+- Testing phase (steps run in parallel):
+
+  - Linting backoffice (check code with eslint for backoffice web app);
+  - Type check backoffice (check code types with typescript for backoffice web app);
+  - Linting react native app (check code with eslint for react native app);
+  - Type check react native app (check code types with typescript for react native app);
+
+- Deployment phase for staging environment (steps run in parallel):
+
+  - build and deployment of backoffice web app as a **review app**: review app link can be taken from pipeline logs, about last script, in regard to **Deployment of Backoffice web app to preview** step (**backoffice-staging** deployment environment);
+  - build and deployment of android app as a **review app** using App Center (**android-preview** deployment environment);
+  - build and deployment of ios app as a **review app** using TestFlight (**ios-preview** deployment environment);
+
+  **Note:** Deployments about react native application were configured to be triggered manually to save pipeline minutes, however, the team can decide to make it automatic by removing `trigger: manual` line. **Review apps** use staging infrastructure.
+
+#### Continuous integration
+
+In software engineering, continuous integration is the practice of merging all developers’ working copies to shared mainline several times a day. That means continuous integration (CI) is an integration of all or several parts of iterative development into a pipeline process and can be automated with CI software (source: Wikipedia).
+
+Recommended sources about Continuous integration:
+
+- [Continuous delivery book, by Dave Farley and Jez Humble](https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912);
+- [Accelerate book, by Nicole Forsgren, Jez Humble and Gene Kim](https://www.amazon.com/Accelerate-Software-Performing-Technology-Organizations/dp/1942788339/);
+- [Continuous delivery, by Dave Farley by](https://www.continuous-delivery.co.uk/);
+
+##### Feature flags
+
+For continuous integration to work smoothly feature flag is a very important feature. Feature flagging allows companies to continuously deliver and deploy software to their users in a faster way. The use of feature flags allows companies to perform gradual feature rollouts, fix bugs in the code without redeploying, experience a more streamlined development cycle and do rollbacks of code more easily.
+
+You can read more about feature flags here:
+
+- [Martin fowler](https://martinfowler.com/articles/feature-toggles.html);
+- [Feature flgas - optimizely](https://www.optimizely.com/optimization-glossary/feature-flags/);
+
+### Deployment
+
+The pipelines implemented here, assume two environments:
+
+- staging: used for testing new features (in main branch), used for **review apps** (in pull request) and in general for developers implement new features when not using a local environment (not always possible). This environment can also be used for Quality Assurance;
+- production: final environment for product being implemented, used by final users;
+
+The term **review apps** will be used here to identify the deliverable generated by pipelines for a pull request. For example:
+
+- Web app, for backoffice, deployed on vercel for a specific pull request;
+- Android app uploaded on App Center or Google Play Internal App Sharing;
+- iOS app uploaded to Test Flight;
+
+#### Deployment environments
+
+To accomplish the flow for each pipeline described before we need to have the following deployment environments that need to be configured on your bitbucket repository at "Deployments" option ("your-repository-path/deployments"):
+
+##### Staging
+
+- supabase-staging;
+- backoffice-staging;
+- android-staging;
+- ios-staging;
+- android-preview;
+- ios-preview;
+
+##### Production
+
+- supabase-production;
+- backoffice-production;
+- android-production;
+- ios-production;
+
+#### Environment variables
+
+**Repository level** (needs to be configured on on your bitbucket repository at "Repository variables" option "your-repository-path/admin/pipelines/deployment-settings"):
+
+- VERCEL_TOKEN: token to communicate with vercel APIs for backoffice deployment. Follow instructions [here](https://vercel.com/guides/how-do-i-use-a-vercel-api-access-token) to create Vercel token (using a company account for all vercel projects is recommended);
+- VERCEL_ORG_ID: Vercel ID of your [vercel account](https://vercel.com/account) (using a company account for all vercel projects is recommended);
+- SUPABASE_ACCESS_TOKEN: token for pipeline to login with supabase. To create token go to supabase account page [here](https://supabase.com/dashboard/account/tokens) (using a company account for all supabase projects is recommended);
+- APP_CENTER_TOKEN: token to communicate with app center api, for android app deployment. Follow instructions [here](https://learn.microsoft.com/en-us/appcenter/api-docs/#creating-an-app-center-app-api-token) to create App Center token (using a company account for all app center projects is recommended);
+- SENTRY_AUTH_TOKEN: token to communicate with sentry api, for apps deployment. Follow instructions [here](https://docs.sentry.io/product/accounts/auth-tokens/#user-auth-tokens) to create Sentry token (using a company account for all sentry projects is recommended);
+- SENTRY_ORG: sentry organization slug that can be taken at "Organization settings" (/settings/organization) on Sentry dashboard;
+- IOS_CERTIFICATES_GIT_REPOSITORY: Repository to store ios certificate builds generate with fastlane. You will need to create a bitbucket token repository as explained [here](https://support.atlassian.com/bitbucket-cloud/docs/create-a-repository-access-token/) and for this variable use the value supplied that usable with **git clone** (using a company repository for all projects is recommended);
+- MATCH_PASSWORD: password to be used for fastlane to create ios certificates;
+- APP_STORE_TEAM_ID: Id for App Store Connect team;
+- APP_STORE_AUTH_KEY_P8_64: Key to communicate with App Store Connect API, on base 64 format. Follow the instructions [here](https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api) to create your key. After creating the key download it and generate the base 64 string by running `base64 -i key-file-downloaded > base64key`. Copy content of **base64key** to **APP_STORE_AUTH_KEY_P8_64** variable (using a company key for all projects is recommended);
+- APP_STORE_API_KEY_ISSUER_ID: Issuer id for key created for **APP_STORE_AUTH_KEY_P8_64** variable. Get your key issuer id at [App store connect dashboard](https://appstoreconnect.apple.com/access/api) (using a company key for all projects is recommended);
+- APP_STORE_API_KEY: Key id for key created for **APP_STORE_AUTH_KEY_P8_64** variable. Get your key issuer id at [App store connect dashboard](https://appstoreconnect.apple.com/access/api) (using a company key for all projects is recommended);
+- ANDROID_KEY_STORE_64: Upload key needed to create android build, on base 64 format. To create this keystore follow the instructions [here](https://reactnative.dev/docs/signed-apk-android#generating-an-upload-key). After that generate the base 64 string by running `base64 -i key-file.keystore > base64key`. Copy content of **base64key** to **ANDROID_KEY_STORE_64** variable;
+- ANDROID_KEY_STORE_PASSWORD: password used to create **ANDROID_KEY_STORE_64** variable;
+- SENTRY_DSN_BACKOFFICE: Client key of Sentry project for backoffice. This key can be taken at your Sentry dashboard (Project settings -> SDK Setup -> Client keys (DSN));
+- SENTRY_PROJECT_BACKOFFICE: Project name of Sentry project for backoffice. This name can be taken at your Sentry dashboard (Project settings -> General Settings -> Project Details);
+- SENTRY_DSN_RNAPP: Client key of Sentry project for react-native app. This key can be taken at your Sentry dashboard (Project settings -> SDK Setup -> Client keys (DSN));
+- SENTRY_PROJECT_RNAPP: Project name of Sentry project for react-native app. This name can be taken at your Sentry dashboard (Project settings -> General Settings -> Project Details);
+
+**TODO: analyze the idea of move those variable to workspace level and made it possible for multiple projects to use the same environment variables (except for SENTRY_DSN_BACKOFFICE SENTRY_PROJECT_BACKOFFICE, SENTRY_DSN_RNAPP and SENTRY_PROJECT_RNAPP)**
+
+For each deployment environment (needs to be configured on your bitbucket repository at "Deployments" option -> Settings option: "your-repository-path/admin/pipelines/repository-variables"):
+
+- VERCEL_PROJECT_ID: Project id on vercel, to be used for backoffice deployment, for deployment environment being configured. To get project id go to project settings on vercel dashboard (only for **backoffice-staging** and **backoffice-production** environments);
+- SUPABASE_DB_PASSWORD: Database password used when supabase project was created, for deployment environment being configured (only for **supabase-staging** and **supabase-production** environments);
+- SUPABASE_URL: Supabase URL to communicate with supabase API, in regard to your project for deployment environment being configured. On supabase dashboard go to Project Settings -> Database -> API (only for **backoffice-staging**, **backoffice-production**, **backoffice-staging**, **android-staging**, **ios-staging**, **android-preview**, **ios-preview**, **android-production** and **ios-production** environments)
+- SUPABASE_API_KEY: Anon API Key to communicate with supabase API, in regard to your project for deployment environment being configured. On supabase dashboard go to Project Settings -> Database -> API (only for **backoffice-staging**, **backoffice-production**, **backoffice-staging**, **android-staging**, **ios-staging**, **android-preview**, **ios-preview**, **android-production** and **ios-production** environments)
+- SUPABASE_PROJECT_ID: Supabase project id needed to deploy database changes, in regard to your project for deployment environment being configured.. On supabase dashboard go to Project Settings -> General Settings -> Reference ID (only for **supabase-staging** and **supabase-production** environments);
+- APP_CENTER_PROJECT: Name of app center project where to deploy android application. On App Center dashboard go to App settings -> App details (only for **android-staging**, **android-preview** and **android-production**);
+- ONE_SIGNAL_APP_ID: Id of onesignal app. On onesignal dashboard go to App Settings -> Keys & IDs -> OneSignal App ID (only for **android-staging**, **android-preview**, **ios-production**, **ios-staging**, **ios-preview** and **ios-production**);
+- APP_STORE_BUNDLE_ID: Bundle Id of ios application to be used as bundle id for Apple Store (only for **ios-production**, **ios-staging**, **ios-preview** and **ios-production**);
+
+After all variable are configured your pipelines should be ready to go.
+
+### Going to production
+
+#### Supabase
+
+Follow supabase documentation [here](https://supabase.com/docs/guides/platform/going-into-prod).
+
+##### SMTP configs
+
+Project Settings -> Database -> Authentication -> SMTP Settings
+
+Request for company SMTP configurations.
+
+##### Authentication
+
+###### URL Configuration
+
+Configure authenticate URLs (Site URL and Redirect URLs) for your project at Supabase project dashboard -> Authentication -> Configuration -> URL Configuration
+
+###### Email templates
+
+Review email templates:
+Supabase project dashboard -> Authentication -> Configuration -> Email templates
+
+###### Auth providers
+
+Review auth providers:
+Supabase project dashboard -> Authentication -> Configuration -> Providers
+
+###### Rate limits
+
+Review rate limits:
+Supabase project dashboard -> Authentication -> Configuration -> Rate Limits
+
+###### Policies
+
+Review policies:
+Supabase project dashboard -> Authentication -> Configuration -> Policies
+
+#### Vercel
+
+Configure for DNS for your projects. Read more about it [here](https://vercel.com/docs/projects/domains/add-a-domain).

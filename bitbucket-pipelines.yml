@@ -83,6 +83,7 @@ pipelines:
               - bundler
               - node
             deployment: android-preview
+            trigger: manual
             image: reactnativecommunity/react-native-android:latest
             size: 2x
             script:
@@ -103,6 +104,7 @@ pipelines:
               - self.hosted
               - macos
             deployment: ios-preview
+            trigger: manual
             script:
               - export APP_TEST_FLIGHT_CHANGE_LOG='Preview app from branch $BITBUCKET_BRANCH and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
               - source ./pipelines/executables/setup-ios-build.sh
@@ -139,7 +141,7 @@ pipelines:
             script:
               - ./pipelines/executables/setup-backoffice-staging-env.sh
               - ./pipelines/executables/setup-backoffice-build.sh
-              - vercel pull --yes --token=$VERCEL_TOKEN
+              - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
               - vercel build --prod --token=$VERCEL_TOKEN
               - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
 
@@ -194,7 +196,7 @@ pipelines:
               - yarn
               - node
             deployment: supabase-production
-            trigger: 'manual'
+            trigger: manual
             script:
               - source ./pipelines/executables/supabase-db-push.sh
 
@@ -208,7 +210,7 @@ pipelines:
               - yarn
               - node
             deployment: backoffice-production
-            trigger: 'manual'
+            trigger: manual
             script:
               - source ./pipelines/executables/setup-backoffice-production-env.sh
               - source ./pipelines/executables/setup-backoffice-build.sh
@@ -230,7 +232,7 @@ pipelines:
               - bundler
               - node
             deployment: android-production
-            trigger: 'manual'
+            trigger: manual
             image: reactnativecommunity/react-native-android:latest
             size: 2x
             script:
@@ -251,7 +253,7 @@ pipelines:
               - self.hosted
               - macos
             deployment: ios-production
-            trigger: 'manual'
+            trigger: manual
             script:
               - export APP_TEST_FLIGHT_CHANGE_LOG='Production app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
               - source ./pipelines/executables/setup-ios-build.sh
