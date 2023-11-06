@@ -1,6 +1,7 @@
 #!/bin/sh
 cd RNMobileApp
+cd android
+echo $ANDROID_SERVICE_ACCOUNT_KEY_64 | base64 -d > app/service-account-key.json
+cd ..
 gem install fastlane
-fastlane android build
-npm install -g appcenter-cli
-appcenter distribute release --app $APP_CENTER_PROJECT --file ./android/app/build/outputs/bundle/release/app-release.aab --group "Collaborators" --token $APP_CENTER_TOKEN
+fastlane android deploy_internal_play_store

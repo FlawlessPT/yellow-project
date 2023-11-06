@@ -52,6 +52,14 @@ Build and Deploy to test flight
 
 Build the Android application.
 
+### android deploy_internal_play_store
+
+```sh
+[bundle exec] fastlane android deploy_internal_play_store
+```
+
+Build and deploy to internal play store.
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
