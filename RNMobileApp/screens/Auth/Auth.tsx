@@ -7,6 +7,7 @@ import * as WebBrowser from 'expo-web-browser';
 import {useNavigation} from '@react-navigation/native';
 import {NoneAuthenticatedStackScreenPropsGeneric} from '../../types';
 import {useFeatureFlag} from '@utils/contexts';
+import InAppReview from 'react-native-in-app-review';
 
 export const Auth = function Auth() {
   const [email, setEmail] = useState('');
@@ -103,6 +104,33 @@ export const Auth = function Auth() {
     }
     setLoading(false);
   }
+  const askInAppReview = () => {
+    InAppReview.RequestInAppReview()
+      .then(hasFlowFinishedSuccessfully => {
+        console.log('InAppReview in android', hasFlowFinishedSuccessfully);
+        console.log(
+          'InAppReview in ios has launched successfully',
+          hasFlowFinishedSuccessfully,
+        );
+
+        if (hasFlowFinishedSuccessfully) {
+          console.log('user finished or close review flow');
+        }
+
+        // for android:
+        // The flow has finished. The API does not indicate whether the user
+        // reviewed or not, or even whether the review dialog was shown. Thus, no
+        // matter the result, we continue our app flow.
+
+        // for ios
+        // the flow lanuched successfully, The API does not indicate whether the user
+        // reviewed or not, or he/she closed flow yet as android, Thus, no
+        // matter the result, we continue our app flow.
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -176,6 +204,13 @@ export const Auth = function Auth() {
           title={t('auth.privacy_policy')}
           disabled={loading}
           onPress={() => navigation.navigate('PrivacyPolicy')}
+        />
+      </View>
+      <View style={styles.verticallySpaced}>
+        <Button
+          title={t('auth.rating_popup')}
+          disabled={loading}
+          onPress={() => askInAppReview()}
         />
       </View>
     </View>
