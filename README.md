@@ -8,6 +8,8 @@ This is a repository that works as a starter for a full stack mobile application
 - react + vite (Back Office SPA);
 - typescript;
 - supabase (Database + Serverless Backend);
+- Onesignal for push notifications dashboard;
+- Sentry for monitoring;
 - bitbucket pipelines;
 
 ## Requirements:
@@ -33,7 +35,10 @@ All projects here are pinned to a specific node version. This is important to ma
   - Update user account (Mobile App);
 - Initial Back office automatically generated from supabase database schema (customizations may be needed for each case);
 - Possibility to generate custom pages using a rich text editor (wysiwyg) that stores the corresponding html in the database (Back office);
-- "Terms and conditions" an "Privacy policy" screens using Back office feature mentioned in previous point. Content for those screens should be configured using Back office. (Mobile App);
+- "Terms and conditions" and "Privacy policy" screens using Back office feature mentioned in previous point. Content for those screens should be configured using Back office. (Mobile App);
+- Review app feature;
+- Onesignal for push notifications configured (Mobile App);
+- Sentry for monitoring configured (Mobile App and Back office);
 - Core pipelines (customizations will be needed for each project);
 
 ## Goals
@@ -157,7 +162,7 @@ And open [http://localhost:5173/](http://localhost:5173/).
 
 ### Pipelines
 
-You may not want to use the default pipelines here. If that is the case remove **bitbucket-pipelines.yml** or adapt steps as you need. Below there is a **Pipelines and deployment** section explaining it in detail.
+You may not want to use the default pipelines defined in this repository. If that is the case remove **bitbucket-pipelines.yml** or adapt steps as you need. Below there is a **Pipelines** section explaining it in detail.
 
 # Detailed Overview
 
@@ -461,6 +466,9 @@ This is a simple application with base examples for the following features:
 - Logout;
 - Terms and conditions screen (configurable using Back office);
 - Privacy policy screen (configurable using Back office);
+- Review app;
+- Onesignal configured for push notifications;
+- Sentry for monitoring;
 
 Being the important code in the following files:
 
@@ -522,60 +530,13 @@ function Component() {
 }
 ```
 
-#### What the benefits of this
+#### What are the benefits of this
 
 - You can update your translations directly on our back office;
 - You can let your client/project owner change it directly on our back office as well;
 - Messages can be changed without needing a new build and deploy;
 - For a developer it is easy to go directly to supabase dashboard and paste the needed json for messages;
 - No extra costs;
-
-### Push notifications (OneSignal)
-
-OneSignal is a popular push notification service that allows you to send messages and notifications to users in your React Native mobile application.
-
-The first step is to OneSignal account. You can sign up for a free account at **[OneSignal website.](https://dashboard.onesignal.com/signup)**
-
-After creating your account, you need to create a new application on OneSignal dashboard, you can create a separate application for each platform (Android and iOS) or you can just create one.
-
-### - Platform Specific Configurations:
-
-##### - iOS Configuration
-
-To start the process you need a **p8 Authentication Token** or **p12 Push Notification Certificate**.
-
-If you don't have neither a **p8** or **p12** you can create one on **[Apple Developer Portal](https://developer.apple.com/account)** but you need an account with admin rights.
-
-- Option 1: **p8 Authentication Token**
-
-At the moment apple only allows you to have two **p8 tokens**. If you already have two tokens, creating a new one will replace one of tokens you already have.
-
-To see your existing **p8 tokens** you need to go to **Certificates, IDs & Profiles** and select **Keys** or you can just [click here](https://developer.apple.com/account/resources/authkeys/list).
-
-When creating a new **Token** make sure you select **Apple Push Notifications service (APNs)**.
-
-Once you have your token, just upload it to OneSignal.Get your OneSignal App ID and add it to your App.
-
-- Option 2: **p12 Push Notification Certificate**
-
-To create a **p12 Push Notification Certificate** you need to open **Keychain Access**, on the mac top bar click on
-**Keychain Access** -> **Certificate Assistant** -> **Request a Certificate From a Certificate Authority**.
-
-Fill the required information and save the certificate on your disk.
-
-Go to **[Apple Developer Portal](https://developer.apple.com/account/ios/identifier/bundle)** on **Certificates, Identifiers & Profiles** select **Identifiers** and select your Identifier, scroll down untill you see **Push Notifications** make sure is selected but do not click **Configure**.
-
-Go back to the **Certificates** menu and add a new one, under **Services**, select **Apple Push Notification service SSL (Sandbox & Production)** and click **Continue**. Select your application and upload the certificate you created on the previous step.
-
-Now download the **.cer certificate**, double click on it and add it to your **Login Keychain**. On your **Keychain** select the certificate and export it. After exporting the certificate go back to OneSignal dashboard and upload it.
-Get your OneSignal App ID and add it to your App.
-
-#### - Android Configuration
-
-To start the process you need to create a **Firebase Cloud Messaging (FCM) credentials**. You can obtain these credentials by opening **[Firebase Console](https://firebase.google.com)**. Create a new project or select an existing one and add a new Android app. Follow the setup instructions and download the **google-services.json** file.
-
-Once you have your **google-services.json** file, just upload it to OneSignal.
-Get your OneSignal App ID and add it to your App.
 
 ### Local development
 
@@ -607,7 +568,7 @@ Being the important code in the following folders and files:
 
 At **configs/configs.ts** we can defined some overrides to our back office.
 
-Here we have an example that defines some **columns** to not be presented for all tables/resources, as well as some input types (**"none"** is used for us to be able to not show some **columns** for specific resources as you can find in the example for **slug** at **custom_pages** table while in **edit** mode).
+Below we have an example that defines some **columns** to not be presented for all tables/resources, as well as some input types (**"none"** is used for us to be able to not show some **columns** for specific resources as you can find in the example for **slug** at **custom_pages** table in **edit** mode).
 
 You can also find the **rich_text** type being used for **content** column at **custom_pages**. With that we are telling that we want to replace the regular text field with a rich text editor. For that we use **[ra-input-rich-text](https://marmelab.com/react-admin/RichTextInput.html)** library.
 
@@ -662,9 +623,17 @@ To edit json properties with **react-admin** we are using **[react-admin-json-vi
 
 ### Feature flags
 
-A table called **feature_flags** was configured to allow you to configure your feature flags while implementing a feature that you need to be hidden while not fully implemented, allowing the team follow continuous integration best practices.
+A table called **feature_flags** was configured to allow you to configure your feature flags while implementing a feature that you need to be hidden while not fully implemented, allowing the team to follow continuous integration best practices.
 
-To create a new feature flags you just need to go to backoffice web apps of your project, in staging and production.
+To create a new feature flags you just need to go to back office web apps of your project, in staging and production.
+
+To use a feature on Mobile App you can use `useFeatureFlag` hook:
+
+```tsx
+const isFeatureFlagOn = useFeatureFlag({
+  featureFlagKey: "YOUR_FEATURE_FLAG_KEY_HERE",
+});
+```
 
 ### Local development
 
@@ -678,7 +647,7 @@ And open [http://localhost:5173/](http://localhost:5173/).
 
 ### Monitoring
 
-To be always up to date on possible crashes and errors of our apps we have decided to use [Sentry](https://sentry.io/welcome) for that.
+To be always up to date on possible crashes and errors of our apps we have decided to use [Sentry](https://sentry.io/welcome).
 
 Each project will need to configure its own Sentry projects, but using a company account is recommended.
 
@@ -686,7 +655,7 @@ Each project will need to configure its own Sentry projects, but using a company
 
 To have our applications working, as expected, there is a big infrastructure behind it that needs to be configured.
 
-Next we have list of components that needs to be configured. After that some environment variables needed to be configured on your bitbucket repository, for pipelines to work well. This will be mentioned in detail at **Pipelines** section.
+Next we have list of components that need to be configured. After that some environment variables need to be configured on your bitbucket repository, for pipelines to work well. This will be mentioned in detail at **Pipelines** section.
 
 #### Supabase
 
@@ -716,14 +685,38 @@ Create two projects:
 - android-staging;
 - android-production (before sending to store, using production infrastructure);
 
+// TODO: Not needed if using internal sharing
+
+#### Google Play Store
+
+// TODO: if using internal sharing
+// This requires a first manual upload -- ask Gonçalo Martins for more instructions here
+
 #### App Store Connect
 
-Create two apps:
+Create two main apps:
 
 - ios-staging;
 - ios-production;
 
-#### One Signal
+Create two complementary apps needed for OneSignalNotificationServiceExtension:
+
+- ios-onesignal-staging;
+- ios-onesignal-production;
+
+The bundle for OneSignalNotificationServiceExtension should follow the following pattern, found at `Fastfile`:
+
+```ruby
+ENV['APP_STORE_BUNDLE_ID'] + '.OneSignalNotificationServiceExtension'
+```
+
+#### OneSignal
+
+OneSignal is a popular push notification service that allows you to send messages and notifications to users in your React Native mobile application.
+
+The first step is to OneSignal account. You can sign up for a free account at **[OneSignal website.](https://dashboard.onesignal.com/signup)**
+
+After creating your account, you need to create a new application on OneSignal dashboard, you can create a separate application for each platform (Android and iOS) or you can just create one.
 
 Create two projects:
 
@@ -732,9 +725,46 @@ Create two projects:
 
 **Note:** Ideally, in future, this process will be automatized.
 
+##### - iOS Configuration
+
+To start the process you need a **p8 Authentication Token** or **p12 Push Notification Certificate**.
+
+If you don't have neither a **p8** or **p12** you can create one on **[Apple Developer Portal](https://developer.apple.com/account)** but you need an account with admin rights.
+
+- Option 1: **p8 Authentication Token**
+
+At the moment apple only allows you to have two **p8 tokens**. If you already have two tokens, creating a new one will replace one of tokens you already have.
+
+To see your existing **p8 tokens** you need to go to **Certificates, IDs & Profiles** and select **Keys** or you can just [click here](https://developer.apple.com/account/resources/authkeys/list).
+
+When creating a new **Token** make sure you select **Apple Push Notifications service (APNs)**.
+
+Once you have your token, just upload it to OneSignal.Get your OneSignal App ID and add it to your App.
+
+- Option 2: **p12 Push Notification Certificate**
+
+To create a **p12 Push Notification Certificate** you need to open **Keychain Access**, on the mac top bar click on
+**Keychain Access** -> **Certificate Assistant** -> **Request a Certificate From a Certificate Authority**.
+
+Fill the required information and save the certificate on your disk.
+
+Go to **[Apple Developer Portal](https://developer.apple.com/account/ios/identifier/bundle)** on **Certificates, Identifiers & Profiles** select **Identifiers** and select your Identifier, scroll down untill you see **Push Notifications** make sure is selected but do not click **Configure**.
+
+Go back to the **Certificates** menu and add a new one, under **Services**, select **Apple Push Notification service SSL (Sandbox & Production)** and click **Continue**. Select your application and upload the certificate you created on the previous step.
+
+Now download the **.cer certificate**, double click on it and add it to your **Login Keychain**. On your **Keychain** select the certificate and export it. After exporting the certificate go back to OneSignal dashboard and upload it.
+Get your OneSignal App ID and add it to your App.
+
+#### - Android Configuration
+
+To start the process you need to create a **Firebase Cloud Messaging (FCM) credentials**. You can obtain these credentials by opening **[Firebase Console](https://firebase.google.com)**. Create a new project or select an existing one and add a new Android app. Follow the setup instructions and download the **google-services.json** file.
+
+Once you have your **google-services.json** file, just upload it to OneSignal.
+Get your OneSignal App ID and add it to your App.
+
 ### Pipelines
 
-In this section the core of pipelines will described in detail. This section will uncover the main benefits of using pipelines.
+In this section the core of pipelines will be described in detail. This section will cover the main benefits of using pipelines and continuous integration.
 
 This repository was configured to have two different pipelines:
 
@@ -754,21 +784,21 @@ Sequential flow:
   - Linting react native app (check code with eslint for react native app);
   - Type check react native app (check code types with typescript for react native app);
 
-- Deployment phase for staging environment (steps run in parallel):
+- Build and Deployment phase for staging environment (steps run in parallel):
 
   - push database changes on supabase project to staging (**supabase-staging** deployment environment);
   - build and deployment of backoffice web app to staging (**backoffice-staging** deployment environment);
   - build and deployment of android app to staging using App Center (**android-staging** deployment environment);
   - build and deployment of ios app to staging using TestFlight (**ios-staging** deployment environment);
 
-- Deployment phase for production environment (steps triggered manually):
+- Build and Deployment phase for production environment (steps triggered manually):
 
   - push database changes on supabase project to production (**supabase-production** deployment environment);
   - build and deployment of backoffice web app to production (**backoffice-production** deployment environment);
   - build and deployment of android app to production using App Center (**android-production** deployment environment);
   - build and deployment of ios app to production using TestFlight (**ios-production** deployment environment);
 
-  **Note:** On production the deployments were configured to be triggered manually, on bitbucket, to allow the team to decide when it is best to deploy a new release.
+  **Note:** On production, the deployments were configured to be triggered manually, on bitbucket, to allow the team to decide when it is best to deploy a new release, but the code on main should always be ready for a new deployment, following the continuous integration and continuous delivery practices.
 
 #### Pull-requests pipelines
 
@@ -812,18 +842,18 @@ You can read more about feature flags here:
 
 The pipelines implemented here, assume two environments:
 
-- staging: used for testing new features (in main branch), used for **review apps** (in pull request) and in general for developers implement new features when not using a local environment (not always possible). This environment can also be used for Quality Assurance;
-- production: final environment for product being implemented, used by final users;
+- **staging**: used for testing new features (in main branch), used for **review apps** (in pull request) and in general for developers implement new features when not using a local environment (not always possible). This environment can also be used for Quality Assurance;
+- **production**: final environment for product being implemented, used by final users;
 
 The term **review apps** will be used here to identify the deliverable generated by pipelines for a pull request. For example:
 
 - Web app, for backoffice, deployed on vercel for a specific pull request;
-- Android app uploaded on App Center or Google Play Internal App Sharing;
+- Android app uploaded on App Center or Google Play Internal App Sharing for a specific pull request;
 - iOS app uploaded to Test Flight;
 
 #### Deployment environments
 
-To accomplish the flow for each pipeline described before we need to have the following deployment environments that need to be configured on your bitbucket repository at "Deployments" option ("your-repository-path/deployments"):
+To accomplish the flow for each pipeline described before, we need to have the following deployment environments configured on your bitbucket repository at "Deployments" option ("your-repository-path/deployments"):
 
 ##### Staging
 
