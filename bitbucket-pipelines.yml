@@ -25,8 +25,8 @@ definitions:
           - yarn type-check
           - yarn lint
 
-    - step: &mobile-app-linting
-        name: Mobile app lint and type checks
+    - step: &mobile-app-linting-tests
+        name: Mobile app lint, type checks and tests
         condition:
           changesets:
             includePaths:
@@ -41,6 +41,7 @@ definitions:
           - yarn install --frozen-lockfile
           - yarn type-check
           - yarn lint
+          - yarn test
 
 pipelines:
   pull-requests:
@@ -48,7 +49,7 @@ pipelines:
       - parallel:
           steps:
             - step: *backoffice-linting
-            - step: *mobile-app-linting
+            - step: *mobile-app-linting-tests
 
       - parallel:
         - step:
@@ -116,7 +117,7 @@ pipelines:
       - parallel:
           steps:
             - step: *backoffice-linting
-            - step: *mobile-app-linting
+            - step: *mobile-app-linting-tests
 
       - parallel:
         - step:
