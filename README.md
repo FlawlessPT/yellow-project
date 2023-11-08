@@ -540,6 +540,8 @@ function Component() {
 
 ### Local development
 
+Configure your `.env` at `RNMobileApp` folder by duplicating the content from `.env.example` and defining the variable values correctly, for your project.
+
 Go to **RNMobileApp** project and execute
 
 ```sh
@@ -644,6 +646,14 @@ yarn dev
 ```
 
 And open [http://localhost:5173/](http://localhost:5173/).
+
+## Setup
+
+Next sections will explain all the setup needed to have your project running, from infrastructure to pipelines.
+
+To help you setting it up there is **a tool that could be helpful, but use it carefully, and it should only be done by an admin with access to all needed accounts.**.
+
+This tool can be checked [here](https://bitbucket.org/teammw1/mw-framework-cli/src/main/).
 
 ### Monitoring
 
