@@ -11,6 +11,7 @@ import {Account} from '@screens/Account';
 import {TermsAndConditions} from '@screens/TermsAndConditions';
 import {Auth} from '@screens/Auth';
 import {PrivacyPolicy} from '@screens/PrivacyPolicy';
+import {Tutorial} from '@screens/Tutorial';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import Backend from 'i18next-http-backend';
@@ -153,6 +154,11 @@ function App() {
                   name="PrivacyPolicy"
                   component={PrivacyPolicy}
                   options={{title: ''}}
+                />
+                <Stack.Screen
+                  name="Tutorial"
+                  component={Tutorial}
+                  options={{headerShown: false}}
                 />
               </>
             )}

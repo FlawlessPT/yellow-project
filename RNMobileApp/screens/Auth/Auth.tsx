@@ -213,6 +213,13 @@ export const Auth = function Auth() {
           onPress={() => askInAppReview()}
         />
       </View>
+      <View style={styles.verticallySpaced}>
+        <Button
+          title={t('auth.tutorial')}
+          disabled={loading}
+          onPress={() => navigation.navigate('Tutorial')}
+        />
+      </View>
     </View>
   );
 };
