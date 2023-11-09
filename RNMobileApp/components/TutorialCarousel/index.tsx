@@ -33,7 +33,7 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
 }) => {
   const [isFirst, setIsFirst] = useState(true);
   const [isLast, setIsLast] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState<number | undefined>(0);
 
   const screenWidth = Dimensions.get('window').width;
   const {t} = useTranslation();
@@ -112,7 +112,7 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
       {!isLast && (
         <>
           <Pagination
-            currentIndex={currentIndex}
+            currentIndex={currentIndex as number}
             totalItems={data.length}
             goToFunc={index => goTo(index)}
           />
