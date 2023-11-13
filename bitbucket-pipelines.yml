@@ -189,10 +189,6 @@ pipelines:
       - parallel:
         - step:
             name: 'Deployment of supabase changes to production'
-            condition:
-              changesets:
-                includePaths:
-                  - "supabase/**"
             caches:
               - yarn
               - node

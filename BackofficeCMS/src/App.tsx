@@ -39,7 +39,6 @@ function BackOfficeAdmin() {
         supabaseClient.rpc('get_types', {tname: name}),
       );
       const allTableInfoResults = await Promise.all(allTablePromises);
-
       allTableInfoResults.forEach(
         (
           response: PostgrestSingleResponse<

@@ -36,7 +36,7 @@ if (Config.ONE_SIGNAL_APP_ID) {
 
   // Method for listening for notification clicks
   OneSignal.Notifications.addEventListener('click', event => {
-    console.log('TODO: OneSignal: notification clicked:', event);
+    console.log('OneSignal: notification clicked:', event);
   });
 }
 
