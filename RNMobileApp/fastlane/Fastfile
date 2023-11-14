@@ -42,12 +42,13 @@ platform :ios do
       app_identifier: ENV['APP_STORE_BUNDLE_ID']
     ) + 1
 
+    increment_build_number(next_test_flight_build_number)
+
     upload_to_testflight(
       api_key: api_key,
       changelog: ENV['APP_TEST_FLIGHT_CHANGE_LOG'],
       skip_waiting_for_build_processing: true,
-      notify_external_testers: true,
-      build_number: next_test_flight_build_number.to_s
+      notify_external_testers: true
     )
   end
 end
