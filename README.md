@@ -699,6 +699,32 @@ Pipelines are configured to deploy android application, automatically, to google
 
 For pipelines to work well, make sure, service account was configured as explained [here](https://docs.fastlane.tools/getting-started/android/setup/) at "Collect your Google credentials" section, and configure repository variable **ANDROID_SERVICE_ACCOUNT_KEY_64** (explained below on **Pipelines** section), if your project is not using the same account as configured on workspace level.
 
+##### Android initial manual build
+
+To generate a new android build, for first manual upload needed for Google Play Internal Sharing.
+
+On your termial at root of your new repository:
+
+```sh
+export BITBUCKET_BUILD_NUMBER=1
+export BITBUCKET_COMMIT=manualbuild
+export SENTRY_PROJECT_RNAPP=SENTRY_PROJECT_NAME_FOR_MOBILE_APP_FROM_JSON_FILE
+export SENTRY_DSN_RNAPP=SENTRY_DSN_FOR_MOBILE_APP_FROM_JSON_FILE
+export ONE_SIGNAL_APP_ID=ONESIGNAL_FROM_JSON_FILE
+export ANDROID_APPLICATION_ID=YOUR_APPLICATION_PACKAGE_NAME
+export ANDROID_KEY_STORE_64=BASE_64_OF_KEYSTORE_USED_ON_PLAY_CONSOLE
+export ANDROID_KEY_STORE_PASSWORD=PASSWORD_OF_KEYSTORE_USED_ON_PLAY_CONSOLE
+export SUPABASE_URL=SUPABASE_URL_FROM_JSON_FILE
+export SUPABASE_API_KEY=SUPABASE_API_KEY_FROM_JSON_FILE
+export SENTRY_ORG=SENTRY_ORG_FROM_JSON_FILE
+export SENTRY_AUTH_TOKEN=SENTRY_AUTH_TOKEN_FROM_SENTRY_DASHBOARD
+source ./pipelines/executables/setup-android-build.sh
+cd RNMobileApp
+echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
+echo "SENTRY_ENVIRONMENT=staging" >> .env
+fastlane android build
+```
+
 #### App Store Connect
 
 Create two main apps:
