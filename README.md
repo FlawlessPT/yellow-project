@@ -736,21 +736,11 @@ Additionally configure applications for iOS and Android as explained below. In c
 
 ##### - iOS Configuration
 
-To start the process you need a **p8 Authentication Token** or **p12 Push Notification Certificate**.
+To start the process you need a **p12 Push Notification Certificate**.
 
 If you don't have neither a **p8** or **p12** you can create one on **[Apple Developer Portal](https://developer.apple.com/account)** but you need an account with admin rights.
 
-- Option 1: **p8 Authentication Token**
-
-At the moment apple only allows you to have two **p8 tokens**. If you already have two tokens, creating a new one will replace one of tokens you already have.
-
-To see your existing **p8 tokens** you need to go to **Certificates, IDs & Profiles** and select **Keys** or you can just [click here](https://developer.apple.com/account/resources/authkeys/list).
-
-When creating a new **Token** make sure you select **Apple Push Notifications service (APNs)**.
-
-Once you have your token, just upload it to OneSignal.Get your OneSignal App ID and add it to your App.
-
-- Option 2: **p12 Push Notification Certificate**
+- **p12 Push Notification Certificate**
 
 To create a **p12 Push Notification Certificate** you need to open **Keychain Access**, on the mac top bar click on
 **Keychain Access** -> **Certificate Assistant** -> **Request a Certificate From a Certificate Authority**.
@@ -896,7 +886,7 @@ To accomplish the flow for each pipeline described before, we need to have the f
 - APP_STORE_AUTH_KEY_P8_64: Key to communicate with App Store Connect API, on base 64 format. Follow the instructions [here](https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api) to create your key. After creating the key download it and generate the base 64 string by running `base64 -i key-file-downloaded > base64key`. Copy content of **base64key** to **APP_STORE_AUTH_KEY_P8_64** variable (using a company key for all projects is recommended);
 - APP_STORE_API_KEY_ISSUER_ID: Issuer id for key created for **APP_STORE_AUTH_KEY_P8_64** variable. Get your key issuer id at [App store connect dashboard](https://appstoreconnect.apple.com/access/api) (using a company key for all projects is recommended);
 - APP_STORE_API_KEY: Key id for key created for **APP_STORE_AUTH_KEY_P8_64** variable. Get your key issuer id at [App store connect dashboard](https://appstoreconnect.apple.com/access/api) (using a company key for all projects is recommended);
-- ANDROID_KEY_STORE_64: Upload key needed to create android build, on base 64 format. To create this keystore follow the instructions [here](https://reactnative.dev/docs/signed-apk-android#generating-an-upload-key). After that generate the base 64 string by running `base64 -i key-file.keystore > base64key`. Copy content of **base64key** to **ANDROID_KEY_STORE_64** variable;
+- ANDROID_KEY_STORE_64: Upload key needed to create android build, on base 64 format. To create this keystore follow the instructions [here](https://reactnative.dev/docs/signed-apk-android#generating-an-upload-key). While creating keystore make sure the key alias has the value "my-key-alias" or update `pipelines/executables/setup-android-build.sh` file to have the correct alias defined. After that generate the base 64 string by running `base64 -i key-file.keystore > base64key`. Copy content of **base64key** to **ANDROID_KEY_STORE_64** variable;
 - ANDROID_KEY_STORE_PASSWORD: password used to create **ANDROID_KEY_STORE_64** variable;
 - ANDROID_SERVICE_ACCOUNT_KEY_64: Service account key in base 64. To create your service account follow instructions [here](https://docs.fastlane.tools/getting-started/android/setup/) at "Collect your Google credentials" section, download the file and convert it to base 64 string by running `base64 -i key-file-downloaded > base64key`. Copy content of **base64key** to **ANDROID_SERVICE_ACCOUNT_KEY_64** variable (using a company key for all projects is recommended).
 
