@@ -209,7 +209,7 @@ For local development you want to create a **.env** file with supabase variables
 
 ```sh
 SUPABASE_URL=http://localhost:54321
-SUPBASE_API_KEY=ANON_KEY_SUPPLIED_IN_THE_END_OF_START_PROCESS_HERE
+SUPABASE_API_KEY=ANON_KEY_SUPPLIED_IN_THE_END_OF_START_PROCESS_HERE
 ```
 
 Now run
