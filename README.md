@@ -725,9 +725,25 @@ echo "SENTRY_ENVIRONMENT=staging" >> .env
 fastlane android build
 ```
 
-#### App Store Connect
+#### Apple
 
-Create two main apps:
+#### Apple Developer Account
+
+Create two main bundle ids for apps and configure and enable push notification, with production certificate, for each bundle id:
+
+- ios-staging;
+- ios-production;
+
+Create two complementary bundle ids needed for OneSignalNotificationServiceExtension:
+
+- ios-onesignal-staging;
+- ios-onesignal-production;
+
+No need to configure push notification for those two bundle ids, in regard to, OneSignal.
+
+##### App Store Connect
+
+Create two main apps (using bundle ids created):
 
 - ios-staging;
 - ios-production;
