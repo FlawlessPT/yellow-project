@@ -703,7 +703,7 @@ For pipelines to work well, make sure, service account was configured as explain
 
 To generate a new android build, for first manual upload needed for Google Play Internal Sharing.
 
-On your termial at root of your new repository:
+On your terminal at root of your new repository:
 
 ```sh
 export BITBUCKET_BUILD_NUMBER=1
