@@ -778,11 +778,7 @@ Additionally configure applications for iOS and Android as explained below. In c
 
 ##### - iOS Configuration
 
-To start the process you need a **p12 Push Notification Certificate**.
-
-If you don't have neither a **p8** or **p12** you can create one on **[Apple Developer Portal](https://developer.apple.com/account)** but you need an account with admin rights.
-
-- **p12 Push Notification Certificate**
+To start the process you need a **p12 Push Notification Certificate**. You can create it on **[Apple Developer Portal](https://developer.apple.com/account)** but you need an account with admin rights.
 
 To create a **p12 Push Notification Certificate** you need to open **Keychain Access**, on the mac top bar click on
 **Keychain Access** -> **Certificate Assistant** -> **Request a Certificate From a Certificate Authority**.
