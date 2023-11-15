@@ -109,7 +109,9 @@ pipelines:
             script:
               - export APP_TEST_FLIGHT_CHANGE_LOG='Preview app from branch $BITBUCKET_BRANCH and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
               - source ./pipelines/executables/setup-ios-build.sh
+              - cd RNMobileApp
               - echo "SENTRY_ENVIRONMENT=preview-$BITBUCKET_BRANCH" >> .env
+              - cd ..
               - source ./pipelines/executables/ios-build-and-deploy.sh
 
   branches:
@@ -183,7 +185,9 @@ pipelines:
             script:
               - export APP_TEST_FLIGHT_CHANGE_LOG='Staging app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
               - source ./pipelines/executables/setup-ios-build.sh
+              - cd RNMobileApp
               - echo "SENTRY_ENVIRONMENT=staging" >> .env
+              - cd ..
               - source ./pipelines/executables/ios-build-and-deploy.sh
 
       - parallel:
@@ -254,5 +258,7 @@ pipelines:
             script:
               - export APP_TEST_FLIGHT_CHANGE_LOG='Production app from main and commit $BITBUCKET_COMMIT, build $BITBUCKET_BUILD_NUMBER'
               - source ./pipelines/executables/setup-ios-build.sh
+              - cd RNMobileApp
               - echo "SENTRY_ENVIRONMENT=production" >> .env
+              - cd ..
               - source ./pipelines/executables/ios-build-and-deploy.sh
