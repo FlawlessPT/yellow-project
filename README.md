@@ -727,7 +727,7 @@ fastlane android build
 
 #### Apple
 
-#### Apple Developer Account
+##### Apple Developer Account
 
 Create two main bundle ids for apps and configure and enable push notification, with production certificate, for each bundle id:
 
