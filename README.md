@@ -42,20 +42,18 @@ All projects here are pinned to a specific node version. This is important to ma
     * Sign in email / password (mobile app);
     * Recover password process (mobile app and back office);
     * Authentication, using oauth github provider or oauth google provider (mobile app);
-    
-    
-  -- Logout (mobile app and back office);
-  -- Update user account (Mobile app);
-  - Deep linking configured (Mobile app);
-- Initial Back office automatically generated from supabase database schema (customizations may be needed for each case);
-- Possibility to generate custom pages using a rich text editor (wysiwyg) that stores the corresponding html in the database (back office);
-- "Terms and conditions" and "Privacy policy" screens using Back office feature mentioned in previous point. Content for those screens should be configured using Back office. (mobile app);
-- Review app feature (mobile app);
-- Configuration of OneSignal for push notifications, through OneSignal dashboard (mobile app);
-- Sentry for monitoring configured (mobile App and back office);
-- Core pipelines (customizations will be needed for each project);
-- Possibility to define feature flags on mobile app, through back office;
-- Possibility to define `i18n` message on back office and use them on mobile app, using `i18next`;
+    * Logout (mobile app and back office);
+    * Update user account (Mobile app);
+        * Deep linking configured (Mobile app);
+    * Initial Back office automatically generated from supabase database schema (customizations may be needed for each case);
+    * Possibility to generate custom pages using a rich text editor (wysiwyg) that stores the corresponding html in the database (back office);
+    * "Terms and conditions" and "Privacy policy" screens using Back office feature mentioned in previous point. Content for those screens should be configured using Back office. (mobile app);
+    * Review app feature (mobile app);
+    * Configuration of OneSignal for push notifications, through OneSignal dashboard (mobile app);
+    * Sentry for monitoring configured (mobile App and back office);
+    * Core pipelines (customizations will be needed for each project);
+    * Possibility to define feature flags on mobile app, through back office;
+    * Possibility to define `i18n` message on back office and use them on mobile app, using `i18next`;
 
 ## Goals
 
