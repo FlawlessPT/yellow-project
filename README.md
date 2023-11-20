@@ -37,11 +37,13 @@ All projects here are pinned to a specific node version. This is important to ma
 
 ## Main features included:
 
-- Basic Authentication features:
-  -- Sign up email / password (mobile app);
-  -- Sign in email / password (mobile app);
-  -- Recover password process (mobile app and back office);
-  -- Authentication, using oauth github provider or oauth google provider (mobile app);
+* Basic Authentication features:
+    * Sign up email / password (mobile app);
+    * Sign in email / password (mobile app);
+    * Recover password process (mobile app and back office);
+    * Authentication, using oauth github provider or oauth google provider (mobile app);
+    
+    
   -- Logout (mobile app and back office);
   -- Update user account (Mobile app);
   - Deep linking configured (Mobile app);
