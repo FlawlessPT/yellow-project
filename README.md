@@ -38,13 +38,13 @@ All projects here are pinned to a specific node version. This is important to ma
 ## Main features included:
 
 - Basic Authentication features:
-  - Sign up email / password (mobile app);
-  - Sign in email / password (mobile app);
-  - Recover password process (mobile app and back office);
-  - Authentication, using oauth github provider or oauth google provider (mobile app);
-  - Logout (mobile app and back office);
-  - Update user account (Mobile app);
-  - - Deep linking configured (Mobile app);
+  -- Sign up email / password (mobile app);
+  -- Sign in email / password (mobile app);
+  -- Recover password process (mobile app and back office);
+  -- Authentication, using oauth github provider or oauth google provider (mobile app);
+  -- Logout (mobile app and back office);
+  -- Update user account (Mobile app);
+  - Deep linking configured (Mobile app);
 - Initial Back office automatically generated from supabase database schema (customizations may be needed for each case);
 - Possibility to generate custom pages using a rich text editor (wysiwyg) that stores the corresponding html in the database (back office);
 - "Terms and conditions" and "Privacy policy" screens using Back office feature mentioned in previous point. Content for those screens should be configured using Back office. (mobile app);
