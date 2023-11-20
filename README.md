@@ -851,47 +851,42 @@ Next we explain the flow for each pipeline.
 
 Sequential flow:
 
-- Testing phase (steps run in parallel):
+* Testing phase (steps run in parallel):
+    * Linting backoffice (check code with eslint for backoffice web app);
+    * Type check backoffice (check code types with typescript for backoffice web app);
+    * Linting react native app (check code with eslint for react native app);
+    * Type check react native app (check code types with typescript for react native app);
 
-  - Linting backoffice (check code with eslint for backoffice web app);
-  - Type check backoffice (check code types with typescript for backoffice web app);
-  - Linting react native app (check code with eslint for react native app);
-  - Type check react native app (check code types with typescript for react native app);
+* Build and Deployment phase for staging environment (steps run in parallel):
+    * push database changes on supabase project to staging (**supabase-staging** deployment environment);
+    * build and deployment of backoffice web app to staging (**backoffice-staging** deployment environment);
+    * build and deployment of android app to staging using google play internal sharing (**android-staging** deployment environment);
+    * build and deployment of ios app to staging using TestFlight (**ios-staging** deployment environment);
 
-- Build and Deployment phase for staging environment (steps run in parallel):
+* Build and Deployment phase for production environment (steps triggered manually):
+    * push database changes on supabase project to production (**supabase-production** deployment environment);
+    * build and deployment of backoffice web app to production (**backoffice-production** deployment environment);
+    * build and deployment of android app to production using using google play internal sharing (**android-production** deployment environment);
+    * build and deployment of ios app to production using TestFlight (**ios-production** deployment environment);
 
-  - push database changes on supabase project to staging (**supabase-staging** deployment environment);
-  - build and deployment of backoffice web app to staging (**backoffice-staging** deployment environment);
-  - build and deployment of android app to staging using google play internal sharing (**android-staging** deployment environment);
-  - build and deployment of ios app to staging using TestFlight (**ios-staging** deployment environment);
-
-- Build and Deployment phase for production environment (steps triggered manually):
-
-  - push database changes on supabase project to production (**supabase-production** deployment environment);
-  - build and deployment of backoffice web app to production (**backoffice-production** deployment environment);
-  - build and deployment of android app to production using using google play internal sharing (**android-production** deployment environment);
-  - build and deployment of ios app to production using TestFlight (**ios-production** deployment environment);
-
-  **Note:** On production, the deployments were configured to be triggered manually, on bitbucket, to allow the team to decide when it is best to deploy a new release, but the code on main should always be ready for a new deployment, following the continuous integration and continuous delivery practices.
+**Note:** On production, the deployments were configured to be triggered manually, on bitbucket, to allow the team to decide when it is best to deploy a new release, but the code on main should always be ready for a new deployment, following the continuous integration and continuous delivery practices.
 
 #### Pull-requests pipelines
 
 Sequential flow to generate **review apps** about new pull request:
 
-- Testing phase (steps run in parallel):
+* Testing phase (steps run in parallel):
+    * Linting backoffice (check code with eslint for backoffice web app);
+    * Type check backoffice (check code types with typescript for backoffice web app);
+    * Linting react native app (check code with eslint for react native app);
+    * Type check react native app (check code types with typescript for react native app);
 
-  - Linting backoffice (check code with eslint for backoffice web app);
-  - Type check backoffice (check code types with typescript for backoffice web app);
-  - Linting react native app (check code with eslint for react native app);
-  - Type check react native app (check code types with typescript for react native app);
+* Deployment phase for staging environment (steps run in parallel):
+    * build and deployment of backoffice web app as a **review app**: review app link can be taken from pipeline logs, about last script, in regard to **Deployment of Backoffice web app to preview** step (**backoffice-preview** deployment environment);
+    * build and deployment of android app as a **review app** using using google play internal sharing (**android-preview** deployment environment);
+    * build and deployment of ios app as a **review app** using TestFlight (**ios-preview** deployment environment);
 
-- Deployment phase for staging environment (steps run in parallel):
-
-  - build and deployment of backoffice web app as a **review app**: review app link can be taken from pipeline logs, about last script, in regard to **Deployment of Backoffice web app to preview** step (**backoffice-preview** deployment environment);
-  - build and deployment of android app as a **review app** using using google play internal sharing (**android-preview** deployment environment);
-  - build and deployment of ios app as a **review app** using TestFlight (**ios-preview** deployment environment);
-
-  **Note:** Deployments about react native application were configured to be triggered manually to save pipeline minutes, however, the team can decide to make it automatic by removing `trigger: manual` line. **Review apps** use staging infrastructure.
+**Note:** Deployments about react native application were configured to be triggered manually to save pipeline minutes, however, the team can decide to make it automatic by removing `trigger: manual` line. **Review apps** use staging infrastructure.
 
 #### Continuous integration
 
