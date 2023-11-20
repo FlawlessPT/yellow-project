@@ -1,22 +1,33 @@
 # Introduction
 
-This is a repository that works as a starter for a full stack mobile application and includes a Back Office Web App.
+This is a repository that works as a starter for a full stack mobile application and includes a Back office web app.
 
 ## Main technologies:
 
 - react-native (mobile application);
-- react + vite (Back Office SPA);
+- react + vite (back office SPA);
 - typescript;
-- supabase (Database + Serverless Backend);
-- Onesignal for push notifications dashboard;
-- Sentry for monitoring;
+- supabase (postgres database + authentication system + serverless backend through edge/cloud functions);
+- OneSignal for push notifications dashboard;
+- Sentry for monitoring application crashes and unexpected errors;
 - bitbucket pipelines;
 
-## Requirements:
+## Base infrastructure on organization level (Mobiweb)
 
-- NodeJs@18 (it is recommend you to use [volta](https://docs.volta.sh/guide/getting-started), read below);
-- Docker;
-- iOS and Android as mentioned [here](https://reactnative.dev/docs/environment-setup?guide=native&os=macos&platform=android) (chose your Development OS and Target OS accordingly to your case);
+This information is only needed when you are going to start a new project with base built in this repository:
+
+- **mw-framework-cli** repository (helper to fork repository, configure pipelines and generate needed infrastructure): https://bitbucket.org/teammw1/mw-framework-cli;
+- Bitbucket workspace used: https://bitbucket.org/teammw1;
+- Bitbucket project used: https://bitbucket.org/teammw1/workspace/projects/MWAP;
+- Apple certificates repository for pipelines, using fastlane: https://bitbucket.org/teammw1/mw-framework-ios-certificates;
+- Page to setup bitbucket runners to have pipelines for iOS application being executed (if not configured yet): https://bitbucket.org/teammw1/workspace/settings/pipelines/account-runners;
+- Supabase organization used for this repository deliveries (if working on framework developments ask Márcio access for it): https://supabase.com/dashboard/org/qnwopdhmjlkafcdasyau;
+
+## Requirements for development:
+
+- NodeJs@18 (it is recommended you to use [volta](https://docs.volta.sh/guide/getting-started), read below);
+- Docker (when using supabase locally);
+- iOS and Android as mentioned [here](https://reactnative.dev/docs/environment-setup?guide=native&os=macos&platform=android) (choose your Development OS and Target OS accordingly to your case);
 
 ### Volta
 
@@ -27,19 +38,22 @@ All projects here are pinned to a specific node version. This is important to ma
 ## Main features included:
 
 - Basic Authentication features:
-  - Sign up email / password (Mobile App);
-  - Sign in email / password (Mobile App);
-  - Recover password process (Mobile App and Back office);
-  - Authentication, using oauth github provider or oauth google provider (Mobile App);
-  - Logout (Mobile App and Back office);
-  - Update user account (Mobile App);
+  - Sign up email / password (mobile app);
+  - Sign in email / password (mobile app);
+  - Recover password process (mobile app and back office);
+  - Authentication, using oauth github provider or oauth google provider (mobile app);
+  - Logout (mobile app and back office);
+  - Update user account (Mobile app);
+  - - Deep linking configured (Mobile app);
 - Initial Back office automatically generated from supabase database schema (customizations may be needed for each case);
-- Possibility to generate custom pages using a rich text editor (wysiwyg) that stores the corresponding html in the database (Back office);
-- "Terms and conditions" and "Privacy policy" screens using Back office feature mentioned in previous point. Content for those screens should be configured using Back office. (Mobile App);
-- Review app feature;
-- Onesignal for push notifications configured (Mobile App);
-- Sentry for monitoring configured (Mobile App and Back office);
+- Possibility to generate custom pages using a rich text editor (wysiwyg) that stores the corresponding html in the database (back office);
+- "Terms and conditions" and "Privacy policy" screens using Back office feature mentioned in previous point. Content for those screens should be configured using Back office. (mobile app);
+- Review app feature (mobile app);
+- Configuration of OneSignal for push notifications, through OneSignal dashboard (mobile app);
+- Sentry for monitoring configured (mobile App and back office);
 - Core pipelines (customizations will be needed for each project);
+- Possibility to define feature flags on mobile app, through back office;
+- Possibility to define `i18n` message on back office and use them on mobile app, using `i18next`;
 
 ## Goals
 
@@ -49,13 +63,12 @@ With this, we aim to stand out in a competitive market, while keeping our qualit
 
 ## Repository structure
 
-This repository is composed by 3 main folders/projects:
+This repository is composed by 4 main folders/projects:
 
 - supabase: configurations needed for supabase database and integration with our applications;
 - RNMobileApp: mobile application using bare react-native;
-- BackofficeCMS: Single Page Application (web) for an auto generated Back office from supabase database, offering the possibility for **Admins** to change some data directly;
-
-Besides those 3 components, there is a big a core build around pipelines defined in this repository, using bitbucket pipelines (bitbucket-pipelines.yml). Those pipelines will be described in details in a later section.
+- BackofficeCMS: Single Page Application (web) for an auto generated back office from supabase database, offering the possibility for **Admins** to change some data directly;
+- pipelines: executables used for core of pipelines defined in this repository, using bitbucket pipelines (bitbucket-pipelines.yml). Those pipelines will be described in details in a later section;
 
 ## Getting Started - TLDR
 
@@ -65,11 +78,11 @@ This section is a quick overview of the steps needed to start working with this 
 
 ### Fork this repository to your own project
 
-Follow bitbucket instructions to fork the repository and clone it to your machine, open a terminal in the root of your repository.
+Follow bitbucket instructions to fork the repository and clone it to your machine, open a terminal in the root of your repository (you can also use `mw-framework-cli`, already mentioned above and explained in more detail below).
 
 ### Supabase integrations
 
-Go to [Supabase Dashboard](https://supabase.com/dashboard) and **create your supabase remote project**. If you, for now, want to use it locally only, skip this section and read **"Detailed Overview"** section.
+Go to [Supabase Dashboard](https://supabase.com/dashboard) and **create your supabase remote project** (not need if mw-framework-cli was used). If you, for now, want to use it locally only, skip this section and read **"Detailed Overview"** section.
 
 **Note: Do not forget the database password defined while creating the project, it will be needed. And make sure you store it safely.**
 
@@ -95,6 +108,8 @@ yarn supabase-configs
 This command will configure **supabase.configs.ts** files needed in both projects to integrate with supabase.
 
 Now link your remote supabase project with your repository by doing:
+
+**The commands below should not be used directly, but only through pipelines or in local environments. Pipelines are configured to update supabase projects when there is new database migrations.**
 
 ```sh
 npx supabase link --project-ref <project-id>
@@ -235,7 +250,7 @@ Then we have two migrations that create two functions:
 - get_all_table_name (**migrations/\*\_list_tables_function.sql**);
 - get_types (**migrations/\*\_get_table_types.sql**);
 
-To be used at Back office web app to auto generate needed pages for each table existing in **public** database schema.
+To be used at back office web app to auto generate needed pages for each table existing in **public** database schema.
 
 For **Custom page** feature you can find the following migrations to create **custom_pages** table, preparing specific data for "Terms and conditions" and "Privacy policy" cases, and configure needed policies:
 
@@ -275,6 +290,8 @@ You can find documentation about migration commands [here](https://supabase.com/
 
 #### Syncronize with remote supabase project
 
+**The commands below should not be used directly, but only through pipelines or in local environments. Pipelines are configured to update supabase projects when there is new database migrations.**
+
 In case you already have a remote supabase project you should link it with your repository by doing:
 
 ```sh
@@ -307,15 +324,15 @@ npx supabase db pull
 
 ### Supabase security
 
-Security is very important and should ensure that no bad actor has access to our information in any way.
+Security is very important and we should make sure that no bad actor has access to our information in any way.
 
 We should never forget that protecting our systems on frontend is never enough. **It must always be protected on backend and database layers as well**.
 
 For that supabase and postgres offer **[Row lever security](https://supabase.com/docs/learn/auth-deep-dive/auth-row-level-security)** and **[Policies](https://supabase.com/docs/learn/auth-deep-dive/auth-policies)** features that allow us to configure who is able to access our data at database layer.
 
-Initial this project is configured to have a **roles** system. At **supabase/migrations/20230918101007_add_profile_roles** you can find a migration that adds to **profiles** table a **roles** column, which is an array of strings.
+Initially this project is configured to have a **roles** system. At **supabase/migrations/20230918101007_add_profile_roles** you can find a migration that adds to **profiles** table a **roles** column, which is an array of strings.
 
-The current code assumes the existence of one role: **ADMIN**. This role is used for Back office users.
+The current code assumes the existence of one role: **ADMIN**. This role is used for Back office users. If your project needs more roles you should update your `roles` list (`rolesOptions` variable) at `back office` project code (files `configs/configs.ts`).
 
 At **supabase/migrations/20230918103312_check_permissions_function** you will find the creation of a function called **check_user_permission** that could be used at policies to restrict database operations according to user roles.
 
@@ -344,6 +361,14 @@ For more details about this implementation we recommend you to read this article
 You will also find configuration to only allow ADMIN users to update roles, to avoid having anyone to be able to change their roles to ADMIN. For this case a trick suggest [here](https://stackoverflow.com/a/71167428) was used.
 
 You find more about policies [here](https://supabase.com/docs/learn/auth-deep-dive/auth-policies).
+
+#### Create admin user
+
+- Go to supabase dashboard of project desired;
+- Go to `Authentication -> Users`;
+- Click `Add user -> Create new user`;
+- Fill `email` and `password` and click `Create user` (alternatively you could use `invite user` feature);
+- Go to respective back office and at `Profile` section select new user row and edit `roles` to have `Admin` role (alternatively you can update it directly on supabase dashboard by going to `Table Editor` and select `profile` table);
 
 ## Deep Linking
 
@@ -538,6 +563,20 @@ function Component() {
 - For a developer it is easy to go directly to supabase dashboard and paste the needed json for messages;
 - No extra costs;
 
+### Feature flags
+
+A table called **feature_flags** was configured to allow you to configure your feature flags while implementing a feature that you need to be hidden while not fully implemented, allowing the team to follow continuous integration best practices.
+
+To create a new feature flags you just need to go to back office web apps of your project, in staging or/and production.
+
+To use a feature on Mobile App you can use `useFeatureFlag` hook:
+
+```tsx
+const isFeatureFlagOn = useFeatureFlag({
+  featureFlagKey: "YOUR_FEATURE_FLAG_KEY_HERE",
+});
+```
+
 ### Local development
 
 Configure your `.env` at `RNMobileApp` folder by duplicating the content from `.env.example` and defining the variable values correctly, for your project.
@@ -625,9 +664,7 @@ To edit json properties with **react-admin** we are using **[react-admin-json-vi
 
 ### Feature flags
 
-A table called **feature_flags** was configured to allow you to configure your feature flags while implementing a feature that you need to be hidden while not fully implemented, allowing the team to follow continuous integration best practices.
-
-To create a new feature flags you just need to go to back office web apps of your project, in staging and production.
+To create a new feature flags you just need to go to back office web apps of your project, in staging or/and production.
 
 To use a feature on Mobile App you can use `useFeatureFlag` hook:
 
@@ -665,7 +702,7 @@ Each project will need to configure its own Sentry projects, but using a company
 
 To have our applications working, as expected, there is a big infrastructure behind it that needs to be configured.
 
-Next we have list of components that need to be configured. After that some environment variables need to be configured on your bitbucket repository, for pipelines to work well. This will be mentioned in detail at **Pipelines** section.
+Next we have a list of components that need to be configured. After that some environment variables need to be configured on your bitbucket repository, for pipelines to work well. This will be mentioned in detail at **Pipelines** section.
 
 #### Supabase
 
