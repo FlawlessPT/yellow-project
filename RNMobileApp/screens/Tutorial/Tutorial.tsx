@@ -1,53 +1,60 @@
 import * as React from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {
   TutorialCarousel,
   TutorialData,
 } from '../../components/TutorialCarousel';
 import {useNavigation} from '@react-navigation/native';
+import {supabase} from '@utils/supabase';
+import {getLocales} from 'react-native-localize';
+import {useEffect, useState} from 'react';
 
 export const Tutorial = function Tutorial() {
-  const navigation = useNavigation();
+  const [data, setData] = useState<TutorialData[]>();
+  const [loading, setLoading] = useState(true);
+  const locales = getLocales() || [];
 
-  const data: TutorialData[] = [
-    {
-      title: 'Lorem ipsum 1',
-      subtitle:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus malesuada viverra commodo ut. Consequat, risus proin elit eleifend sed tellus et malesuada. Sed ut id ac venenatis sed blandit. Tellus.',
-      source: require('../../assets/mobiweb-logo.png'),
-    },
-    {
-      title: 'Lorem ipsum 2',
-      subtitle:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus malesuada viverra commodo ut. Consequat, risus proin elit eleifend sed tellus et malesuada. Sed ut id ac venenatis sed blandit. Tellus.',
-      source: 'https://mobiweb.pt/public/images/work/mvq-1.jpg',
-    },
-    {
-      title: 'Lorem ipsum 3',
-      subtitle:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus malesuada viverra commodo ut. Consequat, risus proin elit eleifend sed tellus et malesuada. Sed ut id ac venenatis sed blandit. Tellus.',
-      source: 'https://mobiweb.pt/public/images/work/moomenti-2@2x.jpg',
-    },
-    {
-      title: 'Lorem ipsum 4',
-      subtitle:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus malesuada viverra commodo ut. Consequat, risus proin elit eleifend sed tellus et malesuada. Sed ut id ac venenatis sed blandit. Tellus.',
-      source: 'https://mobiweb.pt/public/images/work/sky-7@2x.jpg',
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const {data, error} = await supabase.rpc('get_tutorial', {
+          language: locales.length > 0 ? locales[0].languageCode : 'en',
+        });
+
+        if (error) {
+          console.error(error);
+          navigation.goBack();
+        } else {
+          let slidesArray: TutorialData[] = [];
+
+          for (let slideNumber in data[0]) {
+            slidesArray.push({
+              slideNumber: Number(slideNumber),
+              ...data[0][slideNumber],
+            });
+          }
+          setData(slidesArray);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        navigation.goBack();
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <TutorialCarousel
-        data={data}
-        getStartedButtonAction={navigation.goBack}
-      />
+      {!loading && (
+        <TutorialCarousel
+          data={data as TutorialData[]}
+          getStartedButtonAction={navigation.goBack}
+        />
+      )}
     </View>
   );
 };

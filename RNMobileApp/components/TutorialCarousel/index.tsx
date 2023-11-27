@@ -15,7 +15,7 @@ import {Pagination} from './Pagination';
 export interface TutorialData {
   title: string;
   subtitle: string;
-  source: string;
+  url: string;
 }
 
 interface TutorialCarouselProps {
@@ -98,9 +98,7 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
                 style={{width: screenWidth - 48, height: screenWidth / 2}}
                 resizeMode="contain"
                 source={
-                  typeof item.source === 'string'
-                    ? {uri: item.source}
-                    : item.source
+                  typeof item.url === 'string' ? {uri: item.url} : item.url
                 }
               />
               <Text style={styles.title}>{item.title}</Text>
