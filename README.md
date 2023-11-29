@@ -1,22 +1,33 @@
 # Introduction
 
-This is a repository that works as a starter for a full stack mobile application and includes a Back Office Web App.
+This is a repository that works as a starter for a full stack mobile application and includes a Back office web app.
 
 ## Main technologies:
 
 - react-native (mobile application);
-- react + vite (Back Office SPA);
+- react + vite (back office SPA);
 - typescript;
-- supabase (Database + Serverless Backend);
-- Onesignal for push notifications dashboard;
-- Sentry for monitoring;
+- supabase (postgres database + authentication system + serverless backend through edge/cloud functions);
+- OneSignal for push notifications dashboard;
+- Sentry for monitoring application crashes and unexpected errors;
 - bitbucket pipelines;
 
-## Requirements:
+## Base infrastructure on organization level (Mobiweb)
 
-- NodeJs@18 (it is recommend you to use [volta](https://docs.volta.sh/guide/getting-started), read below);
-- Docker;
-- iOS and Android as mentioned [here](https://reactnative.dev/docs/environment-setup?guide=native&os=macos&platform=android) (chose your Development OS and Target OS accordingly to your case);
+This information is only needed when you are going to start a new project with base built in this repository:
+
+- **mw-framework-cli** repository (helper to fork repository, configure pipelines and generate needed infrastructure): https://bitbucket.org/teammw1/mw-framework-cli;
+- Bitbucket workspace used: https://bitbucket.org/teammw1;
+- Bitbucket project used: https://bitbucket.org/teammw1/workspace/projects/MWAP;
+- Apple certificates repository for pipelines, using fastlane: https://bitbucket.org/teammw1/mw-framework-ios-certificates;
+- Page to setup bitbucket runners to have pipelines for iOS application being executed (if not configured yet): https://bitbucket.org/teammw1/workspace/settings/pipelines/account-runners;
+- Supabase organization used for this repository deliveries (if working on framework developments ask Márcio access for it): https://supabase.com/dashboard/org/qnwopdhmjlkafcdasyau;
+
+## Requirements for development:
+
+- NodeJs@18 (it is recommended you to use [volta](https://docs.volta.sh/guide/getting-started), read below);
+- Docker (when using supabase locally);
+- iOS and Android as mentioned [here](https://reactnative.dev/docs/environment-setup?guide=native&os=macos&platform=android) (choose your Development OS and Target OS accordingly to your case);
 
 ### Volta
 
@@ -26,20 +37,23 @@ All projects here are pinned to a specific node version. This is important to ma
 
 ## Main features included:
 
-- Basic Authentication features:
-  - Sign up email / password (Mobile App);
-  - Sign in email / password (Mobile App);
-  - Recover password process (Mobile App and Back office);
-  - Authentication, using oauth github provider or oauth google provider (Mobile App);
-  - Logout (Mobile App and Back office);
-  - Update user account (Mobile App);
-- Initial Back office automatically generated from supabase database schema (customizations may be needed for each case);
-- Possibility to generate custom pages using a rich text editor (wysiwyg) that stores the corresponding html in the database (Back office);
-- "Terms and conditions" and "Privacy policy" screens using Back office feature mentioned in previous point. Content for those screens should be configured using Back office. (Mobile App);
-- Review app feature;
-- Onesignal for push notifications configured (Mobile App);
-- Sentry for monitoring configured (Mobile App and Back office);
-- Core pipelines (customizations will be needed for each project);
+* Basic Authentication features:
+    * Sign up email / password (mobile app);
+    * Sign in email / password (mobile app);
+    * Recover password process (mobile app and back office);
+    * Authentication, using oauth github provider or oauth google provider (mobile app);
+    * Logout (mobile app and back office);
+    * Update user account (Mobile app);
+        * Deep linking configured (Mobile app);
+    * Initial Back office automatically generated from supabase database schema (customizations may be needed for each case);
+    * Possibility to generate custom pages using a rich text editor (wysiwyg) that stores the corresponding html in the database (back office);
+    * "Terms and conditions" and "Privacy policy" screens using Back office feature mentioned in previous point. Content for those screens should be configured using Back office. (mobile app);
+    * Review app feature (mobile app);
+    * Configuration of OneSignal for push notifications, through OneSignal dashboard (mobile app);
+    * Sentry for monitoring configured (mobile App and back office);
+    * Core pipelines (customizations will be needed for each project);
+    * Possibility to define feature flags on mobile app, through back office;
+    * Possibility to define `i18n` message on back office and use them on mobile app, using `i18next`;
 
 ## Goals
 
@@ -49,13 +63,12 @@ With this, we aim to stand out in a competitive market, while keeping our qualit
 
 ## Repository structure
 
-This repository is composed by 3 main folders/projects:
+This repository is composed by 4 main folders/projects:
 
 - supabase: configurations needed for supabase database and integration with our applications;
 - RNMobileApp: mobile application using bare react-native;
-- BackofficeCMS: Single Page Application (web) for an auto generated Back office from supabase database, offering the possibility for **Admins** to change some data directly;
-
-Besides those 3 components, there is a big a core build around pipelines defined in this repository, using bitbucket pipelines (bitbucket-pipelines.yml). Those pipelines will be described in details in a later section.
+- BackofficeCMS: Single Page Application (web) for an auto generated back office from supabase database, offering the possibility for **Admins** to change some data directly;
+- pipelines: executables used for core of pipelines defined in this repository, using bitbucket pipelines (bitbucket-pipelines.yml). Those pipelines will be described in details in a later section;
 
 ## Getting Started - TLDR
 
@@ -65,11 +78,11 @@ This section is a quick overview of the steps needed to start working with this 
 
 ### Fork this repository to your own project
 
-Follow bitbucket instructions to fork the repository and clone it to your machine, open a terminal in the root of your repository.
+Follow bitbucket instructions to fork the repository and clone it to your machine, open a terminal in the root of your repository (you can also use `mw-framework-cli`, already mentioned above and explained in more detail below).
 
 ### Supabase integrations
 
-Go to [Supabase Dashboard](https://supabase.com/dashboard) and **create your supabase remote project**. If you, for now, want to use it locally only, skip this section and read **"Detailed Overview"** section.
+Go to [Supabase Dashboard](https://supabase.com/dashboard) and **create your supabase remote project** (not need if mw-framework-cli was used). If you, for now, want to use it locally only, skip this section and read **"Detailed Overview"** section.
 
 **Note: Do not forget the database password defined while creating the project, it will be needed. And make sure you store it safely.**
 
@@ -95,6 +108,8 @@ yarn supabase-configs
 This command will configure **supabase.configs.ts** files needed in both projects to integrate with supabase.
 
 Now link your remote supabase project with your repository by doing:
+
+**The commands below should not be used directly, but only through pipelines or in local environments. Pipelines are configured to update supabase projects when there is new database migrations.**
 
 ```sh
 npx supabase link --project-ref <project-id>
@@ -209,7 +224,7 @@ For local development you want to create a **.env** file with supabase variables
 
 ```sh
 SUPABASE_URL=http://localhost:54321
-SUPBASE_API_KEY=ANON_KEY_SUPPLIED_IN_THE_END_OF_START_PROCESS_HERE
+SUPABASE_API_KEY=ANON_KEY_SUPPLIED_IN_THE_END_OF_START_PROCESS_HERE
 ```
 
 Now run
@@ -235,7 +250,7 @@ Then we have two migrations that create two functions:
 - get_all_table_name (**migrations/\*\_list_tables_function.sql**);
 - get_types (**migrations/\*\_get_table_types.sql**);
 
-To be used at Back office web app to auto generate needed pages for each table existing in **public** database schema.
+To be used at back office web app to auto generate needed pages for each table existing in **public** database schema.
 
 For **Custom page** feature you can find the following migrations to create **custom_pages** table, preparing specific data for "Terms and conditions" and "Privacy policy" cases, and configure needed policies:
 
@@ -275,6 +290,8 @@ You can find documentation about migration commands [here](https://supabase.com/
 
 #### Syncronize with remote supabase project
 
+**The commands below should not be used directly, but only through pipelines or in local environments. Pipelines are configured to update supabase projects when there is new database migrations.**
+
 In case you already have a remote supabase project you should link it with your repository by doing:
 
 ```sh
@@ -307,15 +324,15 @@ npx supabase db pull
 
 ### Supabase security
 
-Security is very important and should ensure that no bad actor has access to our information in any way.
+Security is very important and we should make sure that no bad actor has access to our information in any way.
 
 We should never forget that protecting our systems on frontend is never enough. **It must always be protected on backend and database layers as well**.
 
 For that supabase and postgres offer **[Row lever security](https://supabase.com/docs/learn/auth-deep-dive/auth-row-level-security)** and **[Policies](https://supabase.com/docs/learn/auth-deep-dive/auth-policies)** features that allow us to configure who is able to access our data at database layer.
 
-Initial this project is configured to have a **roles** system. At **supabase/migrations/20230918101007_add_profile_roles** you can find a migration that adds to **profiles** table a **roles** column, which is an array of strings.
+Initially this project is configured to have a **roles** system. At **supabase/migrations/20230918101007_add_profile_roles** you can find a migration that adds to **profiles** table a **roles** column, which is an array of strings.
 
-The current code assumes the existence of one role: **ADMIN**. This role is used for Back office users.
+The current code assumes the existence of one role: **ADMIN**. This role is used for Back office users. If your project needs more roles you should update your `roles` list (`rolesOptions` variable) at `back office` project code (files `configs/configs.ts`).
 
 At **supabase/migrations/20230918103312_check_permissions_function** you will find the creation of a function called **check_user_permission** that could be used at policies to restrict database operations according to user roles.
 
@@ -344,6 +361,14 @@ For more details about this implementation we recommend you to read this article
 You will also find configuration to only allow ADMIN users to update roles, to avoid having anyone to be able to change their roles to ADMIN. For this case a trick suggest [here](https://stackoverflow.com/a/71167428) was used.
 
 You find more about policies [here](https://supabase.com/docs/learn/auth-deep-dive/auth-policies).
+
+#### Create admin user
+
+- Go to supabase dashboard of project desired;
+- Go to `Authentication -> Users`;
+- Click `Add user -> Create new user`;
+- Fill `email` and `password` and click `Create user` (alternatively you could use `invite user` feature);
+- Go to respective back office and at `Profile` section select new user row and edit `roles` to have `Admin` role (alternatively you can update it directly on supabase dashboard by going to `Table Editor` and select `profile` table);
 
 ## Deep Linking
 
@@ -538,6 +563,20 @@ function Component() {
 - For a developer it is easy to go directly to supabase dashboard and paste the needed json for messages;
 - No extra costs;
 
+### Feature flags
+
+A table called **feature_flags** was configured to allow you to configure your feature flags while implementing a feature that you need to be hidden while not fully implemented, allowing the team to follow continuous integration best practices.
+
+To create a new feature flags you just need to go to back office web apps of your project, in staging or/and production.
+
+To use a feature on Mobile App you can use `useFeatureFlag` hook:
+
+```tsx
+const isFeatureFlagOn = useFeatureFlag({
+  featureFlagKey: "YOUR_FEATURE_FLAG_KEY_HERE",
+});
+```
+
 ### Local development
 
 Configure your `.env` at `RNMobileApp` folder by duplicating the content from `.env.example` and defining the variable values correctly, for your project.
@@ -625,9 +664,7 @@ To edit json properties with **react-admin** we are using **[react-admin-json-vi
 
 ### Feature flags
 
-A table called **feature_flags** was configured to allow you to configure your feature flags while implementing a feature that you need to be hidden while not fully implemented, allowing the team to follow continuous integration best practices.
-
-To create a new feature flags you just need to go to back office web apps of your project, in staging and production.
+To create a new feature flags you just need to go to back office web apps of your project, in staging or/and production.
 
 To use a feature on Mobile App you can use `useFeatureFlag` hook:
 
@@ -665,7 +702,7 @@ Each project will need to configure its own Sentry projects, but using a company
 
 To have our applications working, as expected, there is a big infrastructure behind it that needs to be configured.
 
-Next we have list of components that need to be configured. After that some environment variables need to be configured on your bitbucket repository, for pipelines to work well. This will be mentioned in detail at **Pipelines** section.
+Next we have a list of components that need to be configured. After that some environment variables need to be configured on your bitbucket repository, for pipelines to work well. This will be mentioned in detail at **Pipelines** section.
 
 #### Supabase
 
@@ -703,9 +740,51 @@ Pipelines are configured to deploy android application, automatically, to google
 
 For pipelines to work well, make sure, service account was configured as explained [here](https://docs.fastlane.tools/getting-started/android/setup/) at "Collect your Google credentials" section, and configure repository variable **ANDROID_SERVICE_ACCOUNT_KEY_64** (explained below on **Pipelines** section), if your project is not using the same account as configured on workspace level.
 
-#### App Store Connect
+##### Android initial manual build
 
-Create two main apps:
+To generate a new android build, for first manual upload needed for Google Play Internal Sharing.
+
+On your terminal at root of your new repository:
+
+```sh
+export BITBUCKET_BUILD_NUMBER=1
+export BITBUCKET_COMMIT=manualbuild
+export SENTRY_PROJECT_RNAPP=SENTRY_PROJECT_NAME_FOR_MOBILE_APP_FROM_JSON_FILE
+export SENTRY_DSN_RNAPP=SENTRY_DSN_FOR_MOBILE_APP_FROM_JSON_FILE
+export ONE_SIGNAL_APP_ID=ONESIGNAL_FROM_JSON_FILE
+export ANDROID_APPLICATION_ID=YOUR_APPLICATION_PACKAGE_NAME
+export ANDROID_KEY_STORE_64=BASE_64_OF_KEYSTORE_USED_ON_PLAY_CONSOLE
+export ANDROID_KEY_STORE_PASSWORD=PASSWORD_OF_KEYSTORE_USED_ON_PLAY_CONSOLE
+export SUPABASE_URL=SUPABASE_URL_FROM_JSON_FILE
+export SUPABASE_API_KEY=SUPABASE_API_KEY_FROM_JSON_FILE
+export SENTRY_ORG=SENTRY_ORG_FROM_JSON_FILE
+export SENTRY_AUTH_TOKEN=SENTRY_AUTH_TOKEN_FROM_SENTRY_DASHBOARD
+source ./pipelines/executables/setup-android-build.sh
+cd RNMobileApp
+echo "VERSION_NAME=$BITBUCKET_COMMIT" >> .env
+echo "SENTRY_ENVIRONMENT=staging" >> .env
+fastlane android build
+```
+
+#### Apple
+
+##### Apple Developer Account
+
+Create two main bundle ids for apps and configure and enable push notification, with production certificate, for each bundle id:
+
+- ios-staging;
+- ios-production;
+
+Create two complementary bundle ids needed for OneSignalNotificationServiceExtension:
+
+- ios-onesignal-staging;
+- ios-onesignal-production;
+
+No need to configure push notification for those two bundle ids, in regard to, OneSignal.
+
+##### App Store Connect
+
+Create two main apps (using bundle ids created):
 
 - ios-staging;
 - ios-production;
@@ -740,21 +819,7 @@ Additionally configure applications for iOS and Android as explained below. In c
 
 ##### - iOS Configuration
 
-To start the process you need a **p8 Authentication Token** or **p12 Push Notification Certificate**.
-
-If you don't have neither a **p8** or **p12** you can create one on **[Apple Developer Portal](https://developer.apple.com/account)** but you need an account with admin rights.
-
-- Option 1: **p8 Authentication Token**
-
-At the moment apple only allows you to have two **p8 tokens**. If you already have two tokens, creating a new one will replace one of tokens you already have.
-
-To see your existing **p8 tokens** you need to go to **Certificates, IDs & Profiles** and select **Keys** or you can just [click here](https://developer.apple.com/account/resources/authkeys/list).
-
-When creating a new **Token** make sure you select **Apple Push Notifications service (APNs)**.
-
-Once you have your token, just upload it to OneSignal.Get your OneSignal App ID and add it to your App.
-
-- Option 2: **p12 Push Notification Certificate**
+To start the process you need a **p12 Push Notification Certificate**. You can create it on **[Apple Developer Portal](https://developer.apple.com/account)** but you need an account with admin rights.
 
 To create a **p12 Push Notification Certificate** you need to open **Keychain Access**, on the mac top bar click on
 **Keychain Access** -> **Certificate Assistant** -> **Request a Certificate From a Certificate Authority**.
@@ -790,47 +855,42 @@ Next we explain the flow for each pipeline.
 
 Sequential flow:
 
-- Testing phase (steps run in parallel):
+* Testing phase (steps run in parallel):
+    * Linting backoffice (check code with eslint for backoffice web app);
+    * Type check backoffice (check code types with typescript for backoffice web app);
+    * Linting react native app (check code with eslint for react native app);
+    * Type check react native app (check code types with typescript for react native app);
 
-  - Linting backoffice (check code with eslint for backoffice web app);
-  - Type check backoffice (check code types with typescript for backoffice web app);
-  - Linting react native app (check code with eslint for react native app);
-  - Type check react native app (check code types with typescript for react native app);
+* Build and Deployment phase for staging environment (steps run in parallel):
+    * push database changes on supabase project to staging (**supabase-staging** deployment environment);
+    * build and deployment of backoffice web app to staging (**backoffice-staging** deployment environment);
+    * build and deployment of android app to staging using google play internal sharing (**android-staging** deployment environment);
+    * build and deployment of ios app to staging using TestFlight (**ios-staging** deployment environment);
 
-- Build and Deployment phase for staging environment (steps run in parallel):
+* Build and Deployment phase for production environment (steps triggered manually):
+    * push database changes on supabase project to production (**supabase-production** deployment environment);
+    * build and deployment of backoffice web app to production (**backoffice-production** deployment environment);
+    * build and deployment of android app to production using using google play internal sharing (**android-production** deployment environment);
+    * build and deployment of ios app to production using TestFlight (**ios-production** deployment environment);
 
-  - push database changes on supabase project to staging (**supabase-staging** deployment environment);
-  - build and deployment of backoffice web app to staging (**backoffice-staging** deployment environment);
-  - build and deployment of android app to staging using google play internal sharing (**android-staging** deployment environment);
-  - build and deployment of ios app to staging using TestFlight (**ios-staging** deployment environment);
-
-- Build and Deployment phase for production environment (steps triggered manually):
-
-  - push database changes on supabase project to production (**supabase-production** deployment environment);
-  - build and deployment of backoffice web app to production (**backoffice-production** deployment environment);
-  - build and deployment of android app to production using using google play internal sharing (**android-production** deployment environment);
-  - build and deployment of ios app to production using TestFlight (**ios-production** deployment environment);
-
-  **Note:** On production, the deployments were configured to be triggered manually, on bitbucket, to allow the team to decide when it is best to deploy a new release, but the code on main should always be ready for a new deployment, following the continuous integration and continuous delivery practices.
+**Note:** On production, the deployments were configured to be triggered manually, on bitbucket, to allow the team to decide when it is best to deploy a new release, but the code on main should always be ready for a new deployment, following the continuous integration and continuous delivery practices.
 
 #### Pull-requests pipelines
 
 Sequential flow to generate **review apps** about new pull request:
 
-- Testing phase (steps run in parallel):
+* Testing phase (steps run in parallel):
+    * Linting backoffice (check code with eslint for backoffice web app);
+    * Type check backoffice (check code types with typescript for backoffice web app);
+    * Linting react native app (check code with eslint for react native app);
+    * Type check react native app (check code types with typescript for react native app);
 
-  - Linting backoffice (check code with eslint for backoffice web app);
-  - Type check backoffice (check code types with typescript for backoffice web app);
-  - Linting react native app (check code with eslint for react native app);
-  - Type check react native app (check code types with typescript for react native app);
+* Deployment phase for staging environment (steps run in parallel):
+    * build and deployment of backoffice web app as a **review app**: review app link can be taken from pipeline logs, about last script, in regard to **Deployment of Backoffice web app to preview** step (**backoffice-preview** deployment environment);
+    * build and deployment of android app as a **review app** using using google play internal sharing (**android-preview** deployment environment);
+    * build and deployment of ios app as a **review app** using TestFlight (**ios-preview** deployment environment);
 
-- Deployment phase for staging environment (steps run in parallel):
-
-  - build and deployment of backoffice web app as a **review app**: review app link can be taken from pipeline logs, about last script, in regard to **Deployment of Backoffice web app to preview** step (**backoffice-preview** deployment environment);
-  - build and deployment of android app as a **review app** using using google play internal sharing (**android-preview** deployment environment);
-  - build and deployment of ios app as a **review app** using TestFlight (**ios-preview** deployment environment);
-
-  **Note:** Deployments about react native application were configured to be triggered manually to save pipeline minutes, however, the team can decide to make it automatic by removing `trigger: manual` line. **Review apps** use staging infrastructure.
+**Note:** Deployments about react native application were configured to be triggered manually to save pipeline minutes, however, the team can decide to make it automatic by removing `trigger: manual` line. **Review apps** use staging infrastructure.
 
 #### Continuous integration
 
@@ -900,7 +960,7 @@ To accomplish the flow for each pipeline described before, we need to have the f
 - APP_STORE_AUTH_KEY_P8_64: Key to communicate with App Store Connect API, on base 64 format. Follow the instructions [here](https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api) to create your key. After creating the key download it and generate the base 64 string by running `base64 -i key-file-downloaded > base64key`. Copy content of **base64key** to **APP_STORE_AUTH_KEY_P8_64** variable (using a company key for all projects is recommended);
 - APP_STORE_API_KEY_ISSUER_ID: Issuer id for key created for **APP_STORE_AUTH_KEY_P8_64** variable. Get your key issuer id at [App store connect dashboard](https://appstoreconnect.apple.com/access/api) (using a company key for all projects is recommended);
 - APP_STORE_API_KEY: Key id for key created for **APP_STORE_AUTH_KEY_P8_64** variable. Get your key issuer id at [App store connect dashboard](https://appstoreconnect.apple.com/access/api) (using a company key for all projects is recommended);
-- ANDROID_KEY_STORE_64: Upload key needed to create android build, on base 64 format. To create this keystore follow the instructions [here](https://reactnative.dev/docs/signed-apk-android#generating-an-upload-key). After that generate the base 64 string by running `base64 -i key-file.keystore > base64key`. Copy content of **base64key** to **ANDROID_KEY_STORE_64** variable;
+- ANDROID_KEY_STORE_64: Upload key needed to create android build, on base 64 format. To create this keystore follow the instructions [here](https://reactnative.dev/docs/signed-apk-android#generating-an-upload-key). While creating keystore make sure the key alias has the value "my-key-alias" or update `pipelines/executables/setup-android-build.sh` file to have the correct alias defined. After that generate the base 64 string by running `base64 -i key-file.keystore > base64key`. Copy content of **base64key** to **ANDROID_KEY_STORE_64** variable;
 - ANDROID_KEY_STORE_PASSWORD: password used to create **ANDROID_KEY_STORE_64** variable;
 - ANDROID_SERVICE_ACCOUNT_KEY_64: Service account key in base 64. To create your service account follow instructions [here](https://docs.fastlane.tools/getting-started/android/setup/) at "Collect your Google credentials" section, download the file and convert it to base 64 string by running `base64 -i key-file-downloaded > base64key`. Copy content of **base64key** to **ANDROID_SERVICE_ACCOUNT_KEY_64** variable (using a company key for all projects is recommended).
 

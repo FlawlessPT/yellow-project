@@ -8,7 +8,7 @@ const supabaseProjectURL = mock ? "mock" : process.env.SUPABASE_URL;
 const supabaseAnonKey = mock ? "mock" : process.env.SUPABASE_API_KEY;
 
 console.log("SUPABASE_URL: ", supabaseProjectURL);
-console.log("SUPBASE_API_KEY: ", supabaseAnonKey);
+console.log("SUPABASE_API_KEY: ", supabaseAnonKey);
 
 function createConfigsFile() {
   const writeStream = fs.createWriteStream(configsFilePath);
@@ -37,6 +37,6 @@ if (supabaseProjectURL && supabaseAnonKey) {
   });
 } else {
   console.err(
-    "Not all needed environment variables were defined: SUPABASE_URL, SUPBASE_API_KEY"
+    "Not all needed environment variables were defined: SUPABASE_URL, SUPABASE_API_KEY"
   );
 }
