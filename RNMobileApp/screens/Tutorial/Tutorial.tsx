@@ -25,9 +25,9 @@ export const Tutorial = function Tutorial() {
           console.error(error);
           navigation.goBack();
         } else {
-          let slidesArray: TutorialData[] = [];
+          const slidesArray: TutorialData[] = [];
 
-          for (let slideNumber in data[0]) {
+          for (const slideNumber in data[0]) {
             slidesArray.push({
               slideNumber: Number(slideNumber),
               ...data[0][slideNumber],

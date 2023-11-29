@@ -42,14 +42,14 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
   ref = React.createRef();
 
   const goBack = () => {
-    if (ref.current?.getCurrentIndex() != 0) {
+    if (ref.current?.getCurrentIndex() !== 0) {
       ref.current?.prev();
     }
     setIsLast(false);
   };
 
   const goForward = () => {
-    if (ref.current?.getCurrentIndex() != data.length) {
+    if (ref.current?.getCurrentIndex() !== data.length) {
       ref.current?.next();
     }
     setIsFirst(false);
@@ -66,13 +66,13 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
   };
 
   useEffect(() => {
-    if (ref.current?.getCurrentIndex() == 0) {
+    if (ref.current?.getCurrentIndex() === 0) {
       setIsFirst(true);
     } else {
       setIsFirst(false);
     }
 
-    if (ref.current?.getCurrentIndex() == data.length - 1) {
+    if (ref.current?.getCurrentIndex() === data.length - 1) {
       setIsLast(true);
     } else {
       setIsLast(false);
