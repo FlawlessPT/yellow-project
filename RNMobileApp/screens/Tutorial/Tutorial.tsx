@@ -17,9 +17,10 @@ export const Tutorial = function Tutorial() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const {data, error} = await supabase.rpc('get_tutorial', {
-          language: locales.length > 0 ? locales[0].languageCode : 'en',
-        });
+        const {data, error} = await supabase
+          .from('tutorials')
+          .select('configs')
+          .eq('lng', locales.length > 0 ? locales[0].languageCode : 'en');
 
         if (error) {
           console.error(error);
@@ -27,12 +28,16 @@ export const Tutorial = function Tutorial() {
         } else {
           const slidesArray: TutorialData[] = [];
 
-          for (const slideNumber in data[0]) {
-            slidesArray.push({
-              slideNumber: Number(slideNumber),
-              ...data[0][slideNumber],
-            });
-          }
+          Object.values(data[0].configs).forEach((slide: any) => {
+            const formattedSlide = {
+              title: slide.title,
+              subtitle: slide.subtitle,
+              url: slide.url,
+            } as TutorialData;
+
+            slidesArray.push(formattedSlide);
+          });
+
           setData(slidesArray);
           setLoading(false);
         }

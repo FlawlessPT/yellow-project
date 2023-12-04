@@ -1,5 +1,5 @@
 insert into
-public.tutorial (lng, configs)
+public.tutorials (lng, configs)
 values
 ('en', '{
   "1": {
