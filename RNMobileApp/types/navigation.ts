@@ -7,6 +7,7 @@ export type NoneAuthenticatedRoutesParams = {
   Auth: undefined;
   TermsAndConditions: undefined;
   PrivacyPolicy: undefined;
+  Tutorial: undefined;
 };
 
 export type NoneAuthenticatedRoutesKeys = keyof NoneAuthenticatedRoutesParams;
@@ -18,6 +19,7 @@ export type NoneAuthenticatedStackScreenPropsGeneric<
     Auth: undefined;
     TermsAndConditions: undefined;
     PrivacyPolicy: undefined;
+    Tutorial: undefined;
   },
   R
 >;
