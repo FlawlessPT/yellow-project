@@ -21,6 +21,11 @@ import * as Sentry from '@sentry/react-native';
 import Config from 'react-native-config';
 import {FeatureFlagsContextProvider} from '@utils/contexts';
 import {LogLevel, OneSignal} from 'react-native-onesignal';
+import {LandingPage} from '@screens/LandingPage';
+import {Login} from '@screens/Login';
+import {SignUp} from '@screens/SignUp';
+import {ThemeProvider} from 'styled-components';
+import theme from './theme';
 
 // Remove this method to stop OneSignal Debugging
 if (__DEV__) {
@@ -124,47 +129,60 @@ function App() {
 
   const isLoggedIn = Boolean(session && session.user);
   return (
-    <Suspense
-      fallback={
-        <View>
-          <Text>Loading...</Text>
-        </View>
-      }>
-      <FeatureFlagsContextProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'Auth'}>
-            {isLoggedIn && session ? (
-              <Stack.Screen name="Home" options={{headerShown: false}}>
-                {props => <Account {...props} session={session} />}
-              </Stack.Screen>
-            ) : (
-              <>
-                <Stack.Screen
-                  name="Auth"
-                  component={Auth}
-                  options={{headerShown: false}}
-                />
-                <Stack.Screen
-                  name="TermsAndConditions"
-                  component={TermsAndConditions}
-                  options={{title: ''}}
-                />
-                <Stack.Screen
-                  name="PrivacyPolicy"
-                  component={PrivacyPolicy}
-                  options={{title: ''}}
-                />
-                <Stack.Screen
-                  name="Tutorial"
-                  component={Tutorial}
-                  options={{headerShown: false}}
-                />
-              </>
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </FeatureFlagsContextProvider>
-    </Suspense>
+    <ThemeProvider theme={theme}>
+      <Suspense
+        fallback={
+          <View>
+            <Text>Loading...</Text>
+          </View>
+        }>
+        <FeatureFlagsContextProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName={isLoggedIn ? 'Home' : 'LandingPage'}>
+              {isLoggedIn && session ? (
+                <Stack.Screen name="Home" options={{headerShown: false}}>
+                  {props => <Account {...props} session={session} />}
+                </Stack.Screen>
+              ) : (
+                <>
+                  <Stack.Screen
+                    name="LandingPage"
+                    component={LandingPage}
+                    options={{headerShown: false}}
+                  />
+                  <Stack.Screen
+                    name="TermsAndConditions"
+                    component={TermsAndConditions}
+                    options={{title: ''}}
+                  />
+                  <Stack.Screen
+                    name="PrivacyPolicy"
+                    component={PrivacyPolicy}
+                    options={{title: ''}}
+                  />
+                  <Stack.Screen
+                    name="Tutorial"
+                    component={Tutorial}
+                    options={{headerShown: false}}
+                  />
+                  <Stack.Screen
+                    name="Login"
+                    component={Login}
+                    options={{headerShown: false}}
+                  />
+                  <Stack.Screen
+                    name="SignUp"
+                    component={SignUp}
+                    options={{headerShown: false}}
+                  />
+                </>
+              )}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </FeatureFlagsContextProvider>
+      </Suspense>
+    </ThemeProvider>
   );
 }
 

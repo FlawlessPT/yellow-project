@@ -4,6 +4,9 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 export type NoneAuthenticatedRoutesParams = {
+  LandingPage: undefined;
+  Login: undefined;
+  SignUp: undefined;
   Auth: undefined;
   TermsAndConditions: undefined;
   PrivacyPolicy: undefined;
@@ -16,6 +19,9 @@ export type NoneAuthenticatedStackScreenPropsGeneric<
   R extends NoneAuthenticatedRoutesKeys = NoneAuthenticatedRoutesKeys,
 > = NativeStackScreenProps<
   {
+    LandingPage: undefined;
+    Login: undefined;
+    SignUp: undefined;
     Auth: undefined;
     TermsAndConditions: undefined;
     PrivacyPolicy: undefined;
