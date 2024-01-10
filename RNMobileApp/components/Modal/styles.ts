@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   display: flex;
-  width: 344px;
   padding: 20px;
   align-self: center;
   flex-direction: column;

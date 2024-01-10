@@ -25,6 +25,11 @@ const theme = {
       secondary: ['#FFFFFF', '#ffffff14', '#00000005', '#0000000a'],
     },
   },
+  fontSizes: {
+    small: '16px',
+    medium: '20px',
+    large: '24px',
+  },
 };
 
 export default theme;

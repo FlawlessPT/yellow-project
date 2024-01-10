@@ -47,14 +47,14 @@ export const ModalPopup = ({
           <TextContainer>
             <Text
               style={{
-                fontSize: 22,
+                fontSize: 18,
                 fontFamily: 'Inter-Regular',
-                color: theme.colors.neutral.n800,
-                fontWeight: '700',
+                color: theme.colors.neutral.n700,
+                fontWeight: '600',
                 textAlign: 'center',
                 fontStyle: 'normal',
                 includeFontPadding: false,
-                lineHeight: 22,
+                lineHeight: 18,
               }}>
               {title}
             </Text>
@@ -64,7 +64,7 @@ export const ModalPopup = ({
                   fontSize: 16,
                   fontFamily: 'Inter-Regular',
                   color: theme.colors.neutral.n600,
-                  fontWeight: '600',
+                  fontWeight: '400',
                   fontStyle: 'normal',
                   textAlign: 'center',
                   lineHeight: 16,
