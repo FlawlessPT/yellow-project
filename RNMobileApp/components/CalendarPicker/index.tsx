@@ -5,14 +5,22 @@ import React, {useState} from 'react';
 import Label from '@components/Label';
 
 // Styles
-import {InnerContainer, MainContainer} from './styles';
+import {
+  ContentContainer,
+  InnerContainer,
+  MainContainer,
+  ErrorContainer,
+  errorLabelStyle,
+} from './styles';
 
 // External Libs
 import {format} from 'date-fns';
 import DatePicker from 'react-native-date-picker';
+import {HelperText} from 'react-native-paper';
 
 // Assets
 import CalendarIcon from '@assets/icons/calendar.svg';
+import Alert from '@assets/icons/alert-circle.svg';
 
 // Theme
 import theme from '../../theme';
@@ -22,6 +30,7 @@ export interface CalendarPickerProps {
   placeholderText?: string;
   maximumDate?: Date;
   onChangeDate: any;
+  error?: string;
 }
 
 export const CalendarPicker = ({
@@ -29,40 +38,51 @@ export const CalendarPicker = ({
   placeholderText,
   maximumDate = new Date(),
   onChangeDate,
+  error,
 }: CalendarPickerProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
 
   return (
-    <MainContainer onPress={() => setIsModalOpen(true)}>
-      <DatePicker
-        modal
-        open={isModalOpen}
-        date={date}
-        mode="date"
-        maximumDate={maximumDate}
-        onConfirm={date => {
-          onChangeDate(date);
-          setSelectedDate(date);
-          setIsModalOpen(false);
-          date = date;
-        }}
-        onCancel={() => {
-          setIsModalOpen(false);
-        }}
-      />
-      <InnerContainer>
-        <Label
-          text={
-            selectedDate !== undefined
-              ? format(selectedDate, 'yyyy/MM/dd')
-              : placeholderText
-          }
-          color={theme.colors.neutral.n400}
-          size={16}
+    <MainContainer>
+      <ContentContainer onPress={() => setIsModalOpen(true)}>
+        <DatePicker
+          modal
+          open={isModalOpen}
+          date={date}
+          mode="date"
+          maximumDate={maximumDate}
+          onConfirm={date => {
+            onChangeDate(date);
+            setSelectedDate(date);
+            setIsModalOpen(false);
+            date = date;
+          }}
+          onCancel={() => {
+            setIsModalOpen(false);
+          }}
         />
-        <CalendarIcon width={20} height={20} />
-      </InnerContainer>
+        <InnerContainer>
+          <Label
+            text={
+              selectedDate !== undefined
+                ? format(selectedDate, 'yyyy/MM/dd')
+                : placeholderText
+            }
+            color={theme.colors.neutral.n400}
+            size={16}
+          />
+          <CalendarIcon width={20} height={20} />
+        </InnerContainer>
+      </ContentContainer>
+      {error != undefined && (
+        <ErrorContainer>
+          <Alert width={16} height={16} />
+          <HelperText type="error" style={errorLabelStyle}>
+            {error}
+          </HelperText>
+        </ErrorContainer>
+      )}
     </MainContainer>
   );
 };
