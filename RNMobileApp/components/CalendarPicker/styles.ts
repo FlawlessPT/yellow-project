@@ -1,12 +1,16 @@
 import styled from 'styled-components/native';
 import theme from '../../theme';
 
+interface CalendarProps {
+  error?: string;
+}
+
 export const MainContainer = styled.View`
   display: flex;
   flex-direction: column;
 `;
 
-export const ContentContainer = styled.TouchableOpacity`
+export const ContentContainer = styled.TouchableOpacity<CalendarProps>`
   display: flex;
   padding: 14px 12px;
   height: 48px;
@@ -15,8 +19,12 @@ export const ContentContainer = styled.TouchableOpacity`
   gap: 8px;
   border-radius: 10px;
   background-color: ${theme.colors.neutral.white};
-  border: 1px ${theme.colors.neutral.n200};
+  border: ${({error}) =>
+    error != undefined
+      ? `1px solid ${theme.colors.red}`
+      : `1px solid ${theme.colors.neutral.n200}`};
 `;
+
 export const InnerContainer = styled.View`
   display: flex;
   width: 100%;

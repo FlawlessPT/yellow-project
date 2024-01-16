@@ -29,7 +29,7 @@ export interface CalendarPickerProps {
   date?: Date;
   placeholderText?: string;
   maximumDate?: Date;
-  onChangeDate: any;
+  onChangeDate: (date: Date) => void;
   error?: string;
 }
 
@@ -45,7 +45,7 @@ export const CalendarPicker = ({
 
   return (
     <MainContainer>
-      <ContentContainer onPress={() => setIsModalOpen(true)}>
+      <ContentContainer onPress={() => setIsModalOpen(true)} error={error}>
         <DatePicker
           modal
           open={isModalOpen}
@@ -66,8 +66,10 @@ export const CalendarPicker = ({
           <Label
             text={
               selectedDate !== undefined
-                ? format(selectedDate, 'yyyy/MM/dd')
+                ? format(selectedDate, 'dd/MM/yyyy')
                 : placeholderText
+                ? placeholderText
+                : ''
             }
             color={theme.colors.neutral.n400}
             size={16}

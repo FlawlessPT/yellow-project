@@ -247,8 +247,8 @@ export const Login = function Login() {
                           placeholderText={t('login_page.email')}
                           keyboardType="email-address"
                           value={field.value}
-                          onChangeText={text => field.onChange(text)}
-                          error={formState.errors.email?.message}
+                          onChangeText={(text: string) => field.onChange(text)}
+                          error={formState.errors.password?.message?.toString()}
                         />
                       )}
                     />
@@ -261,8 +261,8 @@ export const Login = function Login() {
                           placeholderText={t('login_page.password')}
                           secureTextEntry={true}
                           value={field.value}
-                          onChangeText={text => field.onChange(text)}
-                          error={formState.errors.password?.message}
+                          onChangeText={(text: string) => field.onChange(text)}
+                          error={formState.errors.password?.message?.toString()}
                         />
                       )}
                     />

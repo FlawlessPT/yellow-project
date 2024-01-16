@@ -37,5 +37,4 @@ export const TermsContainer = styled.View`
 
 export const FooterContainer = styled.View`
   gap: 32px;
-  background-color: white;
 `;
