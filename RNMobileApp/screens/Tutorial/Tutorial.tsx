@@ -1,18 +1,34 @@
+// React and React Native
 import * as React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {useEffect, useState} from 'react';
+
+// Components
 import {
   TutorialCarousel,
   TutorialData,
 } from '../../components/TutorialCarousel';
+
+// Styles
+import {MainContainer} from './styles';
+
+// External Libs
 import {useNavigation} from '@react-navigation/native';
+
+// Helpers
 import {supabase} from '@utils/supabase';
 import {getLocales} from 'react-native-localize';
-import {useEffect, useState} from 'react';
+import {useFeatureFlag} from '@utils/contexts';
 
 export const Tutorial = function Tutorial() {
   const [data, setData] = useState<TutorialData[]>();
   const [loading, setLoading] = useState(true);
   const locales = getLocales() || [];
+
+  const navigation = useNavigation();
+
+  const tutorialFeatureFlag = useFeatureFlag({
+    featureFlagKey: 'TUTORIAL',
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,14 +40,11 @@ export const Tutorial = function Tutorial() {
 
         if (error) {
           console.error(error);
-          navigation.goBack();
         } else {
           const slidesArray: TutorialData[] = [];
 
           Object.values(data[0].configs).forEach((slide: any) => {
             const formattedSlide = {
-              title: slide.title,
-              subtitle: slide.subtitle,
               url: slide.url,
             } as TutorialData;
 
@@ -48,26 +61,12 @@ export const Tutorial = function Tutorial() {
     };
 
     fetchData();
+    tutorialFeatureFlag.isActive ? fetchData() : navigation.goBack();
   }, []);
 
-  const navigation = useNavigation();
-
   return (
-    <View style={styles.container}>
-      {!loading && (
-        <TutorialCarousel
-          data={data as TutorialData[]}
-          getStartedButtonAction={navigation.goBack}
-        />
-      )}
-    </View>
+    <MainContainer>
+      {!loading && <TutorialCarousel data={data as TutorialData[]} />}
+    </MainContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: '100%',
-    width: '100%',
-  },
-});
