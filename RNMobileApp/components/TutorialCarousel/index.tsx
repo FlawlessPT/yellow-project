@@ -1,20 +1,35 @@
+// React and React Native
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-} from 'react-native';
-import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel';
+import {Dimensions, TouchableOpacity, View, Image} from 'react-native';
+
+// Components
+import Button from '@components/Button';
+import Label from '@components/Label';
 import {Pagination} from './Pagination';
 
+// Styles
+import {
+  CarrouselContainer,
+  ContentContainer,
+  ImageContainer,
+  MainContainer,
+  PaginationContainer,
+  TopBar,
+} from './styles';
+
+// External Libs
+import {useTranslation} from 'react-i18next';
+import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel';
+import {useNavigation} from '@react-navigation/native';
+
+// Assets
+import Chevron from '@assets/icons/chevron-left.svg';
+
+// Theme
+import theme from '@theme';
+
 export interface TutorialData {
-  title: string;
-  subtitle: string;
   url: string;
 }
 
@@ -22,20 +37,22 @@ interface TutorialCarouselProps {
   autoPlay?: boolean;
   loop?: boolean;
   data: TutorialData[];
-  getStartedButtonAction: () => void;
 }
 
 export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
   autoPlay = false,
   loop = false,
   data,
-  getStartedButtonAction,
 }) => {
   const [isFirst, setIsFirst] = useState(true);
   const [isLast, setIsLast] = useState(true);
   const [currentIndex, setCurrentIndex] = useState<number | undefined>(0);
 
   const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get('window').height;
+
+  const navigation = useNavigation();
+
   const {t} = useTranslation();
 
   let ref = React.useRef<ICarouselInstance>(null);
@@ -53,11 +70,6 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
       ref.current?.next();
     }
     setIsFirst(false);
-  };
-
-  const goToLast = () => {
-    ref.current?.scrollTo({index: data.length - 1});
-    setIsLast(true);
   };
 
   const goTo = (index: number) => {
@@ -81,163 +93,54 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
   }, [currentIndex]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.carousel}>
-        <Carousel
-          key={data.length}
-          width={screenWidth - 48}
-          autoPlay={autoPlay}
-          loop={loop}
-          data={data}
-          scrollAnimationDuration={300}
-          ref={ref}
-          onSnapToItem={() => setCurrentIndex(ref.current?.getCurrentIndex())}
-          renderItem={({item, index}) => (
-            <View style={styles.carousel}>
-              <Image
-                style={{width: screenWidth - 48, height: screenWidth / 2}}
-                resizeMode="contain"
-                source={
-                  typeof item.url === 'string' ? {uri: item.url} : item.url
-                }
-              />
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.subtitle}>{item.subtitle}</Text>
-            </View>
-          )}
-        />
-      </View>
-      {!isLast && (
-        <>
+    <MainContainer>
+      <ContentContainer>
+        <TopBar>
+          <TouchableOpacity onPress={goBack}>
+            {!isFirst && <Chevron width={24} height={24} />}
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Label
+              text="common.skip"
+              size={16}
+              color={theme.colors.neutral.n400}
+            />
+          </TouchableOpacity>
+        </TopBar>
+        <CarrouselContainer>
+          <Carousel
+            key={data.length}
+            width={screenWidth}
+            autoPlay={autoPlay}
+            loop={loop}
+            data={data}
+            scrollAnimationDuration={300}
+            ref={ref}
+            onSnapToItem={() => setCurrentIndex(ref.current?.getCurrentIndex())}
+            renderItem={({item, index}) => (
+              <ImageContainer>
+                <Image
+                  style={{width: screenWidth - 48, height: screenHeight}}
+                  resizeMode="center"
+                  source={
+                    typeof item.url === 'string' ? {uri: item.url} : item.url
+                  }
+                />
+              </ImageContainer>
+            )}
+          />
+        </CarrouselContainer>
+        <PaginationContainer>
           <Pagination
             currentIndex={currentIndex as number}
             totalItems={data.length}
             goToFunc={index => goTo(index)}
           />
-        </>
-      )}
-      {isLast ? (
-        <>
-          <TouchableOpacity
-            style={styles.getStartedButton}
-            onPress={() => getStartedButtonAction()}>
-            <Text style={styles.getStartedButtonTitle}>
-              {t('tutorial.getStartedButton')}
-            </Text>
-          </TouchableOpacity>
-        </>
-      ) : (
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => (isFirst ? goToLast() : goBack())}>
-            {!isFirst && (
-              <Image
-                style={styles.arrowIcon}
-                source={require('../../assets/icons/arrow/ic-arrow.png')}
-              />
-            )}
-            <Text style={[styles.buttonTitle, isFirst && {opacity: 0.5}]}>
-              {isFirst ? t('tutorial.skip') : t('tutorial.previous')}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.button, styles.buttonRight]}
-            onPress={() => goForward()}>
-            <Text style={styles.buttonTitle}>{t('tutorial.next')}</Text>
-            <Image
-              style={[styles.arrowIcon, styles.arrowIconRight]}
-              source={require('../../assets/icons/arrow/ic-arrow.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      )}
-    </View>
+          {/* To do: change this to the correct button. */}
+          <Button text={' > '} onPressButton={goForward} />
+        </PaginationContainer>
+      </ContentContainer>
+    </MainContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    padding: 24,
-  },
-  carousel: {
-    flexDirection: 'column',
-    gap: 20,
-    width: '100%',
-    height: '90%',
-    alignContent: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-  },
-  title: {
-    color: 'black',
-    fontFamily: 'regular',
-    fontSize: 24,
-    fontStyle: 'normal',
-    fontWeight: '600',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  subtitle: {
-    color: 'black',
-    fontFamily: 'regular',
-    fontSize: 16,
-    fontStyle: 'normal',
-    fontWeight: '500',
-    lineHeight: 16,
-    textAlign: 'center',
-  },
-  buttonContainer: {
-    flex: 1,
-    width: '100%',
-    flexDirection: 'row',
-    paddingBottom: 20,
-    bottom: 0,
-  },
-  button: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    borderRadius: 8,
-    padding: 5,
-    height: 40,
-    flex: 1,
-    flexDirection: 'row',
-    gap: 8,
-  },
-  buttonRight: {
-    justifyContent: 'flex-end',
-  },
-  buttonTitle: {
-    fontFamily: 'regular',
-    fontSize: 16,
-    fontWeight: '600',
-    fontStyle: 'normal',
-    textAlign: 'center',
-  },
-  arrowIcon: {
-    height: 12,
-    width: 12,
-  },
-  arrowIconRight: {
-    transform: [{rotateY: '180deg'}],
-  },
-  getStartedButton: {
-    backgroundColor: 'black',
-    height: 50,
-    alignContent: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  getStartedButtonTitle: {
-    textAlign: 'center',
-    fontFamily: 'regular',
-    fontSize: 16,
-    fontStyle: 'normal',
-    color: 'white',
-  },
-});

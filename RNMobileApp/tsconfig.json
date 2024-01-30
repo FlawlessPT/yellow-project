@@ -4,7 +4,10 @@
     "baseUrl": "./",
     "paths": {
       "@screens/*": ["screens/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@components/*": ["components/*"],
+      "@theme": ["theme/index.ts"],
+      "@assets": ["assets/*"]
     }
   }
 }

@@ -1,5 +1,14 @@
+// React and React Native
 import React from 'react';
-import {TouchableOpacity, View, StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native';
+
+// Styles
+import {BubbleContainer} from '../styles';
+
+// Assets
+import SeenBubble from '@assets/icons/tutorial/seen-bubble.svg';
+import UnseenBubble from '@assets/icons/tutorial/unseen-bubble.svg';
+import ActiveBubble from '@assets/icons/tutorial/active-bubble.svg';
 
 interface PaginationProps {
   currentIndex: number;
@@ -18,41 +27,17 @@ export const Pagination: React.FC<PaginationProps> = ({
     for (let i = 0; i < totalItems; i++) {
       bubbles.push(
         <TouchableOpacity key={i} onPress={() => goToFunc(i)}>
-          <View
-            key={i}
-            style={[
-              styles.bubble,
-              i === currentIndex ? styles.activeBubble : styles.inactiveBubble,
-            ]}
-          />
+          {i === currentIndex ? (
+            <ActiveBubble width={14} height={14} />
+          ) : i <= currentIndex ? (
+            <SeenBubble width={8} height={8} />
+          ) : (
+            <UnseenBubble width={8} height={8} />
+          )}
         </TouchableOpacity>,
       );
     }
     return bubbles;
   };
-  return <View style={styles.bubbleContainer}>{renderBubbles()}</View>;
+  return <BubbleContainer>{renderBubbles()}</BubbleContainer>;
 };
-
-const styles = StyleSheet.create({
-  bubbleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  bubble: {
-    width: 5,
-    height: 5,
-    borderRadius: 5,
-    margin: 5,
-    backgroundColor: 'black',
-  },
-  activeBubble: {
-    width: 4,
-    height: 8,
-    borderRadius: 0,
-  },
-  inactiveBubble: {
-    opacity: 0.5,
-  },
-});
