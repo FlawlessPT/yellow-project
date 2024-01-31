@@ -35,11 +35,10 @@ export const Header = ({ pageName, onPressChevron }: HeaderProps) => {
             <Text
               style={{
                 fontSize: 20,
-                fontFamily: 'Inter-Regular',
+                fontFamily: 'Poppins-Regular',
                 includeFontPadding: false,
                 textAlignVertical: 'center',
                 verticalAlign: 'middle',
-                fontWeight: '700',
                 color: theme.colors.disabled,
               }}>
               {pageName}

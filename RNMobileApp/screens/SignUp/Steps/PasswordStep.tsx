@@ -69,10 +69,9 @@ const PasswordStep = ({ control }: { control: Control }) => {
               <RedCross />
               <Text
                 style={{
-                  fontFamily: 'Inter-Regular',
+                  fontFamily: 'Poppins-Regular',
                   fontSize: 14,
                   color: theme.colors.disabled,
-                  fontWeight: '400',
                 }}
                 key={index}>
                 {error?.message}
@@ -92,7 +91,6 @@ const PasswordStep = ({ control }: { control: Control }) => {
         <Label
           text={t('signup_page.password.title')}
           size={24}
-          fontWeight="800"
           color={theme.colors.disabled}
         />
         <Label text={t('signup_page.password.subtitle')} size={20} />

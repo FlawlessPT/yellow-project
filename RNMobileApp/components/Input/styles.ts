@@ -21,7 +21,7 @@ export const errorLabelStyle = {
 
 export const textInputStyle = {
   height: 44,
-  fontFamily: 'Inter-Regular',
+  fontFamily: 'Poppins-Regular',
   justifyContent: 'center',
 };
 

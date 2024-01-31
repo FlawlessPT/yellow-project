@@ -18,7 +18,6 @@ const tagsStyles: MixedStyleRecord = {
     padding: 0,
     lineHeight: 20,
     fontSize: '14px',
-    fontWeight: '400',
   },
   ul: {
     marginTop: '0px',
@@ -33,7 +32,6 @@ const tagsStyles: MixedStyleRecord = {
     display: 'flex',
     flexDirection: 'column',
     lineHeight: 20,
-    fontWeight: '400',
     paddingBottom: '0px',
     margin: 0,
   },

@@ -222,8 +222,7 @@ export const Login = function Login() {
                     <Text
                       style={{
                         fontSize: 24,
-                        fontFamily: 'Inter-Regular',
-                        fontWeight: '700',
+                        fontFamily: 'Poppins-Regular',
                         color: theme.colors.disabled,
                       }}>
                       {t('login_page.title')}
@@ -231,8 +230,7 @@ export const Login = function Login() {
                     <Text
                       style={{
                         fontSize: 20,
-                        fontFamily: 'Inter-Regular',
-                        fontWeight: '400',
+                        fontFamily: 'Poppins-Regular',
                         lineHeight: 22,
                         color: theme.colors.disabled,
                       }}>
@@ -278,7 +276,7 @@ export const Login = function Login() {
                         <Text
                           style={{
                             fontSize: 16,
-                            fontFamily: 'Inter-Regular',
+                            fontFamily: 'Poppins-Regular',
                             color: '#BABABA',
                           }}>
                           {t('login_page.remember_me')}
@@ -290,7 +288,7 @@ export const Login = function Login() {
                           <Text
                             style={{
                               fontSize: 16,
-                              fontFamily: 'Inter-Regular',
+                              fontFamily: 'Poppins-Regular',
                               color: '#FFA500',
                               textAlign: 'right',
                             }}>
@@ -337,7 +335,7 @@ export const Login = function Login() {
                       style={{
                         textAlign: 'center',
                         fontSize: 16,
-                        fontFamily: 'Inter-Regular',
+                        fontFamily: 'Poppins-Regular',
                         lineHeight: 20,
                         color: '#BABABA',
                       }}>
@@ -346,7 +344,7 @@ export const Login = function Login() {
                         style={{
                           textAlign: 'center',
                           fontSize: 16,
-                          fontFamily: 'Inter-Regular',
+                          fontFamily: 'Poppins-Regular',
                           lineHeight: 20,
                           color: '#FFA500',
                         }}>

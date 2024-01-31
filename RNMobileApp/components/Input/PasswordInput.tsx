@@ -59,7 +59,7 @@ export const PasswordInput = ({
 
   const getColorByErrorsList = () => {
     if (passwordRules && passwordRules.length) {
-      let nErrors = passwordRules.length;
+      const nErrors = passwordRules.length;
       switch (nErrors) {
         case 0:
           return theme.colors.green;
@@ -74,7 +74,7 @@ export const PasswordInput = ({
 
   const getStringByErrorsList = () => {
     if (passwordRules && passwordRules.length) {
-      let nErrors = passwordRules.length;
+      const nErrors = passwordRules.length;
       switch (nErrors) {
         case 0:
           return t('common.password_strong');
@@ -91,12 +91,7 @@ export const PasswordInput = ({
     <>
       <MainContainer>
         {optionalLabelText && (
-          <Label
-            text={optionalLabelText}
-            size={14}
-            fontWeight="600"
-            textAlign="right"
-          />
+          <Label text={optionalLabelText} size={14} textAlign="right" />
         )}
         <TextInput
           value={value}
@@ -148,7 +143,6 @@ export const PasswordInput = ({
             <Label
               text={getStringByErrorsList()}
               size={12}
-              fontWeight="500"
               color={theme.colors.primary}
             />
             {passwordRules && passwordRules.length > 0 && (
