@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { supabase } from '@utils/supabase';
 import { Button, Input } from 'react-native-elements';
 import * as WebBrowser from 'expo-web-browser';
@@ -14,7 +13,6 @@ export const Auth = function Auth() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { t } = useTranslation();
   const gitHubSignInFeatureFlag = useFeatureFlag({
     featureFlagKey: 'GITHUB_SIGN_IN',
   });
@@ -136,7 +134,7 @@ export const Auth = function Auth() {
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input
-          label={t('common.email_label')}
+          label={'common.email_label'}
           leftIcon={{ type: 'font-awesome', name: 'envelope' }}
           onChangeText={text => setEmail(text)}
           value={email}
@@ -146,25 +144,25 @@ export const Auth = function Auth() {
       </View>
       <View style={styles.verticallySpaced}>
         <Input
-          label={t('common.password_label')}
+          label={'common.password_label'}
           leftIcon={{ type: 'font-awesome', name: 'lock' }}
           onChangeText={text => setPassword(text)}
           value={password}
           secureTextEntry={true}
-          placeholder={t('common.password_label')}
+          placeholder={'common.password_label'}
           autoCapitalize={'none'}
         />
       </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Button
-          title={t('auth.sign_in')}
+          title={'auth.sign_in'}
           disabled={loading}
           onPress={() => signInWithEmail()}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title={t('auth.sign_up')}
+          title={'auth.sign_up'}
           disabled={loading}
           onPress={() => signUpWithEmail()}
         />
@@ -172,7 +170,7 @@ export const Auth = function Auth() {
       {gitHubSignInFeatureFlag.isActive && (
         <View style={styles.verticallySpaced}>
           <Button
-            title={t('auth.sign_in_github')}
+            title={'auth.sign_in_github'}
             disabled={loading}
             onPress={() => gitHubSignIn()}
           />
@@ -180,42 +178,42 @@ export const Auth = function Auth() {
       )}
       <View style={styles.verticallySpaced}>
         <Button
-          title={t('auth.sign_in_google')}
+          title={'auth.sign_in_google'}
           disabled={loading}
           onPress={() => googleSignIn()}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title={t('auth.forgot_password')}
+          title={'auth.forgot_password'}
           disabled={loading}
           onPress={() => forgotPassword()}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title={t('auth.terms_and_conditions')}
+          title={'auth.terms_and_conditions'}
           disabled={loading}
           onPress={() => navigation.navigate('TermsAndConditions')}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title={t('auth.privacy_policy')}
+          title={'auth.privacy_policy'}
           disabled={loading}
           onPress={() => navigation.navigate('PrivacyPolicy')}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title={t('auth.rating_popup')}
+          title={'auth.rating_popup'}
           disabled={loading}
           onPress={() => askInAppReview()}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
-          title={t('auth.tutorial')}
+          title={'auth.tutorial'}
           disabled={loading}
           onPress={() => navigation.navigate('Tutorial')}
         />

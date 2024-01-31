@@ -25,13 +25,12 @@ import { supabase } from '@utils/supabase';
 import { useFeatureFlag } from '@utils/contexts';
 
 // External Libs
-import { Text } from 'react-native-elements';
-import { useTranslation } from 'react-i18next';
 import * as WebBrowser from 'expo-web-browser';
 import { useNavigation } from '@react-navigation/native';
 import * as AppleAuthentication from 'expo-apple-authentication';
 
 // Components
+import Label from '@components/Label';
 import Button from '../../components/Button';
 import Separator from '../../components/Separator';
 import SocialLoginButton from '../../components/SocialLoginButton';
@@ -40,7 +39,6 @@ import SocialLoginButton from '../../components/SocialLoginButton';
 import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
 
 export const LandingPage = function LandingPage() {
-  const { t } = useTranslation();
   const { theme } = useTheme();
 
   const navigation =
@@ -137,31 +135,24 @@ export const LandingPage = function LandingPage() {
         </LogoContainer>
         <ContentContainer>
           <TextContainer>
-            <Text
-              style={{
-                fontSize: 24,
-                fontFamily: 'Poppins-Bold',
-                color: theme.colors.disabled,
-              }}>
-              {t('landing_page.title')}
-            </Text>
-            <Text
-              style={{
-                fontSize: 20,
-                fontFamily: 'Poppins-Regular',
-                lineHeight: 22,
-                color: theme.colors.disabled,
-              }}>
-              {t('landing_page.subtitle')}
-            </Text>
+            <Label
+              text={'landing_page.title'}
+              type="h3"
+              color={theme.colors.white}
+            />
+            <Label
+              text={'landing_page.subtitle'}
+              type="h4"
+              color={theme.colors.white}
+            />
           </TextContainer>
           <ButtonsContainer>
             <Button
-              text={t('landing_page.sign_in')}
+              text={'landing_page.sign_in'}
               onPressButton={() => navigation.navigate('Login')}
             />
             <Button
-              text={t('landing_page.sign_up')}
+              text={'landing_page.sign_up'}
               typeButton="outlined"
               onPressButton={() => navigation.navigate('SignUp')}
             />
@@ -170,7 +161,7 @@ export const LandingPage = function LandingPage() {
             appleSignInFeatureFlag.isActive ||
             googleSignInFeatureFlag.isActive) && (
             <>
-              <Separator text={t('landing_page.separator')} />
+              <Separator text={'landing_page.separator'} />
               <SocialsLoginButtonsContainer>
                 {appleSignInFeatureFlag.isActive && (
                   <SocialLoginButton

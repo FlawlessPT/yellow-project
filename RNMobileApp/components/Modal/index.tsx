@@ -4,19 +4,19 @@ import { Text, TouchableOpacity } from 'react-native';
 
 // Components
 import Button from '../Button';
-
-// Styles
-import { Container, InnerContainer, TextContainer } from './styles';
+import Label from '@components/Label';
 
 // External Libs
 import Modal from 'react-native-modal';
-import { useTranslation } from 'react-i18next';
+
+// Theme
+import useTheme from '@hooks/theme/useTheme';
 
 // Assets
 import Warning from './../../assets/icons/warning.svg';
 
-// Theme
-import useTheme from '@hooks/theme/useTheme';
+// Styles
+import { Container, InnerContainer, TextContainer } from './styles';
 
 export interface ModalPopupProps {
   title: string;
@@ -37,7 +37,6 @@ export const ModalPopup = ({
   onPressDismissButton,
   isModalVisible,
 }: ModalPopupProps) => {
-  const { t } = useTranslation();
   const { theme } = useTheme();
 
   return (
@@ -46,46 +45,13 @@ export const ModalPopup = ({
         <InnerContainer>
           <Warning width={46} height={42} />
           <TextContainer>
-            <Text
-              style={{
-                fontSize: 18,
-                fontFamily: 'Poppins-Regular',
-                color: theme.colors.disabled,
-                textAlign: 'center',
-                fontStyle: 'normal',
-                includeFontPadding: false,
-                lineHeight: 18,
-              }}>
-              {title}
-            </Text>
-            {subtitle && (
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontFamily: 'Poppins-Regular',
-                  color: theme.colors.disabled,
-                  fontStyle: 'normal',
-                  textAlign: 'center',
-                  lineHeight: 16,
-                }}>
-                {subtitle}
-              </Text>
-            )}
+            <Label text={title} type="h4" textAlign="center" />
+            {subtitle && <Label text={subtitle} type="h5" textAlign="center" />}
           </TextContainer>
           <Button text={buttonTitle} onPressButton={onPressButton}></Button>
           {isDismissButtonVisible && (
             <TouchableOpacity onPress={onPressDismissButton}>
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontFamily: 'Poppins-Regular',
-                  color: theme.colors.primary,
-                  fontStyle: 'normal',
-                  textAlign: 'center',
-                  lineHeight: 16,
-                }}>
-                {t('common.dismiss')}
-              </Text>
+              <Label text={'common.dismiss'} type="h5" textAlign="center" />
             </TouchableOpacity>
           )}
         </InnerContainer>
