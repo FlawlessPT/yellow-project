@@ -153,7 +153,7 @@ export const LandingPage = function LandingPage() {
             />
             <Button
               text={'landing_page.sign_up'}
-              typeButton="outlined"
+              hasBorder
               onPressButton={() => navigation.navigate('SignUp')}
             />
           </ButtonsContainer>

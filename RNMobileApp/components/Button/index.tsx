@@ -1,35 +1,60 @@
-// React and React Native
+/* React and React Native */
 import React from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 
-// Styles
-import { Container, DefaultButton, Label } from './styles';
+/* Components */
+import Label from '@components/Label';
 
-export type ButtonType = 'normal' | 'outlined';
+/* Hooks */
+import useTheme from '@hooks/theme/useTheme';
+
+/* Styles */
+import { DefaultButton, Loading } from './styles';
 
 export interface ButtonProps {
-  text: string;
+  backgroundColor?: string;
+  text?: string;
+  hasBorder?: boolean;
+  textColor?: string;
+  borderColor?: string;
   isDisabled?: boolean;
-  typeButton?: ButtonType;
-  onPressButton: () => void;
+  style?: StyleProp<ViewStyle>;
+  onPressButton?: () => void;
 }
 
-export const Button = ({
+const Button = ({
+  backgroundColor,
   text,
-  isDisabled = false,
-  typeButton = 'normal',
+  hasBorder,
+  textColor,
+  borderColor,
+  isDisabled,
+  style,
   onPressButton,
 }: ButtonProps) => {
+  const { theme } = useTheme();
+
   return (
     <DefaultButton
-      type={typeButton}
+      style={style}
+      backgroundColor={
+        isDisabled
+          ? theme.colors.disabled
+          : hasBorder
+          ? 'transparent'
+          : backgroundColor || theme.colors.primary
+      }
+      hasBorder={hasBorder}
+      borderColor={isDisabled ? 'transparent' : borderColor}
       disabled={isDisabled}
-      activeOpacity={isDisabled ? 1 : 0.8}
       onPress={onPressButton}>
-      <Container>
-        <Label type={typeButton} disabled={isDisabled}>
-          {text}
-        </Label>
-      </Container>
+      <Label
+        type="h5"
+        color={
+          isDisabled ? theme.colors.white : textColor || theme.colors.white
+        }
+        text={text}
+      />
     </DefaultButton>
   );
 };

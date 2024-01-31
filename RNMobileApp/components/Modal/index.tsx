@@ -48,7 +48,7 @@ export const ModalPopup = ({
             <Label text={title} type="h4" textAlign="center" />
             {subtitle && <Label text={subtitle} type="h5" textAlign="center" />}
           </TextContainer>
-          <Button text={buttonTitle} onPressButton={onPressButton}></Button>
+          <Button text={buttonTitle} onPressButton={onPressButton} />
           {isDismissButtonVisible && (
             <TouchableOpacity onPress={onPressDismissButton}>
               <Label text={'common.dismiss'} type="h5" textAlign="center" />
