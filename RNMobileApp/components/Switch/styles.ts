@@ -2,7 +2,7 @@
 import styled from 'styled-components/native';
 
 // React and React Native
-import {Animated} from 'react-native';
+import { Animated } from 'react-native';
 
 // Theme
 import theme from './../../theme';
@@ -16,7 +16,7 @@ export const Container = styled.TouchableOpacity<SwitchProps>`
   width: 40px;
   border-radius: 48px;
   justify-content: center;
-  background-color: ${({isEnabled}) =>
+  background-color: ${({ isEnabled }) =>
     !isEnabled ? theme.colors.neutral.n300 : theme.colors.primary.p300};
   padding: 2px;
 `;

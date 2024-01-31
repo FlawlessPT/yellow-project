@@ -19,7 +19,7 @@ export const ContentContainer = styled.TouchableOpacity<CalendarProps>`
   gap: 8px;
   border-radius: 10px;
   background-color: ${theme.colors.neutral.white};
-  border: ${({error}) =>
+  border: ${({ error }) =>
     error != undefined
       ? `1px solid ${theme.colors.red}`
       : `1px solid ${theme.colors.neutral.n200}`};

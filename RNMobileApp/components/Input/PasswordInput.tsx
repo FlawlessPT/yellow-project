@@ -1,6 +1,6 @@
 // React and React Native
-import React, {useState} from 'react';
-import {KeyboardTypeOptions, StyleProp, TextStyle} from 'react-native';
+import React, { useState } from 'react';
+import { KeyboardTypeOptions, StyleProp, TextStyle } from 'react-native';
 
 // Components
 import Label from '@components/Label';
@@ -15,8 +15,8 @@ import {
 } from './styles';
 
 // External Libs
-import {TextInput, ProgressBar} from 'react-native-paper';
-import {useTranslation} from 'react-i18next';
+import { TextInput, ProgressBar } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
 
 // Assets
 import Eye from './../../assets/icons/eye.svg';
@@ -58,7 +58,7 @@ export const PasswordInput = ({
 }: InputProps) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(secureTextEntry);
   const [isFocused, setIsFocused] = useState(false);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const getColorByErrorsList = () => {
     if (passwordRules && passwordRules.length) {
@@ -119,7 +119,7 @@ export const PasswordInput = ({
           }}
           activeOutlineColor={getColorByErrorsList()}
           outlineColor={error ? theme.colors.red : theme.colors.neutral.n200}
-          outlineStyle={{borderRadius: 10}}
+          outlineStyle={{ borderRadius: 10 }}
           textColor={theme.colors.neutral.n500}
           style={textInputStyle as StyleProp<TextStyle>}
           right={

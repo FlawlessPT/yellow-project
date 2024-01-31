@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Styles
-import {Button} from './styles';
+import { Button } from './styles';
 
 // Assets
 import Apple from './../../assets/icons/social/apple.svg';
@@ -22,7 +22,7 @@ export interface LogoComponentProps {
   height: number;
 }
 
-const LogoComponent = ({type, width, height}: LogoComponentProps) => {
+const LogoComponent = ({ type, width, height }: LogoComponentProps) => {
   let Logo;
 
   switch (type) {
@@ -45,7 +45,10 @@ const LogoComponent = ({type, width, height}: LogoComponentProps) => {
   }
 };
 
-export const SocialLoginButton = ({typeButton, onPressButton}: ButtonProps) => (
+export const SocialLoginButton = ({
+  typeButton,
+  onPressButton,
+}: ButtonProps) => (
   <Button onPress={onPressButton}>
     <LogoComponent type={typeButton} width={24} height={24} />
   </Button>

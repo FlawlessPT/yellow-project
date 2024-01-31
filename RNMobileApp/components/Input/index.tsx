@@ -1,5 +1,5 @@
 // React and React Native
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   KeyboardTypeOptions,
   NativeSyntheticEvent,
@@ -20,7 +20,7 @@ import {
 } from './styles';
 
 // External Libs
-import {TextInput, HelperText} from 'react-native-paper';
+import { TextInput, HelperText } from 'react-native-paper';
 
 // Assets
 import Alert from './../../assets/icons/alert-circle.svg';
@@ -81,7 +81,7 @@ export const Input = ({
           error ? theme.colors.red : theme.colors.primary.p300
         }
         outlineColor={error ? theme.colors.red : theme.colors.neutral.n200}
-        outlineStyle={{borderRadius: 10}}
+        outlineStyle={{ borderRadius: 10 }}
         textColor={theme.colors.neutral.n500}
         style={textInputStyle as StyleProp<TextStyle>}
         right={

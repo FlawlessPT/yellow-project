@@ -1,6 +1,6 @@
 // React and React Native
 import React from 'react';
-import {Image, ImageStyle, StyleProp, Text} from 'react-native';
+import { Image, ImageStyle, StyleProp, Text } from 'react-native';
 
 // Styles
 import {
@@ -21,7 +21,7 @@ export interface HeaderProps {
   onPressChevron: () => void;
 }
 
-export const Header = ({pageName, onPressChevron}: HeaderProps) => {
+export const Header = ({ pageName, onPressChevron }: HeaderProps) => {
   return (
     <MainContainer>
       <ChevronContainer onPress={onPressChevron}>

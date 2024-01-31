@@ -6,17 +6,17 @@ import Label from '@components/Label';
 import Input from '@components/Input';
 
 // Styles
-import {TextContainer, InputsContainer} from '../styles';
+import { TextContainer, InputsContainer } from '../styles';
 
 // External Libs
 import * as yup from 'yup';
-import {Control, Controller} from 'react-hook-form';
-import {t} from 'i18next';
+import { Control, Controller } from 'react-hook-form';
+import { t } from 'i18next';
 
 // Theme
 import theme from '@theme';
 
-export const NameStep = ({control}: {control: Control}) => {
+export const NameStep = ({ control }: { control: Control }) => {
   const firstNameSchema = yup.object().shape({
     firstName: yup.string().required('First name is required'),
   });
@@ -39,7 +39,7 @@ export const NameStep = ({control}: {control: Control}) => {
         <Controller
           name="firstName"
           control={control}
-          render={({field, fieldState}) => (
+          render={({ field, fieldState }) => (
             <>
               <Input
                 placeholderText={t('signup_page.firstname')}
@@ -52,14 +52,14 @@ export const NameStep = ({control}: {control: Control}) => {
           rules={{
             validate: value =>
               firstNameSchema
-                .validate({firstName: value})
+                .validate({ firstName: value })
                 .catch(err => err.errors[0]),
           }}
         />
         <Controller
           name="lastName"
           control={control}
-          render={({field, fieldState}) => (
+          render={({ field, fieldState }) => (
             <>
               <Input
                 placeholderText={t('signup_page.lastname')}
@@ -72,7 +72,7 @@ export const NameStep = ({control}: {control: Control}) => {
           rules={{
             validate: value =>
               lastNameSchema
-                .validate({lastName: value})
+                .validate({ lastName: value })
                 .catch(err => err.errors[0]),
           }}
         />

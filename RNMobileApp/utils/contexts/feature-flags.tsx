@@ -1,6 +1,6 @@
-import {Session} from '@supabase/supabase-js';
-import {supabase} from '@utils/supabase';
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import { Session } from '@supabase/supabase-js';
+import { supabase } from '@utils/supabase';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type FeatureFlagType = {
   key: string;
@@ -18,7 +18,7 @@ const DEFAULT_REFRESH_FEATURE_FLAGS_IN_MS = 60000;
 const FeatureFlagsContext = createContext<{
   featureFlags: FeatureFlagType[];
   signedInUser?: SignedInUserType;
-}>({featureFlags: []});
+}>({ featureFlags: [] });
 
 export const FeatureFlagsContextProvider = ({
   children,
@@ -36,10 +36,10 @@ export const FeatureFlagsContextProvider = ({
         user = {
           id: session.user.id,
         };
-        const {data} = await supabase
+        const { data } = await supabase
           .from('profiles')
           .select('id, roles')
-          .match({id: session.user.id})
+          .match({ id: session.user.id })
           .single();
 
         if (data) {
@@ -50,7 +50,7 @@ export const FeatureFlagsContextProvider = ({
       setSignedInUser(user || undefined);
     };
 
-    supabase.auth.getSession().then(({data: {session: s}}) => {
+    supabase.auth.getSession().then(({ data: { session: s } }) => {
       updateSignedInUser(s);
     });
 
@@ -61,7 +61,7 @@ export const FeatureFlagsContextProvider = ({
 
   useEffect(() => {
     const fetchFeatureFlags = async () => {
-      const {data} = await supabase
+      const { data } = await supabase
         .from('feature_flags')
         .select('key, users_ids, active, roles');
 
@@ -83,14 +83,18 @@ export const FeatureFlagsContextProvider = ({
   }, []);
 
   return (
-    <FeatureFlagsContext.Provider value={{featureFlags, signedInUser}}>
+    <FeatureFlagsContext.Provider value={{ featureFlags, signedInUser }}>
       {children}
     </FeatureFlagsContext.Provider>
   );
 };
 
-export const useFeatureFlag = ({featureFlagKey}: {featureFlagKey: string}) => {
-  const {featureFlags, signedInUser} = useContext(FeatureFlagsContext);
+export const useFeatureFlag = ({
+  featureFlagKey,
+}: {
+  featureFlagKey: string;
+}) => {
+  const { featureFlags, signedInUser } = useContext(FeatureFlagsContext);
   const featureFlag = featureFlags.find(f => f.key === featureFlagKey);
 
   const isForAnyUser = !featureFlag?.users?.length;

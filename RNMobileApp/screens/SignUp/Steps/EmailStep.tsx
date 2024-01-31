@@ -7,17 +7,17 @@ import Input from '@components/Input';
 import Checkbox from '@components/Checkbox';
 
 // Styles
-import {TextContainer, InputsContainer, TermsContainer} from '../styles';
+import { TextContainer, InputsContainer, TermsContainer } from '../styles';
 
 // External Libs
 import * as yup from 'yup';
-import {Control, Controller} from 'react-hook-form';
-import {t} from 'i18next';
+import { Control, Controller } from 'react-hook-form';
+import { t } from 'i18next';
 
 // Theme
 import theme from '@theme';
 
-export const EmailStep = ({control}: {control: Control}) => {
+export const EmailStep = ({ control }: { control: Control }) => {
   const emailSchema = yup.object().shape({
     email: yup
       .string()
@@ -44,7 +44,7 @@ export const EmailStep = ({control}: {control: Control}) => {
         <Controller
           name="email"
           control={control}
-          render={({field, fieldState}) => (
+          render={({ field, fieldState }) => (
             <Input
               placeholderText={t('login_page.email')}
               keyboardType="email-address"
@@ -55,7 +55,9 @@ export const EmailStep = ({control}: {control: Control}) => {
           )}
           rules={{
             validate: value =>
-              emailSchema.validate({email: value}).catch(err => err.errors[0]),
+              emailSchema
+                .validate({ email: value })
+                .catch(err => err.errors[0]),
           }}
         />
 
@@ -64,7 +66,7 @@ export const EmailStep = ({control}: {control: Control}) => {
             name="terms"
             control={control}
             defaultValue={false}
-            render={({field, fieldState}) => (
+            render={({ field, fieldState }) => (
               <>
                 <Checkbox
                   value={field.value}
@@ -87,7 +89,7 @@ export const EmailStep = ({control}: {control: Control}) => {
             rules={{
               validate: value =>
                 termsSchema
-                  .validate({terms: value})
+                  .validate({ terms: value })
                   .catch(err => err.errors[0]),
             }}
           />

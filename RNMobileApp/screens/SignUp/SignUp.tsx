@@ -1,6 +1,6 @@
 // React and React Native
-import React, {useState} from 'react';
-import {TouchableWithoutFeedback, Keyboard, Alert} from 'react-native';
+import React, { useState } from 'react';
+import { TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 
 // Components
 import Button from '@components/Button';
@@ -21,19 +21,19 @@ import {
 } from './styles';
 
 // External Libs
-import {useNavigation} from '@react-navigation/native';
-import {SubmitHandler, useForm} from 'react-hook-form';
-import {t} from 'i18next';
-import {format} from 'date-fns/format';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { useNavigation } from '@react-navigation/native';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { t } from 'i18next';
+import { format } from 'date-fns/format';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 // Helpers
-import {supabase} from '@utils/supabase';
+import { supabase } from '@utils/supabase';
 
 export const SignUp = function SignUp() {
   const navigation = useNavigation();
   const [currentStep, setCurrentStep] = useState(1);
-  const {control, handleSubmit} = useForm({});
+  const { control, handleSubmit } = useForm({});
 
   async function signUpWithEmail(
     email: string,
@@ -43,7 +43,7 @@ export const SignUp = function SignUp() {
     dob: string,
     contact: string,
   ) {
-    const {error} = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {

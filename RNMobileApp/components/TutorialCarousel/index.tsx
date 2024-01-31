@@ -1,12 +1,12 @@
 // React and React Native
 import * as React from 'react';
-import {useEffect, useState} from 'react';
-import {Dimensions, TouchableOpacity, View, Image} from 'react-native';
+import { useEffect, useState } from 'react';
+import { Dimensions, TouchableOpacity, View, Image } from 'react-native';
 
 // Components
 import Button from '@components/Button';
 import Label from '@components/Label';
-import {Pagination} from './Pagination';
+import { Pagination } from './Pagination';
 
 // Styles
 import {
@@ -19,9 +19,9 @@ import {
 } from './styles';
 
 // External Libs
-import {useTranslation} from 'react-i18next';
-import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel';
-import {useNavigation} from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
+import { useNavigation } from '@react-navigation/native';
 
 // Assets
 import Chevron from '@assets/icons/chevron-left.svg';
@@ -53,7 +53,7 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
 
   const navigation = useNavigation();
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   let ref = React.useRef<ICarouselInstance>(null);
   ref = React.createRef();
@@ -74,7 +74,7 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
 
   const goTo = (index: number) => {
     setCurrentIndex(index);
-    ref.current?.scrollTo({index: index});
+    ref.current?.scrollTo({ index: index });
   };
 
   useEffect(() => {
@@ -118,13 +118,13 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
             scrollAnimationDuration={300}
             ref={ref}
             onSnapToItem={() => setCurrentIndex(ref.current?.getCurrentIndex())}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <ImageContainer>
                 <Image
-                  style={{width: screenWidth - 48, height: screenHeight}}
+                  style={{ width: screenWidth - 48, height: screenHeight }}
                   resizeMode="center"
                   source={
-                    typeof item.url === 'string' ? {uri: item.url} : item.url
+                    typeof item.url === 'string' ? { uri: item.url } : item.url
                   }
                 />
               </ImageContainer>

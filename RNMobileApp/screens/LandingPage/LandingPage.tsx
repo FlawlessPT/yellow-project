@@ -1,6 +1,6 @@
 // React and React Native
 import React from 'react';
-import {Alert, Image, ImageStyle, StyleProp} from 'react-native';
+import { Alert, Image, ImageStyle, StyleProp } from 'react-native';
 
 // Components
 import Button from '../../components/Button';
@@ -20,9 +20,9 @@ import {
 } from './styles';
 
 // External Libs
-import {useTranslation} from 'react-i18next';
-import {Text} from 'react-native-elements';
-import {useNavigation} from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { Text } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import * as WebBrowser from 'expo-web-browser';
 
@@ -30,14 +30,14 @@ import * as WebBrowser from 'expo-web-browser';
 import theme from '../../theme';
 
 // Types
-import {NoneAuthenticatedStackScreenPropsGeneric} from '../../types';
+import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
 
 // Helpers
-import {useFeatureFlag} from '@utils/contexts';
-import {supabase} from '@utils/supabase';
+import { useFeatureFlag } from '@utils/contexts';
+import { supabase } from '@utils/supabase';
 
 export const LandingPage = function LandingPage() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const navigation =
     useNavigation<
@@ -57,7 +57,7 @@ export const LandingPage = function LandingPage() {
   });
 
   async function googleSignIn() {
-    const {error, data} = await supabase.auth.signInWithOAuth({
+    const { error, data } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: 'mw://signin/google',
@@ -84,14 +84,14 @@ export const LandingPage = function LandingPage() {
       if (credential.identityToken) {
         const {
           error,
-          data: {user},
+          data: { user },
         } = await supabase.auth.signInWithIdToken({
           provider: 'apple',
           token: credential.identityToken,
         });
-        console.log(JSON.stringify({error, user}, null, 2));
+        console.log(JSON.stringify({ error, user }, null, 2));
         if (!error && user != null) {
-          const {data: userProfile, error: profileError} = await supabase
+          const { data: userProfile, error: profileError } = await supabase
             .from('profiles')
             .select('first_name, last_name')
             .eq('id', user.id)

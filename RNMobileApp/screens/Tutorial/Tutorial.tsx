@@ -1,6 +1,6 @@
 // React and React Native
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 // Components
 import {
@@ -9,15 +9,15 @@ import {
 } from '../../components/TutorialCarousel';
 
 // Styles
-import {MainContainer} from './styles';
+import { MainContainer } from './styles';
 
 // External Libs
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 // Helpers
-import {supabase} from '@utils/supabase';
-import {getLocales} from 'react-native-localize';
-import {useFeatureFlag} from '@utils/contexts';
+import { supabase } from '@utils/supabase';
+import { getLocales } from 'react-native-localize';
+import { useFeatureFlag } from '@utils/contexts';
 
 export const Tutorial = function Tutorial() {
   const [data, setData] = useState<TutorialData[]>();
@@ -33,7 +33,7 @@ export const Tutorial = function Tutorial() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const {data, error} = await supabase
+        const { data, error } = await supabase
           .from('tutorials')
           .select('configs')
           .eq('lng', locales.length > 0 ? locales[0].languageCode : 'en');

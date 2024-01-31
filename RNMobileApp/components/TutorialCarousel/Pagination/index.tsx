@@ -1,9 +1,9 @@
 // React and React Native
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 // Styles
-import {BubbleContainer} from '../styles';
+import { BubbleContainer } from '../styles';
 
 // Assets
 import SeenBubble from '@assets/icons/tutorial/seen-bubble.svg';

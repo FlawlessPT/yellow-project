@@ -1,6 +1,6 @@
 // React and React Native
 import React from 'react';
-import {Text, TextStyle, View} from 'react-native';
+import { Text, TextStyle, View } from 'react-native';
 
 // Styles
 

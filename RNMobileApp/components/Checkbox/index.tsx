@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Styles
-import {MainContainer, iconStyle} from './styles';
+import { MainContainer, iconStyle } from './styles';
 
 // Assets
 import Selected from '@assets/icons/checkbox/selected.svg';
@@ -15,7 +15,7 @@ export interface CheckboxProps {
   onPress: () => void;
 }
 
-export const Checkbox = ({value, error, onPress}: CheckboxProps) => {
+export const Checkbox = ({ value, error, onPress }: CheckboxProps) => {
   return (
     <MainContainer onPress={onPress}>
       {error != undefined ? (

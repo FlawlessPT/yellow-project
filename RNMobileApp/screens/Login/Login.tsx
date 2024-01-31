@@ -1,5 +1,5 @@
 // React and React Native
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Alert,
   Image,
@@ -38,10 +38,10 @@ import {
 } from './styles';
 
 // External Libs
-import {useNavigation} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
-import {useForm, Controller, SubmitHandler} from 'react-hook-form';
-import {Text} from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { Text } from 'react-native-elements';
 import * as yup from 'yup';
 import EncryptedStorage from 'react-native-encrypted-storage';
 
@@ -49,13 +49,13 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import theme from '../../theme';
 
 // Types
-import {NoneAuthenticatedStackScreenPropsGeneric} from '../../types';
+import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
 
 // Helpers
-import {supabase} from '@utils/supabase';
+import { supabase } from '@utils/supabase';
 
 export const Login = function Login() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [saveLogin, setSaveLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -85,7 +85,7 @@ export const Login = function Login() {
   };
 
   async function signInWithEmail(email: string, password: string) {
-    const {error} = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
@@ -132,7 +132,7 @@ export const Login = function Login() {
       .required(t('login_page.required_password')),
   });
 
-  const {control, handleSubmit, formState} = useForm({
+  const { control, handleSubmit, formState } = useForm({
     resolver: require('@hookform/resolvers/yup').yupResolver(validationSchema),
   });
 
@@ -203,7 +203,7 @@ export const Login = function Login() {
           />
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{flex: 1}}>
+            style={{ flex: 1 }}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <MainContainer>
                 <LogoContainer>
@@ -215,7 +215,7 @@ export const Login = function Login() {
                     }}
                   />
                 </LogoContainer>
-                <ContentContainer style={{justifyContent: 'flex-end'}}>
+                <ContentContainer style={{ justifyContent: 'flex-end' }}>
                   <TextContainer>
                     <Text
                       style={{
@@ -242,7 +242,7 @@ export const Login = function Login() {
                       name="email"
                       control={control}
                       defaultValue={email}
-                      render={({field}) => (
+                      render={({ field }) => (
                         <Input
                           placeholderText={t('login_page.email')}
                           keyboardType="email-address"
@@ -256,7 +256,7 @@ export const Login = function Login() {
                       name="password"
                       control={control}
                       defaultValue={password}
-                      render={({field}) => (
+                      render={({ field }) => (
                         <Input
                           placeholderText={t('login_page.password')}
                           secureTextEntry={true}

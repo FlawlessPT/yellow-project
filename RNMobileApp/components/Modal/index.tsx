@@ -1,16 +1,16 @@
 // React and React Native
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 // Components
 import Button from '../Button';
 
 // Styles
-import {Container, InnerContainer, TextContainer} from './styles';
+import { Container, InnerContainer, TextContainer } from './styles';
 
 // External Libs
 import Modal from 'react-native-modal';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 // Assets
 import Warning from './../../assets/icons/warning.svg';
@@ -37,7 +37,7 @@ export const ModalPopup = ({
   onPressDismissButton,
   isModalVisible,
 }: ModalPopupProps) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Modal isVisible={isModalVisible}>

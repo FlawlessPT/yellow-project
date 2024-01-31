@@ -2,10 +2,10 @@
 import React from 'react';
 
 // Styles
-import {Container, DefaultButton, Label, shadowStyle} from './styles';
+import { Container, DefaultButton, Label, shadowStyle } from './styles';
 
 // External Libs
-import {LinearGradient} from 'react-native-linear-gradient';
+import { LinearGradient } from 'react-native-linear-gradient';
 import DropShadow from 'react-native-drop-shadow';
 
 // Theme
@@ -43,7 +43,7 @@ export const Button = ({
           }
           useAngle={true}
           angle={typeButton === 'outlined' ? 180 : 135}
-          style={{flex: 1}}>
+          style={{ flex: 1 }}>
           <Container>
             <Label type={typeButton} disabled={isDisabled}>
               {text}

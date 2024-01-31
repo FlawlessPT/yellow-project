@@ -1,5 +1,5 @@
 // React and React Native
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 // Components
 import Label from '@components/Label';
@@ -14,9 +14,9 @@ import {
 } from './styles';
 
 // External Libs
-import {format} from 'date-fns';
+import { format } from 'date-fns';
 import DatePicker from 'react-native-date-picker';
-import {HelperText} from 'react-native-paper';
+import { HelperText } from 'react-native-paper';
 
 // Assets
 import CalendarIcon from '@assets/icons/calendar.svg';

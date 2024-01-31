@@ -1,9 +1,9 @@
 // React and React Native
-import React, {useEffect, useRef, useState} from 'react';
-import {Animated} from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated } from 'react-native';
 
 // Styles
-import {Container, InnerContainer} from './styles';
+import { Container, InnerContainer } from './styles';
 
 interface SwitchProps {
   initialValue: boolean;

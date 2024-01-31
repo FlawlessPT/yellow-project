@@ -1,1 +1,1 @@
-export {CustomPage} from './CustomPage';
+export { CustomPage } from './CustomPage';

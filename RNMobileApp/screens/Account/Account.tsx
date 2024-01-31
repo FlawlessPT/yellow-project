@@ -1,18 +1,18 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {supabase} from '@utils/supabase';
-import {StyleSheet, View, Alert} from 'react-native';
-import {Button, Input} from 'react-native-elements';
-import {useTranslation} from 'react-i18next';
-import {Session} from '@supabase/supabase-js';
+import React, { useState, useEffect, useCallback } from 'react';
+import { supabase } from '@utils/supabase';
+import { StyleSheet, View, Alert } from 'react-native';
+import { Button, Input } from 'react-native-elements';
+import { useTranslation } from 'react-i18next';
+import { Session } from '@supabase/supabase-js';
 
-export const Account = function Account({session}: {session: Session}) {
+export const Account = function Account({ session }: { session: Session }) {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState('');
   const [fullname, setFullname] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [password, setPassword] = useState('');
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const getProfile = useCallback(
     async function getProfile() {
@@ -22,7 +22,7 @@ export const Account = function Account({session}: {session: Session}) {
           throw new Error('No user on the session!');
         }
 
-        const {data, error, status} = await supabase
+        const { data, error, status } = await supabase
           .from('profiles')
           .select('username, full_name, avatar_url')
           .eq('id', session?.user.id)
@@ -78,7 +78,7 @@ export const Account = function Account({session}: {session: Session}) {
         updated_at: new Date(),
       };
 
-      const {error} = await supabase.from('profiles').upsert(updates);
+      const { error } = await supabase.from('profiles').upsert(updates);
       if (error) {
         throw error;
       }
@@ -123,7 +123,7 @@ export const Account = function Account({session}: {session: Session}) {
       <View style={styles.verticallySpaced}>
         <Input
           label={t('common.password_label')}
-          leftIcon={{type: 'font-awesome', name: 'lock'}}
+          leftIcon={{ type: 'font-awesome', name: 'lock' }}
           onChangeText={text => setPassword(text)}
           value={password}
           secureTextEntry={true}

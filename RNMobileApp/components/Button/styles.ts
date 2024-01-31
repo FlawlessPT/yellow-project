@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
-import {ButtonType} from '.';
-import {Platform} from 'react-native';
+import { ButtonType } from '.';
+import { Platform } from 'react-native';
 import theme from '../../theme';
 
 interface DefaultButtonProps {
@@ -14,7 +14,7 @@ export const DefaultButton = styled.TouchableOpacity<DefaultButtonProps>`
   border-radius: 42px;
   position: relative;
   overflow: hidden;
-  border: ${({type}) => (type === 'outlined' ? '3px' : '0px')};
+  border: ${({ type }) => (type === 'outlined' ? '3px' : '0px')};
   border-color: ${theme.colors.primary.p500};
 `;
 
@@ -26,7 +26,7 @@ export const Container = styled.View`
 `;
 
 export const Label = styled.Text<DefaultButtonProps>`
-  color: ${({type, disabled}) =>
+  color: ${({ type, disabled }) =>
     disabled
       ? theme.colors.neutral.n100
       : type === 'outlined'

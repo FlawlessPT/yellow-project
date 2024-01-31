@@ -1,9 +1,9 @@
 // React and React Native
 import React from 'react';
-import {Text} from 'react-native';
+import { Text } from 'react-native';
 
 // Styles
-import {Container, Line} from './styles';
+import { Container, Line } from './styles';
 
 // Theme
 import theme from './../../theme';
@@ -12,7 +12,7 @@ interface SeparatorProps {
   text?: string;
 }
 
-export const Separator = ({text}: SeparatorProps) => {
+export const Separator = ({ text }: SeparatorProps) => {
   return (
     <Container>
       <Line />

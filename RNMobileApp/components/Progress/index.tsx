@@ -5,10 +5,10 @@ import React from 'react';
 import Label from '../Label';
 
 // Styles
-import {LabelContainer, MainContainer, progressBarStyle} from './styles';
+import { LabelContainer, MainContainer, progressBarStyle } from './styles';
 
 // External Libs
-import {ProgressBar} from 'react-native-paper';
+import { ProgressBar } from 'react-native-paper';
 
 // Theme
 import theme from '@theme';

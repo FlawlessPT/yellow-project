@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {ScrollView, useWindowDimensions} from 'react-native';
-import RenderHtml, {MixedStyleRecord} from 'react-native-render-html';
-import {useNavigation} from '@react-navigation/native';
-import {supabase} from '@utils/supabase';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, useWindowDimensions } from 'react-native';
+import RenderHtml, { MixedStyleRecord } from 'react-native-render-html';
+import { useNavigation } from '@react-navigation/native';
+import { supabase } from '@utils/supabase';
 import {
   CustomPageSlugEnum,
   NoneAuthenticatedStackScreenPropsGeneric,
@@ -44,7 +44,7 @@ export const CustomPage = function CustomPage({
 }: {
   slug: CustomPageSlugEnum;
 }) {
-  const {width} = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [htmlContent, setHtmlContent] = useState('');
   const [title, setTitle] = useState('');
 
@@ -53,7 +53,7 @@ export const CustomPage = function CustomPage({
 
   useEffect(() => {
     async function fetchTermsAndConditionsInfo() {
-      const {data} = await supabase
+      const { data } = await supabase
         .from('custom_pages')
         .select('title, content')
         .eq('slug', slug)
@@ -70,7 +70,7 @@ export const CustomPage = function CustomPage({
 
   useEffect(() => {
     if (title) {
-      navigation.setOptions({title});
+      navigation.setOptions({ title });
     }
   }, [title, navigation]);
 
@@ -79,7 +79,7 @@ export const CustomPage = function CustomPage({
       <RenderHtml
         contentWidth={width}
         tagsStyles={tagsStyles}
-        source={{html: htmlContent}}
+        source={{ html: htmlContent }}
       />
     </ScrollView>
   ) : null;

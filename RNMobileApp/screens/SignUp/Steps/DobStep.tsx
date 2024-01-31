@@ -6,17 +6,17 @@ import Label from '@components/Label';
 import CalendarPicker from '@components/CalendarPicker';
 
 // Styles
-import {TextContainer, InputsContainer} from '../styles';
+import { TextContainer, InputsContainer } from '../styles';
 
 // External Libs
 import * as yup from 'yup';
-import {Control, Controller} from 'react-hook-form';
-import {t} from 'i18next';
+import { Control, Controller } from 'react-hook-form';
+import { t } from 'i18next';
 
 // Theme
 import theme from '@theme';
 
-export const DobStep = ({control}: {control: Control}) => {
+export const DobStep = ({ control }: { control: Control }) => {
   const schema = yup.object().shape({
     dob: yup
       .date()
@@ -38,7 +38,7 @@ export const DobStep = ({control}: {control: Control}) => {
         <Controller
           name="dob"
           control={control}
-          render={({field, fieldState}) => (
+          render={({ field, fieldState }) => (
             <>
               <CalendarPicker
                 date={field.value}
@@ -50,7 +50,7 @@ export const DobStep = ({control}: {control: Control}) => {
           )}
           rules={{
             validate: value =>
-              schema.validate({dob: value}).catch(err => err.errors[0]),
+              schema.validate({ dob: value }).catch(err => err.errors[0]),
           }}
         />
       </InputsContainer>

@@ -1,6 +1,6 @@
 // React and React Native
-import React, {useState} from 'react';
-import {Text, View} from 'react-native';
+import React, { useState } from 'react';
+import { Text, View } from 'react-native';
 
 // Components
 import Label from '@components/Label';
@@ -8,12 +8,12 @@ import Input from '@components/Input';
 import PasswordInput from '@components/Input/PasswordInput';
 
 // Styles
-import {TextContainer, InputsContainer} from '../styles';
+import { TextContainer, InputsContainer } from '../styles';
 
 // External Libs
 import * as yup from 'yup';
-import {Control, Controller} from 'react-hook-form';
-import {t} from 'i18next';
+import { Control, Controller } from 'react-hook-form';
+import { t } from 'i18next';
 
 // Assets
 import RedCross from '@assets/icons/red-cross.svg';
@@ -21,7 +21,7 @@ import RedCross from '@assets/icons/red-cross.svg';
 // Theme
 import theme from '@theme';
 
-const PasswordStep = ({control}: {control: Control}) => {
+const PasswordStep = ({ control }: { control: Control }) => {
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [passwordValue, setPasswordValue] = useState('');
 
@@ -41,7 +41,7 @@ const PasswordStep = ({control}: {control: Control}) => {
 
   const getPasswordRules = (password: string) => {
     try {
-      passwordSchema.validateSync({password}, {abortEarly: false});
+      passwordSchema.validateSync({ password }, { abortEarly: false });
       return [];
     } catch (validationError: any) {
       if (validationError.inner) {
@@ -63,7 +63,7 @@ const PasswordStep = ({control}: {control: Control}) => {
             },
             index: React.Key | null | undefined,
           ) => (
-            <View style={{width: '100%', flexDirection: 'row', gap: 12}}>
+            <View style={{ width: '100%', flexDirection: 'row', gap: 12 }}>
               <RedCross />
               <Text
                 style={{
@@ -99,7 +99,7 @@ const PasswordStep = ({control}: {control: Control}) => {
         <Controller
           name="password"
           control={control}
-          render={({field, formState}) => (
+          render={({ field, formState }) => (
             <>
               <PasswordInput
                 placeholderText={t('signup_page.password')}
@@ -126,14 +126,14 @@ const PasswordStep = ({control}: {control: Control}) => {
           rules={{
             validate: value =>
               passwordSchema
-                .validate({password: value})
+                .validate({ password: value })
                 .catch(err => err.errors[0]),
           }}
         />
         <Controller
           name="confirmPassword"
           control={control}
-          render={({field, formState}) => (
+          render={({ field, formState }) => (
             <Input
               placeholderText={t('signup_page.confirm_password')}
               secureTextEntry={true}

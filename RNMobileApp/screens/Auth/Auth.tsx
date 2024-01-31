@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
-import {useTranslation} from 'react-i18next';
-import {supabase} from '@utils/supabase';
-import {Button, Input} from 'react-native-elements';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { supabase } from '@utils/supabase';
+import { Button, Input } from 'react-native-elements';
 import * as WebBrowser from 'expo-web-browser';
-import {useNavigation} from '@react-navigation/native';
-import {NoneAuthenticatedStackScreenPropsGeneric} from '../../types';
-import {useFeatureFlag} from '@utils/contexts';
+import { useNavigation } from '@react-navigation/native';
+import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
+import { useFeatureFlag } from '@utils/contexts';
 import InAppReview from 'react-native-in-app-review';
 
 export const Auth = function Auth() {
@@ -14,7 +14,7 @@ export const Auth = function Auth() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const gitHubSignInFeatureFlag = useFeatureFlag({
     featureFlagKey: 'GITHUB_SIGN_IN',
   });
@@ -26,7 +26,7 @@ export const Auth = function Auth() {
 
   async function signInWithEmail() {
     setLoading(true);
-    const {error} = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
@@ -39,7 +39,7 @@ export const Auth = function Auth() {
 
   async function signUpWithEmail() {
     setLoading(true);
-    const {error} = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
       options: {
@@ -59,7 +59,7 @@ export const Auth = function Auth() {
   async function forgotPassword() {
     setLoading(true);
 
-    const {error} = await supabase.auth.resetPasswordForEmail(email, {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: 'mw://recoverpassword',
     });
 
@@ -70,7 +70,7 @@ export const Auth = function Auth() {
   }
 
   async function gitHubSignIn() {
-    const {error, data} = await supabase.auth.signInWithOAuth({
+    const { error, data } = await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
         redirectTo: 'mw://signin/github',
@@ -88,7 +88,7 @@ export const Auth = function Auth() {
   }
 
   async function googleSignIn() {
-    const {error, data} = await supabase.auth.signInWithOAuth({
+    const { error, data } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: 'mw://signin/google',
@@ -137,7 +137,7 @@ export const Auth = function Auth() {
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input
           label={t('common.email_label')}
-          leftIcon={{type: 'font-awesome', name: 'envelope'}}
+          leftIcon={{ type: 'font-awesome', name: 'envelope' }}
           onChangeText={text => setEmail(text)}
           value={email}
           placeholder="email@address.com"
@@ -147,7 +147,7 @@ export const Auth = function Auth() {
       <View style={styles.verticallySpaced}>
         <Input
           label={t('common.password_label')}
-          leftIcon={{type: 'font-awesome', name: 'lock'}}
+          leftIcon={{ type: 'font-awesome', name: 'lock' }}
           onChangeText={text => setPassword(text)}
           value={password}
           secureTextEntry={true}
