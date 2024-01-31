@@ -32,7 +32,6 @@ export const DobStep = ({ control }: { control: Control }) => {
         <Label
           text={t('signup_page.dob.title')}
           size={24}
-          fontWeight="800"
           color={theme.colors.disabled}
         />
       </TextContainer>

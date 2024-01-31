@@ -37,7 +37,6 @@ export const EmailStep = ({ control }: { control: Control }) => {
         <Label
           text={t('signup_page.email.title')}
           size={24}
-          fontWeight="800"
           color={theme.colors.disabled}
         />
         <Label text={t('signup_page.email.subtitle')} size={20} />

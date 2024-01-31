@@ -49,9 +49,8 @@ export const ModalPopup = ({
             <Text
               style={{
                 fontSize: 18,
-                fontFamily: 'Inter-Regular',
+                fontFamily: 'Poppins-Regular',
                 color: theme.colors.disabled,
-                fontWeight: '600',
                 textAlign: 'center',
                 fontStyle: 'normal',
                 includeFontPadding: false,
@@ -63,9 +62,8 @@ export const ModalPopup = ({
               <Text
                 style={{
                   fontSize: 16,
-                  fontFamily: 'Inter-Regular',
+                  fontFamily: 'Poppins-Regular',
                   color: theme.colors.disabled,
-                  fontWeight: '400',
                   fontStyle: 'normal',
                   textAlign: 'center',
                   lineHeight: 16,
@@ -80,9 +78,8 @@ export const ModalPopup = ({
               <Text
                 style={{
                   fontSize: 16,
-                  fontFamily: 'Inter-Regular',
+                  fontFamily: 'Poppins-Regular',
                   color: theme.colors.primary,
-                  fontWeight: '600',
                   fontStyle: 'normal',
                   textAlign: 'center',
                   lineHeight: 16,

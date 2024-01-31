@@ -13,7 +13,7 @@ interface LabelProps {
 export const Label = ({
   text,
   size,
-  fontWeight = '400',
+  fontWeight,
   color,
   textAlign = 'left',
 }: LabelProps) => {
@@ -22,7 +22,7 @@ export const Label = ({
       <Text
         style={{
           fontSize: size,
-          fontFamily: 'Inter-Regular',
+          fontFamily: 'Poppins-Regular',
           fontWeight: fontWeight,
           includeFontPadding: false,
           textAlignVertical: 'center',

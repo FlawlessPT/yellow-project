@@ -62,12 +62,7 @@ export const Input = ({
   return (
     <MainContainer>
       {optionalLabelText && (
-        <Label
-          text={optionalLabelText}
-          size={14}
-          fontWeight="600"
-          textAlign="right"
-        />
+        <Label text={optionalLabelText} size={14} textAlign="right" />
       )}
       <TextInput
         value={value}

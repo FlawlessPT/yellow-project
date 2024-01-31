@@ -20,7 +20,7 @@ export const Separator = ({ text }: SeparatorProps) => {
       <Text
         style={{
           fontSize: 16,
-          fontFamily: 'Inter-Regular',
+          fontFamily: 'Poppins-Regular',
           includeFontPadding: false,
           textAlignVertical: 'center',
           verticalAlign: 'middle',

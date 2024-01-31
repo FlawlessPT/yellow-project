@@ -143,8 +143,7 @@ export const LandingPage = function LandingPage() {
             <Text
               style={{
                 fontSize: 24,
-                fontFamily: 'Inter-Regular',
-                fontWeight: '700',
+                fontFamily: 'Poppins-Bold',
                 color: theme.colors.disabled,
               }}>
               {t('landing_page.title')}
@@ -152,8 +151,7 @@ export const LandingPage = function LandingPage() {
             <Text
               style={{
                 fontSize: 20,
-                fontFamily: 'Inter-Regular',
-                fontWeight: '400',
+                fontFamily: 'Poppins-Regular',
                 lineHeight: 22,
                 color: theme.colors.disabled,
               }}>

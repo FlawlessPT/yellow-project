@@ -32,7 +32,7 @@ export const Container = styled.View`
 `;
 
 export const Label = styled.Text<DefaultButtonProps>`
-  font-family: Inter-Regular;
+  font-family: Poppins-Regular;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

@@ -29,7 +29,6 @@ export const ContactStep = ({ control }: { control: Control }) => {
         <Label
           text={t('signup_page.contact.title')}
           size={24}
-          fontWeight="800"
           color={theme.colors.disabled}
         />
       </TextContainer>
