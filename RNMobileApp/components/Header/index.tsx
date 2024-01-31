@@ -14,7 +14,7 @@ import {
 import Chevron from './../../assets/icons/chevron-left.svg';
 
 // Theme
-import theme from '../../theme';
+import useTheme from '@hooks/theme/useTheme';
 
 export interface HeaderProps {
   pageName?: string;
@@ -22,6 +22,8 @@ export interface HeaderProps {
 }
 
 export const Header = ({ pageName, onPressChevron }: HeaderProps) => {
+  const { theme } = useTheme();
+
   return (
     <MainContainer>
       <ChevronContainer onPress={onPressChevron}>
@@ -38,7 +40,7 @@ export const Header = ({ pageName, onPressChevron }: HeaderProps) => {
                 textAlignVertical: 'center',
                 verticalAlign: 'middle',
                 fontWeight: '700',
-                color: theme.colors.neutral.n600,
+                color: theme.colors.disabled,
               }}>
               {pageName}
             </Text>

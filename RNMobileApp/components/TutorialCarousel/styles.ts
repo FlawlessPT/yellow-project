@@ -1,9 +1,7 @@
-import theme from '@theme';
 import styled from 'styled-components/native';
 
 export const MainContainer = styled.SafeAreaView`
   flex: 1;
-  background-color: ${theme.colors.neutral.white};
   padding-horizontal: 20px;
 `;
 

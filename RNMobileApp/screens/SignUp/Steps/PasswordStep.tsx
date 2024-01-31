@@ -19,9 +19,11 @@ import { t } from 'i18next';
 import RedCross from '@assets/icons/red-cross.svg';
 
 // Theme
-import theme from '@theme';
+import useTheme from '@hooks/theme/useTheme';
 
 const PasswordStep = ({ control }: { control: Control }) => {
+  const { theme } = useTheme();
+
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [passwordValue, setPasswordValue] = useState('');
 
@@ -69,7 +71,7 @@ const PasswordStep = ({ control }: { control: Control }) => {
                 style={{
                   fontFamily: 'Inter-Regular',
                   fontSize: 14,
-                  color: theme.colors.neutral.n500,
+                  color: theme.colors.disabled,
                   fontWeight: '400',
                 }}
                 key={index}>
@@ -91,7 +93,7 @@ const PasswordStep = ({ control }: { control: Control }) => {
           text={t('signup_page.password.title')}
           size={24}
           fontWeight="800"
-          color={theme.colors.neutral.n700}
+          color={theme.colors.disabled}
         />
         <Label text={t('signup_page.password.subtitle')} size={20} />
       </TextContainer>

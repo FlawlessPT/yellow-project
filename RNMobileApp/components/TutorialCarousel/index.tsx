@@ -27,7 +27,7 @@ import { useNavigation } from '@react-navigation/native';
 import Chevron from '@assets/icons/chevron-left.svg';
 
 // Theme
-import theme from '@theme';
+import useTheme from '@hooks/theme/useTheme';
 
 export interface TutorialData {
   url: string;
@@ -44,6 +44,8 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
   loop = false,
   data,
 }) => {
+  const { theme } = useTheme();
+
   const [isFirst, setIsFirst] = useState(true);
   const [isLast, setIsLast] = useState(true);
   const [currentIndex, setCurrentIndex] = useState<number | undefined>(0);
@@ -101,11 +103,7 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Label
-              text="common.skip"
-              size={16}
-              color={theme.colors.neutral.n400}
-            />
+            <Label text="common.skip" size={16} color={theme.colors.disabled} />
           </TouchableOpacity>
         </TopBar>
         <CarrouselContainer>

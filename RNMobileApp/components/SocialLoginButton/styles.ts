@@ -8,6 +8,4 @@ export const Button = styled.TouchableOpacity`
   align-items: center;
   border-radius: 64px;
   border: 1px;
-  border-color: ${props => props.theme.colors.neutral.n200};
-  background-color: ${props => props.theme.colors.neutral.white};
 `;

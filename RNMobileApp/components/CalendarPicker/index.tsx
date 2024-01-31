@@ -23,7 +23,7 @@ import CalendarIcon from '@assets/icons/calendar.svg';
 import Alert from '@assets/icons/alert-circle.svg';
 
 // Theme
-import theme from '../../theme';
+import useTheme from '@hooks/theme/useTheme';
 
 export interface CalendarPickerProps {
   date?: Date;
@@ -42,6 +42,8 @@ export const CalendarPicker = ({
 }: CalendarPickerProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
+
+  const { theme } = useTheme();
 
   return (
     <MainContainer>
@@ -71,7 +73,7 @@ export const CalendarPicker = ({
                 ? placeholderText
                 : ''
             }
-            color={theme.colors.neutral.n400}
+            color={theme.colors.disabled}
             size={16}
           />
           <CalendarIcon width={20} height={20} />

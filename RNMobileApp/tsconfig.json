@@ -6,8 +6,9 @@
       "@screens/*": ["screens/*"],
       "@utils/*": ["utils/*"],
       "@components/*": ["components/*"],
-      "@theme": ["theme/index.ts"],
-      "@assets": ["assets/*"]
+      "@theme/*": ["theme/*"],
+      "@assets": ["assets/*"],
+      "@hooks/*": ["hooks/*"]
     }
   }
 }

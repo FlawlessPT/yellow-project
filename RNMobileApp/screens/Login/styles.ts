@@ -1,12 +1,10 @@
 import styled from 'styled-components/native';
 
 export const SafeArea = styled.SafeAreaView`
-  background-color: ${props => props.theme.colors.neutral.white};
   flex: 1;
 `;
 
 export const MainContainer = styled.View`
-  background-color: ${props => props.theme.colors.neutral.white};
   flex-direction: column;
   flex: 1;
 `;

@@ -23,11 +23,7 @@ import Eye from './../../assets/icons/eye.svg';
 import EyeOff from './../../assets/icons/eye-off.svg';
 
 // Theme
-import theme from '../../theme';
-
-// Types
-
-// Helpers
+import useTheme from '@hooks/theme/useTheme';
 
 export interface InputProps {
   placeholderText?: string;
@@ -59,6 +55,7 @@ export const PasswordInput = ({
   const [isPasswordHidden, setIsPasswordHidden] = useState(secureTextEntry);
   const [isFocused, setIsFocused] = useState(false);
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   const getColorByErrorsList = () => {
     if (passwordRules && passwordRules.length) {
@@ -68,7 +65,7 @@ export const PasswordInput = ({
           return theme.colors.green;
         case 1:
         case 2:
-          return theme.colors.primary.p300;
+          return theme.colors.primary;
         default:
           return theme.colors.red;
       }
@@ -118,9 +115,9 @@ export const PasswordInput = ({
             onInputBlur(e);
           }}
           activeOutlineColor={getColorByErrorsList()}
-          outlineColor={error ? theme.colors.red : theme.colors.neutral.n200}
+          outlineColor={error ? theme.colors.red : theme.colors.disabled}
           outlineStyle={{ borderRadius: 10 }}
-          textColor={theme.colors.neutral.n500}
+          textColor={theme.colors.disabled}
           style={textInputStyle as StyleProp<TextStyle>}
           right={
             secureTextEntry && (
@@ -152,7 +149,7 @@ export const PasswordInput = ({
               text={getStringByErrorsList()}
               size={12}
               fontWeight="500"
-              color={theme.colors.primary.p300}
+              color={theme.colors.primary}
             />
             {passwordRules && passwordRules.length > 0 && (
               <PasswordRulesContainer>{passwordRules}</PasswordRulesContainer>

@@ -7,7 +7,6 @@ export const Container = styled.View`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${props => props.theme.colors.neutral.white};
   border-radius: 20px;
 `;
 

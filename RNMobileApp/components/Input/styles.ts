@@ -1,4 +1,3 @@
-import theme from '@theme';
 import styled from 'styled-components/native';
 
 export const MainContainer = styled.View`
@@ -16,14 +15,12 @@ export const ErrorContainer = styled.View`
 `;
 
 export const errorLabelStyle = {
-  color: theme.colors.red,
   paddingLeft: 4,
   paddingTop: 0,
 };
 
 export const textInputStyle = {
   height: 44,
-  backgroundColor: theme.colors.neutral.white,
   fontFamily: 'Inter-Regular',
   justifyContent: 'center',
 };
@@ -38,7 +35,6 @@ export const PasswordInputDetailsContainer = styled.View`
 export const passwordProgressStyle = {
   height: 9,
   borderRadius: 5,
-  backgroundColor: theme.colors.neutral.n200,
 };
 
 export const PasswordRulesContainer = styled.View`

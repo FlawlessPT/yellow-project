@@ -14,9 +14,11 @@ import { Control, Controller } from 'react-hook-form';
 import { t } from 'i18next';
 
 // Theme
-import theme from '@theme';
+import useTheme from '@hooks/theme/useTheme';
 
 export const ContactStep = ({ control }: { control: Control }) => {
+  const { theme } = useTheme();
+
   const schema = yup.object().shape({
     contact: yup.number().notRequired(),
   });
@@ -28,7 +30,7 @@ export const ContactStep = ({ control }: { control: Control }) => {
           text={t('signup_page.contact.title')}
           size={24}
           fontWeight="800"
-          color={theme.colors.neutral.n700}
+          color={theme.colors.disabled}
         />
       </TextContainer>
       <InputsContainer>
