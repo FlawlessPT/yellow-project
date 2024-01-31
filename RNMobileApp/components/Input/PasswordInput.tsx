@@ -2,9 +2,6 @@
 import React, { useState } from 'react';
 import { KeyboardTypeOptions, StyleProp, TextStyle } from 'react-native';
 
-// Components
-import Label from '@components/Label';
-
 // Styles
 import {
   MainContainer,
@@ -14,16 +11,18 @@ import {
   textInputStyle,
 } from './styles';
 
-// External Libs
-import { TextInput, ProgressBar } from 'react-native-paper';
-import { useTranslation } from 'react-i18next';
+// Components
+import Label from '@components/Label';
+
+// Theme
+import useTheme from '@hooks/theme/useTheme';
 
 // Assets
 import Eye from './../../assets/icons/eye.svg';
 import EyeOff from './../../assets/icons/eye-off.svg';
 
-// Theme
-import useTheme from '@hooks/theme/useTheme';
+// External Libs
+import { TextInput, ProgressBar } from 'react-native-paper';
 
 export interface InputProps {
   placeholderText?: string;
@@ -54,7 +53,6 @@ export const PasswordInput = ({
 }: InputProps) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(secureTextEntry);
   const [isFocused, setIsFocused] = useState(false);
-  const { t } = useTranslation();
   const { theme } = useTheme();
 
   const getColorByErrorsList = () => {
@@ -77,21 +75,21 @@ export const PasswordInput = ({
       const nErrors = passwordRules.length;
       switch (nErrors) {
         case 0:
-          return t('common.password_strong');
+          return 'common.password_strong';
         case 1:
         case 2:
-          return t('common.password_medium');
+          return 'common.password_medium';
         default:
-          return t('common.password_weak');
+          return 'common.password_weak';
       }
-    } else return t('common.password_strong');
+    } else return 'common.password_strong';
   };
 
   return (
     <>
       <MainContainer>
         {optionalLabelText && (
-          <Label text={optionalLabelText} size={14} textAlign="right" />
+          <Label text={optionalLabelText} textAlign="right" />
         )}
         <TextInput
           value={value}
@@ -142,7 +140,7 @@ export const PasswordInput = ({
             />
             <Label
               text={getStringByErrorsList()}
-              size={12}
+              type="footnote"
               color={theme.colors.primary}
             />
             {passwordRules && passwordRules.length > 0 && (

@@ -19,9 +19,8 @@ import {
 } from './styles';
 
 // External Libs
-import { useTranslation } from 'react-i18next';
-import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 import { useNavigation } from '@react-navigation/native';
+import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 
 // Assets
 import Chevron from '@assets/icons/chevron-left.svg';
@@ -54,8 +53,6 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
   const screenHeight = Dimensions.get('window').height;
 
   const navigation = useNavigation();
-
-  const { t } = useTranslation();
 
   let ref = React.useRef<ICarouselInstance>(null);
   ref = React.createRef();
@@ -101,9 +98,8 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
           <TouchableOpacity onPress={goBack}>
             {!isFirst && <Chevron width={24} height={24} />}
           </TouchableOpacity>
-
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Label text="common.skip" size={16} color={theme.colors.disabled} />
+            <Label text="common.skip" type="h5" color={theme.colors.disabled} />
           </TouchableOpacity>
         </TopBar>
         <CarrouselContainer>

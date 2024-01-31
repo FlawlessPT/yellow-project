@@ -7,15 +7,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
-  StyleProp,
-  ImageStyle,
 } from 'react-native';
-
-// Assets
-import { LogoImage } from '@assets';
-
-// Modals
-import ModalPopup from '../../components/Modal';
 
 // Styles
 import {
@@ -32,6 +24,9 @@ import {
   Logo,
 } from './styles';
 
+// Assets
+import { LogoImage } from '@assets';
+
 // Utils
 import { supabase } from '@utils/supabase';
 
@@ -39,16 +34,16 @@ import { supabase } from '@utils/supabase';
 import useTheme from '@hooks/theme/useTheme';
 
 // Components
+import Label from '@components/Label';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import ModalPopup from '../../components/Modal';
 import SwitchButton from '../../components/Switch';
 import Separator from '../../components/Separator';
 import SocialLoginButton from '../../components/SocialLoginButton';
 
 // External Libs
 import * as yup from 'yup';
-import { Text } from 'react-native-elements';
-import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
@@ -57,7 +52,6 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
 
 export const Login = function Login() {
-  const { t } = useTranslation();
   const [saveLogin, setSaveLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -127,13 +121,13 @@ export const Login = function Login() {
   const validationSchema = yup.object().shape({
     email: yup
       .string()
-      .email(t('login_page.invalid_email_format'))
-      .required(t('login_page.required_email')),
+      .email('login_page.invalid_email_format')
+      .required('login_page.required_email'),
 
     password: yup
       .string()
-      .min(8, t('login_page.invalid_password'))
-      .required(t('login_page.required_password')),
+      .min(8, 'login_page.invalid_password')
+      .required('login_page.required_password'),
   });
 
   const { control, handleSubmit, formState } = useForm({
@@ -190,18 +184,18 @@ export const Login = function Login() {
       {!loading && (
         <>
           <ModalPopup
-            title={t('login_page.popup.invalid_credentials.title')}
-            subtitle={t('login_page.popup.invalid_credentials.subtitle')}
-            buttonTitle={t('login_page.popup.invalid_credentials.button')}
+            title={'login_page.popup.invalid_credentials.title'}
+            subtitle={'login_page.popup.invalid_credentials.subtitle'}
+            buttonTitle={'login_page.popup.invalid_credentials.button'}
             isDismissButtonVisible={true}
             onPressDismissButton={toggleInvalidCredentialsModal}
             isModalVisible={isInvalidCredentialsModalVisible}
             onPressButton={toggleInvalidCredentialsModal}
           />
           <ModalPopup
-            title={t('login_page.popup.email_not_confirmed.title')}
-            subtitle={t('login_page.popup.email_not_confirmed.subtitle')}
-            buttonTitle={t('login_page.popup.email_not_confirmed.button')}
+            title={'login_page.popup.email_not_confirmed.title'}
+            subtitle={'login_page.popup.email_not_confirmed.subtitle'}
+            buttonTitle={'login_page.popup.email_not_confirmed.button'}
             isModalVisible={isAccountNotConfirmedModalModalVisible}
             onPressButton={toggleAccountNotConfirmedModal}
           />
@@ -215,23 +209,8 @@ export const Login = function Login() {
                 </LogoContainer>
                 <ContentContainer style={{ justifyContent: 'flex-end' }}>
                   <TextContainer>
-                    <Text
-                      style={{
-                        fontSize: 24,
-                        fontFamily: 'Poppins-Regular',
-                        color: theme.colors.disabled,
-                      }}>
-                      {t('login_page.title')}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        fontFamily: 'Poppins-Regular',
-                        lineHeight: 22,
-                        color: theme.colors.disabled,
-                      }}>
-                      {t('login_page.subtitle')}
-                    </Text>
+                    <Label text="login_page.title" type="h3" />
+                    <Label text="login_page.subtitle" type="h4" />
                   </TextContainer>
                   <InputsContainer>
                     <Controller
@@ -240,7 +219,7 @@ export const Login = function Login() {
                       defaultValue={email}
                       render={({ field }) => (
                         <Input
-                          placeholderText={t('login_page.email')}
+                          placeholderText={'login_page.email'}
                           keyboardType="email-address"
                           value={field.value}
                           onChangeText={(text: string) => field.onChange(text)}
@@ -254,7 +233,7 @@ export const Login = function Login() {
                       defaultValue={password}
                       render={({ field }) => (
                         <Input
-                          placeholderText={t('login_page.password')}
+                          placeholderText={'login_page.password'}
                           secureTextEntry={true}
                           value={field.value}
                           onChangeText={(text: string) => field.onChange(text)}
@@ -269,40 +248,32 @@ export const Login = function Login() {
                           shouldChangeValue={false}
                           onPress={() => setSaveLogin(!saveLogin)}
                         />
-                        <Text
-                          style={{
-                            fontSize: 16,
-                            fontFamily: 'Poppins-Regular',
-                            color: '#BABABA',
-                          }}>
-                          {t('login_page.remember_me')}
-                        </Text>
+                        <Label
+                          text="login_page.remember_me"
+                          type="h5"
+                          color="#BABABA"
+                        />
                       </RememberMeContainer>
                       <ForgotPasswordContainer>
                         <TouchableOpacity
                           onPress={() => Alert.alert('To be implemented')}>
-                          <Text
-                            style={{
-                              fontSize: 16,
-                              fontFamily: 'Poppins-Regular',
-                              color: '#FFA500',
-                              textAlign: 'right',
-                            }}>
-                            {t('login_page.forgot_password')}
-                          </Text>
+                          <Label
+                            text="login_page.forgot_password"
+                            type="h5"
+                            color="#FFA500"
+                            textAlign="right"
+                          />
                         </TouchableOpacity>
                       </ForgotPasswordContainer>
                     </InputsBottomContainer>
                   </InputsContainer>
-
                   <Button
-                    text={t('login_page.sign_in')}
+                    text={'login_page.sign_in'}
                     onPressButton={handleSubmit(onSubmit)}
                   />
-
                   {!keyboardStatus && (
                     <>
-                      <Separator text={t('login_page.separator')} />
+                      <Separator text={'login_page.separator'} />
                       <SocialsLoginButtonsContainer>
                         <SocialLoginButton
                           typeButton="apple"
@@ -327,26 +298,18 @@ export const Login = function Login() {
                   )}
                   <TouchableOpacity
                     onPress={() => Alert.alert('To be implemented')}>
-                    <Text
-                      style={{
-                        textAlign: 'center',
-                        fontSize: 16,
-                        fontFamily: 'Poppins-Regular',
-                        lineHeight: 20,
-                        color: '#BABABA',
-                      }}>
-                      {t('login_page.signup_message') + ' '}
-                      <Text
-                        style={{
-                          textAlign: 'center',
-                          fontSize: 16,
-                          fontFamily: 'Poppins-Regular',
-                          lineHeight: 20,
-                          color: '#FFA500',
-                        }}>
-                        {t('login_page.signup')}
-                      </Text>
-                    </Text>
+                    <Label
+                      text="login_page.signup_message"
+                      color="#BABABA"
+                      type="h5"
+                      textAlign="center"
+                    />
+                    <Label
+                      text="login_page.signup"
+                      color="#FFA500"
+                      type="h5"
+                      textAlign="center"
+                    />
                   </TouchableOpacity>
                 </ContentContainer>
               </MainContainer>
