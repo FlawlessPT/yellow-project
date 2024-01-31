@@ -11,7 +11,7 @@ import { LabelContainer, MainContainer, progressBarStyle } from './styles';
 import { ProgressBar } from 'react-native-paper';
 
 // Theme
-import theme from '@theme';
+import useTheme from '@hooks/theme/useTheme';
 
 export interface ProgressProps {
   currentStep: number;
@@ -24,6 +24,8 @@ export const Progress = ({
   totalSteps,
   separatorText,
 }: ProgressProps) => {
+  const { theme } = useTheme();
+
   return (
     <MainContainer>
       <LabelContainer>
@@ -34,7 +36,7 @@ export const Progress = ({
       </LabelContainer>
       <ProgressBar
         progress={currentStep / totalSteps}
-        color={theme.colors.primary.p300}
+        color={theme.colors.primary}
         style={progressBarStyle}
       />
     </MainContainer>

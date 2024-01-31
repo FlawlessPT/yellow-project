@@ -27,7 +27,7 @@ import * as AppleAuthentication from 'expo-apple-authentication';
 import * as WebBrowser from 'expo-web-browser';
 
 // Theme
-import theme from '../../theme';
+import useTheme from '@hooks/theme/useTheme';
 
 // Types
 import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
@@ -38,6 +38,7 @@ import { supabase } from '@utils/supabase';
 
 export const LandingPage = function LandingPage() {
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   const navigation =
     useNavigation<
@@ -144,7 +145,7 @@ export const LandingPage = function LandingPage() {
                 fontSize: 24,
                 fontFamily: 'Inter-Regular',
                 fontWeight: '700',
-                color: theme.colors.neutral.n700,
+                color: theme.colors.disabled,
               }}>
               {t('landing_page.title')}
             </Text>
@@ -154,7 +155,7 @@ export const LandingPage = function LandingPage() {
                 fontFamily: 'Inter-Regular',
                 fontWeight: '400',
                 lineHeight: 22,
-                color: theme.colors.neutral.n600,
+                color: theme.colors.disabled,
               }}>
               {t('landing_page.subtitle')}
             </Text>

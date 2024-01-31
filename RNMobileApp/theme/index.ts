@@ -1,35 +1,47 @@
-const theme = {
-  colors: {
-    neutral: {
-      n900: '#333333',
-      n800: '#555555',
-      n700: '#666666',
-      n600: '#797A7B',
-      n500: '#A7A5A5',
-      n400: '#BABABA',
-      n300: '#DBDBDB',
-      n200: '#EAEAEA',
-      n100: '#F9F9F9',
-      white: '#FFFFFF',
-    },
-    primary: {
-      p500: '#C86F1B',
-      p300: '#FFA500',
-      p200: '#FFC14F',
-      p100: '#FFD280',
-    },
-    red: '#EA2A2A',
-    green: '#0FA456',
-    gradients: {
-      primary: ['#FFA500', '#C86F1B'],
-      secondary: ['#FFFFFF', '#ffffff14', '#00000005', '#0000000a'],
-    },
-  },
-  fontSizes: {
-    small: '16px',
-    medium: '20px',
-    large: '24px',
-  },
+/* Styled Components */
+import { DefaultTheme } from 'styled-components/native';
+
+declare module 'styled-components/native' {
+  export interface DefaultTheme {
+    colors: {
+      primary: string;
+      red: string;
+      green: string;
+      white: string;
+      black: string;
+      disabled: string;
+    };
+    fonts: { regular: string; medium: string; semibold: string; bold: string };
+  }
+}
+
+const fonts = {
+  regular: 'Poppins-Regular',
+  medium: 'Poppins-Medium',
+  semibold: 'Poppins-SemiBold',
+  bold: 'Poppins-Bold',
 };
 
-export default theme;
+export const lightTheme: DefaultTheme = {
+  colors: {
+    primary: '#FDCA00',
+    red: '#1F2223',
+    green: '#1F2223',
+    white: '#FFFFFF',
+    black: '#000000',
+    disabled: '#7D7D7D',
+  },
+  fonts,
+};
+
+export const darkTheme: DefaultTheme = {
+  colors: {
+    primary: '#FDCA00',
+    red: '#1F2223',
+    green: '#1F2223',
+    white: '#FFFFFF',
+    black: '#000000',
+    disabled: '#7D7D7D',
+  },
+  fonts,
+};

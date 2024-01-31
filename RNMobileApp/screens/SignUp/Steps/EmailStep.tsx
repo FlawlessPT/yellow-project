@@ -15,9 +15,11 @@ import { Control, Controller } from 'react-hook-form';
 import { t } from 'i18next';
 
 // Theme
-import theme from '@theme';
+import useTheme from '@hooks/theme/useTheme';
 
 export const EmailStep = ({ control }: { control: Control }) => {
+  const { theme } = useTheme();
+
   const emailSchema = yup.object().shape({
     email: yup
       .string()
@@ -36,7 +38,7 @@ export const EmailStep = ({ control }: { control: Control }) => {
           text={t('signup_page.email.title')}
           size={24}
           fontWeight="800"
-          color={theme.colors.neutral.n700}
+          color={theme.colors.disabled}
         />
         <Label text={t('signup_page.email.subtitle')} size={20} />
       </TextContainer>
@@ -79,9 +81,7 @@ export const EmailStep = ({ control }: { control: Control }) => {
                   text={t('signup_page.terms')}
                   size={16}
                   color={
-                    fieldState.error
-                      ? theme.colors.red
-                      : theme.colors.neutral.n400
+                    fieldState.error ? theme.colors.red : theme.colors.disabled
                   }
                 />
               </>

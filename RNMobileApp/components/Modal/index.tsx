@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import Warning from './../../assets/icons/warning.svg';
 
 // Theme
-import theme from './../../theme';
+import useTheme from '@hooks/theme/useTheme';
 
 export interface ModalPopupProps {
   title: string;
@@ -38,6 +38,7 @@ export const ModalPopup = ({
   isModalVisible,
 }: ModalPopupProps) => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   return (
     <Modal isVisible={isModalVisible}>
@@ -49,7 +50,7 @@ export const ModalPopup = ({
               style={{
                 fontSize: 18,
                 fontFamily: 'Inter-Regular',
-                color: theme.colors.neutral.n700,
+                color: theme.colors.disabled,
                 fontWeight: '600',
                 textAlign: 'center',
                 fontStyle: 'normal',
@@ -63,7 +64,7 @@ export const ModalPopup = ({
                 style={{
                   fontSize: 16,
                   fontFamily: 'Inter-Regular',
-                  color: theme.colors.neutral.n600,
+                  color: theme.colors.disabled,
                   fontWeight: '400',
                   fontStyle: 'normal',
                   textAlign: 'center',
@@ -80,7 +81,7 @@ export const ModalPopup = ({
                 style={{
                   fontSize: 16,
                   fontFamily: 'Inter-Regular',
-                  color: theme.colors.primary.p300,
+                  color: theme.colors.primary,
                   fontWeight: '600',
                   fontStyle: 'normal',
                   textAlign: 'center',

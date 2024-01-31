@@ -28,7 +28,7 @@ import Eye from './../../assets/icons/eye.svg';
 import EyeOff from './../../assets/icons/eye-off.svg';
 
 // Theme
-import theme from '../../theme';
+import useTheme from '@hooks/theme/useTheme';
 
 export interface InputProps {
   placeholderText?: string;
@@ -57,6 +57,8 @@ export const Input = ({
 }: InputProps) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(secureTextEntry);
 
+  const { theme } = useTheme();
+
   return (
     <MainContainer>
       {optionalLabelText && (
@@ -77,12 +79,10 @@ export const Input = ({
         keyboardType={keyboardType}
         onFocus={onInputFocus}
         onBlur={onInputBlur}
-        activeOutlineColor={
-          error ? theme.colors.red : theme.colors.primary.p300
-        }
-        outlineColor={error ? theme.colors.red : theme.colors.neutral.n200}
+        activeOutlineColor={error ? theme.colors.red : theme.colors.primary}
+        outlineColor={error ? theme.colors.red : theme.colors.disabled}
         outlineStyle={{ borderRadius: 10 }}
-        textColor={theme.colors.neutral.n500}
+        textColor={theme.colors.disabled}
         style={textInputStyle as StyleProp<TextStyle>}
         right={
           secureTextEntry && (

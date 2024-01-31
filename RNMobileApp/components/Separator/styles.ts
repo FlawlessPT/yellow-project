@@ -9,5 +9,4 @@ export const Container = styled.View`
 export const Line = styled.View`
   flex: 1;
   height: 1px;
-  background-color: ${props => props.theme.colors.neutral.n300};
 `;

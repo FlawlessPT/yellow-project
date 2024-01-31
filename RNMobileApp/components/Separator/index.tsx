@@ -6,13 +6,14 @@ import { Text } from 'react-native';
 import { Container, Line } from './styles';
 
 // Theme
-import theme from './../../theme';
+import useTheme from '@hooks/theme/useTheme';
 
 interface SeparatorProps {
   text?: string;
 }
 
 export const Separator = ({ text }: SeparatorProps) => {
+  const { theme } = useTheme();
   return (
     <Container>
       <Line />
@@ -23,7 +24,7 @@ export const Separator = ({ text }: SeparatorProps) => {
           includeFontPadding: false,
           textAlignVertical: 'center',
           verticalAlign: 'middle',
-          color: theme.colors.neutral.n300,
+          color: theme.colors.disabled,
         }}>
         {text}
       </Text>

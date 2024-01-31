@@ -2,11 +2,6 @@
 import React from 'react';
 import { Text, TextStyle, View } from 'react-native';
 
-// Styles
-
-// Theme
-import theme from './../../theme';
-
 interface LabelProps {
   text: string;
   size: number;
@@ -19,7 +14,7 @@ export const Label = ({
   text,
   size,
   fontWeight = '400',
-  color = theme.colors.neutral.n600,
+  color,
   textAlign = 'left',
 }: LabelProps) => {
   return (

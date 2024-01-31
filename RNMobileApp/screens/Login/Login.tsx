@@ -46,7 +46,7 @@ import * as yup from 'yup';
 import EncryptedStorage from 'react-native-encrypted-storage';
 
 // Theme
-import theme from '../../theme';
+import useTheme from '@hooks/theme/useTheme';
 
 // Types
 import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
@@ -63,6 +63,8 @@ export const Login = function Login() {
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   const [isInvalidCredentialsModalVisible, setInvalidCredentialsModalVisible] =
     useState(false);
+
+  const { theme } = useTheme();
 
   const [
     isAccountNotConfirmedModalModalVisible,
@@ -222,7 +224,7 @@ export const Login = function Login() {
                         fontSize: 24,
                         fontFamily: 'Inter-Regular',
                         fontWeight: '700',
-                        color: theme.colors.neutral.n700,
+                        color: theme.colors.disabled,
                       }}>
                       {t('login_page.title')}
                     </Text>
@@ -232,7 +234,7 @@ export const Login = function Login() {
                         fontFamily: 'Inter-Regular',
                         fontWeight: '400',
                         lineHeight: 22,
-                        color: theme.colors.neutral.n600,
+                        color: theme.colors.disabled,
                       }}>
                       {t('login_page.subtitle')}
                     </Text>

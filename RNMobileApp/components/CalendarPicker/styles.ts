@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import theme from '../../theme';
 
 interface CalendarProps {
   error?: string;
@@ -18,11 +17,6 @@ export const ContentContainer = styled.TouchableOpacity<CalendarProps>`
   justify-content: center;
   gap: 8px;
   border-radius: 10px;
-  background-color: ${theme.colors.neutral.white};
-  border: ${({ error }) =>
-    error != undefined
-      ? `1px solid ${theme.colors.red}`
-      : `1px solid ${theme.colors.neutral.n200}`};
 `;
 
 export const InnerContainer = styled.View`
@@ -44,7 +38,6 @@ export const ErrorContainer = styled.View`
 `;
 
 export const errorLabelStyle = {
-  color: theme.colors.red,
   paddingLeft: 4,
   paddingTop: 0,
 };
