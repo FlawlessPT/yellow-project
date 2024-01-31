@@ -56,7 +56,6 @@ export const SocialsLoginButtonsContainer = styled.View`
   gap: 16px;
 `;
 
-export const logoStyle = {
-  width: '80%',
-  height: '80%',
-};
+export const Logo = styled.Image`
+  flex: 1;
+`;

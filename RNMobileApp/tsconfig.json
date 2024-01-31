@@ -7,7 +7,7 @@
       "@utils/*": ["utils/*"],
       "@components/*": ["components/*"],
       "@theme/*": ["theme/*"],
-      "@assets": ["assets/*"],
+      "@assets": ["assets"],
       "@hooks/*": ["hooks/*"]
     }
   }

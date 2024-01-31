@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 export const SafeArea = styled.SafeAreaView`
   flex: 1;
+  background-color: ${({ theme }) => theme.colors.black};
 `;
 
 export const MainContainer = styled.View`
@@ -39,7 +40,6 @@ export const SocialsLoginButtonsContainer = styled.View`
   gap: 16px;
 `;
 
-export const logoStyle = {
-  width: '80%',
-  height: '80%',
-};
+export const Logo = styled.Image`
+  flex: 1;
+`;
