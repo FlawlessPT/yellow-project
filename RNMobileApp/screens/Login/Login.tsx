@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
-  Image,
   Keyboard,
   Platform,
   TouchableOpacity,
@@ -12,15 +11,11 @@ import {
   ImageStyle,
 } from 'react-native';
 
+// Assets
+import { LogoImage } from '@assets';
+
 // Modals
 import ModalPopup from '../../components/Modal';
-
-// Components
-import Button from '../../components/Button';
-import Input from '../../components/Input';
-import SocialLoginButton from '../../components/SocialLoginButton';
-import SwitchButton from '../../components/Switch';
-import Separator from '../../components/Separator';
 
 // Styles
 import {
@@ -32,27 +27,34 @@ import {
   TextContainer,
   InputsContainer,
   RememberMeContainer,
-  logoStyle,
   InputsBottomContainer,
   ForgotPasswordContainer,
+  Logo,
 } from './styles';
 
-// External Libs
-import { useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { Text } from 'react-native-elements';
-import * as yup from 'yup';
-import EncryptedStorage from 'react-native-encrypted-storage';
+// Utils
+import { supabase } from '@utils/supabase';
 
 // Theme
 import useTheme from '@hooks/theme/useTheme';
 
+// Components
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import SwitchButton from '../../components/Switch';
+import Separator from '../../components/Separator';
+import SocialLoginButton from '../../components/SocialLoginButton';
+
+// External Libs
+import * as yup from 'yup';
+import { Text } from 'react-native-elements';
+import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+
 // Types
 import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
-
-// Helpers
-import { supabase } from '@utils/supabase';
 
 export const Login = function Login() {
   const { t } = useTranslation();
@@ -209,13 +211,7 @@ export const Login = function Login() {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <MainContainer>
                 <LogoContainer>
-                  <Image
-                    style={logoStyle as StyleProp<ImageStyle>}
-                    resizeMode="contain"
-                    source={{
-                      uri: 'https://www.ireland-portugal.com/apr-img/Mobiweb.png',
-                    }}
-                  />
+                  <Logo resizeMode="contain" source={LogoImage} />
                 </LogoContainer>
                 <ContentContainer style={{ justifyContent: 'flex-end' }}>
                   <TextContainer>

@@ -1,11 +1,6 @@
 // React and React Native
 import React from 'react';
-import { Alert, Image, ImageStyle, StyleProp } from 'react-native';
-
-// Components
-import Button from '../../components/Button';
-import SocialLoginButton from '../../components/SocialLoginButton';
-import Separator from '../../components/Separator';
+import { Alert } from 'react-native';
 
 // Styles
 import {
@@ -16,25 +11,33 @@ import {
   MainContainer,
   SocialsLoginButtonsContainer,
   TextContainer,
-  logoStyle,
+  Logo,
 } from './styles';
 
-// External Libs
-import { useTranslation } from 'react-i18next';
-import { Text } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
-import * as AppleAuthentication from 'expo-apple-authentication';
-import * as WebBrowser from 'expo-web-browser';
+// Assets
+import { LogoImage } from '@assets';
 
 // Theme
 import useTheme from '@hooks/theme/useTheme';
 
+// Utils
+import { supabase } from '@utils/supabase';
+import { useFeatureFlag } from '@utils/contexts';
+
+// External Libs
+import { Text } from 'react-native-elements';
+import { useTranslation } from 'react-i18next';
+import * as WebBrowser from 'expo-web-browser';
+import { useNavigation } from '@react-navigation/native';
+import * as AppleAuthentication from 'expo-apple-authentication';
+
+// Components
+import Button from '../../components/Button';
+import Separator from '../../components/Separator';
+import SocialLoginButton from '../../components/SocialLoginButton';
+
 // Types
 import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
-
-// Helpers
-import { useFeatureFlag } from '@utils/contexts';
-import { supabase } from '@utils/supabase';
 
 export const LandingPage = function LandingPage() {
   const { t } = useTranslation();
@@ -130,13 +133,7 @@ export const LandingPage = function LandingPage() {
     <SafeArea>
       <MainContainer>
         <LogoContainer>
-          <Image
-            style={logoStyle as StyleProp<ImageStyle>}
-            resizeMode="contain"
-            source={{
-              uri: 'https://www.ireland-portugal.com/apr-img/Mobiweb.png',
-            }}
-          />
+          <Logo resizeMode="contain" source={LogoImage} />
         </LogoContainer>
         <ContentContainer>
           <TextContainer>
