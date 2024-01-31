@@ -1,4 +1,4 @@
-import {jest} from '@jest/globals';
+import { jest } from '@jest/globals';
 import mockLocalize from 'react-native-localize/mock';
 
 // Needed to solve issue with react-navigation
