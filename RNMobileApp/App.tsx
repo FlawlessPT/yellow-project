@@ -25,7 +25,7 @@ import { LandingPage } from '@screens/LandingPage';
 import { Login } from '@screens/Login';
 import { SignUp } from '@screens/SignUp';
 import { ThemeProvider } from 'styled-components/native';
-import useTheme from '@hooks/theme/useTheme';
+import useTheme from '@hooks/theme';
 
 // Remove this method to stop OneSignal Debugging
 if (__DEV__) {

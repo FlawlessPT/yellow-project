@@ -3,12 +3,13 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@screens/*": ["screens/*"],
-      "@utils/*": ["utils/*"],
-      "@components/*": ["components/*"],
-      "@theme/*": ["theme/*"],
-      "@assets": ["assets"],
-      "@hooks/*": ["hooks/*"]
+      "@screens/*": ["src/screens/*"],
+      "@utils/*": ["src/utils/*"],
+      "@components": ["src/components/index"],
+      "@components/*": ["src/components/*"],
+      "@theme": ["src/theme/index"],
+      "@assets": ["src/assets/index"],
+      "@hooks/*": ["src/hooks/*"]
     }
   }
 }
