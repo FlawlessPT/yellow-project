@@ -1,35 +1,82 @@
 // React and React Native
 import React from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 
 // Styles
-import { MainContainer, iconStyle } from './styles';
+import {
+  ActiveCheckboxContainer,
+  CheckboxContainer,
+  CheckedIcon,
+  Container,
+  RightElementContainer,
+} from './styles';
 
 // Assets
-// import Selected from '@assets/icons/checkbox/selected.svg';
-// import Deselected from '@assets/icons/checkbox/deselected.svg';
-// import Error from '@assets/icons/checkbox/error.svg';
+import { SelectedCheckbox } from '@assets';
 
-export interface CheckboxProps {
-  value: boolean;
-  error?: string;
+// Hooks
+import useTheme from '@hooks/theme/useTheme';
+
+interface CheckboxProps {
+  bgColor?: string;
+  checkedBgColor?: string;
+  borderColor?: string;
+  borderWidth?: number;
+  isChecked?: boolean;
+  rightElement?: React.ReactElement;
+  reverseOrder?: boolean;
+  style?: StyleProp<ViewStyle>;
   onPress: () => void;
 }
 
-export const Checkbox = ({ value, error, onPress }: CheckboxProps) => {
+const Checkbox = ({
+  bgColor,
+  checkedBgColor,
+  borderColor,
+  borderWidth = 1,
+  isChecked,
+  rightElement,
+  reverseOrder = false,
+  style,
+  onPress,
+}: CheckboxProps) => {
+  const { theme } = useTheme();
+
   return (
-    <MainContainer onPress={onPress}>
-      {/* {error != undefined ? (
-        <Error width={iconStyle.width} height={iconStyle.height} />
-      ) : value ? (
-        <>
-          <Selected width={iconStyle.width} height={iconStyle.height} />
-        </>
+    <Container reverseOrder={reverseOrder}>
+      {isChecked ? (
+        <ActiveCheckboxContainer
+          reverseOrder={reverseOrder}
+          bgColor={theme.colors.primary || checkedBgColor}
+          borderColor={checkedBgColor}
+          borderWidth={borderWidth}
+          style={style}
+          onPress={onPress}>
+          <CheckedIcon
+            source={SelectedCheckbox}
+            size={9}
+            iconColor={theme.colors.white}
+          />
+        </ActiveCheckboxContainer>
       ) : (
-        <>
-          <Deselected width={iconStyle.width} height={iconStyle.height} />
-        </>
-      )} */}
-    </MainContainer>
+        <CheckboxContainer
+          reverseOrder={reverseOrder}
+          bgColor={bgColor}
+          borderColor={theme.colors.primary || borderColor}
+          borderWidth={borderWidth}
+          style={style}
+          onPress={onPress}
+        />
+      )}
+      {rightElement && (
+        <RightElementContainer
+          style={style}
+          reverseOrder={reverseOrder}
+          onPress={onPress}>
+          {rightElement}
+        </RightElementContainer>
+      )}
+    </Container>
   );
 };
 

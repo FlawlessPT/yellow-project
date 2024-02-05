@@ -9,6 +9,7 @@ import Progress from './Progress';
 import Separator from './Separator';
 import SocialLoginButton from './SocialLoginButton';
 import Switch from './Switch';
+import LabelButton from './Button/LabelButton';
 
 export {
   Button,
@@ -22,4 +23,5 @@ export {
   Separator,
   SocialLoginButton,
   Switch,
+  LabelButton,
 };

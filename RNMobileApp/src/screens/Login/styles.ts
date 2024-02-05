@@ -1,4 +1,5 @@
 // Styled Components
+import { LabelButton } from '@components';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -18,26 +19,11 @@ export const ContentContainer = styled.View`
   margin-bottom: 20px;
 `;
 
-export const TextContainer = styled.View`
-  gap: 12px;
-  flex-direction: column;
+export const ForgotPassword = styled(LabelButton)`
+  align-self: flex-end;
+  margin-top: 8px;
 `;
 
-export const InputsContainer = styled.View``;
-
-export const InputsBottomContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const RememberMeContainer = styled.View`
-  width: 50%;
-  flex-direction: row;
-  align-items: center;
-  display: flex;
-  gap: 8px;
-`;
-
-export const ForgotPasswordContainer = styled.View`
-  width: 50%;
+export const SignUp = styled(LabelButton)`
+  align-self: center;
 `;

@@ -4,9 +4,9 @@ import {
   Alert,
   Keyboard,
   Platform,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
+  View,
 } from 'react-native';
 
 // Styles
@@ -14,18 +14,18 @@ import {
   Container,
   ContentContainer,
   MainContainer,
-  TextContainer,
-  InputsContainer,
-  RememberMeContainer,
-  InputsBottomContainer,
-  ForgotPasswordContainer,
+  ForgotPassword,
+  SignUp,
 } from './styles';
 
 // Utils
 import { supabase } from '@utils/supabase';
 
 // Components
-import { Label, Input, Button, Switch } from '@components';
+import { Label, Input } from '@components';
+
+// Hooks
+import useTheme from '@hooks/theme/useTheme';
 
 // External Libs
 import * as yup from 'yup';
@@ -44,6 +44,8 @@ export const Login = function Login() {
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   const [isInvalidCredentialsModalVisible, setInvalidCredentialsModalVisible] =
     useState(false);
+
+  const { theme } = useTheme();
 
   const [
     isAccountNotConfirmedModalModalVisible,
@@ -188,10 +190,8 @@ export const Login = function Login() {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <MainContainer>
                 <ContentContainer>
-                  <TextContainer>
-                    <Label text="login_page.title" type="h3" />
-                  </TextContainer>
-                  <InputsContainer>
+                  <Label text="login_page.title" type="h3" />
+                  <View>
                     <Controller
                       name="email"
                       control={control}
@@ -236,51 +236,18 @@ export const Login = function Login() {
                         />
                       )}
                     />
-                    <InputsBottomContainer>
-                      <RememberMeContainer>
-                        <Switch
-                          initialValue={saveLogin}
-                          shouldChangeValue={false}
-                          onPress={() => setSaveLogin(!saveLogin)}
-                        />
-                        <Label
-                          text="login_page.remember_me"
-                          type="h5"
-                          color="#BABABA"
-                        />
-                      </RememberMeContainer>
-                      <ForgotPasswordContainer>
-                        <TouchableOpacity
-                          onPress={() => Alert.alert('To be implemented')}>
-                          <Label
-                            text="login_page.forgot_password"
-                            type="h5"
-                            color="#FFA500"
-                            textAlign="right"
-                          />
-                        </TouchableOpacity>
-                      </ForgotPasswordContainer>
-                    </InputsBottomContainer>
-                  </InputsContainer>
-                  <Button
-                    text={'login_page.sign_in'}
-                    onPressButton={handleSubmit(onSubmit)}
+                    <ForgotPassword
+                      text="login_page.forgot_password"
+                      color={theme.colors.primary}
+                      bold
+                      onPress={() => Alert.alert('To be implemented')}
+                    />
+                  </View>
+                  <SignUp
+                    text="login_page.signup"
+                    color={theme.colors.primary}
+                    onPress={() => Alert.alert('To be implemented')}
                   />
-                  <TouchableOpacity
-                    onPress={() => Alert.alert('To be implemented')}>
-                    <Label
-                      text="login_page.signup_message"
-                      color="#BABABA"
-                      type="h5"
-                      textAlign="center"
-                    />
-                    <Label
-                      text="login_page.signup"
-                      color="#FFA500"
-                      type="h5"
-                      textAlign="center"
-                    />
-                  </TouchableOpacity>
                 </ContentContainer>
               </MainContainer>
             </TouchableWithoutFeedback>
