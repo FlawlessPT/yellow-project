@@ -17,7 +17,7 @@ import { SelectedCheckbox } from '@assets';
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-interface CheckboxProps {
+type CheckboxProps = {
   bgColor?: string;
   checkedBgColor?: string;
   borderColor?: string;
@@ -27,7 +27,7 @@ interface CheckboxProps {
   reverseOrder?: boolean;
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
-}
+};
 
 const Checkbox = ({
   bgColor,

@@ -5,3 +5,8 @@ export { default as Apple } from './icons/social/apple.svg';
 export { default as Google } from './icons/social/google.svg';
 export { default as Microsoft } from './icons/social/microsoft.svg';
 export { default as SelectedCheckbox } from './icons/checkbox/selected.svg';
+export { default as RightArrow } from './icons/arrow/right.svg';
+export { default as AboutApp } from './icons/profile/aboutApp.svg';
+export { default as EditProfile } from './icons/profile/editProfile.svg';
+export { default as Language } from './icons/profile/language.svg';
+export { default as Notifications } from './icons/profile/notifications.svg';

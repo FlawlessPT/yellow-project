@@ -10,6 +10,7 @@ import Separator from './Separator';
 import SocialLoginButton from './SocialLoginButton';
 import Switch from './Switch';
 import LabelButton from './Button/LabelButton';
+import ButtonCard from './ButtonCard';
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   SocialLoginButton,
   Switch,
   LabelButton,
+  ButtonCard,
 };
