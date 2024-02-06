@@ -11,6 +11,7 @@ import SocialLoginButton from './SocialLoginButton';
 import Switch from './Switch';
 import LabelButton from './Button/LabelButton';
 import ButtonCard from './ButtonCard';
+import ProfileDetailCard from './ProfileDetailCard';
 
 export {
   Button,
@@ -26,4 +27,5 @@ export {
   Switch,
   LabelButton,
   ButtonCard,
+  ProfileDetailCard,
 };

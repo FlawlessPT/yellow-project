@@ -1,4 +1,4 @@
-/* Styled Components */
+// Styled Components
 import { DefaultTheme } from 'styled-components/native';
 
 export enum ThemeMode {
@@ -18,6 +18,7 @@ declare module 'styled-components/native' {
       outline: string;
       neutral800: string;
       neutral700: string;
+      neutral200: string;
     };
     fonts: { regular: string; medium: string; semibold: string; bold: string };
   }
@@ -41,6 +42,7 @@ export const lightTheme: DefaultTheme = {
     outline: '#BABABA',
     neutral800: '#1F1F22',
     neutral700: '#2B2B2B',
+    neutral200: '#EAEAEA',
   },
   fonts,
 };
@@ -55,6 +57,7 @@ export const darkTheme: DefaultTheme = {
     disabled: '#7D7D7D',
     outline: '#BABABA',
     neutral800: '#1F1F22',
+    neutral200: '#EAEAEA',
     neutral700: '#2B2B2B',
   },
   fonts,
