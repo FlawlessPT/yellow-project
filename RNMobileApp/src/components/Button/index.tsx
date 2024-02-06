@@ -11,7 +11,7 @@ import { DefaultButton } from './styles';
 /* Hooks */
 import useTheme from '@hooks/theme/useTheme';
 
-export interface ButtonProps {
+export type ButtonProps = {
   backgroundColor?: string;
   text?: string;
   hasBorder?: boolean;
@@ -20,7 +20,7 @@ export interface ButtonProps {
   isDisabled?: boolean;
   style?: StyleProp<ViewStyle>;
   onPressButton?: () => void;
-}
+};
 
 const Button = ({
   backgroundColor,

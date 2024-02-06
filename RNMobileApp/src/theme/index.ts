@@ -16,6 +16,8 @@ declare module 'styled-components/native' {
       black: string;
       disabled: string;
       outline: string;
+      neutral800: string;
+      neutral700: string;
     };
     fonts: { regular: string; medium: string; semibold: string; bold: string };
   }
@@ -37,6 +39,8 @@ export const lightTheme: DefaultTheme = {
     black: '#000000',
     disabled: '#7D7D7D',
     outline: '#BABABA',
+    neutral800: '#1F1F22',
+    neutral700: '#2B2B2B',
   },
   fonts,
 };
@@ -50,6 +54,8 @@ export const darkTheme: DefaultTheme = {
     black: '#000000',
     disabled: '#7D7D7D',
     outline: '#BABABA',
+    neutral800: '#1F1F22',
+    neutral700: '#2B2B2B',
   },
   fonts,
 };

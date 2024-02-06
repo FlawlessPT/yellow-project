@@ -18,11 +18,11 @@ import {
   SignUp,
 } from './styles';
 
-// Utils
-import { supabase } from '@utils/supabase';
-
 // Components
 import { Label, Input } from '@components';
+
+// Utils
+import { supabase } from '@utils/supabase';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
@@ -190,7 +190,7 @@ export const Login = function Login() {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <MainContainer>
                 <ContentContainer>
-                  <Label text="login_page.title" type="h3" />
+                  <Label text="login_page.title" type="h3" bold />
                   <View>
                     <Controller
                       name="email"

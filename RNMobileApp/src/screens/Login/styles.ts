@@ -7,16 +7,13 @@ export const Container = styled.View`
 `;
 
 export const MainContainer = styled.View`
-  flex-direction: column;
   flex: 1;
   justify-content: center;
 `;
 
 export const ContentContainer = styled.View`
-  flex-direction: column;
   padding-horizontal: 20px;
   gap: 32px;
-  margin-bottom: 20px;
 `;
 
 export const ForgotPassword = styled(LabelButton)`
