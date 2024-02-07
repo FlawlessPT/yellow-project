@@ -7,7 +7,6 @@ import { Session } from '@supabase/supabase-js';
 import * as WebBrowser from 'expo-web-browser';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Account } from '@screens/Account';
 import { TermsAndConditions } from '@screens/TermsAndConditions';
 import { Auth } from '@screens/Auth';
 import { PrivacyPolicy } from '@screens/PrivacyPolicy';
@@ -21,11 +20,12 @@ import * as Sentry from '@sentry/react-native';
 import Config from 'react-native-config';
 import { FeatureFlagsContextProvider } from '@utils/contexts';
 import { LogLevel, OneSignal } from 'react-native-onesignal';
-import { LandingPage } from '@screens/LandingPage';
-import { Login } from '@screens/Login';
+import LandingPage from '@screens/LandingPage';
 import { SignUp } from '@screens/SignUp';
 import { ThemeProvider } from 'styled-components/native';
 import useTheme from '@hooks/theme';
+import Account from '@screens/Account';
+import Login from '@screens/Login';
 
 // Remove this method to stop OneSignal Debugging
 if (__DEV__) {

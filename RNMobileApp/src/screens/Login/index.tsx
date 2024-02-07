@@ -36,7 +36,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 // Types
 import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
 
-export const Login = function Login() {
+const Login = () => {
   const [saveLogin, setSaveLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -257,3 +257,5 @@ export const Login = function Login() {
     </Container>
   );
 };
+
+export default Login;

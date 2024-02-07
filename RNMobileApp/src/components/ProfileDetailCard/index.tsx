@@ -11,20 +11,16 @@ import { Card, CardTitle } from './styles';
 import useTheme from '@hooks/theme/useTheme';
 
 type ProfileDetailCardProps = {
-  labelTitle: string;
+  label: string;
   value: string;
 };
 
-const ProfileDetailCard = ({ labelTitle, value }: ProfileDetailCardProps) => {
+const ProfileDetailCard = ({ label, value }: ProfileDetailCardProps) => {
   const { theme } = useTheme();
 
   return (
     <Card>
-      <CardTitle
-        text={labelTitle}
-        type="footnote"
-        color={theme.colors.outline}
-      />
+      <CardTitle text={label} type="footnote" color={theme.colors.outline} />
       <Label text={value} type="h3" medium color={theme.colors.neutral200} />
     </Card>
   );

@@ -16,9 +16,6 @@ import {
 // Assets
 import { LogoImage } from '@assets';
 
-// Theme
-import useTheme from '@hooks/theme/useTheme';
-
 // Utils
 import { supabase } from '@utils/supabase';
 import { useFeatureFlag } from '@utils/contexts';
@@ -32,11 +29,9 @@ import * as AppleAuthentication from 'expo-apple-authentication';
 import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
 
 // Components
-import { Label, Button, Separator, SocialLoginButton } from '@components';
+import { Button, Separator, SocialLoginButton } from '@components';
 
-export const LandingPage = function LandingPage() {
-  const { theme } = useTheme();
-
+const LandingPage = () => {
   const navigation =
     useNavigation<
       NoneAuthenticatedStackScreenPropsGeneric<'Auth'>['navigation']
@@ -176,3 +171,5 @@ export const LandingPage = function LandingPage() {
     </SafeArea>
   );
 };
+
+export default LandingPage;
