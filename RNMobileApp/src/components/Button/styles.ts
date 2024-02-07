@@ -1,13 +1,18 @@
-/* Styled Components */
+// Styled Components
 import styled from 'styled-components/native';
 
-/* External Libs */
+// External Libs
 import Lottie from 'lottie-react-native';
+
+// Components
+import Label from '@components/Label';
+import { LabelProps } from '@components/Label/types';
 
 interface DefaultButtonProps {
   backgroundColor?: string;
   hasBorder?: boolean;
   borderColor?: string;
+  hasLeftIcon?: boolean;
 }
 
 export const DefaultButton = styled.TouchableOpacity<DefaultButtonProps>`
@@ -29,4 +34,17 @@ export const Loading = styled(Lottie)`
   width: 20px;
   height: 20px;
   align-self: center;
+`;
+
+export const Container = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const ButtonLabel = styled(Label).attrs(
+  (): LabelProps => ({
+    type: 'h5',
+  }),
+)<DefaultButtonProps>`
+  margin-left: ${({ hasLeftIcon }) => (hasLeftIcon ? 8 : 0)}px;
 `;

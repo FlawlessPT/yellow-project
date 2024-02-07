@@ -11,3 +11,4 @@ export { default as EditProfile } from './icons/profile/editProfile.svg';
 export { default as Language } from './icons/profile/language.svg';
 export { default as Notifications } from './icons/profile/notifications.svg';
 export { default as NotificationsHeader } from './icons/profile/notifications_header.svg';
+export { default as Logout } from './icons/profile/logout.svg';
