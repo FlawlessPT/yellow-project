@@ -16,10 +16,10 @@ import useTheme from '@hooks/theme/useTheme';
 // Assets
 // import Chevron from './../../assets/icons/chevron-left.svg';
 
-export interface HeaderProps {
+export type HeaderProps = {
   pageName?: string;
   onPressChevron: () => void;
-}
+};
 
 export const Header = ({ pageName, onPressChevron }: HeaderProps) => {
   const { theme } = useTheme();

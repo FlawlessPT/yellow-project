@@ -1,10 +1,10 @@
 // Styled Components
 import styled from 'styled-components/native';
 
-interface IconProps {
+type IconProps = {
   color?: string;
   isLeftIcon?: boolean;
-}
+};
 
 export const Icon = styled.Image<IconProps>`
   height: 20px;

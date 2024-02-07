@@ -1,6 +1,8 @@
 // Styled Components
-import { LabelButton } from '@components';
 import styled from 'styled-components/native';
+
+// Components
+import { Button, LabelButton } from '@components';
 
 export const Container = styled.View`
   flex: 1;
@@ -23,4 +25,8 @@ export const ForgotPassword = styled(LabelButton)`
 
 export const SignUp = styled(LabelButton)`
   align-self: center;
+`;
+
+export const SignIn = styled(Button)`
+  margin-top: 30px;
 `;

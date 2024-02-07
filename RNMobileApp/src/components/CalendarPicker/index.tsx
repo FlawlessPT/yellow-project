@@ -25,13 +25,13 @@ import DatePicker from 'react-native-date-picker';
 // import Alert from '@assets/icons/alert-circle.svg';
 // import CalendarIcon from '@assets/icons/calendar.svg';
 
-export interface CalendarPickerProps {
+export type CalendarPickerProps = {
   date?: Date;
   placeholderText?: string;
   maximumDate?: Date;
   onChangeDate: (date: Date) => void;
   error?: string;
-}
+};
 
 export const CalendarPicker = ({
   date = new Date(),

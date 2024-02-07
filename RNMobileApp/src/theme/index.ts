@@ -7,7 +7,7 @@ export enum ThemeMode {
 }
 
 declare module 'styled-components/native' {
-  export interface DefaultTheme {
+  export type DefaultTheme = {
     colors: {
       primary: string;
       red: string;
@@ -23,7 +23,7 @@ declare module 'styled-components/native' {
       background: string;
     };
     fonts: { regular: string; medium: string; semibold: string; bold: string };
-  }
+  };
 }
 
 const fonts = {

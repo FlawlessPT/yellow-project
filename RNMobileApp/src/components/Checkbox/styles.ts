@@ -4,13 +4,13 @@ import styled from 'styled-components/native';
 // External Libs
 import { Icon } from 'react-native-paper';
 
-interface CheckboxStyledProps {
+type CheckboxStyledProps = {
   bgColor?: string;
   borderColor?: string;
   borderWidth?: number;
   reverseOrder?: boolean;
   iconColor?: string;
-}
+};
 
 export const Container = styled.View<CheckboxStyledProps>`
   flex-direction: ${({ reverseOrder }) =>

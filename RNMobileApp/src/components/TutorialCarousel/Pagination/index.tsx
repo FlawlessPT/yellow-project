@@ -10,11 +10,11 @@ import { BubbleContainer } from '../styles';
 // import UnseenBubble from '@assets/icons/tutorial/unseen-bubble.svg';
 // import ActiveBubble from '@assets/icons/tutorial/active-bubble.svg';
 
-interface PaginationProps {
+type PaginationProps = {
   currentIndex: number;
   totalItems: number;
   goToFunc: (index: number) => void;
-}
+};
 
 export const Pagination: React.FC<PaginationProps> = ({
   currentIndex,

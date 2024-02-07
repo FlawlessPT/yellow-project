@@ -8,9 +8,9 @@ import { Container, Line } from './styles';
 // Theme
 import useTheme from '@hooks/theme/useTheme';
 
-interface SeparatorProps {
+type SeparatorProps = {
   text?: string;
-}
+};
 
 export const Separator = ({ text }: SeparatorProps) => {
   const { theme } = useTheme();

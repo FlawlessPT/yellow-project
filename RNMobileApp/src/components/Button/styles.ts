@@ -8,12 +8,12 @@ import Lottie from 'lottie-react-native';
 import Label from '@components/Label';
 import { LabelProps } from '@components/Label/types';
 
-interface DefaultButtonProps {
+type DefaultButtonProps = {
   backgroundColor?: string;
   hasBorder?: boolean;
   borderColor?: string;
   hasLeftIcon?: boolean;
-}
+};
 
 export const DefaultButton = styled.TouchableOpacity<DefaultButtonProps>`
   background-color: ${({ backgroundColor }) => backgroundColor};

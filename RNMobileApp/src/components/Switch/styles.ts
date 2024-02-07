@@ -4,9 +4,9 @@ import styled from 'styled-components/native';
 // React and React Native
 import { Animated } from 'react-native';
 
-interface SwitchProps {
+type SwitchProps = {
   isEnabled?: boolean;
-}
+};
 
 export const Container = styled.TouchableOpacity<SwitchProps>`
   height: 24px;

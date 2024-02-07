@@ -1,8 +1,10 @@
 // Styled Components
-import { TextProps } from 'react-native';
 import styled from 'styled-components/native';
 
-interface LabelProps {
+// React and React Native
+import { TextProps } from 'react-native';
+
+type LabelProps = {
   color: string;
   fontFamily: string;
   textAlign: 'left' | 'center' | 'right';
@@ -10,7 +12,7 @@ interface LabelProps {
   lineHeight: number;
   isUnderline: boolean;
   opacity: number;
-}
+};
 
 export const DefaultText = styled.Text.attrs(
   (): TextProps => ({

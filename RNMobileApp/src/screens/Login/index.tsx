@@ -16,6 +16,7 @@ import {
   MainContainer,
   ForgotPassword,
   SignUp,
+  SignIn,
 } from './styles';
 
 // Components
@@ -159,10 +160,10 @@ const Login = () => {
     retrieveUserCredentials();
   }, []);
 
-  interface FormValues {
+  type FormValues = {
     email: string;
     password: string;
-  }
+  };
 
   return (
     <Container>
@@ -241,6 +242,10 @@ const Login = () => {
                       color={theme.colors.primary}
                       bold
                       onPress={() => Alert.alert('To be implemented')}
+                    />
+                    <SignIn
+                      text="Login"
+                      onPressButton={handleSubmit(onSubmit)}
                     />
                   </View>
                   <SignUp

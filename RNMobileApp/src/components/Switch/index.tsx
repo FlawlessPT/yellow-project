@@ -5,11 +5,11 @@ import { Animated } from 'react-native';
 // Styles
 import { Container, InnerContainer } from './styles';
 
-interface SwitchProps {
+type SwitchProps = {
   initialValue: boolean;
   shouldChangeValue: boolean;
   onPress: () => void;
-}
+};
 
 const Switch = ({
   initialValue,

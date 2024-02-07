@@ -13,11 +13,11 @@ import { ProgressBar } from 'react-native-paper';
 // Styles
 import { LabelContainer, MainContainer, progressBarStyle } from './styles';
 
-export interface ProgressProps {
+export type ProgressProps = {
   currentStep: number;
   totalSteps: number;
   separatorText: string;
-}
+};
 
 export const Progress = ({
   currentStep,

@@ -17,7 +17,7 @@ import useTheme from '@hooks/theme/useTheme';
 // Styles
 import { Container, InnerContainer, TextContainer } from './styles';
 
-export interface ModalPopupProps {
+export type ModalPopupProps = {
   title: string;
   subtitle?: string;
   buttonTitle: string;
@@ -25,7 +25,7 @@ export interface ModalPopupProps {
   isDismissButtonVisible?: boolean;
   onPressDismissButton?: () => void;
   isModalVisible: boolean;
-}
+};
 
 export const ModalPopup = ({
   title,

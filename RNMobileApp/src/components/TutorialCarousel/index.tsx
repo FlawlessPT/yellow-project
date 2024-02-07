@@ -27,15 +27,15 @@ import useTheme from '@hooks/theme/useTheme';
 import { useNavigation } from '@react-navigation/native';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 
-export interface TutorialData {
+export type TutorialData = {
   url: string;
-}
+};
 
-interface TutorialCarouselProps {
+type TutorialCarouselProps = {
   autoPlay?: boolean;
   loop?: boolean;
   data: TutorialData[];
-}
+};
 
 export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({
   autoPlay = false,

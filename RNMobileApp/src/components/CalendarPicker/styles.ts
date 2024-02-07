@@ -1,8 +1,9 @@
+// Styled Components
 import styled from 'styled-components/native';
 
-interface CalendarProps {
+type CalendarProps = {
   error?: string;
-}
+};
 
 export const MainContainer = styled.View`
   display: flex;

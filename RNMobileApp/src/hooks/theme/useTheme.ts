@@ -1,22 +1,22 @@
-/* React and React Native */
+// React and React Native
 import { useEffect, useState } from 'react';
 import { Appearance } from 'react-native';
 
-/* Theme */
+// Theme
 import { darkTheme, lightTheme, ThemeMode } from '@theme';
 
-/* Constants */
+// Constants
 import { storageKeys } from '@utils/contexts/storage-keys';
 
-/* External Libs */
+// External Libs
 import { DefaultTheme } from 'styled-components/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface UseThemeResult {
+type UseThemeResult = {
   theme: DefaultTheme;
   themeMode: ThemeMode;
   changeTheme: () => Promise<void>;
-}
+};
 
 const getTheme = {
   [ThemeMode.LIGHT]: lightTheme,

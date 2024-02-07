@@ -43,9 +43,9 @@ export const UpdatePasswordForm = () => {
   );
 };
 
-interface FormData {
+type FormData = {
   password?: string;
-}
+};
 
 const PREFIX = 'RaSupabaseUpdatePasswordForm';
 
