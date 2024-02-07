@@ -22,7 +22,7 @@ import { Icon } from 'react-native-paper';
 import { supabase } from '@utils/supabase';
 
 // Assets
-import { NotificationsHeader } from '@assets';
+import { Logout, NotificationsHeader } from '@assets';
 
 // Components
 import { ProfileDetailCard } from '@components';
@@ -144,7 +144,7 @@ const Account = ({ session }: { session?: Session }) => {
       {profileButtons.map(item => (
         <SettingsCard {...item} />
       ))}
-      <LogoutButton text="profile.logout_button" />
+      <LogoutButton text="profile.logout_button" leftIcon={Logout} />
     </Container>
     // <View style={styles.container}>
     //   <View style={[styles.verticallySpaced, styles.mt20]}>

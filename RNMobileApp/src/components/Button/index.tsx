@@ -1,15 +1,18 @@
-/* React and React Native */
-import React from 'react';
+// React and React Native
+import React, { FunctionComponent, SVGAttributes } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
-/* Components */
+// Components
 import { Label } from '@components';
 
-/* Styles */
-import { DefaultButton } from './styles';
+// External Libs
+import { Icon } from 'react-native-paper';
 
-/* Hooks */
+// Hooks
 import useTheme from '@hooks/theme/useTheme';
+
+// Styles
+import { ButtonLabel, Container, DefaultButton } from './styles';
 
 export type ButtonProps = {
   backgroundColor?: string;
@@ -18,6 +21,7 @@ export type ButtonProps = {
   textColor?: string;
   borderColor?: string;
   isDisabled?: boolean;
+  leftIcon?: FunctionComponent<SVGAttributes<SVGElement>>;
   style?: StyleProp<ViewStyle>;
   onPressButton?: () => void;
 };
@@ -29,6 +33,7 @@ const Button = ({
   textColor,
   borderColor,
   isDisabled,
+  leftIcon,
   style,
   onPressButton,
 }: ButtonProps) => {
@@ -48,13 +53,16 @@ const Button = ({
       borderColor={isDisabled ? 'transparent' : borderColor}
       disabled={isDisabled}
       onPress={onPressButton}>
-      <Label
-        type="h5"
-        color={
-          isDisabled ? theme.colors.white : textColor || theme.colors.white
-        }
-        text={text}
-      />
+      <Container>
+        {leftIcon && <Icon source={leftIcon} size={20} />}
+        <ButtonLabel
+          color={
+            isDisabled ? theme.colors.white : textColor || theme.colors.white
+          }
+          text={text}
+          hasLeftIcon={!!leftIcon}
+        />
+      </Container>
     </DefaultButton>
   );
 };
