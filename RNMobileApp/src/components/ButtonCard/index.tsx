@@ -1,11 +1,12 @@
 // React and React Native
 import React from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 
 // Components
 import { Label } from '@components';
 
 // Assets
-import { Notifications } from '@assets';
+import { RightArrow } from '@assets';
 
 // External Libs
 import { Icon } from 'react-native-paper';
@@ -17,23 +18,24 @@ import useTheme from '@hooks/theme/useTheme';
 import { Card, Container, IconContainer } from './styles';
 
 type ButtonCardProps = {
-  text: string;
-  icon: string;
+  label: string;
+  icon: any;
+  style?: StyleProp<ViewStyle>;
   onPress: () => void;
 };
 
-const ButtonCard = ({ text, icon, onPress }: ButtonCardProps) => {
+const ButtonCard = ({ label, icon, style, onPress }: ButtonCardProps) => {
   const { theme } = useTheme();
 
   return (
-    <Card onPress={onPress}>
+    <Card onPress={onPress} style={style}>
       <Container>
         <IconContainer>
-          <Icon source={Notifications} size={24} />
+          <Icon source={icon} size={24} />
         </IconContainer>
-        <Label text={text} color={theme.colors.white} />
+        <Label text={label} color={theme.colors.white} />
       </Container>
-      <Icon source={icon} size={6} />
+      <Icon source={RightArrow} size={6} />
     </Card>
   );
 };
