@@ -1,0 +1,29 @@
+// React and React Native
+import React from 'react';
+import { StatusBar } from 'react-native';
+
+// Stacks
+import AuthStack from '../AuthStack';
+
+// Types
+import { RootStackEnum, defaultScreenOptions } from '../types';
+
+// Navigation
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
+export default function RootStack(): JSX.Element {
+  return (
+    <>
+      <StatusBar barStyle={'dark-content'} />
+      <Stack.Navigator
+        id={RootStackEnum.AUTH}
+        initialRouteName={RootStackEnum.AUTH}
+        screenOptions={defaultScreenOptions}>
+        <Stack.Screen name={RootStackEnum.AUTH} component={AuthStack} />
+        {/* <Stack.Screen name={RootStackEnum.APP} component={AppStack} /> */}
+      </Stack.Navigator>
+    </>
+  );
+}

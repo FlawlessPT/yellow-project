@@ -1,16 +1,11 @@
+import { Linking, StatusBar } from 'react-native';
 import 'react-native-url-polyfill/auto';
 import 'intl-pluralrules';
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '@utils/supabase';
-import { Linking, Text, View } from 'react-native';
 import { Session } from '@supabase/supabase-js';
 import * as WebBrowser from 'expo-web-browser';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { TermsAndConditions } from '@screens/TermsAndConditions';
-import { Auth } from '@screens/Auth';
-import { PrivacyPolicy } from '@screens/PrivacyPolicy';
-import { Tutorial } from '@screens/Tutorial';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
@@ -18,14 +13,12 @@ import { supabaseAnonKey, supabaseProjectURL } from '@utils/supabase.configs';
 import { getLocales } from 'react-native-localize';
 import * as Sentry from '@sentry/react-native';
 import Config from 'react-native-config';
-import { FeatureFlagsContextProvider } from '@utils/contexts';
 import { LogLevel, OneSignal } from 'react-native-onesignal';
-import LandingPage from '@screens/LandingPage';
-import { SignUp } from '@screens/SignUp';
-import { ThemeProvider } from 'styled-components/native';
-import useTheme from '@hooks/theme';
-import Account from '@screens/Account';
-import Login from '@screens/Login';
+
+// Providers
+import Providers from './src/providers';
+
+import Navigation from './src/navigation';
 
 // Remove this method to stop OneSignal Debugging
 if (__DEV__) {
@@ -80,8 +73,6 @@ const Stack = createNativeStackNavigator();
 function App() {
   const [session, setSession] = useState<Session | null>(null);
 
-  const { theme } = useTheme();
-
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session: s } }) => {
       setSession(s);
@@ -130,61 +121,54 @@ function App() {
   }, []);
 
   const isLoggedIn = Boolean(session && session.user);
+
   return (
-    <ThemeProvider theme={theme}>
-      <Suspense
-        fallback={
-          <View>
-            <Text>Loading...</Text>
-          </View>
-        }>
-        <FeatureFlagsContextProvider>
-          <NavigationContainer>
-            <Stack.Navigator
-              initialRouteName={isLoggedIn ? 'Home' : 'LandingPage'}>
-              {isLoggedIn && session ? (
-                <Stack.Screen name="Home" options={{ headerShown: false }}>
-                  {props => <Account {...props} session={session} />}
-                </Stack.Screen>
-              ) : (
-                <>
-                  <Stack.Screen
-                    name="LandingPage"
-                    component={LandingPage}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="TermsAndConditions"
-                    component={TermsAndConditions}
-                    options={{ title: '' }}
-                  />
-                  <Stack.Screen
-                    name="PrivacyPolicy"
-                    component={PrivacyPolicy}
-                    options={{ title: '' }}
-                  />
-                  <Stack.Screen
-                    name="Tutorial"
-                    component={Tutorial}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="Login"
-                    component={Login}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="SignUp"
-                    component={SignUp}
-                    options={{ headerShown: false }}
-                  />
-                </>
-              )}
-            </Stack.Navigator>
-          </NavigationContainer>
-        </FeatureFlagsContextProvider>
-      </Suspense>
-    </ThemeProvider>
+    <Providers>
+      <StatusBar translucent backgroundColor="transparent" />
+      <Navigation />
+      {/* <NavigationContainer>
+        <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'LandingPage'}>
+          {isLoggedIn && session ? (
+            <Stack.Screen name="Home" options={{ headerShown: false }}>
+              {props => <Account {...props} session={session} />}
+            </Stack.Screen>
+          ) : (
+            <>
+              <Stack.Screen
+                name="LandingPage"
+                component={LandingPage}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="TermsAndConditions"
+                component={TermsAndConditions}
+                options={{ title: '' }}
+              />
+              <Stack.Screen
+                name="PrivacyPolicy"
+                component={PrivacyPolicy}
+                options={{ title: '' }}
+              />
+              <Stack.Screen
+                name="Tutorial"
+                component={Tutorial}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUp}
+                options={{ headerShown: false }}
+              />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer> */}
+    </Providers>
   );
 }
 
