@@ -28,16 +28,15 @@ import { supabase } from '@utils/supabase';
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
 
+// Types
+import { AuthNavProps } from '../../navigation/AuthStack/types';
+
 // External Libs
 import * as yup from 'yup';
-import { useNavigation } from '@react-navigation/native';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
-// Types
-import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
-
-const Login = () => {
+const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   const [saveLogin, setSaveLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -52,11 +51,6 @@ const Login = () => {
     isAccountNotConfirmedModalModalVisible,
     setAccountNotConfirmedModalModalVisible,
   ] = useState(false);
-
-  const navigation =
-    useNavigation<
-      NoneAuthenticatedStackScreenPropsGeneric<'Auth'>['navigation']
-    >();
 
   const toggleInvalidCredentialsModal = () => {
     setInvalidCredentialsModalVisible(!isInvalidCredentialsModalVisible);
@@ -251,7 +245,7 @@ const Login = () => {
                   <SignUp
                     text="login_page.signup"
                     color={theme.colors.primary}
-                    onPress={() => Alert.alert('To be implemented')}
+                    onPress={() => navigation.navigate('CreateAccount')}
                   />
                 </ContentContainer>
               </MainContainer>

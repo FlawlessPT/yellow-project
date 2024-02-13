@@ -1,29 +1,23 @@
+// Styled Components
 import styled from 'styled-components/native';
 
 export const SafeArea = styled.SafeAreaView`
-  background-color: ${props => props.theme.colors.neutral.white};
+  background-color: ${({ theme }) => theme.colors.white};
   flex: 1;
 `;
 
 export const MainContainer = styled.View`
   flex: 1;
-  background-color: ${props => props.theme.colors.neutral.white};
-  flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.white};
   padding-horizontal: 20px;
   padding-bottom: 20px;
 `;
 
 export const ContentContainer = styled.View`
-  flex: 1;
-  flex-direction: column;
-  gap: 32px;
   padding-top: 8px;
 `;
 
-export const TextContainer = styled.View`
-  gap: 12px;
-  flex-direction: column;
-`;
+export const TextContainer = styled.View``;
 
 export const InputsContainer = styled.View`
   gap: 24px;

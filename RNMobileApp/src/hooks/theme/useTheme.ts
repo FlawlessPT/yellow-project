@@ -6,7 +6,7 @@ import { Appearance } from 'react-native';
 import { darkTheme, lightTheme, ThemeMode } from '@theme';
 
 // Constants
-import { storageKeys } from '@utils/contexts/storage-keys';
+import { storageKeys } from '@utils/storage-keys';
 
 // External Libs
 import { DefaultTheme } from 'styled-components/native';
