@@ -12,3 +12,7 @@ export { default as Language } from './icons/profile/language.svg';
 export { default as Notifications } from './icons/profile/notifications.svg';
 export { default as NotificationsHeader } from './icons/profile/notifications_header.svg';
 export { default as Logout } from './icons/profile/logout.svg';
+export { default as Back } from './icons/arrow/back.svg';
+export { default as HomeIcon } from './icons/bottomBar/home.svg';
+export { default as WorkoutIcon } from './icons/bottomBar/workout.svg';
+export { default as FoodIcon } from './icons/bottomBar/food.svg';

@@ -13,15 +13,13 @@ type DefaultInputProps = {
 
 export const HelperContainer = styled.View`
   flex-direction: row;
-  margin-top: 8px;
 `;
 
 export const DefaultInput = styled(TextInput).attrs<DefaultInputProps>(() => ({
   outlineStyle: { borderRadius: 10 },
 }))<DefaultInputProps>`
   width: 100%;
-  background-color: ${({ theme, isDisabled }) =>
-    isDisabled ? theme.colors.disabled : theme.colors.white};
+  background-color: ${({ isDisabled }) => (isDisabled ? '#7D7D7D' : '#ffffff')};
 `;
 
 export const HelperLabel = styled(Label)`

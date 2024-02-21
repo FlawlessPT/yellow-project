@@ -2,35 +2,29 @@
 import React, { useState } from 'react';
 import { TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 
-// Components
-import EmailStep from './Steps/EmailStep';
-import PasswordStep from './Steps/PasswordStep';
-import NameStep from './Steps/NameStep';
-import DobStep from './Steps/DobStep';
-import ContactStep from './Steps/ContactStep';
-import { Button, Header, Progress } from '@components';
-
-// Styles
-import {
-  ContentContainer,
-  MainContainer,
-  SafeArea,
-  FooterContainer,
-} from './styles';
-
-// External Libs
-import { useNavigation } from '@react-navigation/native';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { t } from 'i18next';
-import { format } from 'date-fns/format';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
 // Helpers
 import { supabase } from '@utils/supabase';
 
-export const SignUp = function SignUp() {
-  const navigation = useNavigation();
-  const [currentStep, setCurrentStep] = useState(1);
+// Components
+import NameStep from './Steps/NameStep';
+import EmailStep from './Steps/EmailStep';
+import { Button, Header } from '@components';
+import ContactStep from './Steps/ContactStep';
+import PasswordStep from './Steps/PasswordStep';
+
+// Styles
+import { ContentContainer, Container, FooterContainer } from './styles';
+
+// External Libs
+import { t } from 'i18next';
+import { format } from 'date-fns/format';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+const CreateAccount = () => {
+  const totalSteps = 4;
+
+  const [currentStep, setCurrentStep] = useState<number>(1);
   const { control, handleSubmit } = useForm({});
 
   async function signUpWithEmail(
@@ -61,8 +55,8 @@ export const SignUp = function SignUp() {
     }
   }
 
-  const renderSteps = (currentStep: number) => {
-    switch (currentStep) {
+  const renderSteps = (stepIndex: number) => {
+    switch (stepIndex) {
       case 1:
         return <EmailStep control={control} />;
       case 2:
@@ -70,8 +64,6 @@ export const SignUp = function SignUp() {
       case 3:
         return <NameStep control={control} />;
       case 4:
-        return <DobStep control={control} />;
-      case 5:
         return <ContactStep control={control} />;
       default:
         return <></>;
@@ -86,7 +78,7 @@ export const SignUp = function SignUp() {
     dob: string;
     contact: string;
   }> = data => {
-    if (currentStep === 5) {
+    if (currentStep === 4) {
       signUpWithEmail(
         data.email,
         data.password,
@@ -101,34 +93,28 @@ export const SignUp = function SignUp() {
   };
 
   return (
-    <SafeArea>
-      <MainContainer>
-        <Header
-          pageName={t('signup_page.title')}
-          onPressChevron={navigation.goBack}
+    <Container>
+      <Header
+        title={currentStep + ' ' + t('common.of') + ' ' + totalSteps}
+        hasBack
+      />
+      <KeyboardAwareScrollView>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ContentContainer>{renderSteps(currentStep)}</ContentContainer>
+        </TouchableWithoutFeedback>
+      </KeyboardAwareScrollView>
+      <FooterContainer>
+        <Button
+          text={
+            currentStep === 4
+              ? 'signup_page.create_account.button'
+              : 'common.next'
+          }
+          onPressButton={handleSubmit(onSubmit)}
         />
-        <KeyboardAwareScrollView>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <ContentContainer>{renderSteps(currentStep)}</ContentContainer>
-          </TouchableWithoutFeedback>
-        </KeyboardAwareScrollView>
-
-        <FooterContainer>
-          <Progress
-            currentStep={currentStep}
-            totalSteps={5}
-            separatorText={t('common.of')}
-          />
-          <Button
-            text={
-              currentStep == 5
-                ? t('signup_page.create_account.button')
-                : t('common.next')
-            }
-            onPressButton={handleSubmit(onSubmit)}
-          />
-        </FooterContainer>
-      </MainContainer>
-    </SafeArea>
+      </FooterContainer>
+    </Container>
   );
 };
+
+export default CreateAccount;

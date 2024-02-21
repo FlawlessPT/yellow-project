@@ -1,59 +1,54 @@
 // React and React Native
 import React from 'react';
-import { Image, ImageStyle, StyleProp, Text } from 'react-native';
 
-// Styles
-import {
-  ChevronContainer,
-  ContentContainer,
-  MainContainer,
-  logoStyle,
-} from './styles';
+// Assets
+import { Back } from '@assets';
+
+// Components
+import Label from '@components/Label';
+
+// External Libs
+import { Icon } from 'react-native-paper';
 
 // Theme
 import useTheme from '@hooks/theme/useTheme';
 
-// Assets
-// import Chevron from './../../assets/icons/chevron-left.svg';
+// Styles
+import { ChevronContainer, ContentContainer, MainContainer } from './styles';
 
 export type HeaderProps = {
-  pageName?: string;
-  onPressChevron: () => void;
+  title?: string;
+  hasBack?: boolean;
+  rightItem?: JSX.Element;
+  onPressChevron?: () => void;
 };
 
-export const Header = ({ pageName, onPressChevron }: HeaderProps) => {
+export const Header = ({
+  hasBack,
+  title,
+  rightItem,
+  onPressChevron,
+}: HeaderProps) => {
   const { theme } = useTheme();
 
   return (
     <MainContainer>
-      <ChevronContainer onPress={onPressChevron}>
-        {/* <Chevron width={24} height={24} /> */}
-      </ChevronContainer>
+      {hasBack && (
+        <ChevronContainer onPress={onPressChevron}>
+          <Icon size={24} source={Back} />
+        </ChevronContainer>
+      )}
       <ContentContainer>
-        {pageName ? (
-          <>
-            <Text
-              style={{
-                fontSize: 20,
-                fontFamily: 'Poppins-Regular',
-                includeFontPadding: false,
-                textAlignVertical: 'center',
-                verticalAlign: 'middle',
-                color: theme.colors.disabled,
-              }}>
-              {pageName}
-            </Text>
-          </>
-        ) : (
-          <Image
-            style={logoStyle as StyleProp<ImageStyle>}
-            resizeMode="contain"
-            source={{
-              uri: 'https://www.ireland-portugal.com/apr-img/Mobiweb.png',
-            }}
+        {title && (
+          <Label
+            type="h5"
+            text={title}
+            color={theme.colors.neutral400}
+            textAlign="center"
           />
         )}
       </ContentContainer>
+      {rightItem}
     </MainContainer>
   );
 };

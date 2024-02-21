@@ -162,96 +162,75 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   return (
     <Container>
       {!loading && (
-        <>
-          {/* <ModalPopup
-            title={'login_page.popup.invalid_credentials.title'}
-            subtitle={'login_page.popup.invalid_credentials.subtitle'}
-            buttonTitle={'login_page.popup.invalid_credentials.button'}
-            isDismissButtonVisible={true}
-            onPressDismissButton={toggleInvalidCredentialsModal}
-            isModalVisible={isInvalidCredentialsModalVisible}
-            onPressButton={toggleInvalidCredentialsModal}
-          />
-          <ModalPopup
-            title={'login_page.popup.email_not_confirmed.title'}
-            subtitle={'login_page.popup.email_not_confirmed.subtitle'}
-            buttonTitle={'login_page.popup.email_not_confirmed.button'}
-            isModalVisible={isAccountNotConfirmedModalModalVisible}
-            onPressButton={toggleAccountNotConfirmedModal}
-          /> */}
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{ flex: 1 }}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <MainContainer>
-                <ContentContainer>
-                  <Label text="login_page.title" type="h3" bold />
-                  <View>
-                    <Controller
-                      name="email"
-                      control={control}
-                      defaultValue={email}
-                      render={({ field }) => (
-                        <Input
-                          label={'login_page.email'}
-                          keyboardType="email-address"
-                          value={field.value}
-                          onChangeText={(text: string) => field.onChange(text)}
-                          helper={
-                            formState.errors.password?.message
-                              ? {
-                                  type: 'error',
-                                  message:
-                                    formState.errors.password?.message?.toString(),
-                                }
-                              : undefined
-                          }
-                        />
-                      )}
-                    />
-                    <Controller
-                      name="password"
-                      control={control}
-                      defaultValue={password}
-                      render={({ field }) => (
-                        <Input
-                          label="login_page.password"
-                          secureTextEntry
-                          value={field.value}
-                          onChangeText={(text: string) => field.onChange(text)}
-                          helper={
-                            formState.errors.password?.message
-                              ? {
-                                  type: 'error',
-                                  message:
-                                    formState.errors.password?.message?.toString(),
-                                }
-                              : undefined
-                          }
-                        />
-                      )}
-                    />
-                    <ForgotPassword
-                      text="login_page.forgot_password"
-                      color={theme.colors.primary}
-                      bold
-                      onPress={() => Alert.alert('To be implemented')}
-                    />
-                    <SignIn
-                      text="Login"
-                      onPressButton={handleSubmit(onSubmit)}
-                    />
-                  </View>
-                  <SignUp
-                    text="login_page.signup"
-                    color={theme.colors.primary}
-                    onPress={() => navigation.navigate('CreateAccount')}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <MainContainer>
+              <ContentContainer>
+                <Label text="login_page.title" type="h3" bold />
+                <View>
+                  <Controller
+                    name="email"
+                    control={control}
+                    defaultValue={email}
+                    render={({ field }) => (
+                      <Input
+                        label={'login_page.email'}
+                        keyboardType="email-address"
+                        value={field.value}
+                        onChangeText={(text: string) => field.onChange(text)}
+                        helper={
+                          formState.errors.password?.message
+                            ? {
+                                type: 'error',
+                                message:
+                                  formState.errors.password?.message?.toString(),
+                              }
+                            : undefined
+                        }
+                      />
+                    )}
                   />
-                </ContentContainer>
-              </MainContainer>
-            </TouchableWithoutFeedback>
-          </KeyboardAvoidingView>
-        </>
+                  <Controller
+                    name="password"
+                    control={control}
+                    defaultValue={password}
+                    render={({ field }) => (
+                      <Input
+                        label="login_page.password"
+                        secureTextEntry
+                        value={field.value}
+                        onChangeText={(text: string) => field.onChange(text)}
+                        helper={
+                          formState.errors.password?.message
+                            ? {
+                                type: 'error',
+                                message:
+                                  formState.errors.password?.message?.toString(),
+                              }
+                            : undefined
+                        }
+                      />
+                    )}
+                  />
+                  <ForgotPassword
+                    text="login_page.forgot_password"
+                    color={theme.colors.primary}
+                    bold
+                    onPress={() => Alert.alert('To be implemented')}
+                  />
+                  <SignIn text="Login" onPressButton={handleSubmit(onSubmit)} />
+                </View>
+                <SignUp
+                  text="login_page.signup"
+                  color={theme.colors.primary}
+                  onPress={() => navigation.navigate('CreateAccount')}
+                />
+              </ContentContainer>
+            </MainContainer>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
       )}
     </Container>
   );
