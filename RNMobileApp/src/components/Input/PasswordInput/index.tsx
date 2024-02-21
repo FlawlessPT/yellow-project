@@ -18,7 +18,7 @@ const PasswordInput = ({
 
   return (
     <Input
-      label="login.password.hint"
+      label="login.password"
       value={label}
       helper={helper}
       style={style}

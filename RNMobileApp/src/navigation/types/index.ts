@@ -12,7 +12,9 @@ enum AuthStackEnum {
   CREATE_ACCOUNT = 'CreateAccount',
 }
 
-enum AppStackEnum {}
+enum AppStackEnum {
+  HOME = 'Home',
+}
 
 export const defaultScreenOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,

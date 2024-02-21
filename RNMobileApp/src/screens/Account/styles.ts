@@ -16,6 +16,7 @@ export const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-top: 16px;
   margin-bottom: 24px;
 `;
 
@@ -28,7 +29,7 @@ export const Title = styled(Label).attrs(
 
 export const DetailsContainer = styled.View`
   flex-direction: row;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
 `;
 
@@ -73,4 +74,5 @@ export const LogoutButton = styled(Button).attrs(
   }),
 )`
   margin-top: 18px;
+  margin-bottom: 28px;
 `;

@@ -2,22 +2,18 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 
+// Styles
+import { InputsContainer } from '../styles';
+
 // Theme
 import useTheme from '@hooks/theme/useTheme';
-
-// Assets
-// import RedCross from '@assets/icons/red-cross.svg';
 
 // External Libs
 import * as yup from 'yup';
 import { t } from 'i18next';
 import { Control, Controller } from 'react-hook-form';
 
-// Styles
-import { TextContainer, InputsContainer } from '../styles';
-
 // Components
-import { Label } from '@components';
 import PasswordInput from '@components/Input/PasswordInput';
 
 const PasswordStep = ({ control }: { control: Control }) => {
@@ -85,66 +81,56 @@ const PasswordStep = ({ control }: { control: Control }) => {
   };
 
   return (
-    <>
-      <TextContainer>
-        <Label
-          text="signup_page.password.title"
-          type="h3"
-          color={theme.colors.disabled}
-        />
-        <Label text="signup_page.password.subtitle" type="h4" />
-      </TextContainer>
-      <InputsContainer>
-        <Controller
-          name="password"
-          control={control}
-          render={({ field, formState }) => (
-            <PasswordInput
-              label={field.value}
-              onChangeText={(text: string) => {
-                field.onChange(text);
-                setPasswordValue(text);
-              }}
-              helper={{
-                type: 'error',
-                message: formState.errors.password?.message?.toString() || '',
-              }}
-              passwordRules={isPasswordFocused && getPasswordRules(field.value)}
-            />
-          )}
-          rules={{
-            validate: value =>
-              passwordSchema
-                .validate({ password: value })
-                .catch(err => err.errors[0]),
-          }}
-        />
-        <Controller
-          name="confirmPassword"
-          control={control}
-          render={({ field, formState }) => (
-            <PasswordInput
-              label={field.value}
-              onChangeText={(text: string) => {
-                field.onChange(text);
-                setPasswordValue(text);
-              }}
-              helper={{
-                type: 'error',
-                message:
-                  formState.errors.confirmPassword?.message?.toString() || '',
-              }}
-              passwordRules={isPasswordFocused && getPasswordRules(field.value)}
-            />
-          )}
-          rules={{
-            validate: value => {
-              return value === passwordValue || t('passwords_do_not_match');
-            },
-          }}
-        />
-      </InputsContainer>
-    </>
+    <InputsContainer>
+      <Controller
+        name="password"
+        control={control}
+        render={({ field, formState }) => (
+          <PasswordInput
+            label={field.value}
+            onChangeText={(text: string) => {
+              field.onChange(text);
+              setPasswordValue(text);
+            }}
+            helper={{
+              type: 'error',
+              message: formState.errors.password?.message?.toString() || '',
+            }}
+            passwordRules={isPasswordFocused && getPasswordRules(field.value)}
+          />
+        )}
+        rules={{
+          validate: value =>
+            passwordSchema
+              .validate({ password: value })
+              .catch(err => err.errors[0]),
+        }}
+      />
+      <Controller
+        name="confirmPassword"
+        control={control}
+        render={({ field, formState }) => (
+          <PasswordInput
+            label={field.value}
+            onChangeText={(text: string) => {
+              field.onChange(text);
+              setPasswordValue(text);
+            }}
+            helper={{
+              type: 'error',
+              message:
+                formState.errors.confirmPassword?.message?.toString() || '',
+            }}
+            passwordRules={isPasswordFocused && getPasswordRules(field.value)}
+          />
+        )}
+        rules={{
+          validate: value => {
+            return value === passwordValue || t('passwords_do_not_match');
+          },
+        }}
+      />
+    </InputsContainer>
   );
 };
 
