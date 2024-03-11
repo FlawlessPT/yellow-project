@@ -19,22 +19,22 @@ import {
   SignIn,
 } from './styles';
 
-// Components
-import { Label, Input } from '@components';
-
 // Utils
 import { supabase } from '@utils/supabase';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// Types
-import { AuthNavProps } from '../../navigation/AuthStack/types';
+// Components
+import { Label, FormInput } from '@components';
 
 // External Libs
 import * as yup from 'yup';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import EncryptedStorage from 'react-native-encrypted-storage';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+
+// Types
+import { AuthNavProps } from '../../navigation/AuthStack/types';
 
 const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   const [saveLogin, setSaveLogin] = useState(false);
@@ -170,54 +170,41 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
               <ContentContainer>
                 <Label text="login_page.title" type="h3" bold />
                 <View>
-                  <Controller
-                    name="email"
+                  <FormInput
                     control={control}
-                    defaultValue={email}
-                    render={({ field }) => (
-                      <Input
-                        label={'login_page.email'}
-                        keyboardType="email-address"
-                        value={field.value}
-                        onChangeText={(text: string) => field.onChange(text)}
-                        helper={
-                          formState.errors.password?.message
-                            ? {
-                                type: 'error',
-                                message:
-                                  formState.errors.password?.message?.toString(),
-                              }
-                            : undefined
-                        }
-                      />
-                    )}
+                    controllerName="email"
+                    label="login_page.email"
+                    keyboardType="email-address"
+                    helper={
+                      formState.errors.email?.message
+                        ? {
+                            type: 'error',
+                            message:
+                              formState.errors.email?.message?.toString(),
+                          }
+                        : undefined
+                    }
                   />
-                  <Controller
-                    name="password"
+                  <FormInput
                     control={control}
-                    defaultValue={password}
-                    render={({ field }) => (
-                      <Input
-                        label="login_page.password"
-                        secureTextEntry
-                        value={field.value}
-                        onChangeText={(text: string) => field.onChange(text)}
-                        helper={
-                          formState.errors.password?.message
-                            ? {
-                                type: 'error',
-                                message:
-                                  formState.errors.password?.message?.toString(),
-                              }
-                            : undefined
-                        }
-                      />
-                    )}
+                    controllerName="password"
+                    label="login_page.password"
+                    secureTextEntry
+                    helper={
+                      formState.errors.password?.message
+                        ? {
+                            type: 'error',
+                            message:
+                              formState.errors.password?.message?.toString(),
+                          }
+                        : undefined
+                    }
                   />
                   <ForgotPassword
                     text="login_page.forgot_password"
                     color={theme.colors.primary}
                     bold
+                    type="body"
                     onPress={() => Alert.alert('To be implemented')}
                   />
                   <SignIn text="Login" onPressButton={handleSubmit(onSubmit)} />

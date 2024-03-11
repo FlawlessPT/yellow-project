@@ -13,6 +13,7 @@ type DefaultInputProps = {
 
 export const HelperContainer = styled.View`
   flex-direction: row;
+  margin-top: 5px;
 `;
 
 export const DefaultInput = styled(TextInput).attrs<DefaultInputProps>(() => ({
