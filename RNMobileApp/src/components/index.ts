@@ -12,6 +12,7 @@ import Switch from './Switch';
 import LabelButton from './Button/LabelButton';
 import ButtonCard from './ButtonCard';
 import ProfileDetailCard from './ProfileDetailCard';
+import FormInput from './FormInput';
 
 export {
   Button,
@@ -28,4 +29,5 @@ export {
   LabelButton,
   ButtonCard,
   ProfileDetailCard,
+  FormInput,
 };

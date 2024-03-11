@@ -28,7 +28,7 @@ export type InputProps = {
   leftItem?: React.ReactNode;
   rightItem?: React.ReactNode;
   helper?: { type: HelperType; message: string };
-};
+} & TextInputProps;
 
 export const Input = ({
   ref,
@@ -39,7 +39,7 @@ export const Input = ({
   disabled,
   helper,
   ...props
-}: InputProps & TextInputProps) => {
+}: InputProps) => {
   const { theme } = useTheme();
 
   const outlinedColor =
