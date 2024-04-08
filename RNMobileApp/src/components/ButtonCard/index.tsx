@@ -1,6 +1,12 @@
 // React and React Native
 import React from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 // Components
 import { Label } from '@components';
@@ -8,14 +14,12 @@ import { Label } from '@components';
 // Assets
 import { RightArrow } from '@assets';
 
-// External Libs
-import { Icon } from 'react-native-paper';
-
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// Styles
-import { Card, Container, IconContainer } from './styles';
+// External Libs
+import { Icon } from 'react-native-paper';
+import { DefaultTheme } from 'styled-components/native';
 
 type ButtonCardProps = {
   label: string;
@@ -27,17 +31,46 @@ type ButtonCardProps = {
 const ButtonCard = ({ label, icon, style, onPress }: ButtonCardProps) => {
   const { theme } = useTheme();
 
+  const styles = getStyles(theme);
+
   return (
-    <Card onPress={onPress} style={style}>
-      <Container>
-        <IconContainer>
+    <TouchableOpacity onPress={onPress} style={[styles.card, style]}>
+      <View style={styles.container}>
+        <View style={styles.iconContainer}>
           <Icon source={icon} size={24} />
-        </IconContainer>
+        </View>
         <Label text={label} color={theme.colors.white} />
-      </Container>
+      </View>
       <Icon source={RightArrow} size={6} />
-    </Card>
+    </TouchableOpacity>
   );
 };
 
 export default ButtonCard;
+
+const getStyles = (theme: DefaultTheme) =>
+  StyleSheet.create({
+    card: {
+      height: 64,
+      borderRadius: 18,
+      backgroundColor: theme.colors.neutral800,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingLeft: 8,
+      paddingRight: 20,
+      alignItems: 'center',
+    },
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    iconContainer: {
+      backgroundColor: theme.colors.neutral700,
+      width: 48,
+      height: 48,
+      borderRadius: 8,
+      marginRight: 24,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });

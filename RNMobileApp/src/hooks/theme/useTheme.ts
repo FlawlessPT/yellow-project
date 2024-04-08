@@ -32,7 +32,7 @@ const useTheme = (): UseThemeResult => {
   useEffect(() => {
     const getThemeMode = async () => {
       const storedTheme =
-        (await AsyncStorage.getItem(storageKeys.theme)) || deviceTheme;
+        (await AsyncStorage.getItem(storageKeys.theme)) ?? deviceTheme;
       setThemeMode(storedTheme as ThemeMode);
     };
 
