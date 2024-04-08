@@ -15,6 +15,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Types
 import { AppStackEnum, defaultScreenOptions, RootStackEnum } from '../types';
+import Home from '@screens/Home';
 
 export default function AppStack(): JSX.Element {
   const Tab = createBottomTabNavigator();
@@ -36,7 +37,7 @@ export default function AppStack(): JSX.Element {
       })}>
       <Tab.Screen
         name="Home"
-        component={Account}
+        component={Home}
         options={{ tabBarIcon: HomeIcon }}
       />
       <Tab.Screen
