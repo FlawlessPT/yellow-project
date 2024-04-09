@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 
 // Components
-import { Label } from '@components';
-import { LabelProps } from '@components/Label/types';
+import Label from '../../Label';
+import { LabelProps } from '../../Label/types';
 
 export type LabelButtonProps = {
   leftIcon?: ImageSourcePropType;

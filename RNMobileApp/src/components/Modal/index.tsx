@@ -6,7 +6,8 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 
 // Components
-import { Button, Label } from '@components';
+import Button from '../Button';
+import Label from '../Label';
 
 // Assets
 // import Warning from '@assets/icons/warning.svg';

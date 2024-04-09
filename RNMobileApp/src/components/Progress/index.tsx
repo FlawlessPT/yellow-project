@@ -5,12 +5,12 @@ import { StyleSheet, View } from 'react-native';
 // Components
 import Label from '../Label';
 
-// Theme
-import useTheme from '@hooks/theme/useTheme';
-
 // External Libs
 import { t } from 'i18next';
 import { ProgressBar } from 'react-native-paper';
+
+// Theme
+import useTheme from '../../hooks/theme/useTheme';
 
 export type ProgressProps = {
   currentStep: number;
