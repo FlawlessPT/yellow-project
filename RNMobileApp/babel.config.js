@@ -1,6 +1,6 @@
 const config = require('./tsconfig.json');
 
-const {baseUrl, paths} = config.compilerOptions;
+const { baseUrl, paths } = config.compilerOptions;
 
 const getAliases = () => {
   return Object.entries(paths).reduce((aliases, alias) => {
@@ -32,7 +32,19 @@ module.exports = function (api) {
             '.ios.js',
             '.ios.tsx',
           ],
-          alias: getAliases(),
+          alias: {
+            '@/assets': './src/assets',
+            '@/components': './src/components',
+            '@/screens': './src/screens',
+            '@/navigation': './src/navigation',
+            '@/theme': './src/theme',
+            '@/services': './src/services',
+            '@/providers': './src/providers',
+            '@/hooks': './src/hooks',
+            '@/styles': './src/styles',
+            '@/types': './src/types',
+            '@/utils': './src/utils',
+          },
         },
       ],
     ],
