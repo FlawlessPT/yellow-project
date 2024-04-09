@@ -1,9 +1,6 @@
 // React and React Native
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated } from 'react-native';
-
-// Styles
-import { Container, InnerContainer } from './styles';
+import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
 
 type SwitchProps = {
   initialValue: boolean;
@@ -18,6 +15,8 @@ const Switch = ({
 }: SwitchProps): JSX.Element => {
   const [isToggle, setIsToggle] = useState<boolean>(initialValue);
   const translateAnimate = useRef(new Animated.Value(0)).current;
+
+  const styles = getStyles();
 
   useEffect(() => {
     setIsToggle(initialValue);
@@ -49,9 +48,9 @@ const Switch = ({
   };
 
   return (
-    <Container
+    <TouchableOpacity
+      style={styles.container}
       activeOpacity={1}
-      isEnabled={isToggle}
       onPress={() => {
         if (shouldChangeValue) {
           animateElement();
@@ -59,9 +58,27 @@ const Switch = ({
         }
         onPress();
       }}>
-      <InnerContainer style={animationStyle} isEnabled={isToggle} />
-    </Container>
+      <Animated.View style={[styles.contentContainer, animationStyle]} />
+    </TouchableOpacity>
   );
 };
 
 export default Switch;
+
+const getStyles = () =>
+  StyleSheet.create({
+    container: {
+      height: 24,
+      width: 40,
+      borderRadius: 48,
+      justifyContent: 'center',
+      padding: 2,
+    },
+    contentContainer: {
+      height: 20,
+      width: 20,
+      borderRadius: 48,
+      position: 'absolute',
+      left: 4,
+    },
+  });
