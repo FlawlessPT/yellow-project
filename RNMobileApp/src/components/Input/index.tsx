@@ -3,16 +3,16 @@ import React from 'react';
 import { StyleSheet, TextInputProps, View } from 'react-native';
 
 // Components
-import { Label } from '@components';
+import { Label } from '../Label';
 
 // Types
 import { HelperType } from './types';
 
 // Assets
-import { Error, Success } from '@assets';
+import { Error, Success } from '../../assets';
 
 // Theme
-import useTheme from '@hooks/theme/useTheme';
+import useTheme from '../../hooks/theme/useTheme';
 
 // External Libs
 import { Icon, TextInput } from 'react-native-paper';

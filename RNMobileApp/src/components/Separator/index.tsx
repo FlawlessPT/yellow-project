@@ -3,10 +3,10 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 // Components
-import { Label } from '@components';
+import Label from '../Label';
 
 // Theme
-import useTheme from '@hooks/theme/useTheme';
+import useTheme from '../../hooks/theme/useTheme';
 
 type SeparatorProps = {
   text?: string;

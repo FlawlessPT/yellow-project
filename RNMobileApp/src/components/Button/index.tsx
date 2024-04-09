@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 
 // Components
-import { Label } from '@components';
+import { Label } from '../Label';
 
 // Hooks
-import useTheme from '@hooks/theme/useTheme';
+import useTheme from '../../hooks/theme/useTheme';
 
 // External Libs
 import { Icon } from 'react-native-paper';
