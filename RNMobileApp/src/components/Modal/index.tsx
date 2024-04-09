@@ -1,6 +1,6 @@
 // React and React Native
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 // External Libs
 import Modal from 'react-native-modal';
@@ -8,14 +8,8 @@ import Modal from 'react-native-modal';
 // Components
 import { Button, Label } from '@components';
 
-// Theme
-import useTheme from '@hooks/theme/useTheme';
-
 // Assets
 // import Warning from '@assets/icons/warning.svg';
-
-// Styles
-import { Container, InnerContainer, TextContainer } from './styles';
 
 export type ModalPopupProps = {
   title: string;
@@ -36,27 +30,47 @@ export const ModalPopup = ({
   onPressDismissButton,
   isModalVisible,
 }: ModalPopupProps) => {
-  const { theme } = useTheme();
+  const styles = getStyles();
 
   return (
     <Modal isVisible={isModalVisible}>
-      <Container>
-        <InnerContainer>
+      <View style={styles.container}>
+        <View style={styles.contentContainer}>
           {/* <Warning width={46} height={42} /> */}
-          <TextContainer>
+          <View style={styles.textContainer}>
             <Label text={title} type="h4" textAlign="center" />
             {subtitle && <Label text={subtitle} type="h5" textAlign="center" />}
-          </TextContainer>
+          </View>
           <Button text={buttonTitle} onPressButton={onPressButton} />
           {isDismissButtonVisible && (
             <TouchableOpacity onPress={onPressDismissButton}>
               <Label text={'common.dismiss'} type="h5" textAlign="center" />
             </TouchableOpacity>
           )}
-        </InnerContainer>
-      </Container>
+        </View>
+      </View>
     </Modal>
   );
 };
 
 export default ModalPopup;
+
+const getStyles = () =>
+  StyleSheet.create({
+    container: {
+      padding: 20,
+      alignSelf: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 20,
+    },
+    contentContainer: {
+      width: '100%',
+      gap: 24,
+      alignItems: 'center',
+    },
+    textContainer: {
+      width: '100%',
+      gap: 8,
+    },
+  });
