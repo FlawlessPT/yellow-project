@@ -1,11 +1,9 @@
 // React and React Native
 import React from 'react';
+import { StyleSheet, Text } from 'react-native';
 
 // Types
 import { LabelProps } from './types';
-
-// Styles
-import { DefaultText } from './styles';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
@@ -23,7 +21,7 @@ export const Label = ({
   bold = false,
   medium = false,
   color,
-  textAlign,
+  textAlign = 'left',
   numberOfLines,
   isUnderline = false,
   opacity = 1,
@@ -34,30 +32,56 @@ export const Label = ({
   const { theme } = useTheme();
   const { t } = useTranslation();
 
+  const fontFamily = bold
+    ? theme.fonts.bold
+    : semibold
+    ? theme.fonts.semibold
+    : medium
+    ? theme.fonts.medium
+    : theme.fonts.regular;
+
+  const styles = getStyles(
+    fontFamily,
+    color ?? theme.colors.black,
+    textAlign,
+    getTypographySpecification(type).size,
+    getTypographySpecification(type).lineHeight,
+    isUnderline,
+    opacity,
+  );
+
   return (
-    <DefaultText
-      fontFamily={
-        bold
-          ? theme.fonts.bold
-          : semibold
-          ? theme.fonts.semibold
-          : medium
-          ? theme.fonts.medium
-          : theme.fonts.regular
-      }
-      color={color || theme.colors.black}
-      textAlign={textAlign || 'left'}
+    <Text
       numberOfLines={numberOfLines}
       allowFontScaling={false}
-      isUnderline={isUnderline}
-      opacity={opacity}
-      style={style}
-      ellipsizeMode={ellipsize ? 'tail' : undefined}
-      {...getTypographySpecification(type)}>
+      style={[styles.label, style]}
+      ellipsizeMode={ellipsize ? 'tail' : undefined}>
       {text && t(text)}
       {children}
-    </DefaultText>
+    </Text>
   );
 };
 
 export default Label;
+
+const getStyles = (
+  fontFamily: string,
+  color: string,
+  textAlign: 'left' | 'center' | 'right',
+  fontSize: number,
+  lineHeight: number,
+  isUnderline: boolean,
+  opacity: number,
+) =>
+  StyleSheet.create({
+    label: {
+      fontFamily,
+      color,
+      textAlign,
+      fontSize,
+      lineHeight,
+      textDecoration: isUnderline ? 'underline' : 'none',
+      textDecorationColor: color,
+      opacity,
+    },
+  });

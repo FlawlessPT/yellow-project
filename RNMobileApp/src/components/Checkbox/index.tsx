@@ -1,15 +1,12 @@
 // React and React Native
 import React from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
-
-// Styles
 import {
-  ActiveCheckboxContainer,
-  CheckboxContainer,
-  CheckedIcon,
-  Container,
-  RightElementContainer,
-} from './styles';
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 // Assets
 import { SelectedCheckbox } from '@assets';
@@ -17,9 +14,12 @@ import { SelectedCheckbox } from '@assets';
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
 
+// External Libs
+import { Icon } from 'react-native-paper';
+import { DefaultTheme } from 'styled-components/native';
+
 type CheckboxProps = {
   bgColor?: string;
-  checkedBgColor?: string;
   borderColor?: string;
   borderWidth?: number;
   isChecked?: boolean;
@@ -31,7 +31,6 @@ type CheckboxProps = {
 
 const Checkbox = ({
   bgColor,
-  checkedBgColor,
   borderColor,
   borderWidth = 1,
   isChecked,
@@ -42,42 +41,73 @@ const Checkbox = ({
 }: CheckboxProps) => {
   const { theme } = useTheme();
 
+  const styles = getStyles(
+    theme,
+    reverseOrder,
+    bgColor ?? theme.colors.white,
+    borderWidth,
+    borderColor ?? 'transparent',
+  );
+
   return (
-    <Container reverseOrder={reverseOrder}>
+    <View style={styles.container}>
       {isChecked ? (
-        <ActiveCheckboxContainer
-          reverseOrder={reverseOrder}
-          bgColor={theme.colors.primary || checkedBgColor}
-          borderColor={checkedBgColor}
-          borderWidth={borderWidth}
-          style={style}
+        <Pressable
+          style={[styles.activeCheckboxContainer, style]}
           onPress={onPress}>
-          <CheckedIcon
-            source={SelectedCheckbox}
-            size={9}
-            iconColor={theme.colors.white}
-          />
-        </ActiveCheckboxContainer>
+          <Icon source={SelectedCheckbox} size={9} color={theme.colors.white} />
+        </Pressable>
       ) : (
-        <CheckboxContainer
-          reverseOrder={reverseOrder}
-          bgColor={bgColor}
-          borderColor={theme.colors.primary || borderColor}
-          borderWidth={borderWidth}
-          style={style}
+        <Pressable
+          style={[styles.checkboxContainer, style]}
           onPress={onPress}
         />
       )}
       {rightElement && (
-        <RightElementContainer
-          style={style}
-          reverseOrder={reverseOrder}
+        <Pressable
+          style={[styles.rightElementContainer, style]}
           onPress={onPress}>
           {rightElement}
-        </RightElementContainer>
+        </Pressable>
       )}
-    </Container>
+    </View>
   );
 };
 
 export default Checkbox;
+
+const getStyles = (
+  theme: DefaultTheme,
+  reverseOrder: boolean,
+  bgColor: string,
+  borderWidth: number,
+  borderColor: string,
+) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: reverseOrder ? 'row-reverse' : 'row',
+      alignItems: 'center',
+    },
+    rightElementContainer: { flex: 1 },
+    activeCheckboxContainer: {
+      height: 19,
+      width: 19,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: theme.colors.primary,
+      borderRadius: 2,
+      borderWidth: 0,
+      marginRight: reverseOrder ? 0 : 8,
+      marginLeft: reverseOrder ? 8 : 0,
+    },
+    checkboxContainer: {
+      height: 19,
+      width: 19,
+      backgroundColor: bgColor,
+      borderWidth,
+      borderColor,
+      borderRadius: 2,
+      marginRight: reverseOrder ? 0 : 8,
+      marginLeft: reverseOrder ? 8 : 0,
+    },
+  });

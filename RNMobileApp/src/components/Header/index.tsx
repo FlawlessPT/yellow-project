@@ -1,5 +1,6 @@
 // React and React Native
 import React from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 // Assets
 import { Back } from '@assets';
@@ -12,9 +13,6 @@ import { Icon } from 'react-native-paper';
 
 // Theme
 import useTheme from '@hooks/theme/useTheme';
-
-// Styles
-import { ChevronContainer, ContentContainer, MainContainer } from './styles';
 
 export type HeaderProps = {
   title?: string;
@@ -31,14 +29,18 @@ export const Header = ({
 }: HeaderProps) => {
   const { theme } = useTheme();
 
+  const styles = getStyles();
+
   return (
-    <MainContainer>
+    <View style={styles.container}>
       {hasBack && (
-        <ChevronContainer onPress={onPressChevron}>
+        <TouchableOpacity
+          style={styles.chevronContainer}
+          onPress={onPressChevron}>
           <Icon size={24} source={Back} />
-        </ChevronContainer>
+        </TouchableOpacity>
       )}
-      <ContentContainer>
+      <View style={styles.contentContainer}>
         {title && (
           <Label
             type="h5"
@@ -47,10 +49,26 @@ export const Header = ({
             textAlign="center"
           />
         )}
-      </ContentContainer>
+      </View>
       {rightItem}
-    </MainContainer>
+    </View>
   );
 };
 
 export default Header;
+
+const getStyles = () =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    contentContainer: {
+      flex: 1,
+      alignItems: 'center',
+    },
+    chevronContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });
