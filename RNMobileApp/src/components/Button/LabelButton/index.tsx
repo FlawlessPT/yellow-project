@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 // Components
-import Label from '@components/Label';
+import { Label } from '@components';
 import { LabelProps } from '@components/Label/types';
 
 export type LabelButtonProps = {

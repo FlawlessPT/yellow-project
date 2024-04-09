@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 // Components
-import Label from '@components/Label';
+import { Label } from '@components';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';

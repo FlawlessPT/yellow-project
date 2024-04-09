@@ -11,11 +11,11 @@ import { HelperType } from './types';
 // Assets
 import { Error, Success } from '@assets';
 
-// External Libs
-import { Icon, TextInput } from 'react-native-paper';
-
 // Theme
 import useTheme from '@hooks/theme/useTheme';
+
+// External Libs
+import { Icon, TextInput } from 'react-native-paper';
 
 export type InputProps = {
   label?: string;
