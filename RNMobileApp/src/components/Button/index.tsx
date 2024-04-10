@@ -1,18 +1,22 @@
 // React and React Native
 import React, { FunctionComponent, SVGAttributes } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 // Components
-import { Label } from '@components';
+import { Label } from '../Label';
+
+// Hooks
+import useTheme from '../../hooks/theme/useTheme';
 
 // External Libs
 import { Icon } from 'react-native-paper';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// Styles
-import { ButtonLabel, Container, DefaultButton } from './styles';
+import { DefaultTheme } from 'styled-components/native';
 
 export type ButtonProps = {
   backgroundColor?: string;
@@ -29,7 +33,7 @@ export type ButtonProps = {
 const Button = ({
   backgroundColor,
   text,
-  hasBorder,
+  hasBorder = false,
   textColor,
   borderColor,
   isDisabled,
@@ -39,32 +43,72 @@ const Button = ({
 }: ButtonProps) => {
   const { theme } = useTheme();
 
+  const getButtonBackgroundColor = () => {
+    if (isDisabled) {
+      return theme.colors.disabled;
+    } else if (hasBorder) {
+      return 'transparent';
+    } else {
+      return backgroundColor ?? theme.colors.primary;
+    }
+  };
+
+  const styles = getStyles(
+    theme,
+    getButtonBackgroundColor(),
+    hasBorder,
+    isDisabled ? 'transparent' : borderColor ?? 'transparent',
+    !!leftIcon,
+  );
+
   return (
-    <DefaultButton
-      style={style}
-      backgroundColor={
-        isDisabled
-          ? theme.colors.disabled
-          : hasBorder
-          ? 'transparent'
-          : backgroundColor || theme.colors.primary
-      }
-      hasBorder={hasBorder}
-      borderColor={isDisabled ? 'transparent' : borderColor}
+    <TouchableOpacity
+      style={[styles.button, style]}
       disabled={isDisabled}
       onPress={onPressButton}>
-      <Container>
+      <View style={styles.container}>
         {leftIcon && <Icon source={leftIcon} size={20} />}
-        <ButtonLabel
+        <Label
+          style={styles.label}
           color={
-            isDisabled ? theme.colors.white : textColor || theme.colors.white
+            isDisabled ? theme.colors.white : textColor ?? theme.colors.white
           }
           text={text}
-          hasLeftIcon={!!leftIcon}
         />
-      </Container>
-    </DefaultButton>
+      </View>
+    </TouchableOpacity>
   );
 };
 
 export default Button;
+
+const getStyles = (
+  theme: DefaultTheme,
+  backgroundColor: string,
+  hasBorder: boolean,
+  borderColor: string,
+  hasLeftIcon: boolean,
+) =>
+  StyleSheet.create({
+    button: {
+      backgroundColor,
+      borderWidth: hasBorder ? 3 : 0,
+      borderColor,
+      borderRadius: 42,
+      height: 48,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      shadowOffset: { width: 0, height: 1 },
+      shadowColor: theme.colors.black,
+      shadowOpacity: 0.2,
+      elevation: 4,
+    },
+    label: {
+      marginLeft: hasLeftIcon ? 8 : 0,
+    },
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+  });

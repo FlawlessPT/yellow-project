@@ -1,18 +1,16 @@
 // React and React Native
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 // Components
 import Label from '../Label';
 
-// Styles
-import { MainContainer } from './styles';
-
-// Theme
-import useTheme from '@hooks/theme/useTheme';
-
 // External Libs
 import { t } from 'i18next';
 import { ProgressBar } from 'react-native-paper';
+
+// Theme
+import useTheme from '../../hooks/theme/useTheme';
 
 export type ProgressProps = {
   currentStep: number;
@@ -27,8 +25,10 @@ export const Progress = ({
 }: ProgressProps) => {
   const { theme } = useTheme();
 
+  const styles = getStyles();
+
   return (
-    <MainContainer>
+    <View style={styles.container}>
       <Label
         text={currentStep + ' ' + t(separatorText) + ' ' + totalSteps}
         textAlign="right"
@@ -37,8 +37,17 @@ export const Progress = ({
         progress={currentStep / totalSteps}
         color={theme.colors.primary}
       />
-    </MainContainer>
+    </View>
   );
 };
 
 export default Progress;
+
+const getStyles = () =>
+  StyleSheet.create({
+    container: {
+      height: 40,
+      gap: 8,
+      justifyContent: 'center',
+    },
+  });

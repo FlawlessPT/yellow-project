@@ -1,27 +1,23 @@
 // React and React Native
-import React, { MutableRefObject } from 'react';
-import { TextInput, TextInputProps } from 'react-native';
+import React from 'react';
+import { StyleSheet, TextInputProps, View } from 'react-native';
 
 // Components
-import { Label } from '@components';
+import { Label } from '../Label';
 
 // Types
 import { HelperType } from './types';
 
 // Assets
-import { Error, Success } from '@assets';
-
-// External Libs
-import { Icon } from 'react-native-paper';
+import { Error, Success } from '../../assets';
 
 // Theme
-import useTheme from '@hooks/theme/useTheme';
+import useTheme from '../../hooks/theme/useTheme';
 
-// Styles
-import { DefaultInput, HelperContainer, HelperLabel } from './styles';
+// External Libs
+import { Icon, TextInput } from 'react-native-paper';
 
 export type InputProps = {
-  ref?: MutableRefObject<TextInput | undefined>;
   label?: string;
   disabled?: boolean;
   textColor?: string;
@@ -31,7 +27,6 @@ export type InputProps = {
 } & TextInputProps;
 
 export const Input = ({
-  ref,
   label,
   textColor,
   leftItem,
@@ -41,6 +36,10 @@ export const Input = ({
   ...props
 }: InputProps) => {
   const { theme } = useTheme();
+
+  const styles = getStyles(
+    disabled ? theme.colors.disabled : theme.colors.white,
+  );
 
   const outlinedColor =
     helper?.type === 'error'
@@ -53,8 +52,7 @@ export const Input = ({
     <>
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/* @ts-ignore */}
-      <DefaultInput
-        ref={ref}
+      <TextInput
         mode="outlined"
         disabled={disabled}
         label={
@@ -66,29 +64,48 @@ export const Input = ({
         }
         outlineColor={outlinedColor}
         activeOutlineColor={theme.colors.primary}
-        isDisabled={disabled}
         left={leftItem}
         right={rightItem}
         allowFontScaling={false}
         selectionColor={theme.colors.primary}
         caretHidden={false}
+        outlineStyle={styles.outline}
         {...props}
       />
       {helper && (
-        <HelperContainer>
+        <View style={styles.helperContainer}>
           <Icon source={helper.type === 'error' ? Error : Success} size={14} />
-          <HelperLabel
+          <Label
             text={helper.message}
             semibold
             type="footnote"
             color={
               helper.type === 'error' ? theme.colors.red : theme.colors.green
             }
+            style={styles.helperLabel}
           />
-        </HelperContainer>
+        </View>
       )}
     </>
   );
 };
 
 export default Input;
+
+const getStyles = (inputBgColor: string) =>
+  StyleSheet.create({
+    helperContainer: {
+      flexDirection: 'row',
+      marginTop: 5,
+    },
+    helperLabel: {
+      marginLeft: 4,
+    },
+    input: {
+      width: '100%',
+      backgroundColor: inputBgColor,
+    },
+    outline: {
+      borderRadius: 10,
+    },
+  });

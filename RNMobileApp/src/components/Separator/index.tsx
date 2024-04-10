@@ -1,12 +1,12 @@
 // React and React Native
 import React from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-// Styles
-import { Container, Line } from './styles';
+// Components
+import Label from '../Label';
 
 // Theme
-import useTheme from '@hooks/theme/useTheme';
+import useTheme from '../../hooks/theme/useTheme';
 
 type SeparatorProps = {
   text?: string;
@@ -14,23 +14,29 @@ type SeparatorProps = {
 
 export const Separator = ({ text }: SeparatorProps) => {
   const { theme } = useTheme();
+
+  const styles = getStyles();
+
   return (
-    <Container>
-      <Line />
-      <Text
-        style={{
-          fontSize: 16,
-          fontFamily: 'Poppins-Regular',
-          includeFontPadding: false,
-          textAlignVertical: 'center',
-          verticalAlign: 'middle',
-          color: theme.colors.disabled,
-        }}>
-        {text}
-      </Text>
-      <Line />
-    </Container>
+    <View style={styles.container}>
+      <View style={styles.line} />
+      <Label text={text} color={theme.colors.disabled} />
+      <View style={styles.line} />
+    </View>
   );
 };
 
 export default Separator;
+
+const getStyles = () =>
+  StyleSheet.create({
+    line: {
+      flex: 1,
+      height: 1,
+    },
+    container: {
+      flexDirection: 'row',
+      gap: 10,
+      alignItems: 'center',
+    },
+  });
