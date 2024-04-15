@@ -152,8 +152,8 @@ const Account = ({ session }: { session?: Session }) => {
           <ProfileDetailCard {...item} />
         ))}
       </View>
-      {profileButtons.map((item) => (
-        <ButtonCard {...item} style={styles.settingsCard} />
+      {profileButtons.map((item, index) => (
+        <ButtonCard key={index} {...item} style={styles.settingsCard} />
       ))}
       <Button
         text="profile.logout_button"
