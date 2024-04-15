@@ -21,6 +21,7 @@ export type Theme = {
     neutral900: string;
     background: string;
     border: string;
+    icon: string;
   };
   fonts: { regular: string; medium: string; semibold: string; bold: string };
 };
@@ -50,6 +51,7 @@ export const lightTheme: Theme = {
     neutral900: '#161617',
     background: '#161617',
     border: '#2A2A2C',
+    icon: '#595959',
   },
   fonts,
 };
@@ -72,6 +74,7 @@ export const darkTheme: Theme = {
     neutral900: '#161617',
     background: '#161617',
     border: '#2A2A2C',
+    icon: '#595959',
   },
   fonts,
 };

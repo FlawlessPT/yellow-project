@@ -2,20 +2,18 @@
 import React from 'react';
 
 // Screens
+import Home from '@screens/Home';
 import Account from '@screens/Account';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// Assets
-import { FoodIcon, HomeIcon, WorkoutIcon } from '@assets';
-
 // External Libs
+import Icon from 'react-native-vector-icons/FontAwesome6';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Types
 import { AppStackEnum, defaultScreenOptions, RootStackEnum } from '../types';
-import Home from '@screens/Home';
 
 export default function AppStack(): JSX.Element {
   const Tab = createBottomTabNavigator();
@@ -37,9 +35,33 @@ export default function AppStack(): JSX.Element {
         ...defaultScreenOptions,
       })}
     >
-      <Tab.Screen name="Home" component={Home} options={{ tabBarIcon: HomeIcon }} />
-      <Tab.Screen name="Workout" component={Account} options={{ tabBarIcon: WorkoutIcon }} />
-      <Tab.Screen name="Food" component={Account} options={{ tabBarIcon: FoodIcon }} />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Icon name="house" size={20} color={focused ? theme.colors.primary : theme.colors.icon} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Workout"
+        component={Account}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Icon name="dumbbell" size={20} color={focused ? theme.colors.primary : theme.colors.icon} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Food"
+        component={Account}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Icon name="utensils" size={20} color={focused ? theme.colors.primary : theme.colors.icon} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
