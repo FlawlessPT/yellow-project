@@ -1,11 +1,8 @@
 // React and React Native
 import React from 'react';
 
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// Styled Components
-import { ThemeProvider } from 'styled-components/native';
+// Theme
+import { ThemeProvider } from './theme';
 
 // Providers
 import { FeatureFlagsContextProvider } from './feature-flags';
@@ -18,10 +15,9 @@ interface ProvidersProps {
 }
 
 const Providers = ({ children }: ProvidersProps) => {
-  const { theme } = useTheme();
   return (
     <PaperProvider>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <FeatureFlagsContextProvider>{children}</FeatureFlagsContextProvider>
       </ThemeProvider>
     </PaperProvider>

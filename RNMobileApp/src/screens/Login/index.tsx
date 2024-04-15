@@ -7,26 +7,14 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   View,
+  StyleSheet,
 } from 'react-native';
-
-// Styles
-import {
-  Container,
-  ContentContainer,
-  MainContainer,
-  ForgotPassword,
-  SignUp,
-  SignIn,
-} from './styles';
 
 // Utils
 import { supabase } from '@utils/supabase';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
-
-// Components
-import { Label, FormInput } from '@components';
 
 // External Libs
 import * as yup from 'yup';
@@ -36,30 +24,29 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 // Types
 import { AuthNavProps } from '../../navigation/AuthStack/types';
 
+// Components
+import { Label, FormInput, LabelButton, Button } from '@components';
+
 const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   const [saveLogin, setSaveLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(true);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
-  const [isInvalidCredentialsModalVisible, setInvalidCredentialsModalVisible] =
-    useState(false);
+  const [isInvalidCredentialsModalVisible, setInvalidCredentialsModalVisible] = useState(false);
 
   const { theme } = useTheme();
 
-  const [
-    isAccountNotConfirmedModalModalVisible,
-    setAccountNotConfirmedModalModalVisible,
-  ] = useState(false);
+  const styles = getStyles();
+
+  const [isAccountNotConfirmedModalModalVisible, setAccountNotConfirmedModalModalVisible] = useState(false);
 
   const toggleInvalidCredentialsModal = () => {
     setInvalidCredentialsModalVisible(!isInvalidCredentialsModalVisible);
   };
 
   const toggleAccountNotConfirmedModal = () => {
-    setAccountNotConfirmedModalModalVisible(
-      !isAccountNotConfirmedModalModalVisible,
-    );
+    setAccountNotConfirmedModalModalVisible(!isAccountNotConfirmedModalModalVisible);
   };
 
   async function signInWithEmail(email: string, password: string) {
@@ -99,22 +86,16 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   }, []);
 
   const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email('login_page.invalid_email_format')
-      .required('login_page.required_email'),
+    email: yup.string().email('login_page.invalid_email_format').required('login_page.required_email'),
 
-    password: yup
-      .string()
-      .min(8, 'login_page.invalid_password')
-      .required('login_page.required_password'),
+    password: yup.string().min(8, 'login_page.invalid_password').required('login_page.required_password'),
   });
 
   const { control, handleSubmit, formState } = useForm({
     resolver: require('@hookform/resolvers/yup').yupResolver(validationSchema),
   });
 
-  const onSubmit: SubmitHandler<FormValues> = async data => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     signInWithEmail(data.email, data.password);
 
     if (saveLogin) {
@@ -124,7 +105,7 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
           JSON.stringify({
             email: data.email,
             password: data.password,
-          }),
+          })
         );
       } catch (error) {}
     } else {
@@ -137,8 +118,7 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   useEffect(() => {
     async function retrieveUserCredentials() {
       try {
-        const storedCredentials =
-          await EncryptedStorage.getItem('user_credentials');
+        const storedCredentials = await EncryptedStorage.getItem('user_credentials');
 
         if (storedCredentials) {
           const parsedCredentials = JSON.parse(storedCredentials);
@@ -160,14 +140,12 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   };
 
   return (
-    <Container>
+    <View style={styles.container}>
       {!loading && (
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={{ flex: 1 }}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <MainContainer>
-              <ContentContainer>
+            <View style={styles.mainContainer}>
+              <View style={styles.contentContainer}>
                 <Label text="login_page.title" type="h3" bold />
                 <View>
                   <FormInput
@@ -179,8 +157,7 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
                       formState.errors.email?.message
                         ? {
                             type: 'error',
-                            message:
-                              formState.errors.email?.message?.toString(),
+                            message: formState.errors.email?.message?.toString(),
                           }
                         : undefined
                     }
@@ -194,33 +171,59 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
                       formState.errors.password?.message
                         ? {
                             type: 'error',
-                            message:
-                              formState.errors.password?.message?.toString(),
+                            message: formState.errors.password?.message?.toString(),
                           }
                         : undefined
                     }
                   />
-                  <ForgotPassword
+                  <LabelButton
                     text="login_page.forgot_password"
                     color={theme.colors.primary}
                     bold
                     type="body"
                     onPress={() => Alert.alert('To be implemented')}
+                    style={styles.forgotPassword}
                   />
-                  <SignIn text="Login" onPressButton={handleSubmit(onSubmit)} />
+                  <Button text="Login" onPressButton={handleSubmit(onSubmit)} style={styles.signIn} />
                 </View>
-                <SignUp
+                <LabelButton
                   text="login_page.signup"
                   color={theme.colors.primary}
                   onPress={() => navigation.navigate('CreateAccount')}
+                  style={styles.signUp}
                 />
-              </ContentContainer>
-            </MainContainer>
+              </View>
+            </View>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       )}
-    </Container>
+    </View>
   );
 };
 
 export default Login;
+
+const getStyles = () =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    mainContainer: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    contentContainer: {
+      paddingHorizontal: 20,
+      gap: 32,
+    },
+    forgotPassword: {
+      alignSelf: 'flex-end',
+      marginTop: 8,
+    },
+    signUp: {
+      alignSelf: 'center',
+    },
+    signIn: {
+      marginTop: 30,
+    },
+  });

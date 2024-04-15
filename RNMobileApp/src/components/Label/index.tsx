@@ -80,7 +80,7 @@ const getStyles = (
       textAlign,
       fontSize,
       lineHeight,
-      textDecoration: isUnderline ? 'underline' : 'none',
+      textDecorationLine: isUnderline ? 'underline' : 'none',
       textDecorationColor: color,
       opacity,
     },

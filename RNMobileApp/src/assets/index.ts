@@ -16,3 +16,7 @@ export { default as Back } from './icons/arrow/back.svg';
 export { default as HomeIcon } from './icons/bottomBar/home.svg';
 export { default as WorkoutIcon } from './icons/bottomBar/workout.svg';
 export { default as FoodIcon } from './icons/bottomBar/food.svg';
+export { default as ProteinIcon } from './icons/nutrients/protein.png';
+export { default as FatIcon } from './icons/nutrients/fat.png';
+export { default as CarbIcon } from './icons/nutrients/carb.png';
+export { default as PlayIcon } from './icons/nutrients/play.png';

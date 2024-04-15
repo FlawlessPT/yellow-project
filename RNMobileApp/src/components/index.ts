@@ -13,6 +13,8 @@ import LabelButton from './Button/LabelButton';
 import ButtonCard from './ButtonCard';
 import ProfileDetailCard from './ProfileDetailCard';
 import FormInput from './FormInput';
+import Card from './Card';
+import CardItem from './CardItem';
 
 export {
   Button,
@@ -30,4 +32,6 @@ export {
   ButtonCard,
   ProfileDetailCard,
   FormInput,
+  Card,
+  CardItem,
 };

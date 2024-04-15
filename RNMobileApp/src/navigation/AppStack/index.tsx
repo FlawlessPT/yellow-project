@@ -32,24 +32,14 @@ export default function AppStack(): JSX.Element {
           borderTopWidth: 1.5,
           borderTopColor: theme.colors.border,
           height: 62,
+          paddingTop: 10,
         },
         ...defaultScreenOptions,
-      })}>
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{ tabBarIcon: HomeIcon }}
-      />
-      <Tab.Screen
-        name="Workout"
-        component={Account}
-        options={{ tabBarIcon: WorkoutIcon }}
-      />
-      <Tab.Screen
-        name="Food"
-        component={Account}
-        options={{ tabBarIcon: FoodIcon }}
-      />
+      })}
+    >
+      <Tab.Screen name="Home" component={Home} options={{ tabBarIcon: HomeIcon }} />
+      <Tab.Screen name="Workout" component={Account} options={{ tabBarIcon: WorkoutIcon }} />
+      <Tab.Screen name="Food" component={Account} options={{ tabBarIcon: FoodIcon }} />
     </Tab.Navigator>
   );
 }

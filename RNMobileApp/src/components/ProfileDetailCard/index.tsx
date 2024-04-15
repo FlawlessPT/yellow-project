@@ -2,14 +2,14 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+// Theme
+import { Theme } from '@theme';
+
 // Components
 import Label from '@components/Label';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
-
-// External Libs
-import { DefaultTheme } from 'styled-components/native';
 
 type ProfileDetailCardProps = {
   label: string;
@@ -23,12 +23,7 @@ const ProfileDetailCard = ({ label, value }: ProfileDetailCardProps) => {
 
   return (
     <View style={styles.card}>
-      <Label
-        style={styles.title}
-        text={label}
-        type="footnote"
-        color={theme.colors.outline}
-      />
+      <Label style={styles.title} text={label} type="footnote" color={theme.colors.outline} />
       <Label text={value} type="h3" medium color={theme.colors.neutral200} />
     </View>
   );
@@ -36,7 +31,7 @@ const ProfileDetailCard = ({ label, value }: ProfileDetailCardProps) => {
 
 export default ProfileDetailCard;
 
-const getStyles = (theme: DefaultTheme) =>
+const getStyles = (theme: Theme) =>
   StyleSheet.create({
     card: {
       flex: 1,

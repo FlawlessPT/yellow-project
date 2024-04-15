@@ -1,55 +1,55 @@
 // React and React Native
-import { useEffect, useState } from 'react';
-import { Appearance } from 'react-native';
+import { useContext, useEffect } from 'react';
 
 // Theme
-import { darkTheme, lightTheme, ThemeMode } from '@theme';
+import { darkTheme, lightTheme, Theme, ThemeMode } from '@theme';
 
 // Constants
 import { storageKeys } from '@utils/storage-keys';
 
 // External Libs
-import { DefaultTheme } from 'styled-components/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Providers
+import { ThemeContext } from '../../providers/theme';
+
 type UseThemeResult = {
-  theme: DefaultTheme;
+  theme: Theme;
   themeMode: ThemeMode;
-  changeTheme: () => Promise<void>;
+  toggleTheme: () => Promise<void>;
 };
 
-const getTheme = {
+const getTheme: {
+  [key in ThemeMode]: Theme;
+} = {
   [ThemeMode.LIGHT]: lightTheme,
   [ThemeMode.DARK]: darkTheme,
 };
 
 const useTheme = (): UseThemeResult => {
-  const deviceThemeMode = Appearance.getColorScheme();
-  const deviceTheme =
-    deviceThemeMode === 'light' ? ThemeMode.LIGHT : ThemeMode.DARK;
-  const [themeMode, setThemeMode] = useState<ThemeMode>(deviceTheme);
+  const { themeMode, changeTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     const getThemeMode = async () => {
-      const storedTheme =
-        (await AsyncStorage.getItem(storageKeys.theme)) ?? deviceTheme;
-      setThemeMode(storedTheme as ThemeMode);
+      const storedTheme = (await AsyncStorage.getItem(storageKeys.theme)) as ThemeMode;
+      if (storedTheme) {
+        changeTheme(storedTheme);
+      }
     };
 
     getThemeMode();
-  }, [deviceTheme]);
+  }, [changeTheme]);
 
-  const changeTheme = async () => {
-    const newTheme =
-      themeMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
-    await AsyncStorage.setItem(storageKeys.theme, newTheme);
-    setThemeMode(newTheme);
+  const toggleTheme = async () => {
+    const newThemeMode = themeMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
+    await AsyncStorage.setItem(storageKeys.theme, newThemeMode);
+    changeTheme(newThemeMode);
   };
 
   return {
     theme: getTheme[themeMode],
     themeMode,
-    changeTheme,
+    toggleTheme,
   };
 };
 

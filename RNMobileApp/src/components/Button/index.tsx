@@ -1,22 +1,18 @@
 // React and React Native
 import React, { FunctionComponent, SVGAttributes } from 'react';
-import {
-  StyleProp,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
+
+// Theme
+import { Theme } from '@theme';
 
 // Components
 import { Label } from '../Label';
 
-// Hooks
-import useTheme from '../../hooks/theme/useTheme';
-
 // External Libs
 import { Icon } from 'react-native-paper';
-import { DefaultTheme } from 'styled-components/native';
+
+// Hooks
+import useTheme from '../../hooks/theme/useTheme';
 
 export type ButtonProps = {
   backgroundColor?: string;
@@ -58,21 +54,16 @@ const Button = ({
     getButtonBackgroundColor(),
     hasBorder,
     isDisabled ? 'transparent' : borderColor ?? 'transparent',
-    !!leftIcon,
+    !!leftIcon
   );
 
   return (
-    <TouchableOpacity
-      style={[styles.button, style]}
-      disabled={isDisabled}
-      onPress={onPressButton}>
+    <TouchableOpacity style={[styles.button, style]} disabled={isDisabled} onPress={onPressButton}>
       <View style={styles.container}>
         {leftIcon && <Icon source={leftIcon} size={20} />}
         <Label
           style={styles.label}
-          color={
-            isDisabled ? theme.colors.white : textColor ?? theme.colors.white
-          }
+          color={isDisabled ? theme.colors.white : textColor ?? theme.colors.white}
           text={text}
         />
       </View>
@@ -83,11 +74,11 @@ const Button = ({
 export default Button;
 
 const getStyles = (
-  theme: DefaultTheme,
+  theme: Theme,
   backgroundColor: string,
   hasBorder: boolean,
   borderColor: string,
-  hasLeftIcon: boolean,
+  hasLeftIcon: boolean
 ) =>
   StyleSheet.create({
     button: {
