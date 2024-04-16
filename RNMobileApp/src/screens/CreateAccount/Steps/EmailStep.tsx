@@ -1,11 +1,12 @@
 // React and React Native
 import React from 'react';
+import { View } from 'react-native';
+
+// Styles
+import { styles } from './styles';
 
 // Components
 import { Input } from '@components';
-
-// Styles
-import { InputsContainer } from '../styles';
 
 // External Libs
 import * as yup from 'yup';
@@ -14,14 +15,11 @@ import { Control, Controller } from 'react-hook-form';
 
 export const EmailStep = ({ control }: { control: Control }) => {
   const emailSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email(t('login_page.invalid_email_format'))
-      .required(t('login_page.required_email')),
+    email: yup.string().email(t('login_page.invalid_email_format')).required(t('login_page.required_email')),
   });
 
   return (
-    <InputsContainer>
+    <View style={styles.inputs}>
       <Controller
         name="email"
         control={control}
@@ -40,11 +38,10 @@ export const EmailStep = ({ control }: { control: Control }) => {
           />
         )}
         rules={{
-          validate: value =>
-            emailSchema.validate({ email: value }).catch(err => err.errors[0]),
+          validate: (value) => emailSchema.validate({ email: value }).catch((err) => err.errors[0]),
         }}
       />
-    </InputsContainer>
+    </View>
   );
 };
 

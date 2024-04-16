@@ -1,8 +1,9 @@
 // React and React Native
 import React from 'react';
+import { View } from 'react-native';
 
 // Styles
-import { InputsContainer } from '../styles';
+import { styles } from './styles';
 
 // Components
 import { CalendarPicker } from '@components';
@@ -14,14 +15,11 @@ import { Control, Controller } from 'react-hook-form';
 
 export const DobStep = ({ control }: { control: Control }) => {
   const schema = yup.object().shape({
-    dob: yup
-      .date()
-      .max(new Date(), t('signup_page.dob.future.date.error'))
-      .required(t('signup_page.dob.required')),
+    dob: yup.date().max(new Date(), t('signup_page.dob.future.date.error')).required(t('signup_page.dob.required')),
   });
 
   return (
-    <InputsContainer>
+    <View style={styles.inputs}>
       <Controller
         name="dob"
         control={control}
@@ -36,11 +34,10 @@ export const DobStep = ({ control }: { control: Control }) => {
           </>
         )}
         rules={{
-          validate: value =>
-            schema.validate({ dob: value }).catch(err => err.errors[0]),
+          validate: (value) => schema.validate({ dob: value }).catch((err) => err.errors[0]),
         }}
       />
-    </InputsContainer>
+    </View>
   );
 };
 

@@ -1,11 +1,12 @@
 // React and React Native
 import React from 'react';
+import { View } from 'react-native';
+
+// Styles
+import { styles } from './styles';
 
 // Components
 import { Input } from '@components';
-
-// Styles
-import { InputsContainer } from '../styles';
 
 // External Libs
 import * as yup from 'yup';
@@ -18,7 +19,7 @@ export const ContactStep = ({ control }: { control: Control }) => {
   });
 
   return (
-    <InputsContainer>
+    <View style={styles.inputs}>
       <Controller
         name="contact"
         control={control}
@@ -36,11 +37,10 @@ export const ContactStep = ({ control }: { control: Control }) => {
           />
         )}
         rules={{
-          validate: value =>
-            schema.validate({ contact: value }).catch(err => err.errors[0]),
+          validate: (value) => schema.validate({ contact: value }).catch((err) => err.errors[0]),
         }}
       />
-    </InputsContainer>
+    </View>
   );
 };
 

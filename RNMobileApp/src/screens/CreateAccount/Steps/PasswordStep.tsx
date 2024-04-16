@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 
 // Styles
-import { InputsContainer } from '../styles';
+import { styles } from './styles';
 
 // Theme
 import useTheme from '@hooks/theme/useTheme';
@@ -28,10 +28,7 @@ const PasswordStep = ({ control }: { control: Control }) => {
       .required('Password is required')
       .min(8, 'At least 8 characters')
       .matches(/\d/, 'At least 1 number')
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])/,
-        'At least 1 lowercase and 1 uppercase',
-      )
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])/, 'At least 1 lowercase and 1 uppercase')
 
       .matches(/[!@#$%^&*?]/, 'At least 1 special character '),
   });
@@ -49,16 +46,13 @@ const PasswordStep = ({ control }: { control: Control }) => {
                 | string
                 | number
                 | boolean
-                | React.ReactElement<
-                    any,
-                    string | React.JSXElementConstructor<any>
-                  >
+                | React.ReactElement<any, string | React.JSXElementConstructor<any>>
                 | Iterable<React.ReactNode>
                 | React.ReactPortal
                 | null
                 | undefined;
             },
-            index: React.Key | null | undefined,
+            index: React.Key | null | undefined
           ) => (
             <View style={{ width: '100%', flexDirection: 'row', gap: 12 }}>
               {/* <RedCross /> */}
@@ -68,11 +62,12 @@ const PasswordStep = ({ control }: { control: Control }) => {
                   fontSize: 14,
                   color: theme.colors.disabled,
                 }}
-                key={index}>
+                key={index}
+              >
                 {error?.message}
               </Text>
             </View>
-          ),
+          )
         );
         return errors;
       }
@@ -81,7 +76,7 @@ const PasswordStep = ({ control }: { control: Control }) => {
   };
 
   return (
-    <InputsContainer>
+    <View style={styles.inputs}>
       <Controller
         name="password"
         control={control}
@@ -100,10 +95,7 @@ const PasswordStep = ({ control }: { control: Control }) => {
           />
         )}
         rules={{
-          validate: value =>
-            passwordSchema
-              .validate({ password: value })
-              .catch(err => err.errors[0]),
+          validate: (value) => passwordSchema.validate({ password: value }).catch((err) => err.errors[0]),
         }}
       />
       <Controller
@@ -118,19 +110,18 @@ const PasswordStep = ({ control }: { control: Control }) => {
             }}
             helper={{
               type: 'error',
-              message:
-                formState.errors.confirmPassword?.message?.toString() || '',
+              message: formState.errors.confirmPassword?.message?.toString() || '',
             }}
             passwordRules={isPasswordFocused && getPasswordRules(field.value)}
           />
         )}
         rules={{
-          validate: value => {
+          validate: (value) => {
             return value === passwordValue || t('passwords_do_not_match');
           },
         }}
       />
-    </InputsContainer>
+    </View>
   );
 };
 

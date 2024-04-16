@@ -1,12 +1,9 @@
 // React and React Native
 import React from 'react';
-import {
-  Pressable,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+
+// Theme
+import { Theme } from '@theme';
 
 // Assets
 import { SelectedCheckbox } from '@assets';
@@ -16,7 +13,6 @@ import useTheme from '@hooks/theme/useTheme';
 
 // External Libs
 import { Icon } from 'react-native-paper';
-import { DefaultTheme } from 'styled-components/native';
 
 type CheckboxProps = {
   bgColor?: string;
@@ -46,27 +42,20 @@ const Checkbox = ({
     reverseOrder,
     bgColor ?? theme.colors.white,
     borderWidth,
-    borderColor ?? 'transparent',
+    borderColor ?? 'transparent'
   );
 
   return (
     <View style={styles.container}>
       {isChecked ? (
-        <Pressable
-          style={[styles.activeCheckboxContainer, style]}
-          onPress={onPress}>
+        <Pressable style={[styles.activeCheckboxContainer, style]} onPress={onPress}>
           <Icon source={SelectedCheckbox} size={9} color={theme.colors.white} />
         </Pressable>
       ) : (
-        <Pressable
-          style={[styles.checkboxContainer, style]}
-          onPress={onPress}
-        />
+        <Pressable style={[styles.checkboxContainer, style]} onPress={onPress} />
       )}
       {rightElement && (
-        <Pressable
-          style={[styles.rightElementContainer, style]}
-          onPress={onPress}>
+        <Pressable style={[styles.rightElementContainer, style]} onPress={onPress}>
           {rightElement}
         </Pressable>
       )}
@@ -76,13 +65,7 @@ const Checkbox = ({
 
 export default Checkbox;
 
-const getStyles = (
-  theme: DefaultTheme,
-  reverseOrder: boolean,
-  bgColor: string,
-  borderWidth: number,
-  borderColor: string,
-) =>
+const getStyles = (theme: Theme, reverseOrder: boolean, bgColor: string, borderWidth: number, borderColor: string) =>
   StyleSheet.create({
     container: {
       flexDirection: reverseOrder ? 'row-reverse' : 'row',

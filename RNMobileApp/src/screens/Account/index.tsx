@@ -1,19 +1,9 @@
 // React and React Native
 import React, { useState, useEffect, useCallback } from 'react';
-import { Alert } from 'react-native';
+import { Alert, Image, StyleSheet, View } from 'react-native';
 
-// Styles
-import {
-  Container,
-  DetailsContainer,
-  EmailLabel,
-  Header,
-  LogoutButton,
-  NameLabel,
-  ProfileImage,
-  SettingsCard,
-  Title,
-} from './styles';
+// Theme
+import { Theme } from '@theme';
 
 // External Libs
 import { Icon } from 'react-native-paper';
@@ -21,17 +11,20 @@ import { Icon } from 'react-native-paper';
 // Utils
 import { supabase } from '@utils/supabase';
 
-// Assets
-import { Logout, NotificationsHeader } from '@assets';
-
-// Components
-import { ProfileDetailCard } from '@components';
+// Hooks
+import useTheme from '@hooks/theme/useTheme';
 
 // External Libs
 import { Session } from '@supabase/supabase-js';
 
+// Assets
+import { Logout, NotificationsHeader } from '@assets';
+
 // Data
 import { profileButtons, profileDetailsData } from './data';
+
+// Components
+import { Button, ButtonCard, Label, ProfileDetailCard } from '@components';
 
 const Account = ({ session }: { session?: Session }) => {
   const [loading, setLoading] = useState(true);
@@ -39,6 +32,10 @@ const Account = ({ session }: { session?: Session }) => {
   const [fullname, setFullname] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [password, setPassword] = useState('');
+
+  const { theme } = useTheme();
+
+  const styles = getStyles(theme);
 
   const getProfile = useCallback(
     async function getProfile() {
@@ -70,7 +67,7 @@ const Account = ({ session }: { session?: Session }) => {
         setLoading(false);
       }
     },
-    [session?.user],
+    [session?.user]
   );
 
   useEffect(() => {
@@ -124,28 +121,49 @@ const Account = ({ session }: { session?: Session }) => {
   }
 
   return (
-    <Container>
-      <Header>
-        <Title text="profile.title" />
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Label text="profile.title" type="h2" color={theme.colors.neutral200} />
         <Icon source={NotificationsHeader} size={20} />
-      </Header>
-      <ProfileImage
+      </View>
+      <Image
         source={{
           uri: 'https://vanderluiz.com.br/wp-content/uploads/2017/08/Fundo-amarelo.jpg',
         }}
+        style={styles.profileImage}
       />
-      <NameLabel text={'Bernardo'} />
-      <EmailLabel text={'bernardo123@hotmail.com'} />
-      <DetailsContainer>
-        {profileDetailsData.map(item => (
+      <Label
+        text={'Bernardo'}
+        type="h4"
+        color={theme.colors.neutral300}
+        semibold
+        textAlign="center"
+        style={styles.name}
+      />
+      <Label
+        text={'bernardo123@hotmail.com'}
+        type="footnote"
+        color={theme.colors.neutral300}
+        textAlign="center"
+        style={styles.email}
+      />
+      <View style={styles.detailsContainer}>
+        {profileDetailsData.map((item) => (
           <ProfileDetailCard {...item} />
         ))}
-      </DetailsContainer>
-      {profileButtons.map(item => (
-        <SettingsCard {...item} />
+      </View>
+      {profileButtons.map((item, index) => (
+        <ButtonCard key={index} {...item} style={styles.settingsCard} />
       ))}
-      <LogoutButton text="profile.logout_button" leftIcon={Logout} />
-    </Container>
+      <Button
+        text="profile.logout_button"
+        leftIcon={Logout}
+        hasBorder
+        borderColor={theme.colors.disabled}
+        textColor={theme.colors.disabled}
+        style={styles.logoutButton}
+      />
+    </View>
     // <View style={styles.container}>
     //   <View style={[styles.verticallySpaced, styles.mt20]}>
     //     <Input
@@ -205,3 +223,44 @@ const Account = ({ session }: { session?: Session }) => {
 };
 
 export default Account;
+
+const getStyles = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 16,
+      backgroundColor: theme.colors.background,
+    },
+    header: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: 16,
+      marginBottom: 24,
+    },
+    detailsContainer: {
+      flexDirection: 'row',
+      gap: 8,
+      justifyContent: 'center',
+    },
+    settingsCard: {
+      marginTop: 18,
+    },
+    profileImage: {
+      alignSelf: 'center',
+      marginBottom: 16,
+      borderRadius: 62,
+      width: 124,
+      height: 124,
+    },
+    name: {
+      marginBottom: 8,
+    },
+    email: {
+      marginBottom: 32,
+    },
+    logoutButton: {
+      marginTop: 18,
+      marginBottom: 28,
+    },
+  });

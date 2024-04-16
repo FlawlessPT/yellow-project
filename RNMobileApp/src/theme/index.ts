@@ -1,33 +1,30 @@
-// Styled Components
-import { DefaultTheme } from 'styled-components/native';
-
 export enum ThemeMode {
   LIGHT = 'light',
   DARK = 'dark',
 }
 
-declare module 'styled-components/native' {
-  export type DefaultTheme = {
-    colors: {
-      primary: string;
-      red: string;
-      green: string;
-      white: string;
-      black: string;
-      disabled: string;
-      outline: string;
-      neutral800: string;
-      neutral700: string;
-      neutral200: string;
-      neutral300: string;
-      neutral400: string;
-      neutral900: string;
-      background: string;
-      border: string;
-    };
-    fonts: { regular: string; medium: string; semibold: string; bold: string };
+export type Theme = {
+  colors: {
+    primary: string;
+    secondary: string;
+    red: string;
+    green: string;
+    white: string;
+    black: string;
+    disabled: string;
+    outline: string;
+    neutral800: string;
+    neutral700: string;
+    neutral200: string;
+    neutral300: string;
+    neutral400: string;
+    neutral900: string;
+    background: string;
+    border: string;
+    icon: string;
   };
-}
+  fonts: { regular: string; medium: string; semibold: string; bold: string };
+};
 
 const fonts = {
   regular: 'Poppins-Regular',
@@ -36,9 +33,10 @@ const fonts = {
   bold: 'Poppins-Bold',
 };
 
-export const lightTheme: DefaultTheme = {
+export const lightTheme: Theme = {
   colors: {
     primary: '#FDCA00',
+    secondary: '#E4B600',
     red: '#EA2A2A',
     green: '#0FA456',
     white: '#FFFFFF',
@@ -53,13 +51,15 @@ export const lightTheme: DefaultTheme = {
     neutral900: '#161617',
     background: '#161617',
     border: '#2A2A2C',
+    icon: '#595959',
   },
   fonts,
 };
 
-export const darkTheme: DefaultTheme = {
+export const darkTheme: Theme = {
   colors: {
     primary: '#FDCA00',
+    secondary: '#E4B600',
     red: '#EA2A2A',
     green: '#0FA456',
     white: '#FFFFFF',
@@ -74,6 +74,12 @@ export const darkTheme: DefaultTheme = {
     neutral900: '#161617',
     background: '#161617',
     border: '#2A2A2C',
+    icon: '#595959',
   },
   fonts,
+};
+
+export const themes = {
+  light: lightTheme,
+  dark: darkTheme,
 };

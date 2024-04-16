@@ -1,11 +1,12 @@
 // React and React Native
 import React from 'react';
+import { View } from 'react-native';
+
+// Styles
+import { styles } from './styles';
 
 // Components
 import { Input } from '@components';
-
-// Styles
-import { InputsContainer } from '../styles';
 
 // External Libs
 import * as yup from 'yup';
@@ -21,7 +22,7 @@ export const NameStep = ({ control }: { control: Control }) => {
   });
 
   return (
-    <InputsContainer>
+    <View style={styles.inputs}>
       <Controller
         name="firstName"
         control={control}
@@ -39,10 +40,7 @@ export const NameStep = ({ control }: { control: Control }) => {
           />
         )}
         rules={{
-          validate: value =>
-            firstNameSchema
-              .validate({ firstName: value })
-              .catch(err => err.errors[0]),
+          validate: (value) => firstNameSchema.validate({ firstName: value }).catch((err) => err.errors[0]),
         }}
       />
       <Controller
@@ -62,13 +60,10 @@ export const NameStep = ({ control }: { control: Control }) => {
           />
         )}
         rules={{
-          validate: value =>
-            lastNameSchema
-              .validate({ lastName: value })
-              .catch(err => err.errors[0]),
+          validate: (value) => lastNameSchema.validate({ lastName: value }).catch((err) => err.errors[0]),
         }}
       />
-    </InputsContainer>
+    </View>
   );
 };
 

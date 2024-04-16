@@ -1,12 +1,9 @@
 // React and React Native
 import React from 'react';
-import {
-  StyleProp,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
+
+// Theme
+import { Theme } from '@theme';
 
 // Components
 import { Label } from '@components';
@@ -14,12 +11,11 @@ import { Label } from '@components';
 // Assets
 import { RightArrow } from '@assets';
 
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
 // External Libs
 import { Icon } from 'react-native-paper';
-import { DefaultTheme } from 'styled-components/native';
+
+// Hooks
+import useTheme from '@hooks/theme/useTheme';
 
 type ButtonCardProps = {
   label: string;
@@ -48,7 +44,7 @@ const ButtonCard = ({ label, icon, style, onPress }: ButtonCardProps) => {
 
 export default ButtonCard;
 
-const getStyles = (theme: DefaultTheme) =>
+const getStyles = (theme: Theme) =>
   StyleSheet.create({
     card: {
       height: 64,

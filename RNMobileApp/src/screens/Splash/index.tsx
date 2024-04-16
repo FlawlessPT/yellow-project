@@ -1,18 +1,17 @@
 // React and React Native
 import React, { useEffect } from 'react';
-import { Image, StatusBar } from 'react-native';
+import { Image, ImageBackground, StatusBar, StyleSheet, View } from 'react-native';
 
 // Assets
 import { LogoImage } from '@assets';
-
-// Styles
-import { BackgroundImage, Container } from './styles';
 
 // Types
 import { AuthNavProps } from '../../navigation/AuthStack/types';
 import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
 
 const Splash = ({ navigation }: AuthNavProps<'Splash'>) => {
+  const styles = getStyles();
+
   useEffect(() => {
     setTimeout(() => {
       navigation.reset({
@@ -30,13 +29,25 @@ const Splash = ({ navigation }: AuthNavProps<'Splash'>) => {
   return (
     <>
       <StatusBar barStyle="light-content" />
-      <Container>
-        <BackgroundImage source={LogoImage}>
+      <View style={styles.container}>
+        <ImageBackground source={LogoImage} style={styles.background}>
           <Image source={LogoImage} />
-        </BackgroundImage>
-      </Container>
+        </ImageBackground>
+      </View>
     </>
   );
 };
 
 export default Splash;
+
+const getStyles = () =>
+  StyleSheet.create({
+    background: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    container: {
+      flex: 1,
+    },
+  });
