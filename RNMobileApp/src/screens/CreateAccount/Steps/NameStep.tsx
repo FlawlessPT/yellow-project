@@ -22,7 +22,7 @@ export const NameStep = ({ control }: { control: Control }) => {
   });
 
   return (
-    <View style={styles.inputs}>
+    <View>
       <Controller
         name="firstName"
         control={control}
@@ -37,6 +37,7 @@ export const NameStep = ({ control }: { control: Control }) => {
                 message: fieldState.error.message || '',
               }
             }
+            style={styles.input}
           />
         )}
         rules={{
@@ -57,6 +58,7 @@ export const NameStep = ({ control }: { control: Control }) => {
                 message: fieldState.error.message || '',
               }
             }
+            style={styles.input}
           />
         )}
         rules={{

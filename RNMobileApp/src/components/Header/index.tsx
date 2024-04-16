@@ -21,12 +21,7 @@ export type HeaderProps = {
   onPressChevron?: () => void;
 };
 
-export const Header = ({
-  hasBack,
-  title,
-  rightItem,
-  onPressChevron,
-}: HeaderProps) => {
+export const Header = ({ hasBack, title, rightItem, onPressChevron }: HeaderProps) => {
   const { theme } = useTheme();
 
   const styles = getStyles();
@@ -34,21 +29,12 @@ export const Header = ({
   return (
     <View style={styles.container}>
       {hasBack && (
-        <TouchableOpacity
-          style={styles.chevronContainer}
-          onPress={onPressChevron}>
+        <TouchableOpacity style={styles.chevronContainer} onPress={onPressChevron}>
           <Icon size={24} source={Back} />
         </TouchableOpacity>
       )}
       <View style={styles.contentContainer}>
-        {title && (
-          <Label
-            type="h5"
-            text={title}
-            color={theme.colors.neutral400}
-            textAlign="center"
-          />
-        )}
+        {title && <Label type="h5" text={title} color={theme.colors.neutral400} textAlign="center" />}
       </View>
       {rightItem}
     </View>

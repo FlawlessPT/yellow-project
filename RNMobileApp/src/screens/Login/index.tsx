@@ -1,14 +1,9 @@
 // React and React Native
 import React, { useEffect, useState } from 'react';
-import {
-  Alert,
-  Keyboard,
-  Platform,
-  TouchableWithoutFeedback,
-  KeyboardAvoidingView,
-  View,
-  StyleSheet,
-} from 'react-native';
+import { Alert, Keyboard, Platform, KeyboardAvoidingView, View, StyleSheet } from 'react-native';
+
+// Theme
+import { Theme } from '@theme';
 
 // Utils
 import { supabase } from '@utils/supabase';
@@ -37,7 +32,7 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
 
   const { theme } = useTheme();
 
-  const styles = getStyles();
+  const styles = getStyles(theme);
 
   const [isAccountNotConfirmedModalModalVisible, setAccountNotConfirmedModalModalVisible] = useState(false);
 
@@ -49,10 +44,10 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
     setAccountNotConfirmedModalModalVisible(!isAccountNotConfirmedModalModalVisible);
   };
 
-  async function signInWithEmail(email: string, password: string) {
+  async function signInWithEmail(newEmail: string, newPassword: string) {
     const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
+      email: newEmail,
+      password: newPassword,
     });
 
     if (error) {
@@ -107,11 +102,11 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
             password: data.password,
           })
         );
-      } catch (error) {}
+      } catch {}
     } else {
       try {
         await EncryptedStorage.removeItem('user_credentials');
-      } catch (error) {}
+      } catch {}
     }
   };
 
@@ -141,72 +136,70 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
 
   return (
     <View style={styles.container}>
-      {!loading && (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.mainContainer}>
-              <View style={styles.contentContainer}>
-                <Label text="login_page.title" type="h3" bold />
-                <View>
-                  <FormInput
-                    control={control}
-                    controllerName="email"
-                    label="login_page.email"
-                    keyboardType="email-address"
-                    helper={
-                      formState.errors.email?.message
-                        ? {
-                            type: 'error',
-                            message: formState.errors.email?.message?.toString(),
-                          }
-                        : undefined
-                    }
-                  />
-                  <FormInput
-                    control={control}
-                    controllerName="password"
-                    label="login_page.password"
-                    secureTextEntry
-                    helper={
-                      formState.errors.password?.message
-                        ? {
-                            type: 'error',
-                            message: formState.errors.password?.message?.toString(),
-                          }
-                        : undefined
-                    }
-                  />
-                  <LabelButton
-                    text="login_page.forgot_password"
-                    color={theme.colors.primary}
-                    bold
-                    type="body"
-                    onPress={() => Alert.alert('To be implemented')}
-                    style={styles.forgotPassword}
-                  />
-                  <Button text="Login" onPressButton={handleSubmit(onSubmit)} style={styles.signIn} />
-                </View>
-                <LabelButton
-                  text="login_page.signup"
-                  color={theme.colors.primary}
-                  onPress={() => navigation.navigate('CreateAccount')}
-                  style={styles.signUp}
-                />
-              </View>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
+        <View style={styles.mainContainer}>
+          <View style={styles.contentContainer}>
+            <Label text="login_page.title" type="h3" bold color={theme.colors.white} />
+            <View style={styles.inputContainer}>
+              <FormInput
+                control={control}
+                controllerName="email"
+                label="login_page.email"
+                keyboardType="email-address"
+                helper={
+                  formState.errors.email?.message
+                    ? {
+                        type: 'error',
+                        message: formState.errors.email?.message?.toString(),
+                      }
+                    : undefined
+                }
+              />
+              <FormInput
+                control={control}
+                controllerName="password"
+                label="login_page.password"
+                secureTextEntry
+                helper={
+                  formState.errors.password?.message
+                    ? {
+                        type: 'error',
+                        message: formState.errors.password?.message?.toString(),
+                      }
+                    : undefined
+                }
+              />
+              <LabelButton
+                text="login_page.forgot_password"
+                color={theme.colors.primary}
+                bold
+                type="body"
+                onPress={() => Alert.alert('To be implemented')}
+                style={styles.forgotPassword}
+              />
+              <Button text="Login" onPressButton={handleSubmit(onSubmit)} style={styles.signIn} />
             </View>
-          </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-      )}
+            <LabelButton
+              text="login_page.signup"
+              bold
+              color={theme.colors.primary}
+              onPress={() => navigation.navigate('CreateAccount')}
+              style={styles.signUp}
+            />
+          </View>
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };
 
 export default Login;
 
-const getStyles = () =>
+const getStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: theme.colors.background,
     },
     mainContainer: {
       flex: 1,
@@ -225,5 +218,8 @@ const getStyles = () =>
     },
     signIn: {
       marginTop: 30,
+    },
+    inputContainer: {
+      gap: 10,
     },
   });

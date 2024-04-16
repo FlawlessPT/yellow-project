@@ -2,9 +2,9 @@
 import React from 'react';
 
 // Screens
-import Splash from '@screens/Splash';
 import Login from '@screens/Login';
-import { Tutorial } from '@screens/Tutorial';
+import Splash from '@screens/Splash';
+import Tutorial from '@screens/Tutorial';
 import CreateAccount from '@screens/CreateAccount';
 
 // Navigation

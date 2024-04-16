@@ -19,6 +19,10 @@ export default function AppStack(): JSX.Element {
   const Tab = createBottomTabNavigator();
   const { theme } = useTheme();
 
+  const renderIcon = (icon: string, focused: boolean) => {
+    return <Icon name={icon} size={20} color={focused ? theme.colors.primary : theme.colors.icon} />;
+  };
+
   return (
     <Tab.Navigator
       id={RootStackEnum.APP}
@@ -39,27 +43,28 @@ export default function AppStack(): JSX.Element {
         name="Home"
         component={Home}
         options={{
-          tabBarIcon: ({ focused }) => (
-            <Icon name="house" size={20} color={focused ? theme.colors.primary : theme.colors.icon} />
-          ),
+          tabBarIcon: ({ focused }) => renderIcon('house', focused),
         }}
       />
       <Tab.Screen
         name="Workout"
         component={Account}
         options={{
-          tabBarIcon: ({ focused }) => (
-            <Icon name="dumbbell" size={20} color={focused ? theme.colors.primary : theme.colors.icon} />
-          ),
+          tabBarIcon: ({ focused }) => renderIcon('dumbbell', focused),
         }}
       />
       <Tab.Screen
         name="Food"
         component={Account}
         options={{
-          tabBarIcon: ({ focused }) => (
-            <Icon name="utensils" size={20} color={focused ? theme.colors.primary : theme.colors.icon} />
-          ),
+          tabBarIcon: ({ focused }) => renderIcon('utensils', focused),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={Account}
+        options={{
+          tabBarIcon: ({ focused }) => renderIcon('gear', focused),
         }}
       />
     </Tab.Navigator>
