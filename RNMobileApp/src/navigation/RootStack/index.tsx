@@ -20,8 +20,9 @@ export default function RootStack(): JSX.Element {
       <StatusBar barStyle="light-content" />
       <Stack.Navigator
         id={RootStackEnum.APP}
-        initialRouteName={RootStackEnum.APP}
-        screenOptions={defaultScreenOptions}>
+        initialRouteName={RootStackEnum.AUTH}
+        screenOptions={defaultScreenOptions}
+      >
         <Stack.Screen name={RootStackEnum.AUTH} component={AuthStack} />
         <Stack.Screen name={RootStackEnum.APP} component={AppStack} />
       </Stack.Navigator>

@@ -19,7 +19,7 @@ const Splash = ({ navigation }: AuthNavProps<'Splash'>) => {
         routes: [
           {
             name: RootStackEnum.AUTH as never,
-            params: { screen: AuthStackEnum.LOGIN },
+            params: { screen: AuthStackEnum.TUTORIAL },
           },
         ],
       });
