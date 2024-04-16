@@ -7,7 +7,7 @@ import { TutorialCarousel } from '@components/TutorialCarousel';
 // Assets
 import { OnBoarding1, OnBoarding2, OnBoarding3 } from '@assets';
 
-export const Tutorial = function Tutorial() {
+const Tutorial = () => {
   return (
     <TutorialCarousel
       data={[
@@ -18,3 +18,5 @@ export const Tutorial = function Tutorial() {
     />
   );
 };
+
+export default Tutorial;

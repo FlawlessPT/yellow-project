@@ -6,14 +6,9 @@ import { TextInputProps } from 'react-native';
 import Input, { InputProps } from '..';
 
 /* External Libs */
-import { TextInput } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome6';
 
-const PasswordInput = ({
-  label,
-  helper,
-  style,
-  onChangeText,
-}: InputProps & TextInputProps) => {
+const PasswordInput = ({ label, helper, style, onChangeText }: InputProps & TextInputProps) => {
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   return (
@@ -25,10 +20,7 @@ const PasswordInput = ({
       onChangeText={onChangeText}
       secureTextEntry={!passwordVisible}
       rightItem={
-        <TextInput.Icon
-          icon={passwordVisible ? 'eye-off-outline' : 'eye-outline'}
-          onPress={() => setPasswordVisible(!passwordVisible)}
-        />
+        <Icon onPress={() => setPasswordVisible(!passwordVisible)} name={passwordVisible ? 'eye-slash' : 'eye'} />
       }
     />
   );

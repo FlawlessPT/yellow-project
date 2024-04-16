@@ -26,20 +26,10 @@ export type InputProps = {
   helper?: { type: HelperType; message: string };
 } & TextInputProps;
 
-export const Input = ({
-  label,
-  textColor,
-  leftItem,
-  rightItem,
-  disabled,
-  helper,
-  ...props
-}: InputProps) => {
+export const Input = ({ label, textColor, leftItem, rightItem, disabled, helper, ...props }: InputProps) => {
   const { theme } = useTheme();
 
-  const styles = getStyles(
-    disabled ? theme.colors.disabled : theme.colors.white,
-  );
+  const styles = getStyles(disabled ? theme.colors.disabled : theme.colors.white);
 
   const outlinedColor =
     helper?.type === 'error'
@@ -55,33 +45,25 @@ export const Input = ({
       <TextInput
         mode="outlined"
         disabled={disabled}
-        label={
-          <Label
-            text={label}
-            semibold
-            color={textColor || theme.colors.outline}
-          />
-        }
+        label={<Label text={label} semibold color={textColor || theme.colors.outline} />}
         outlineColor={outlinedColor}
         activeOutlineColor={theme.colors.primary}
         left={leftItem}
         right={rightItem}
         allowFontScaling={false}
-        selectionColor={theme.colors.primary}
         caretHidden={false}
         outlineStyle={styles.outline}
+        style={styles.input}
         {...props}
       />
-      {helper && (
+      {helper?.message && (
         <View style={styles.helperContainer}>
           <Icon source={helper.type === 'error' ? Error : Success} size={14} />
           <Label
             text={helper.message}
             semibold
             type="footnote"
-            color={
-              helper.type === 'error' ? theme.colors.red : theme.colors.green
-            }
+            color={helper.type === 'error' ? theme.colors.red : theme.colors.green}
             style={styles.helperLabel}
           />
         </View>

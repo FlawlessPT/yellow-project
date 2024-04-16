@@ -2,9 +2,6 @@
 import React from 'react';
 import { View } from 'react-native';
 
-// Styles
-import { styles } from './styles';
-
 // Components
 import { CalendarPicker } from '@components';
 
@@ -19,7 +16,7 @@ export const DobStep = ({ control }: { control: Control }) => {
   });
 
   return (
-    <View style={styles.inputs}>
+    <View>
       <Controller
         name="dob"
         control={control}

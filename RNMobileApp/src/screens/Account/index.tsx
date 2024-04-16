@@ -1,6 +1,6 @@
 // React and React Native
 import React, { useState, useEffect, useCallback } from 'react';
-import { Alert, Image, StyleSheet, View } from 'react-native';
+import { Alert, Image, ScrollView, StyleSheet, View } from 'react-native';
 
 // Theme
 import { Theme } from '@theme';
@@ -121,7 +121,7 @@ const Account = ({ session }: { session?: Session }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} bounces={false}>
       <View style={styles.header}>
         <Label text="profile.title" type="h2" color={theme.colors.neutral200} />
         <Icon source={NotificationsHeader} size={20} />
@@ -148,8 +148,8 @@ const Account = ({ session }: { session?: Session }) => {
         style={styles.email}
       />
       <View style={styles.detailsContainer}>
-        {profileDetailsData.map((item) => (
-          <ProfileDetailCard {...item} />
+        {profileDetailsData.map((item, index) => (
+          <ProfileDetailCard key={index} {...item} />
         ))}
       </View>
       {profileButtons.map((item, index) => (
@@ -163,62 +163,7 @@ const Account = ({ session }: { session?: Session }) => {
         textColor={theme.colors.disabled}
         style={styles.logoutButton}
       />
-    </View>
-    // <View style={styles.container}>
-    //   <View style={[styles.verticallySpaced, styles.mt20]}>
-    //     <Input
-    //       label={'common.email_label'}
-    //       value={session?.user?.email}
-    //       disabled
-    //     />
-    //   </View>
-    //   <View style={styles.verticallySpaced}>
-    //     <Input
-    //       label={'common.username_label'}
-    //       value={username || ''}
-    //       onChangeText={text => setUsername(text)}
-    //     />
-    //   </View>
-    //   <View style={styles.verticallySpaced}>
-    //     <Input
-    //       label={'common.fullname_label'}
-    //       value={fullname || ''}
-    //       onChangeText={text => setFullname(text)}
-    //     />
-    //   </View>
-    //   <View style={styles.verticallySpaced}>
-    //     <Input
-    //       label={'common.password_label'}
-    //       leftIcon={{ type: 'font-awesome', name: 'lock' }}
-    //       onChangeText={text => setPassword(text)}
-    //       value={password}
-    //       secureTextEntry={true}
-    //       placeholder={'common.password_label'}
-    //       autoCapitalize={'none'}
-    //     />
-    //   </View>
-
-    //   <View style={[styles.verticallySpaced, styles.mt20]}>
-    //     <Button
-    //       title={loading ? 'Loading ...' : 'common.update'}
-    //       onPress={() => {
-    //         updateProfile({
-    //           newUsername: username,
-    //           newFullname: fullname,
-    //           avatar_url: avatarUrl,
-    //           newPassword: password,
-    //         });
-    //       }}
-    //       disabled={loading}
-    //     />
-    //   </View>
-    //   <View style={styles.verticallySpaced}>
-    //     <Button
-    //       title={'auth.sign_out'}
-    //       onPress={() => supabase.auth.signOut()}
-    //     />
-    //   </View>
-    // </View>
+    </ScrollView>
   );
 };
 
@@ -235,7 +180,7 @@ const getStyles = (theme: Theme) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginTop: 16,
+      marginTop: 30,
       marginBottom: 24,
     },
     detailsContainer: {

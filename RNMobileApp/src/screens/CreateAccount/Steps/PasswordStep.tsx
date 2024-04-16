@@ -76,7 +76,7 @@ const PasswordStep = ({ control }: { control: Control }) => {
   };
 
   return (
-    <View style={styles.inputs}>
+    <View>
       <Controller
         name="password"
         control={control}
@@ -92,6 +92,7 @@ const PasswordStep = ({ control }: { control: Control }) => {
               message: formState.errors.password?.message?.toString() || '',
             }}
             passwordRules={isPasswordFocused && getPasswordRules(field.value)}
+            style={styles.input}
           />
         )}
         rules={{
@@ -113,6 +114,7 @@ const PasswordStep = ({ control }: { control: Control }) => {
               message: formState.errors.confirmPassword?.message?.toString() || '',
             }}
             passwordRules={isPasswordFocused && getPasswordRules(field.value)}
+            style={styles.input}
           />
         )}
         rules={{

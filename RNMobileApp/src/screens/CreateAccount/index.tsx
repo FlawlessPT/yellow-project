@@ -107,12 +107,10 @@ const CreateAccount = () => {
           <View style={styles.contentContainer}>{renderSteps(currentStep)}</View>
         </TouchableWithoutFeedback>
       </KeyboardAwareScrollView>
-      <View style={styles.footer}>
-        <Button
-          text={currentStep === 4 ? 'signup_page.create_account.button' : 'common.next'}
-          onPressButton={handleSubmit(onSubmit)}
-        />
-      </View>
+      <Button
+        text={currentStep === 4 ? 'signup_page.create_account.button' : 'common.next'}
+        onPressButton={handleSubmit(onSubmit)}
+      />
     </View>
   );
 };
@@ -125,12 +123,9 @@ const getStyles = (theme: Theme) =>
       flex: 1,
       backgroundColor: theme.colors.neutral900,
       paddingHorizontal: 20,
-      paddingVertical: 40,
+      paddingVertical: 50,
     },
     contentContainer: {
       paddingTop: 8,
-    },
-    footer: {
-      gap: 32,
     },
   });
