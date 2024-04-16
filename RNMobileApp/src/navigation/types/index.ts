@@ -8,6 +8,7 @@ enum RootStackEnum {
 
 enum AuthStackEnum {
   SPLASH = 'Splash',
+  TUTORIAL = 'Tutorial',
   LOGIN = 'Login',
   CREATE_ACCOUNT = 'CreateAccount',
 }

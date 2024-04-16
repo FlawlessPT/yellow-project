@@ -4,6 +4,7 @@ import React from 'react';
 // Screens
 import Splash from '@screens/Splash';
 import Login from '@screens/Login';
+import { Tutorial } from '@screens/Tutorial';
 import CreateAccount from '@screens/CreateAccount';
 
 // Navigation
@@ -20,13 +21,12 @@ export default function AuthStack(): JSX.Element {
     <Stack.Navigator
       id={RootStackEnum.AUTH}
       initialRouteName={AuthStackEnum.SPLASH}
-      screenOptions={defaultScreenOptions}>
+      screenOptions={defaultScreenOptions}
+    >
       <Stack.Screen name={AuthStackEnum.SPLASH} component={Splash} />
+      <Stack.Screen name={AuthStackEnum.TUTORIAL} component={Tutorial} />
       <Stack.Screen name={AuthStackEnum.LOGIN} component={Login} />
-      <Stack.Screen
-        name={AuthStackEnum.CREATE_ACCOUNT}
-        component={CreateAccount}
-      />
+      <Stack.Screen name={AuthStackEnum.CREATE_ACCOUNT} component={CreateAccount} />
     </Stack.Navigator>
   );
 }

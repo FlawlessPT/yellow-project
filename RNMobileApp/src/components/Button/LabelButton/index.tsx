@@ -1,12 +1,6 @@
 // React and React Native
 import React from 'react';
-import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 // Components
 import Label from '../../Label';
@@ -48,9 +42,7 @@ const LabelButton = ({
           isUnderline={isUnderline}
           textAlign={textAlign}
         />
-        {rightIcon && (
-          <Image style={[styles.icon, styles.rightIcon]} source={rightIcon} />
-        )}
+        {rightIcon && <Image style={[styles.icon, styles.rightIcon]} source={rightIcon} />}
       </View>
     </TouchableOpacity>
   );
