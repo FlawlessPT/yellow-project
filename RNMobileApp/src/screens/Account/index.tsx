@@ -1,12 +1,9 @@
 // React and React Native
 import React, { useState, useEffect, useCallback } from 'react';
-import { Alert, Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, Image, StyleSheet, View } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// External Libs
-import { Icon } from 'react-native-paper';
+// Assets
+import { Logout } from '@assets';
 
 // Utils
 import { supabase } from '@utils/supabase';
@@ -17,14 +14,11 @@ import useTheme from '@hooks/theme/useTheme';
 // External Libs
 import { Session } from '@supabase/supabase-js';
 
-// Assets
-import { Logout, NotificationsHeader } from '@assets';
-
 // Data
 import { profileButtons, profileDetailsData } from './data';
 
 // Components
-import { Button, ButtonCard, Label, ProfileDetailCard } from '@components';
+import { Button, ButtonCard, Label, Page, ProfileDetailCard } from '@components';
 
 const Account = ({ session }: { session?: Session }) => {
   const [loading, setLoading] = useState(true);
@@ -34,8 +28,6 @@ const Account = ({ session }: { session?: Session }) => {
   const [password, setPassword] = useState('');
 
   const { theme } = useTheme();
-
-  const styles = getStyles(theme);
 
   const getProfile = useCallback(
     async function getProfile() {
@@ -121,11 +113,7 @@ const Account = ({ session }: { session?: Session }) => {
   }
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} bounces={false}>
-      <View style={styles.header}>
-        <Label text="profile.title" type="h2" color={theme.colors.neutral200} />
-        <Icon source={NotificationsHeader} size={20} />
-      </View>
+    <Page title="profile.title">
       <Image
         source={{
           uri: 'https://vanderluiz.com.br/wp-content/uploads/2017/08/Fundo-amarelo.jpg',
@@ -163,49 +151,36 @@ const Account = ({ session }: { session?: Session }) => {
         textColor={theme.colors.disabled}
         style={styles.logoutButton}
       />
-    </ScrollView>
+    </Page>
   );
 };
 
 export default Account;
 
-const getStyles = (theme: Theme) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 16,
-      backgroundColor: theme.colors.background,
-    },
-    header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginTop: 30,
-      marginBottom: 24,
-    },
-    detailsContainer: {
-      flexDirection: 'row',
-      gap: 8,
-      justifyContent: 'center',
-    },
-    settingsCard: {
-      marginTop: 18,
-    },
-    profileImage: {
-      alignSelf: 'center',
-      marginBottom: 16,
-      borderRadius: 62,
-      width: 124,
-      height: 124,
-    },
-    name: {
-      marginBottom: 8,
-    },
-    email: {
-      marginBottom: 32,
-    },
-    logoutButton: {
-      marginTop: 18,
-      marginBottom: 28,
-    },
-  });
+const styles = StyleSheet.create({
+  detailsContainer: {
+    flexDirection: 'row',
+    gap: 8,
+    justifyContent: 'center',
+  },
+  settingsCard: {
+    marginTop: 18,
+  },
+  profileImage: {
+    alignSelf: 'center',
+    marginBottom: 16,
+    borderRadius: 62,
+    width: 124,
+    height: 124,
+  },
+  name: {
+    marginBottom: 8,
+  },
+  email: {
+    marginBottom: 32,
+  },
+  logoutButton: {
+    marginTop: 18,
+    // marginBottom: 28,
+  },
+});

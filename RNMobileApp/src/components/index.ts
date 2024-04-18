@@ -15,6 +15,7 @@ import ProfileDetailCard from './ProfileDetailCard';
 import FormInput from './FormInput';
 import Card from './Card';
 import CardItem from './CardItem';
+import Page from './Page';
 
 export {
   Button,
@@ -34,4 +35,5 @@ export {
   FormInput,
   Card,
   CardItem,
+  Page,
 };

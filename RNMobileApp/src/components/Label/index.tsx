@@ -47,7 +47,7 @@ export const Label = ({
     getTypographySpecification(type).size,
     getTypographySpecification(type).lineHeight,
     isUnderline,
-    opacity,
+    opacity
   );
 
   return (
@@ -55,7 +55,8 @@ export const Label = ({
       numberOfLines={numberOfLines}
       allowFontScaling={false}
       style={[styles.label, style]}
-      ellipsizeMode={ellipsize ? 'tail' : undefined}>
+      ellipsizeMode={ellipsize ? 'tail' : undefined}
+    >
       {text && t(text)}
       {children}
     </Text>
@@ -71,7 +72,7 @@ const getStyles = (
   fontSize: number,
   lineHeight: number,
   isUnderline: boolean,
-  opacity: number,
+  opacity: number
 ) =>
   StyleSheet.create({
     label: {
