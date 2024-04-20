@@ -15,6 +15,12 @@ enum AuthStackEnum {
 
 enum AppStackEnum {
   HOME = 'Home',
+  SETTINGS_STACK = 'SettingsStack',
+}
+
+enum SettingsStackEnum {
+  SETTINGS = 'Settings',
+  CHANGE_LANGUAGE = 'ChangeLanguage',
 }
 
 export const defaultScreenOptions = {
@@ -22,4 +28,4 @@ export const defaultScreenOptions = {
   headerShown: false,
 };
 
-export { RootStackEnum, AuthStackEnum, AppStackEnum };
+export { RootStackEnum, AuthStackEnum, AppStackEnum, SettingsStackEnum };

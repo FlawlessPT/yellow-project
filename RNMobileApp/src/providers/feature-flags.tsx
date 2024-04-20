@@ -20,12 +20,7 @@ const FeatureFlagsContext = createContext<{
   signedInUser?: SignedInUserType;
 }>({ featureFlags: [] });
 
-export const FeatureFlagsContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-  refreshInMsc?: number;
-}) => {
+export const FeatureFlagsContextProvider = ({ children }: { children: React.ReactNode; refreshInMsc?: number }) => {
   const [featureFlags, setFeatureFlags] = useState<FeatureFlagType[]>([]);
   const [signedInUser, setSignedInUser] = useState<SignedInUserType>();
 
@@ -36,11 +31,7 @@ export const FeatureFlagsContextProvider = ({
         user = {
           id: session.user.id,
         };
-        const { data } = await supabase
-          .from('profiles')
-          .select('id, roles')
-          .match({ id: session.user.id })
-          .single();
+        const { data } = await supabase.from('profiles').select('id, roles').match({ id: session.user.id }).single();
 
         if (data) {
           user.roles = data.roles;
@@ -61,18 +52,16 @@ export const FeatureFlagsContextProvider = ({
 
   useEffect(() => {
     const fetchFeatureFlags = async () => {
-      const { data } = await supabase
-        .from('feature_flags')
-        .select('key, users_ids, active, roles');
+      const { data } = await supabase.from('feature_flags').select('key, users_ids, active, roles');
 
       if (data) {
         setFeatureFlags(
-          data.map(f => ({
+          data.map((f) => ({
             key: f.key,
             active: f.active,
             users: f.users_ids,
             roles: f.roles,
-          })),
+          }))
         );
       }
     };
@@ -82,36 +71,23 @@ export const FeatureFlagsContextProvider = ({
     setInterval(fetchFeatureFlags, DEFAULT_REFRESH_FEATURE_FLAGS_IN_MS);
   }, []);
 
-  return (
-    <FeatureFlagsContext.Provider value={{ featureFlags, signedInUser }}>
-      {children}
-    </FeatureFlagsContext.Provider>
-  );
+  return <FeatureFlagsContext.Provider value={{ featureFlags, signedInUser }}>{children}</FeatureFlagsContext.Provider>;
 };
 
-export const useFeatureFlag = ({
-  featureFlagKey,
-}: {
-  featureFlagKey: string;
-}) => {
+export const useFeatureFlag = ({ featureFlagKey }: { featureFlagKey: string }) => {
   const { featureFlags, signedInUser } = useContext(FeatureFlagsContext);
-  const featureFlag = featureFlags.find(f => f.key === featureFlagKey);
+  const featureFlag = featureFlags.find((f) => f.key === featureFlagKey);
 
   const isForAnyUser = !featureFlag?.users?.length;
   const isForAnyRole = !featureFlag?.roles?.length;
   const isFeatureFlagForAnyone = isForAnyUser && isForAnyRole;
 
-  const isUserMatched =
-    signedInUser &&
-    (isForAnyUser || featureFlag.users?.includes(signedInUser.id));
+  const isUserMatched = signedInUser && (isForAnyUser || featureFlag.users?.includes(signedInUser.id));
   const isRolesMatched =
-    signedInUser &&
-    (isForAnyRole ||
-      featureFlag.roles?.some(r => signedInUser.roles?.includes(r)));
+    signedInUser && (isForAnyRole || featureFlag.roles?.some((r) => signedInUser.roles?.includes(r)));
   const isProfiledMatched = isUserMatched && isRolesMatched;
 
   return {
-    isActive:
-      featureFlag?.active && (isFeatureFlagForAnyone || isProfiledMatched),
+    isActive: featureFlag?.active && (isFeatureFlagForAnyone || isProfiledMatched),
   };
 };

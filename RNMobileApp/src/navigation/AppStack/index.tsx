@@ -3,7 +3,10 @@ import React from 'react';
 
 // Screens
 import Home from '@screens/Home';
-import Account from '@screens/Account';
+import Settings from '@screens/Settings';
+
+// Stacks
+import SettingsStack from './SettingsStack';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
@@ -48,21 +51,21 @@ export default function AppStack(): JSX.Element {
       />
       <Tab.Screen
         name="Workout"
-        component={Account}
+        component={Settings}
         options={{
           tabBarIcon: ({ focused }) => renderIcon('dumbbell', focused),
         }}
       />
       <Tab.Screen
         name="Food"
-        component={Account}
+        component={Settings}
         options={{
           tabBarIcon: ({ focused }) => renderIcon('utensils', focused),
         }}
       />
       <Tab.Screen
-        name="Settings"
-        component={Account}
+        name="SettingsStack"
+        component={SettingsStack}
         options={{
           tabBarIcon: ({ focused }) => renderIcon('gear', focused),
         }}

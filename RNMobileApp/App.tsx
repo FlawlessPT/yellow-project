@@ -34,7 +34,7 @@ if (Config.ONE_SIGNAL_APP_ID) {
   OneSignal.Notifications.requestPermission(true);
 
   // Method for listening for notification clicks
-  OneSignal.Notifications.addEventListener('click', event => {
+  OneSignal.Notifications.addEventListener('click', (event) => {
     console.log('OneSignal: notification clicked:', event);
   });
 }
@@ -91,7 +91,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    Linking.addEventListener('url', event => {
+    Linking.addEventListener('url', (event) => {
       const urlString = event.url.replace('#', '?');
       const url = new URL(urlString);
 
@@ -105,14 +105,11 @@ function App() {
             access_token: accessToken,
           })
           .then(() => {
-            if (
-              url.hostname === 'signin' &&
-              ['/github', '/google'].includes(url.pathname)
-            ) {
+            if (url.hostname === 'signin' && ['/github', '/google'].includes(url.pathname)) {
               WebBrowser.dismissBrowser();
             }
           })
-          .catch(err => console.log({ err }));
+          .catch((err) => console.log({ err }));
       }
     });
     return () => {
