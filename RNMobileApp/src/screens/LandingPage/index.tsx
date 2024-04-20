@@ -32,10 +32,7 @@ import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
 import { Button, Separator, SocialLoginButton } from '@components';
 
 const LandingPage = () => {
-  const navigation =
-    useNavigation<
-      NoneAuthenticatedStackScreenPropsGeneric<'Auth'>['navigation']
-    >();
+  const navigation = useNavigation<NoneAuthenticatedStackScreenPropsGeneric<'Auth'>['navigation']>();
 
   async function googleSignIn() {
     const { error, data } = await supabase.auth.signInWithOAuth({
@@ -83,12 +80,7 @@ const LandingPage = () => {
           } else {
             if (userProfile) {
               if (userProfile.first_name && userProfile.last_name) {
-                Alert.alert(
-                  'User has a filled profile:' +
-                    userProfile.first_name +
-                    ' ' +
-                    userProfile.last_name,
-                );
+                Alert.alert('User has a filled profile:' + userProfile.first_name + ' ' + userProfile.last_name);
               } else {
                 Alert.alert('User has an empty or incomplete profile.');
               }
@@ -118,10 +110,7 @@ const LandingPage = () => {
     featureFlagKey: 'MICROSOFT_SIGN_IN',
   }).isActive;
 
-  const withFeatureFlag =
-    googleSignInFeatureFlag ||
-    appleSignInFeatureFlag ||
-    microsoftSignInFeatureFlag;
+  const withFeatureFlag = googleSignInFeatureFlag || appleSignInFeatureFlag || microsoftSignInFeatureFlag;
 
   return (
     <SafeArea>
@@ -131,38 +120,18 @@ const LandingPage = () => {
         </LogoContainer>
         <ContentContainer>
           <ButtonsContainer>
-            <Button
-              text={'landing_page.sign_in'}
-              onPressButton={() => navigation.navigate('Login')}
-            />
-            <Button
-              text={'landing_page.sign_up'}
-              hasBorder
-              onPressButton={() => navigation.navigate('SignUp')}
-            />
+            <Button text={'landing_page.sign_in'} onPressButton={() => navigation.navigate('Login')} />
+            <Button text={'landing_page.sign_up'} hasBorder onPressButton={() => navigation.navigate('SignUp')} />
           </ButtonsContainer>
           {withFeatureFlag && (
             <>
               <Separator text={'landing_page.separator'} />
               <SocialsLoginButtonsContainer>
-                {appleSignInFeatureFlag && (
-                  <SocialLoginButton
-                    buttonType="apple"
-                    onPressButton={() => appleSignIn()}
-                  />
-                )}
+                {appleSignInFeatureFlag && <SocialLoginButton buttonType="apple" onPressButton={() => appleSignIn()} />}
                 {microsoftSignInFeatureFlag && (
-                  <SocialLoginButton
-                    buttonType="microsoft"
-                    onPressButton={() => navigation.navigate('SignUp')}
-                  />
+                  <SocialLoginButton buttonType="microsoft" onPressButton={() => navigation.navigate('SignUp')} />
                 )}
-                {googleSignInFeatureFlag && (
-                  <SocialLoginButton
-                    buttonType="google"
-                    onPressButton={googleSignIn}
-                  />
-                )}
+                {googleSignInFeatureFlag && <SocialLoginButton buttonType="google" onPressButton={googleSignIn} />}
               </SocialsLoginButtonsContainer>
             </>
           )}

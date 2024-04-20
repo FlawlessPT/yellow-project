@@ -1,0 +1,27 @@
+{
+  "React Native Typescript Const": {
+    "scope": "typescriptreact, typescript",
+    "prefix": "rnts.component",
+    "body": [
+      "// React and React Native",
+      "import React from 'react';",
+      "import { StyleSheet, View } from 'react-native';",
+      "",
+      "",
+      "type $1Props = {",
+      "  prop: string;",
+      "}",
+      "",
+      "const $1 = ({}: $1Props) => {",
+      "",
+      "  return <View />;",
+      "}",
+      "",
+      "export default $1;",
+      "",
+      "const styles = StyleSheet.create({});"
+    ],
+
+    "description": "React Native typescript screen snippet"
+  }
+}

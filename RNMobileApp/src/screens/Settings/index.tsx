@@ -19,8 +19,9 @@ import { profileButtons, profileDetailsData } from './data';
 
 // Components
 import { Button, ButtonCard, Label, Page, ProfileDetailCard } from '@components';
+import { useNavigation } from '@react-navigation/native';
 
-const Account = ({ session }: { session?: Session }) => {
+const Settings = ({ session }: { session?: Session }) => {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState('');
   const [fullname, setFullname] = useState('');
@@ -28,6 +29,8 @@ const Account = ({ session }: { session?: Session }) => {
   const [password, setPassword] = useState('');
 
   const { theme } = useTheme();
+
+  const navigation = useNavigation();
 
   const getProfile = useCallback(
     async function getProfile() {
@@ -140,7 +143,7 @@ const Account = ({ session }: { session?: Session }) => {
           <ProfileDetailCard key={index} {...item} />
         ))}
       </View>
-      {profileButtons.map((item, index) => (
+      {profileButtons(navigation).map((item, index) => (
         <ButtonCard key={index} {...item} style={styles.settingsCard} />
       ))}
       <Button
@@ -155,7 +158,7 @@ const Account = ({ session }: { session?: Session }) => {
   );
 };
 
-export default Account;
+export default Settings;
 
 const styles = StyleSheet.create({
   detailsContainer: {
@@ -181,6 +184,5 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     marginTop: 18,
-    // marginBottom: 28,
   },
 });

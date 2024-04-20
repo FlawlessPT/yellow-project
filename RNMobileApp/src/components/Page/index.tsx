@@ -11,7 +11,11 @@ import Label from '@components/Label';
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
 
+// Types
+import { AppStackEnum } from '../../navigation/types';
+
 // External Libs
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 
 type PageProps = {
@@ -21,11 +25,11 @@ type PageProps = {
   right?: React.ReactNode;
   withClose?: boolean;
   withBack?: boolean;
-  onClose?: () => void;
-  onBack?: () => void;
 };
 
-const Page = ({ children, titleColor, title, right, withBack, withClose, onClose, onBack }: PageProps) => {
+const Page = ({ children, titleColor, title, right, withBack, withClose }: PageProps) => {
+  const navigation = useNavigation();
+
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
@@ -33,8 +37,17 @@ const Page = ({ children, titleColor, title, right, withBack, withClose, onClose
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        {withBack && <Icon name="chevron-left" color={theme.colors.neutral300} size={24} onPress={onBack} />}
-        {withClose && <Icon name="xmark" color={theme.colors.neutral300} size={24} onPress={onClose} />}
+        {withBack && (
+          <Icon name="chevron-left" color={theme.colors.neutral300} size={24} onPress={() => navigation.goBack()} />
+        )}
+        {withClose && (
+          <Icon
+            name="xmark"
+            color={theme.colors.neutral300}
+            size={24}
+            onPress={() => navigation.navigate(AppStackEnum.HOME as never)}
+          />
+        )}
       </View>
       <View style={styles.header}>
         <Label text={title} type="h1" color={titleColor ?? theme.colors.neutral200} semibold />

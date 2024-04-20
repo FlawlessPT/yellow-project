@@ -18,33 +18,37 @@ import { Icon } from 'react-native-paper';
 import useTheme from '@hooks/theme/useTheme';
 
 type ButtonCardProps = {
+  withNoArrow?: boolean;
+  isSelected?: boolean;
   label: string;
-  icon: any;
+  icon?: any;
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
 };
 
-const ButtonCard = ({ label, icon, style, onPress }: ButtonCardProps) => {
+const ButtonCard = ({ withNoArrow = false, isSelected = false, label, icon, style, onPress }: ButtonCardProps) => {
   const { theme } = useTheme();
 
-  const styles = getStyles(theme);
+  const styles = getStyles(theme, isSelected);
 
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.card, style]}>
+    <TouchableOpacity onPress={onPress} style={[styles.card, style]} activeOpacity={1}>
       <View style={styles.container}>
-        <View style={styles.iconContainer}>
-          <Icon source={icon} size={24} />
-        </View>
-        <Label text={label} color={theme.colors.white} />
+        {icon && (
+          <View style={styles.iconContainer}>
+            <Icon source={icon} size={24} />
+          </View>
+        )}
+        <Label text={label} color={theme.colors.white} style={styles.title} />
       </View>
-      <Icon source={RightArrow} size={6} />
+      {!withNoArrow && <Icon source={RightArrow} size={6} />}
     </TouchableOpacity>
   );
 };
 
 export default ButtonCard;
 
-const getStyles = (theme: Theme) =>
+const getStyles = (theme: Theme, isSelected: boolean) =>
   StyleSheet.create({
     card: {
       height: 64,
@@ -55,6 +59,8 @@ const getStyles = (theme: Theme) =>
       paddingLeft: 8,
       paddingRight: 20,
       alignItems: 'center',
+      borderWidth: isSelected ? 2 : 0,
+      borderColor: theme.colors.primary,
     },
     container: {
       flexDirection: 'row',
@@ -65,8 +71,9 @@ const getStyles = (theme: Theme) =>
       width: 48,
       height: 48,
       borderRadius: 8,
-      marginRight: 24,
+
       alignItems: 'center',
       justifyContent: 'center',
     },
+    title: { marginLeft: 24 },
   });

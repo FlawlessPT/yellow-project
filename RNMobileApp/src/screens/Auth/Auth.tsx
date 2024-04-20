@@ -24,10 +24,7 @@ export const Auth = function Auth() {
     featureFlagKey: 'GITHUB_SIGN_IN',
   });
 
-  const navigation =
-    useNavigation<
-      NoneAuthenticatedStackScreenPropsGeneric<'Auth'>['navigation']
-    >();
+  const navigation = useNavigation<NoneAuthenticatedStackScreenPropsGeneric<'Auth'>['navigation']>();
 
   async function signInWithEmail() {
     setLoading(true);
@@ -111,12 +108,9 @@ export const Auth = function Auth() {
   }
   const askInAppReview = () => {
     InAppReview.RequestInAppReview()
-      .then(hasFlowFinishedSuccessfully => {
+      .then((hasFlowFinishedSuccessfully) => {
         console.log('InAppReview in android', hasFlowFinishedSuccessfully);
-        console.log(
-          'InAppReview in ios has launched successfully',
-          hasFlowFinishedSuccessfully,
-        );
+        console.log('InAppReview in ios has launched successfully', hasFlowFinishedSuccessfully);
 
         if (hasFlowFinishedSuccessfully) {
           console.log('user finished or close review flow');
@@ -132,7 +126,7 @@ export const Auth = function Auth() {
         // reviewed or not, or he/she closed flow yet as android, Thus, no
         // matter the result, we continue our app flow.
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -143,7 +137,7 @@ export const Auth = function Auth() {
         <Input
           label={'common.email_label'}
           leftIcon={{ type: 'font-awesome', name: 'envelope' }}
-          onChangeText={text => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
           autoCapitalize={'none'}
@@ -153,7 +147,7 @@ export const Auth = function Auth() {
         <Input
           label={'common.password_label'}
           leftIcon={{ type: 'font-awesome', name: 'lock' }}
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
           placeholder={'common.password_label'}
@@ -161,41 +155,21 @@ export const Auth = function Auth() {
         />
       </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button
-          title={'auth.sign_in'}
-          disabled={loading}
-          onPress={() => signInWithEmail()}
-        />
+        <Button title={'auth.sign_in'} disabled={loading} onPress={() => signInWithEmail()} />
       </View>
       <View style={styles.verticallySpaced}>
-        <Button
-          title={'auth.sign_up'}
-          disabled={loading}
-          onPress={() => signUpWithEmail()}
-        />
+        <Button title={'auth.sign_up'} disabled={loading} onPress={() => signUpWithEmail()} />
       </View>
       {gitHubSignInFeatureFlag.isActive && (
         <View style={styles.verticallySpaced}>
-          <Button
-            title={'auth.sign_in_github'}
-            disabled={loading}
-            onPress={() => gitHubSignIn()}
-          />
+          <Button title={'auth.sign_in_github'} disabled={loading} onPress={() => gitHubSignIn()} />
         </View>
       )}
       <View style={styles.verticallySpaced}>
-        <Button
-          title={'auth.sign_in_google'}
-          disabled={loading}
-          onPress={() => googleSignIn()}
-        />
+        <Button title={'auth.sign_in_google'} disabled={loading} onPress={() => googleSignIn()} />
       </View>
       <View style={styles.verticallySpaced}>
-        <Button
-          title={'auth.forgot_password'}
-          disabled={loading}
-          onPress={() => forgotPassword()}
-        />
+        <Button title={'auth.forgot_password'} disabled={loading} onPress={() => forgotPassword()} />
       </View>
       <View style={styles.verticallySpaced}>
         <Button
@@ -205,25 +179,13 @@ export const Auth = function Auth() {
         />
       </View>
       <View style={styles.verticallySpaced}>
-        <Button
-          title={'auth.privacy_policy'}
-          disabled={loading}
-          onPress={() => navigation.navigate('PrivacyPolicy')}
-        />
+        <Button title={'auth.privacy_policy'} disabled={loading} onPress={() => navigation.navigate('PrivacyPolicy')} />
       </View>
       <View style={styles.verticallySpaced}>
-        <Button
-          title={'auth.rating_popup'}
-          disabled={loading}
-          onPress={() => askInAppReview()}
-        />
+        <Button title={'auth.rating_popup'} disabled={loading} onPress={() => askInAppReview()} />
       </View>
       <View style={styles.verticallySpaced}>
-        <Button
-          title={'auth.tutorial'}
-          disabled={loading}
-          onPress={() => navigation.navigate('Tutorial')}
-        />
+        <Button title={'auth.tutorial'} disabled={loading} onPress={() => navigation.navigate('Tutorial')} />
       </View>
     </View>
   );

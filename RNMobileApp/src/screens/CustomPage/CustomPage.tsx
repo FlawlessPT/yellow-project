@@ -3,10 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, useWindowDimensions } from 'react-native';
 
 // Types
-import {
-  CustomPageSlugEnum,
-  NoneAuthenticatedStackScreenPropsGeneric,
-} from '../../types';
+import { CustomPageSlugEnum, NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
 
 // Utils
 import { supabase } from '@utils/supabase';
@@ -44,25 +41,16 @@ const tagsStyles: MixedStyleRecord = {
   },
 };
 
-export const CustomPage = function CustomPage({
-  slug,
-}: {
-  slug: CustomPageSlugEnum;
-}) {
+export const CustomPage = function CustomPage({ slug }: { slug: CustomPageSlugEnum }) {
   const { width } = useWindowDimensions();
   const [htmlContent, setHtmlContent] = useState('');
   const [title, setTitle] = useState('');
 
-  const navigation =
-    useNavigation<NoneAuthenticatedStackScreenPropsGeneric['navigation']>();
+  const navigation = useNavigation<NoneAuthenticatedStackScreenPropsGeneric['navigation']>();
 
   useEffect(() => {
     async function fetchTermsAndConditionsInfo() {
-      const { data } = await supabase
-        .from('custom_pages')
-        .select('title, content')
-        .eq('slug', slug)
-        .single();
+      const { data } = await supabase.from('custom_pages').select('title, content').eq('slug', slug).single();
 
       if (data) {
         setHtmlContent(data.content);
@@ -81,11 +69,7 @@ export const CustomPage = function CustomPage({
 
   return htmlContent ? (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
-      <RenderHtml
-        contentWidth={width}
-        tagsStyles={tagsStyles}
-        source={{ html: htmlContent }}
-      />
+      <RenderHtml contentWidth={width} tagsStyles={tagsStyles} source={{ html: htmlContent }} />
     </ScrollView>
   ) : null;
 };
