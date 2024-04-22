@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "setup": "yarn install && yarn ios:pod-install",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
@@ -10,6 +11,7 @@
     "start": "react-native start",
     "test": "jest",
     "pre-commit-check": "yarn lint-staged --allow-empty && yarn lint && yarn type-check",
+    "ios:pod-install": "cd ios && rm -rf Pods && pod install && cd ..",
     "ios:clean:pod-install": "cd ios && rm -rf Pods && pod cache clean --all && pod deintegrate && pod setup && pod install && cd .."
   },
   "dependencies": {

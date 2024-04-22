@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "supabase-configs-mobile": "node scripts/generate-configs.js ../RNMobileApp/utils/supabase.configs.ts",
+    "supabase-configs-mobile": "node scripts/generate-configs.js ../RNMobileApp/src/utils/supabase.configs.ts",
     "supabase-configs-backoffice": "node scripts/generate-configs.js ../BackofficeCMS/src/utils/supabase.configs.ts",
     "supabase-configs": "yarn supabase-configs-mobile && yarn supabase-configs-backoffice"
   },
