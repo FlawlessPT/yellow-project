@@ -14,6 +14,9 @@ import { Icon } from 'react-native-paper';
 // Hooks
 import useTheme from '../../hooks/theme/useTheme';
 
+// Types
+import { LabelProps } from '@components/Label/types';
+
 export type ButtonProps = {
   backgroundColor?: string;
   text?: string;
@@ -24,7 +27,7 @@ export type ButtonProps = {
   leftIcon?: FunctionComponent<SVGAttributes<SVGElement>>;
   style?: StyleProp<ViewStyle>;
   onPressButton?: () => void;
-};
+} & LabelProps;
 
 const Button = ({
   backgroundColor,
@@ -36,6 +39,7 @@ const Button = ({
   leftIcon,
   style,
   onPressButton,
+  ...props
 }: ButtonProps) => {
   const { theme } = useTheme();
 
@@ -65,6 +69,7 @@ const Button = ({
           style={styles.label}
           color={isDisabled ? theme.colors.white : textColor ?? theme.colors.white}
           text={text}
+          {...props}
         />
       </View>
     </TouchableOpacity>

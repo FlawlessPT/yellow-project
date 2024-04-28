@@ -3,6 +3,9 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View, ImageBackground, ImageSourcePropType } from 'react-native';
 
+// Theme
+import { Theme } from '@theme';
+
 // Components
 import { Button, Label } from '@components';
 
@@ -13,12 +16,15 @@ import useTheme from '@hooks/theme/useTheme';
 import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
 
 // External Libs
+import { t } from 'i18next';
+import RenderHTML from 'react-native-render-html';
 import { useNavigation } from '@react-navigation/native';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 
 type TutorialData = {
   image: ImageSourcePropType;
   title: string;
+  subtitle?: string;
 };
 
 type TutorialCarouselProps = {
@@ -27,21 +33,20 @@ type TutorialCarouselProps = {
   data: TutorialData[];
 };
 
-export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({ autoPlay = false, loop = false, data }) => {
+export const TutorialCarousel = ({ autoPlay = false, loop = false, data }: TutorialCarouselProps) => {
+  const [isFirst, setIsFirst] = useState<boolean>(true);
+  const [isLast, setIsLast] = useState<boolean>(true);
+  const [currentIndex, setCurrentIndex] = useState<number | undefined>(0);
+
   const { theme } = useTheme();
 
-  const styles = getStyles();
-
-  const [isFirst, setIsFirst] = useState(true);
-  const [isLast, setIsLast] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState<number | undefined>(0);
+  const styles = getStyles(theme, isLast);
 
   const screenWidth = Dimensions.get('window').width;
 
   const navigation = useNavigation();
 
-  let ref = React.useRef<ICarouselInstance>(null);
-  ref = React.createRef();
+  const ref = React.createRef<ICarouselInstance>();
 
   const moveToLogin = () => {
     navigation.reset({
@@ -68,14 +73,39 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({ autoPlay = f
       setIsLast(false);
     }
     setCurrentIndex(ref.current?.getCurrentIndex() || 0);
-  }, [currentIndex, data.length]);
+  }, [currentIndex, data.length, ref]);
 
   const renderItem = ({ item, index }: { item: TutorialData; index: number }) => {
     return (
       <ImageBackground source={item.image} style={styles.backgroundImage} key={index}>
         <View style={styles.container}>
           <View style={styles.topBar} />
-          <Label text={item.title} type="h1" color={theme.colors.neutral200} style={styles.title} />
+          <Label
+            text={item.title}
+            type="h1"
+            color={theme.colors.neutral200}
+            style={styles.title}
+            textAlign="center"
+            bold
+          />
+          {item.subtitle && (
+            <Label
+              text={item.subtitle}
+              type="h5"
+              color={theme.colors.neutral200}
+              style={styles.title}
+              textAlign="center"
+            />
+          )}
+          {isLast && (
+            <Button
+              text="Start now ->"
+              textColor={theme.colors.neutral900}
+              bold
+              onPressButton={moveToLogin}
+              style={styles.startNowButton}
+            />
+          )}
           <View style={styles.paginationContainer}>
             {Array(data.length)
               .fill(0)
@@ -89,11 +119,14 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({ autoPlay = f
                 />
               ))}
           </View>
-          <Button
-            text={isLast ? 'Start now ->' : ''}
-            backgroundColor={isLast ? undefined : 'transparent'}
-            onPressButton={isLast ? moveToLogin : undefined}
-          />
+          {isLast && (
+            <RenderHTML
+              source={{ html: t('terms.conditions.title') }}
+              baseStyle={styles.termsAndConditions}
+              tagsStyles={{ a: styles.underline }}
+              contentWidth={Dimensions.get('screen').width}
+            />
+          )}
         </View>
       </ImageBackground>
     );
@@ -114,7 +147,7 @@ export const TutorialCarousel: React.FC<TutorialCarouselProps> = ({ autoPlay = f
   );
 };
 
-const getStyles = () =>
+const getStyles = (theme: Theme, isLast: boolean) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -131,12 +164,35 @@ const getStyles = () =>
       flex: 1,
     },
     title: {
-      paddingBottom: 80,
+      paddingBottom: 24,
     },
-    paginationContainer: { flexDirection: 'row', justifyContent: 'center', gap: 12, paddingVertical: 20 },
+    paginationContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      gap: 12,
+      paddingBottom: isLast ? 32 : 86,
+      paddingTop: 46,
+    },
     pagination: {
       height: 6,
       width: 32,
       borderRadius: 6,
+    },
+    startNowButton: {
+      width: 189,
+      alignSelf: 'center',
+    },
+    termsAndConditions: {
+      marginTop: 32,
+      paddingBottom: 24,
+      fontFamily: theme.fonts.regular,
+      color: theme.colors.white,
+      fontSize: 12,
+      textAlign: 'center',
+    },
+    underline: {
+      color: theme.colors.primary,
+      textDecorationColor: theme.colors.primary,
+      fontWeight: 'bold',
     },
   });

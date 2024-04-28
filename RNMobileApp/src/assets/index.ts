@@ -1,4 +1,5 @@
 export { default as LogoImage } from './images/logo.png';
+export { default as SplashImage } from './images/splash.png';
 export { default as Error } from './icons/helpers/error.svg';
 export { default as Success } from './icons/helpers/success.svg';
 export { default as Apple } from './icons/social/apple.svg';
