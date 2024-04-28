@@ -1,13 +1,7 @@
 // Types
-import {
-  TypographySpecification,
-  TypographyType,
-  TypographyTypeEnum,
-} from './types';
+import { TypographySpecification, TypographyType, TypographyTypeEnum } from './types';
 
-export function getTypographySpecification(
-  type: TypographyType,
-): TypographySpecification {
+export function getTypographySpecification(type: TypographyType): TypographySpecification {
   const typographySpecs: { [key: string]: TypographySpecification } = {
     [TypographyTypeEnum.H1]: { size: 30, lineHeight: 38 },
     [TypographyTypeEnum.H2]: { size: 26, lineHeight: 34 },

@@ -1,16 +1,24 @@
 // React and React Native
 import React, { useEffect } from 'react';
-import { Image, ImageBackground, StatusBar, StyleSheet, View } from 'react-native';
+import { Image, StatusBar, StyleSheet, View } from 'react-native';
+
+// Theme
+import { Theme } from '@theme';
 
 // Assets
-import { LogoImage } from '@assets';
+import { SplashImage } from '@assets';
+
+// Hooks
+import useTheme from '@hooks/theme/useTheme';
 
 // Types
 import { AuthNavProps } from '../../navigation/AuthStack/types';
 import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
 
 const Splash = ({ navigation }: AuthNavProps<'Splash'>) => {
-  const styles = getStyles();
+  const { theme } = useTheme();
+
+  const styles = getStyles(theme);
 
   useEffect(() => {
     setTimeout(() => {
@@ -24,15 +32,13 @@ const Splash = ({ navigation }: AuthNavProps<'Splash'>) => {
         ],
       });
     }, 2000);
-  }, []);
+  }, [navigation]);
 
   return (
     <>
       <StatusBar barStyle="light-content" />
-      <View style={styles.container}>
-        <ImageBackground source={LogoImage} style={styles.background}>
-          <Image source={LogoImage} />
-        </ImageBackground>
+      <View style={styles.background}>
+        <Image source={SplashImage} />
       </View>
     </>
   );
@@ -40,14 +46,12 @@ const Splash = ({ navigation }: AuthNavProps<'Splash'>) => {
 
 export default Splash;
 
-const getStyles = () =>
+const getStyles = (theme: Theme) =>
   StyleSheet.create({
     background: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-    },
-    container: {
-      flex: 1,
+      backgroundColor: theme.colors.black,
     },
   });
