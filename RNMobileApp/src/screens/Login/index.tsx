@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
-  Keyboard,
   Platform,
   KeyboardAvoidingView,
   View,
@@ -82,20 +81,6 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
       }
     }
   }
-
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardWillShow', () => {
-      setKeyboardStatus(true);
-    });
-    const hideSubscription = Keyboard.addListener('keyboardWillHide', () => {
-      setKeyboardStatus(false);
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
 
   const { control, formState, handleSubmit, trigger } = useForm<FieldValues>({
     mode: 'onChange',
