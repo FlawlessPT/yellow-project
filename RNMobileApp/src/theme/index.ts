@@ -22,6 +22,9 @@ export type Theme = {
     background: string;
     border: string;
     icon: string;
+    light_grey: string;
+    input_background: string;
+    passwordIcon: string;
   };
   fonts: { regular: string; medium: string; semibold: string; bold: string };
 };
@@ -52,6 +55,9 @@ export const lightTheme: Theme = {
     background: '#161617',
     border: '#2A2A2C',
     icon: '#595959',
+    light_grey: '#D7D8D9',
+    input_background: '#24262B',
+    passwordIcon: '#50535B',
   },
   fonts,
 };
@@ -75,6 +81,9 @@ export const darkTheme: Theme = {
     background: '#161617',
     border: '#2A2A2C',
     icon: '#595959',
+    light_grey: '#D7D8D9',
+    input_background: '#24262B',
+    passwordIcon: '#50535B',
   },
   fonts,
 };

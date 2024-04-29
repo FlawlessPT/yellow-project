@@ -13,6 +13,7 @@ import LabelButton from './Button/LabelButton';
 import ButtonCard from './ButtonCard';
 import ProfileDetailCard from './ProfileDetailCard';
 import FormInput from './FormInput';
+import FormPasswordInput from './FormInput/FormPasswordInput';
 import Card from './Card';
 import CardItem from './CardItem';
 import Page from './Page';
@@ -33,6 +34,7 @@ export {
   ButtonCard,
   ProfileDetailCard,
   FormInput,
+  FormPasswordInput,
   Card,
   CardItem,
   Page,
