@@ -1,6 +1,16 @@
 // React and React Native
 import React, { useEffect, useState } from 'react';
-import { Alert, Keyboard, Platform, KeyboardAvoidingView, View, StyleSheet } from 'react-native';
+import {
+  Alert,
+  Keyboard,
+  Platform,
+  KeyboardAvoidingView,
+  View,
+  StyleSheet,
+  ImageBackground,
+  Image,
+  ScrollView,
+} from 'react-native';
 
 // Theme
 import { Theme } from '@theme';
@@ -11,16 +21,19 @@ import { supabase } from '@utils/supabase';
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// External Libs
-import * as yup from 'yup';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import EncryptedStorage from 'react-native-encrypted-storage';
+// Assets
+import { Gradient, LoginImage, SplashImage } from '@assets';
 
 // Types
+import { AuthStackEnum } from '../../navigation/types';
 import { AuthNavProps } from '../../navigation/AuthStack/types';
 
+// External Libs
+import EncryptedStorage from 'react-native-encrypted-storage';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+
 // Components
-import { Label, FormInput, LabelButton, Button } from '@components';
+import { Label, FormInput, FormPasswordInput, LabelButton, Button } from '@components';
 
 const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   const [saveLogin, setSaveLogin] = useState(false);
@@ -35,6 +48,10 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   const styles = getStyles(theme);
 
   const [isAccountNotConfirmedModalModalVisible, setAccountNotConfirmedModalModalVisible] = useState(false);
+
+  const handleNavigateToCreateAccount = () => {
+    navigation.navigate(AuthStackEnum.CREATE_ACCOUNT);
+  };
 
   const toggleInvalidCredentialsModal = () => {
     setInvalidCredentialsModalVisible(!isInvalidCredentialsModalVisible);
@@ -80,15 +97,13 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
     };
   }, []);
 
-  const validationSchema = yup.object().shape({
-    email: yup.string().email('login_page.invalid_email_format').required('login_page.required_email'),
-
-    password: yup.string().min(8, 'login_page.invalid_password').required('login_page.required_password'),
+  const { control, formState, handleSubmit, trigger } = useForm<FieldValues>({
+    mode: 'onChange',
   });
 
-  const { control, handleSubmit, formState } = useForm({
-    resolver: require('@hookform/resolvers/yup').yupResolver(validationSchema),
-  });
+  useEffect(() => {
+    trigger();
+  }, [trigger]);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     signInWithEmail(data.email, data.password);
@@ -136,59 +151,85 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
 
   return (
     <View style={styles.container}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-        <View style={styles.mainContainer}>
-          <View style={styles.contentContainer}>
-            <Label text="login_page.title" type="h3" bold color={theme.colors.white} />
-            <View style={styles.inputContainer}>
-              <FormInput
-                control={control}
-                controllerName="email"
-                label="login_page.email"
-                keyboardType="email-address"
-                helper={
-                  formState.errors.email?.message
-                    ? {
-                        type: 'error',
-                        message: formState.errors.email?.message?.toString(),
-                      }
-                    : undefined
-                }
-              />
-              <FormInput
-                control={control}
-                controllerName="password"
-                label="login_page.password"
-                secureTextEntry
-                helper={
-                  formState.errors.password?.message
-                    ? {
-                        type: 'error',
-                        message: formState.errors.password?.message?.toString(),
-                      }
-                    : undefined
-                }
-              />
-              <LabelButton
-                text="login_page.forgot_password"
-                color={theme.colors.primary}
-                bold
-                type="body"
-                onPress={() => Alert.alert('To be implemented')}
-                style={styles.forgotPassword}
-              />
-              <Button text="Login" onPressButton={handleSubmit(onSubmit)} style={styles.signIn} />
-            </View>
-            <LabelButton
-              text="login_page.signup"
-              bold
-              color={theme.colors.primary}
-              onPress={() => navigation.navigate('CreateAccount')}
-              style={styles.signUp}
-            />
-          </View>
-        </View>
-      </KeyboardAvoidingView>
+      <ImageBackground source={LoginImage} resizeMode="contain" style={styles.imageBackgroundContainer}>
+        <ImageBackground source={Gradient} style={styles.imageBackgroundGradient}>
+          <Image source={SplashImage} style={styles.logoImage} resizeMode="contain" />
+          <Label text="login_page.title" type="h3" bold color={theme.colors.neutral200} style={styles.loginTitle} />
+          <Label text="login_page.subtitle" type="h5" color={theme.colors.light_grey} />
+        </ImageBackground>
+      </ImageBackground>
+      <ScrollView style={styles.contentContainer}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <FormInput
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: 'login_page.required_email',
+              },
+              pattern: {
+                value: new RegExp('[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$'),
+                message: 'login_page.invalid_email_format',
+              },
+            }}
+            controllerName="email"
+            label="login_page.email"
+            leftIconName="at"
+            keyboardType="email-address"
+            helper={
+              formState.errors.email?.message
+                ? {
+                    type: 'error',
+                    message: formState.errors.email?.message?.toString(),
+                  }
+                : undefined
+            }
+          />
+          <FormPasswordInput
+            style={styles.passwordInput}
+            rules={{
+              required: {
+                value: true,
+                message: 'login_page.required_password',
+              },
+              minLength: {
+                message: 'login_page.invalid_password',
+                value: 8,
+              },
+            }}
+            control={control}
+            controllerName="password"
+            label="login_page.password"
+            helper={
+              formState.errors.password?.message
+                ? {
+                    type: 'error',
+                    message: formState.errors.password?.message?.toString(),
+                  }
+                : undefined
+            }
+          />
+          <Button
+            text="Login"
+            onPressButton={handleSubmit(onSubmit)}
+            style={styles.signIn}
+            isDisabled={Object.keys(formState.errors).length !== 0}
+          />
+          <LabelButton style={styles.signUp} onPress={handleNavigateToCreateAccount}>
+            <Label text="login_page.dont_have_account" color={theme.colors.neutral400} type="body" medium />
+            <Label text="login_page.signup" color={theme.colors.primary} medium isUnderline type="body" />
+          </LabelButton>
+          <LabelButton
+            text="login_page.forgot_password"
+            color={theme.colors.primary}
+            medium
+            isUnderline
+            type="body"
+            onPress={() => Alert.alert('To be implemented')}
+            style={styles.forgotPassword}
+          />
+        </KeyboardAvoidingView>
+      </ScrollView>
     </View>
   );
 };
@@ -199,27 +240,33 @@ const getStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.background,
-    },
-    mainContainer: {
-      flex: 1,
-      justifyContent: 'center',
-    },
-    contentContainer: {
-      paddingHorizontal: 20,
-      gap: 32,
+      backgroundColor: theme.colors.black,
     },
     forgotPassword: {
-      alignSelf: 'flex-end',
-      marginTop: 8,
+      alignSelf: 'center',
+      marginTop: 16,
+      paddingBottom: 24,
+    },
+    signIn: {
+      marginTop: 52,
+    },
+    loginTitle: {
+      marginBottom: 8,
+      marginTop: 16,
+    },
+    imageBackgroundContainer: {
+      flex: 1,
+    },
+    imageBackgroundGradient: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+    logoImage: {
+      height: 50,
+    },
+    contentContainer: { flex: 1, paddingHorizontal: 20, backgroundColor: theme.colors.background },
+    passwordInput: {
+      marginTop: 24,
     },
     signUp: {
       alignSelf: 'center',
-    },
-    signIn: {
-      marginTop: 30,
-    },
-    inputContainer: {
-      gap: 10,
+      marginTop: 40,
     },
   });
