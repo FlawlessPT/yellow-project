@@ -1,7 +1,6 @@
 export { default as LogoImage } from './images/logo.png';
 export { default as SplashImage } from './images/splash.png';
 export { default as LoginImage } from './images/login.png';
-export { default as Gradient } from './images/gradient.png';
 export { default as Apple } from './icons/social/apple.svg';
 export { default as Google } from './icons/social/google.svg';
 export { default as Microsoft } from './icons/social/microsoft.svg';

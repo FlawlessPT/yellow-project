@@ -17,6 +17,7 @@ import FormPasswordInput from './FormInput/FormPasswordInput';
 import Card from './Card';
 import CardItem from './CardItem';
 import Page from './Page';
+import LoginContainer from './LoginContainer';
 
 export {
   Button,
@@ -38,4 +39,5 @@ export {
   Card,
   CardItem,
   Page,
+  LoginContainer,
 };

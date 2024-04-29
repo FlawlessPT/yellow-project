@@ -1,6 +1,6 @@
 // React and React Native
-import React, { useState } from 'react';
-import { TouchableWithoutFeedback, Keyboard, Alert, StyleSheet, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Alert, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 
 // Theme
 import { Theme } from '@theme';
@@ -11,25 +11,18 @@ import { supabase } from '@utils/supabase';
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// Components
-import NameStep from './Steps/NameStep';
-import EmailStep from './Steps/EmailStep';
-import { Button, Header } from '@components';
-import ContactStep from './Steps/ContactStep';
-import PasswordStep from './Steps/PasswordStep';
+// Types
+import { AuthStackEnum } from '../../navigation/types';
+import { AuthNavProps } from '../../navigation/AuthStack/types';
 
 // External Libs
-import { t } from 'i18next';
 import { format } from 'date-fns/format';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-const CreateAccount = () => {
-  const totalSteps = 4;
+// Components
+import { Button, FormInput, FormPasswordInput, Label, LabelButton, LoginContainer } from '@components';
 
-  const [currentStep, setCurrentStep] = useState<number>(1);
-  const { control, handleSubmit } = useForm({});
-
+const CreateAccount = ({ navigation }: AuthNavProps<'CreateAccount'>) => {
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
@@ -62,21 +55,6 @@ const CreateAccount = () => {
     }
   }
 
-  const renderSteps = (stepIndex: number) => {
-    switch (stepIndex) {
-      case 1:
-        return <EmailStep control={control} />;
-      case 2:
-        return <PasswordStep control={control} />;
-      case 3:
-        return <NameStep control={control} />;
-      case 4:
-        return <ContactStep control={control} />;
-      default:
-        return <></>;
-    }
-  };
-
   const onSubmit: SubmitHandler<{
     email: string;
     password: string;
@@ -85,33 +63,124 @@ const CreateAccount = () => {
     dob: string;
     contact: string;
   }> = (data) => {
-    if (currentStep === 4) {
-      signUpWithEmail(
-        data.email,
-        data.password,
-        data.firstName,
-        data.lastName,
-        format(new Date(data.dob), 'dd/MM/yyyy'),
-        data.contact
-      );
-    } else {
-      setCurrentStep(currentStep + 1);
-    }
+    signUpWithEmail(
+      data.email,
+      data.password,
+      data.firstName,
+      data.lastName,
+      format(new Date(data.dob), 'dd/MM/yyyy'),
+      data.contact
+    );
   };
 
+  const handleNavigateToLogin = () => {
+    navigation.navigate(AuthStackEnum.LOGIN);
+  };
+
+  const { control, formState, handleSubmit, trigger, getValues } = useForm<FieldValues>({
+    mode: 'onChange',
+  });
+
+  useEffect(() => {
+    trigger();
+  }, [trigger]);
+
   return (
-    <View style={styles.container}>
-      <Header title={currentStep + ' ' + t('common.of') + ' ' + totalSteps} hasBack />
-      <KeyboardAwareScrollView>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.contentContainer}>{renderSteps(currentStep)}</View>
-        </TouchableWithoutFeedback>
-      </KeyboardAwareScrollView>
-      <Button
-        text={currentStep === 4 ? 'signup_page.create_account.button' : 'common.next'}
-        onPressButton={handleSubmit(onSubmit)}
-      />
-    </View>
+    <LoginContainer title="signup_page.title">
+      <ScrollView style={styles.contentContainer} showsVerticalScrollIndicator={false}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <FormInput
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: 'login_page.required_email',
+              },
+              pattern: {
+                value: new RegExp('[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$'),
+                message: 'login_page.invalid_email_format',
+              },
+            }}
+            controllerName="email"
+            label="login_page.email"
+            leftIconName="at"
+            keyboardType="email-address"
+            helper={
+              formState.errors.email?.message
+                ? {
+                    type: 'error',
+                    message: formState.errors.email?.message?.toString(),
+                  }
+                : undefined
+            }
+          />
+          <FormPasswordInput
+            style={styles.passwordInput}
+            rules={{
+              required: {
+                value: true,
+                message: 'login_page.required_password',
+              },
+              minLength: {
+                message: 'login_page.invalid_password',
+                value: 8,
+              },
+              validate: {
+                confirmPassword: (fieldValue) => fieldValue === getValues('password'),
+              },
+            }}
+            control={control}
+            controllerName="password"
+            label="login_page.password"
+            helper={
+              formState.errors.password?.message
+                ? {
+                    type: 'error',
+                    message: formState.errors.password?.message?.toString(),
+                  }
+                : undefined
+            }
+          />
+          <FormPasswordInput
+            style={styles.passwordInput}
+            rules={{
+              required: {
+                value: true,
+                message: 'login_page.required_password',
+              },
+              minLength: {
+                message: 'login_page.invalid_password',
+                value: 8,
+              },
+              validate: {
+                confirmPassword: (fieldValue) => fieldValue === getValues('password'),
+              },
+            }}
+            control={control}
+            controllerName="confirmPassword"
+            label="signup_page.confirm_password"
+            helper={
+              formState.errors.password?.message
+                ? {
+                    type: 'error',
+                    message: formState.errors.password?.message?.toString(),
+                  }
+                : undefined
+            }
+          />
+          <Button
+            text="signup_page.button"
+            onPressButton={handleSubmit(onSubmit)}
+            style={styles.signUp}
+            isDisabled={Object.keys(formState.errors).length !== 0}
+          />
+          <LabelButton style={styles.login} onPress={handleNavigateToLogin}>
+            <Label text="signup_page.have_account" color={theme.colors.neutral400} type="body" medium />
+            <Label text="signup_page.login" color={theme.colors.primary} medium isUnderline type="body" />
+          </LabelButton>
+        </KeyboardAvoidingView>
+      </ScrollView>
+    </LoginContainer>
   );
 };
 
@@ -119,13 +188,16 @@ export default CreateAccount;
 
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: theme.colors.neutral900,
-      paddingHorizontal: 20,
-      paddingVertical: 50,
+    contentContainer: { flex: 1, paddingHorizontal: 20, backgroundColor: theme.colors.background },
+    passwordInput: {
+      marginTop: 24,
     },
-    contentContainer: {
-      paddingTop: 8,
+    signUp: {
+      marginTop: 52,
+    },
+    login: {
+      alignSelf: 'center',
+      marginTop: 40,
+      paddingBottom: 24,
     },
   });

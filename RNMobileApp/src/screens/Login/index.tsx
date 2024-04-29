@@ -1,15 +1,6 @@
 // React and React Native
 import React, { useEffect, useState } from 'react';
-import {
-  Alert,
-  Platform,
-  KeyboardAvoidingView,
-  View,
-  StyleSheet,
-  ImageBackground,
-  Image,
-  ScrollView,
-} from 'react-native';
+import { Alert, Platform, KeyboardAvoidingView, StyleSheet, ScrollView } from 'react-native';
 
 // Theme
 import { Theme } from '@theme';
@@ -20,9 +11,6 @@ import { supabase } from '@utils/supabase';
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// Assets
-import { Gradient, LoginImage, SplashImage } from '@assets';
-
 // Types
 import { AuthStackEnum } from '../../navigation/types';
 import { AuthNavProps } from '../../navigation/AuthStack/types';
@@ -32,14 +20,13 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 
 // Components
-import { Label, FormInput, FormPasswordInput, LabelButton, Button } from '@components';
+import { Label, FormInput, FormPasswordInput, LabelButton, Button, LoginContainer } from '@components';
 
 const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   const [saveLogin, setSaveLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(true);
-  const [keyboardStatus, setKeyboardStatus] = useState(false);
   const [isInvalidCredentialsModalVisible, setInvalidCredentialsModalVisible] = useState(false);
 
   const { theme } = useTheme();
@@ -135,15 +122,8 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   };
 
   return (
-    <View style={styles.container}>
-      <ImageBackground source={LoginImage} resizeMode="contain" style={styles.imageBackgroundContainer}>
-        <ImageBackground source={Gradient} style={styles.imageBackgroundGradient}>
-          <Image source={SplashImage} style={styles.logoImage} resizeMode="contain" />
-          <Label text="login_page.title" type="h3" bold color={theme.colors.neutral200} style={styles.loginTitle} />
-          <Label text="login_page.subtitle" type="h5" color={theme.colors.light_grey} />
-        </ImageBackground>
-      </ImageBackground>
-      <ScrollView style={styles.contentContainer}>
+    <LoginContainer title="login_page.title">
+      <ScrollView style={styles.contentContainer} showsVerticalScrollIndicator={false}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <FormInput
             control={control}
@@ -195,7 +175,7 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
             }
           />
           <Button
-            text="Login"
+            text="login_page.button"
             onPressButton={handleSubmit(onSubmit)}
             style={styles.signIn}
             isDisabled={Object.keys(formState.errors).length !== 0}
@@ -215,7 +195,7 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
           />
         </KeyboardAvoidingView>
       </ScrollView>
-    </View>
+    </LoginContainer>
   );
 };
 
@@ -223,10 +203,6 @@ export default Login;
 
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: theme.colors.black,
-    },
     forgotPassword: {
       alignSelf: 'center',
       marginTop: 16,
@@ -234,17 +210,6 @@ const getStyles = (theme: Theme) =>
     },
     signIn: {
       marginTop: 52,
-    },
-    loginTitle: {
-      marginBottom: 8,
-      marginTop: 16,
-    },
-    imageBackgroundContainer: {
-      flex: 1,
-    },
-    imageBackgroundGradient: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-    logoImage: {
-      height: 50,
     },
     contentContainer: { flex: 1, paddingHorizontal: 20, backgroundColor: theme.colors.background },
     passwordInput: {
