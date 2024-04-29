@@ -5,10 +5,15 @@ import { TextInputProps } from 'react-native';
 /* Components */
 import Input, { InputProps } from '..';
 
+// Theme
+import useTheme from '@hooks/theme/useTheme';
+
 /* External Libs */
 import Icon from 'react-native-vector-icons/FontAwesome6';
 
-const PasswordInput = ({ label, helper, style, onChangeText }: InputProps & TextInputProps) => {
+const PasswordInput = ({ label, helper, style, onChangeText, ...props }: InputProps & TextInputProps) => {
+  const { theme } = useTheme();
+
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   return (
@@ -19,9 +24,15 @@ const PasswordInput = ({ label, helper, style, onChangeText }: InputProps & Text
       style={style}
       onChangeText={onChangeText}
       secureTextEntry={!passwordVisible}
-      rightItem={
-        <Icon onPress={() => setPasswordVisible(!passwordVisible)} name={passwordVisible ? 'eye-slash' : 'eye'} />
+      right={
+        <Icon
+          onPress={() => setPasswordVisible(!passwordVisible)}
+          name={passwordVisible ? 'unlock' : 'lock'}
+          color={theme.colors.passwordIcon}
+          size={16}
+        />
       }
+      {...props}
     />
   );
 };
