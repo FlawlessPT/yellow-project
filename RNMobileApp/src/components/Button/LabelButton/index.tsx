@@ -15,18 +15,13 @@ export type LabelButtonProps = {
 };
 
 const LabelButton = ({
-  text,
-  type,
-  bold = false,
-  isUnderline = false,
-  textAlign = 'left',
-  color,
   leftIcon,
   rightIcon,
   leftIconColor,
   rightIconColor,
   style,
   onPress,
+  ...props
 }: LabelButtonProps & LabelProps) => {
   const styles = getStyles(leftIconColor ?? '', rightIconColor ?? '');
 
@@ -34,14 +29,7 @@ const LabelButton = ({
     <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
       <View style={styles.container}>
         {leftIcon && <Image source={leftIcon} style={styles.icon} />}
-        <Label
-          type={type || 'h5'}
-          text={text}
-          bold={bold}
-          color={color}
-          isUnderline={isUnderline}
-          textAlign={textAlign}
-        />
+        <Label {...props} />
         {rightIcon && <Image style={[styles.icon, styles.rightIcon]} source={rightIcon} />}
       </View>
     </TouchableOpacity>

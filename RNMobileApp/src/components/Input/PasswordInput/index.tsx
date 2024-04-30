@@ -1,27 +1,34 @@
-/* React and React Native */
+// React and React Native
 import React, { useState } from 'react';
 import { TextInputProps } from 'react-native';
 
-/* Components */
+// Components
 import Input, { InputProps } from '..';
 
-/* External Libs */
+// Theme
+import useTheme from '@hooks/theme/useTheme';
+
+// External Libs
 import Icon from 'react-native-vector-icons/FontAwesome6';
 
-const PasswordInput = ({ label, helper, style, onChangeText }: InputProps & TextInputProps) => {
+const PasswordInput = ({ label, ...props }: InputProps & TextInputProps) => {
+  const { theme } = useTheme();
+
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   return (
     <Input
-      label="login.password"
-      value={label}
-      helper={helper}
-      style={style}
-      onChangeText={onChangeText}
+      label={label}
       secureTextEntry={!passwordVisible}
-      rightItem={
-        <Icon onPress={() => setPasswordVisible(!passwordVisible)} name={passwordVisible ? 'eye-slash' : 'eye'} />
+      right={
+        <Icon
+          onPress={() => setPasswordVisible(!passwordVisible)}
+          name={passwordVisible ? 'unlock' : 'lock'}
+          color={theme.colors.passwordIcon}
+          size={16}
+        />
       }
+      {...props}
     />
   );
 };

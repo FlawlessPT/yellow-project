@@ -1,6 +1,9 @@
 // React and React Native
-import React from 'react';
-import { StyleSheet, TextInputProps, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TextInputProps, TextInput, View, StyleProp, ViewStyle } from 'react-native';
+
+// Theme
+import { Theme } from '@theme';
 
 // Components
 import { Label } from '../Label';
@@ -8,86 +11,113 @@ import { Label } from '../Label';
 // Types
 import { HelperType } from './types';
 
-// Assets
-import { Error, Success } from '../../assets';
-
-// Theme
-import useTheme from '../../hooks/theme/useTheme';
+// Hooks
+import useTheme from '@hooks/theme/useTheme';
 
 // External Libs
-import { Icon, TextInput } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome6';
 
 export type InputProps = {
+  style?: StyleProp<ViewStyle>;
   label?: string;
-  disabled?: boolean;
-  textColor?: string;
-  leftItem?: React.ReactNode;
-  rightItem?: React.ReactNode;
+  titleColor?: string;
   helper?: { type: HelperType; message: string };
+  leftIconName?: string;
+  right?: JSX.Element;
 } & TextInputProps;
 
-export const Input = ({ label, textColor, leftItem, rightItem, disabled, helper, ...props }: InputProps) => {
+export const Input = ({ style, label, titleColor, leftIconName, right, helper, ...props }: InputProps) => {
   const { theme } = useTheme();
 
-  const styles = getStyles(disabled ? theme.colors.disabled : theme.colors.white);
+  const [value, setValue] = useState<string>('');
+  const [isSelected, setIsSelected] = useState<boolean>(false);
 
   const outlinedColor =
     helper?.type === 'error'
       ? theme.colors.red
       : helper?.type === 'success'
       ? theme.colors.green
-      : theme.colors.outline;
+      : isSelected
+      ? theme.colors.primary
+      : 'transparent';
+
+  const styles = getStyles(theme, isSelected, outlinedColor);
+
+  const handleFocused = (newState: boolean) => {
+    setIsSelected(newState);
+  };
 
   return (
-    <>
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-      {/* @ts-ignore */}
-      <TextInput
-        mode="outlined"
-        disabled={disabled}
-        label={<Label text={label} semibold color={textColor || theme.colors.outline} />}
-        outlineColor={outlinedColor}
-        activeOutlineColor={theme.colors.primary}
-        left={leftItem}
-        right={rightItem}
-        allowFontScaling={false}
-        caretHidden={false}
-        outlineStyle={styles.outline}
-        style={styles.input}
-        {...props}
-      />
+    <View style={style}>
+      <Label text={label} type="h3" semibold color={titleColor || theme.colors.white} style={styles.label} />
+      <View style={styles.container}>
+        {leftIconName && <Icon name={leftIconName} color="white" style={styles.leftIcon} size={16} />}
+        <TextInput
+          value={value}
+          onChangeText={setValue}
+          cursorColor={theme.colors.primary}
+          onFocus={() => handleFocused(true)}
+          onBlur={() => handleFocused(false)}
+          style={styles.input}
+          {...props}
+        />
+        {right && <View style={styles.rightIcon}>{right}</View>}
+      </View>
       {helper?.message && (
         <View style={styles.helperContainer}>
-          <Icon source={helper.type === 'error' ? Error : Success} size={14} />
+          <Icon
+            name={helper.type === 'error' ? 'triangle-exclamation' : 'check'}
+            color={helper.type === 'error' ? theme.colors.red : theme.colors.green}
+            size={14}
+          />
           <Label
             text={helper.message}
-            semibold
             type="footnote"
+            semibold
             color={helper.type === 'error' ? theme.colors.red : theme.colors.green}
             style={styles.helperLabel}
           />
         </View>
       )}
-    </>
+    </View>
   );
 };
 
 export default Input;
 
-const getStyles = (inputBgColor: string) =>
+const getStyles = (theme: Theme, isSelected: boolean, outlinedColor: string) =>
   StyleSheet.create({
     helperContainer: {
       flexDirection: 'row',
       marginTop: 5,
+      alignItems: 'center',
     },
     helperLabel: {
-      marginLeft: 4,
+      marginLeft: 6,
     },
     input: {
-      width: '100%',
-      backgroundColor: inputBgColor,
+      flex: 1,
+      fontFamily: theme.fonts.regular,
+      fontSize: 16,
+      color: theme.colors.white,
     },
-    outline: {
-      borderRadius: 10,
+    rightIcon: {
+      marginLeft: 8,
+    },
+    leftIcon: {
+      marginRight: 8,
+    },
+    container: {
+      borderWidth: 1,
+      borderColor: outlinedColor,
+      alignItems: 'center',
+      flexDirection: 'row',
+      height: 56,
+      paddingHorizontal: 16,
+      borderRadius: 12,
+      backgroundColor: theme.colors.input_background,
+    },
+    label: {
+      marginBottom: 8,
     },
   });

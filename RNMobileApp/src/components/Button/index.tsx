@@ -65,12 +65,7 @@ const Button = ({
     <TouchableOpacity style={[styles.button, style]} disabled={isDisabled} onPress={onPressButton}>
       <View style={styles.container}>
         {leftIcon && <Icon source={leftIcon} size={20} />}
-        <Label
-          style={styles.label}
-          color={isDisabled ? theme.colors.white : textColor ?? theme.colors.white}
-          text={text}
-          {...props}
-        />
+        <Label style={styles.label} color={textColor ?? theme.colors.neutral900} text={text} bold {...props} />
       </View>
     </TouchableOpacity>
   );
@@ -94,7 +89,7 @@ const getStyles = (
       height: 48,
       justifyContent: 'center',
       alignItems: 'center',
-      width: '100%',
+      // width: '100%',
       shadowOffset: { width: 0, height: 1 },
       shadowColor: theme.colors.black,
       shadowOpacity: 0.2,
