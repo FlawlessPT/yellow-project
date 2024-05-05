@@ -8,10 +8,11 @@ import {UpdatePasswordForm} from '@pages/UpdatePasswordForm';
 import {ForgotPasswordForm} from '@pages/ForgotPasswordForm';
 import {supabaseClient} from '@utils/supabase';
 import {PostgrestSingleResponse} from '@supabase/supabase-js';
-import {ColumnType, TableInfoType} from '@types';
+import {ColumnType, TableInfoType, UserSession} from '@types';
 import {CustomResourceFormGuesser} from '@components/CustomResourceFormGuesser';
 import {
   getGeneralOverrides,
+  isResourceVisibleForRoles,
   isViewModeEnabledForResource,
   recordRepresentationForResource,
 } from '@configs';
@@ -67,12 +68,24 @@ function BackOfficeAdmin() {
     fetchTableNames();
   }, []);
 
+  const [session, setSession] = useState<UserSession>();
+
+  useEffect(() => {
+    supabaseClient.auth.getSession().then(({data: {session}}) => {
+      if (session?.user) {
+        authProvider.getUserRoles(session.user.id).then(profileRoles => {
+          setSession({...session, user: {...session.user, profileRoles}});
+        });
+      }
+    });
+  }, [session?.user.id]);
+
   const generalOverrides = getGeneralOverrides();
   const tablesToExclude = generalOverrides?.tablesToExclude || [];
 
-  return isLoading ? (
-    <p>Loading back office</p>
-  ) : (
+  if (isLoading) return <p>Loading back office</p>;
+
+  return (
     <TablesContext.Provider value={{tables}}>
       <Admin
         dataProvider={dataProvider}
@@ -89,55 +102,60 @@ function BackOfficeAdmin() {
           />
         </CustomRoutes>
 
-        {tables.map(t => {
-          const isEditable = isViewModeEnabledForResource({
-            tableName: t.name,
-            viewMode: 'edit',
-          });
-          const isCreatable = isViewModeEnabledForResource({
-            tableName: t.name,
-            viewMode: 'create',
-          });
+        {session &&
+          tables.map(t => {
+            const isEditable = isViewModeEnabledForResource({
+              tableName: t.name,
+              viewMode: 'edit',
+            });
+            const isCreatable = isViewModeEnabledForResource({
+              tableName: t.name,
+              viewMode: 'create',
+            });
+            const isResourceVisible = isResourceVisibleForRoles({
+              tableName: t.name,
+              roles: session.user.profileRoles,
+            });
 
-          return !tablesToExclude.includes(t.name) ? (
-            <Resource
-              key={t.name}
-              name={t.name}
-              recordRepresentation={record => {
-                const recordRepresentationColumn =
-                  recordRepresentationForResource({
-                    tableName: t.name,
-                  });
+            return !tablesToExclude.includes(t.name) && isResourceVisible ? (
+              <Resource
+                key={t.name}
+                name={t.name}
+                recordRepresentation={record => {
+                  const recordRepresentationColumn =
+                    recordRepresentationForResource({
+                      tableName: t.name,
+                    });
 
-                return (
-                  recordRepresentationColumn &&
-                  (record[recordRepresentationColumn] || record['id'])
-                );
-              }}
-              list={() => <CustomResourceListGuesser tableInfo={t} />}
-              edit={
-                isEditable
-                  ? () => (
-                      <CustomResourceFormGuesser
-                        tableInfo={t}
-                        viewMode="edit"
-                      />
-                    )
-                  : undefined
-              }
-              create={
-                isCreatable
-                  ? () => (
-                      <CustomResourceFormGuesser
-                        tableInfo={t}
-                        viewMode="create"
-                      />
-                    )
-                  : undefined
-              }
-            />
-          ) : null;
-        })}
+                  return (
+                    recordRepresentationColumn &&
+                    (record[recordRepresentationColumn] || record['id'])
+                  );
+                }}
+                list={() => <CustomResourceListGuesser tableInfo={t} />}
+                edit={
+                  isEditable
+                    ? () => (
+                        <CustomResourceFormGuesser
+                          tableInfo={t}
+                          viewMode="edit"
+                        />
+                      )
+                    : undefined
+                }
+                create={
+                  isCreatable
+                    ? () => (
+                        <CustomResourceFormGuesser
+                          tableInfo={t}
+                          viewMode="create"
+                        />
+                      )
+                    : undefined
+                }
+              />
+            ) : null;
+          })}
       </Admin>
     </TablesContext.Provider>
   );

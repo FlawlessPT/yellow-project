@@ -1,7 +1,19 @@
-import {AdminOverrides, SearchConfigsFilterType, ViewMode} from '@types';
+import {
+  AdminOverrides,
+  DatabaseUserRoles,
+  SearchConfigsFilterType,
+  ViewMode,
+} from '@types';
 
 /* To be customizable for each project: by default only ADMIN role exist and no roles using empty array: [], the default for new users */
-export const rolesOptions = [{id: 'ADMIN', name: 'Admin'}];
+export const rolesOptions = [
+  {id: 'SUPER_ADMIN', name: 'Super Admin'},
+  {id: 'ADMIN', name: 'Admin'},
+];
+
+const superAdminOptions = [rolesOptions[0]];
+// TODO: uncomment when needed
+// const adminOptions = [rolesOptions[1]];
 
 const overrideConfigs: AdminOverrides = {
   general: {
@@ -19,6 +31,7 @@ const overrideConfigs: AdminOverrides = {
   },
   resources: {
     profiles: {
+      rolesAllowedToView: superAdminOptions,
       recordRepresentationColumn: 'username',
       create: null,
       edit: {
@@ -32,6 +45,7 @@ const overrideConfigs: AdminOverrides = {
       },
     },
     custom_pages: {
+      rolesAllowedToView: superAdminOptions,
       edit: {
         isDeletable: false,
         columns: {
@@ -52,6 +66,7 @@ const overrideConfigs: AdminOverrides = {
       },
     },
     feature_flags: {
+      rolesAllowedToView: superAdminOptions,
       edit: {
         columns: {
           users_ids: {
@@ -62,7 +77,7 @@ const overrideConfigs: AdminOverrides = {
           },
           roles: {
             type: 'select',
-            options: rolesOptions,
+            options: superAdminOptions,
           },
         },
       },
@@ -76,7 +91,7 @@ const overrideConfigs: AdminOverrides = {
           },
           roles: {
             type: 'select',
-            options: rolesOptions,
+            options: superAdminOptions,
           },
         },
       },
@@ -133,6 +148,35 @@ export function recordRepresentationForResource({
 
   return tableOverrides?.recordRepresentationColumn;
 }
+
+export const isResourceVisibleForRoles = ({
+  tableName,
+  roles,
+}: {
+  tableName: string;
+  roles: DatabaseUserRoles;
+}) => {
+  const resourceOverrides = overrideConfigs.resources?.[tableName];
+
+  if (!resourceOverrides) {
+    return true;
+  }
+
+  const rolesAllowedToView = resourceOverrides.rolesAllowedToView;
+
+  if (!rolesAllowedToView) {
+    return true;
+  }
+
+  console.log(
+    rolesAllowedToView.every(item => roles.includes(item.id)),
+    tableName,
+    rolesAllowedToView,
+    roles,
+  );
+
+  return rolesAllowedToView.every(item => roles.includes(item.id));
+};
 
 export function isViewModeEnabledForResource(
   filter: OverridesForResourceSearchType,

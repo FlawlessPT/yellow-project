@@ -1,3 +1,4 @@
+import {UserRole} from './user';
 import {ColumnType, ReferenceDataType} from './database';
 
 export type InputType =
@@ -13,7 +14,7 @@ export type ResourceOverrides = {
     [columnName: string]:
       | {
           type: InputType;
-          options?: {id: string; name: string}[];
+          options?: UserRole[];
           referenceData?: Pick<ReferenceDataType, 'tableName'>;
         }
       | undefined;
@@ -33,6 +34,7 @@ export type AdminOverrides = {
           [viewMode in ViewMode]?: ResourceOverrides;
         } & {
           recordRepresentationColumn?: string;
+          rolesAllowedToView?: UserRole[];
         })
       | undefined;
   };
