@@ -13,15 +13,18 @@ import { Icon } from 'react-native-paper';
 
 // Theme
 import useTheme from '@hooks/theme/useTheme';
+import { useNavigation } from '@react-navigation/native';
 
 export type HeaderProps = {
   title?: string;
   hasBack?: boolean;
   rightItem?: JSX.Element;
-  onPressChevron?: () => void;
+  onBack?: () => void;
 };
 
-export const Header = ({ hasBack, title, rightItem, onPressChevron }: HeaderProps) => {
+export const Header = ({ hasBack, title, rightItem, onBack }: HeaderProps) => {
+  const { goBack } = useNavigation();
+
   const { theme } = useTheme();
 
   const styles = getStyles();
@@ -29,7 +32,7 @@ export const Header = ({ hasBack, title, rightItem, onPressChevron }: HeaderProp
   return (
     <View style={styles.container}>
       {hasBack && (
-        <TouchableOpacity style={styles.chevronContainer} onPress={onPressChevron}>
+        <TouchableOpacity onPress={onBack ?? goBack}>
           <Icon size={24} source={Back} />
         </TouchableOpacity>
       )}
@@ -48,13 +51,10 @@ const getStyles = () =>
     container: {
       flexDirection: 'row',
       alignItems: 'center',
+      paddingBottom: 8,
     },
     contentContainer: {
       flex: 1,
       alignItems: 'center',
-    },
-    chevronContainer: {
-      alignItems: 'center',
-      justifyContent: 'center',
     },
   });

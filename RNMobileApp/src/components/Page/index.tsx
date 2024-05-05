@@ -17,6 +17,7 @@ import { AppStackEnum } from '../../navigation/types';
 // External Libs
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type PageProps = {
   children?: React.ReactNode;
@@ -35,26 +36,28 @@ const Page = ({ children, titleColor, title, right, withBack, withClose }: PageP
   const styles = getStyles(theme);
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.header}>
-        {withBack && (
-          <Icon name="chevron-left" color={theme.colors.neutral300} size={24} onPress={() => navigation.goBack()} />
-        )}
-        {withClose && (
-          <Icon
-            name="xmark"
-            color={theme.colors.neutral300}
-            size={24}
-            onPress={() => navigation.navigate(AppStackEnum.HOME as never)}
-          />
-        )}
-      </View>
-      <View style={styles.header}>
-        <Label text={title} type="h1" color={titleColor ?? theme.colors.neutral200} semibold />
-        {right}
-      </View>
-      {children}
-    </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.header}>
+          {withBack && (
+            <Icon name="chevron-left" color={theme.colors.neutral300} size={24} onPress={() => navigation.goBack()} />
+          )}
+          {withClose && (
+            <Icon
+              name="xmark"
+              color={theme.colors.neutral300}
+              size={24}
+              onPress={() => navigation.navigate(AppStackEnum.HOME as never)}
+            />
+          )}
+        </View>
+        <View style={styles.header}>
+          <Label text={title} type="h1" color={titleColor ?? theme.colors.neutral200} semibold />
+          {right}
+        </View>
+        {children}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -64,8 +67,8 @@ const getStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      padding: 16,
-      paddingVertical: 50,
+      paddingHorizontal: 16,
+      paddingBottom: 20,
       backgroundColor: theme.colors.background,
     },
     header: {

@@ -6,6 +6,8 @@ export type AuthStackParamList = {
   Tutorial: undefined;
   Login: undefined;
   CreateAccount: undefined;
+  Personalization: undefined;
+  Success: undefined;
 };
 
 export type AuthNavProps<T extends keyof AuthStackParamList> = NativeStackScreenProps<AuthStackParamList, T>;
