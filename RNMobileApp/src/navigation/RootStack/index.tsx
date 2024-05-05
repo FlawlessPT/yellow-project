@@ -14,7 +14,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-export default function RootStack(): JSX.Element {
+export default function RootStack({ isLoggedIn }: { isLoggedIn: boolean }): JSX.Element {
   return (
     <>
       <StatusBar barStyle="light-content" />
@@ -23,8 +23,11 @@ export default function RootStack(): JSX.Element {
         initialRouteName={RootStackEnum.AUTH}
         screenOptions={defaultScreenOptions}
       >
-        <Stack.Screen name={RootStackEnum.AUTH} component={AuthStack} />
-        <Stack.Screen name={RootStackEnum.APP} component={AppStack} />
+        {isLoggedIn ? (
+          <Stack.Screen name={RootStackEnum.APP} component={AppStack} />
+        ) : (
+          <Stack.Screen name={RootStackEnum.AUTH} component={AuthStack} />
+        )}
       </Stack.Navigator>
     </>
   );
