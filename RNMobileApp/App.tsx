@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@utils/supabase';
 import { Session } from '@supabase/supabase-js';
 import * as WebBrowser from 'expo-web-browser';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
@@ -19,6 +18,8 @@ import { LogLevel, OneSignal } from 'react-native-onesignal';
 import Providers from './src/providers';
 
 import Navigation from './src/navigation';
+import { Loading } from '@components';
+import { LoadingContext } from './src/providers/loading';
 
 // Remove this method to stop OneSignal Debugging
 if (__DEV__) {
@@ -67,8 +68,6 @@ i18n
       useSuspense: false,
     },
   });
-
-const Stack = createNativeStackNavigator();
 
 function App() {
   const [session, setSession] = useState<Session | null>(null);
@@ -122,49 +121,10 @@ function App() {
   return (
     <Providers>
       <StatusBar translucent backgroundColor="transparent" />
-      <Navigation />
-      {/* <NavigationContainer>
-        <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'LandingPage'}>
-          {isLoggedIn && session ? (
-            <Stack.Screen name="Home" options={{ headerShown: false }}>
-              {props => <Account {...props} session={session} />}
-            </Stack.Screen>
-          ) : (
-            <>
-              <Stack.Screen
-                name="LandingPage"
-                component={LandingPage}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="TermsAndConditions"
-                component={TermsAndConditions}
-                options={{ title: '' }}
-              />
-              <Stack.Screen
-                name="PrivacyPolicy"
-                component={PrivacyPolicy}
-                options={{ title: '' }}
-              />
-              <Stack.Screen
-                name="Tutorial"
-                component={Tutorial}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="SignUp"
-                component={SignUp}
-                options={{ headerShown: false }}
-              />
-            </>
-          )}
-        </Stack.Navigator>
-      </NavigationContainer> */}
+      <Navigation isLoggedIn={isLoggedIn} />
+      <LoadingContext.Consumer>
+        {({ loading: { isLoading, message } }) => isLoading && <Loading message={message} />}
+      </LoadingContext.Consumer>
     </Providers>
   );
 }
