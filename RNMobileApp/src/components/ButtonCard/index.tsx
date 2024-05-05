@@ -59,8 +59,8 @@ const getStyles = (theme: Theme, isSelected: boolean) =>
       paddingLeft: 8,
       paddingRight: 20,
       alignItems: 'center',
-      borderWidth: isSelected ? 2 : 0,
-      borderColor: theme.colors.primary,
+      borderWidth: 2,
+      borderColor: isSelected ? theme.colors.primary : theme.colors.neutral800,
     },
     container: {
       flexDirection: 'row',

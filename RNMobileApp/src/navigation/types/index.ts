@@ -11,6 +11,7 @@ enum AuthStackEnum {
   TUTORIAL = 'Tutorial',
   LOGIN = 'Login',
   CREATE_ACCOUNT = 'CreateAccount',
+  PERSONALIZATION = 'Personalization',
 }
 
 enum AppStackEnum {
