@@ -7,15 +7,22 @@ import { Theme } from '@theme';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
+import useLoading from '@hooks/loading/useLoading';
 
 // External Libs
 import { t } from 'i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+// Types
+import { AuthNavProps } from '../../navigation/AuthStack/types';
+import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
+
 // Components
 import { Age, ChooseGender, Height, Header, Label, Button, Weight, Diet, Workout } from '@components';
 
-const Personalization = () => {
+const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
+  const { setLoading } = useLoading();
+
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
@@ -53,9 +60,21 @@ const Personalization = () => {
   const handleMoveToNextStep = () => {
     if (selectedStep < steps.length - 1) {
       setSelectedStep(selectedStep + 1);
-    }
+    } else {
+      setLoading({ isLoading: true, message: 'loading' });
 
-    return;
+      setTimeout(() => {
+        navigation.reset({
+          routes: [
+            {
+              name: RootStackEnum.AUTH as never,
+              params: { screen: AuthStackEnum.SUCCESS },
+            },
+          ],
+        });
+        setLoading({ isLoading: false });
+      }, 2000);
+    }
   };
 
   const handleMoveToPreviousStep = () => {

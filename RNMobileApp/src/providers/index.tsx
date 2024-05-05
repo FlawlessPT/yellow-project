@@ -5,6 +5,7 @@ import React from 'react';
 import { ThemeProvider } from './theme';
 
 // Providers
+import LoadingProvider from './loading';
 import { FeatureFlagsContextProvider } from './feature-flags';
 
 // External Libs
@@ -19,9 +20,11 @@ const Providers = ({ children }: ProvidersProps) => {
   return (
     <SafeAreaProvider>
       <PaperProvider>
-        <ThemeProvider>
-          <FeatureFlagsContextProvider>{children}</FeatureFlagsContextProvider>
-        </ThemeProvider>
+        <LoadingProvider>
+          <ThemeProvider>
+            <FeatureFlagsContextProvider>{children}</FeatureFlagsContextProvider>
+          </ThemeProvider>
+        </LoadingProvider>
       </PaperProvider>
     </SafeAreaProvider>
   );

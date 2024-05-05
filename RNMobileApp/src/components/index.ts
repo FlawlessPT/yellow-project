@@ -25,7 +25,8 @@ import Height from './PersonalizationSteps/Height';
 import Weight from './PersonalizationSteps/Weight';
 import Diet from './PersonalizationSteps/Diet';
 import Workout from './PersonalizationSteps/Workout';
-// import Loading from './Loading';
+import Loading from './Loading';
+import Success from './Success';
 
 export {
   Button,
@@ -55,4 +56,6 @@ export {
   Weight,
   Diet,
   Workout,
+  Loading,
+  Success,
 };

@@ -41,7 +41,7 @@ export default SmallCard;
 const getStyles = (theme: Theme, isSelected: boolean) =>
   StyleSheet.create({
     card: {
-      height: 155,
+      height: 170,
       width: 155,
       borderRadius: 12,
       backgroundColor: theme.colors.neutral800,
