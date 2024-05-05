@@ -19,3 +19,6 @@ export { default as PlayIcon } from './icons/nutrients/play.png';
 export { default as OnBoarding1 } from './images/onboarding/1.png';
 export { default as OnBoarding2 } from './images/onboarding/2.png';
 export { default as OnBoarding3 } from './images/onboarding/3.png';
+export { default as ManIcon } from './icons/personalization/man.png';
+export { default as WomanIcon } from './icons/personalization/woman.png';
+export { default as OtherIcon } from './icons/personalization/others.png';

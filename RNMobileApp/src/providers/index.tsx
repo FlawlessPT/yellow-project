@@ -9,6 +9,7 @@ import { FeatureFlagsContextProvider } from './feature-flags';
 
 // External Libs
 import { Provider as PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -16,11 +17,13 @@ interface ProvidersProps {
 
 const Providers = ({ children }: ProvidersProps) => {
   return (
-    <PaperProvider>
-      <ThemeProvider>
-        <FeatureFlagsContextProvider>{children}</FeatureFlagsContextProvider>
-      </ThemeProvider>
-    </PaperProvider>
+    <SafeAreaProvider>
+      <PaperProvider>
+        <ThemeProvider>
+          <FeatureFlagsContextProvider>{children}</FeatureFlagsContextProvider>
+        </ThemeProvider>
+      </PaperProvider>
+    </SafeAreaProvider>
   );
 };
 
