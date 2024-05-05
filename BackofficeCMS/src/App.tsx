@@ -1,23 +1,24 @@
-import {useEffect, useState} from 'react';
-import {Admin, CustomRoutes, Resource} from 'react-admin';
-import {ForgotPasswordPage, LoginPage} from 'ra-supabase';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {dataProvider} from '@utils/supabase.dataProvider';
-import {authProvider} from '@utils/supabase.authProvider';
-import {UpdatePasswordForm} from '@pages/UpdatePasswordForm';
-import {ForgotPasswordForm} from '@pages/ForgotPasswordForm';
-import {supabaseClient} from '@utils/supabase';
-import {PostgrestSingleResponse} from '@supabase/supabase-js';
-import {ColumnType, TableInfoType, UserSession} from '@types';
-import {CustomResourceFormGuesser} from '@components/CustomResourceFormGuesser';
+import { useEffect, useState } from 'react';
+import { Admin, AdminProps, CustomRoutes, Resource, defaultDarkTheme, defaultLightTheme } from 'react-admin';
+import { ForgotPasswordPage, LoginPage } from 'ra-supabase';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { dataProvider } from '@utils/supabase.dataProvider';
+import { authProvider } from '@utils/supabase.authProvider';
+import { UpdatePasswordForm } from '@pages/UpdatePasswordForm';
+import { ForgotPasswordForm } from '@pages/ForgotPasswordForm';
+import { supabaseClient } from '@utils/supabase';
+import { PostgrestSingleResponse } from '@supabase/supabase-js';
+import { ColumnType, TableInfoType, UserSession } from '@types';
+import { CustomResourceFormGuesser } from '@components/CustomResourceFormGuesser';
 import {
   getGeneralOverrides,
   isResourceVisibleForRoles,
   isViewModeEnabledForResource,
   recordRepresentationForResource,
 } from '@configs';
-import {TablesContext} from '@utils/contexts/tables';
-import {CustomResourceListGuesser} from '@components/CustomResourceListGuesser';
+import { TablesContext } from '@utils/contexts/tables';
+import { CustomResourceListGuesser } from '@components/CustomResourceListGuesser';
+import Dashboard from '@pages/Dashboard';
 
 function BackOfficeAdmin() {
   const [isLoading, setLoading] = useState(false);
@@ -27,17 +28,16 @@ function BackOfficeAdmin() {
     async function fetchTableNames() {
       setLoading(true);
 
-      const {data: tablesInfo = []} =
-        await supabaseClient.rpc('get_all_table_name');
-      const backOfficeTablesScheme: typeof tables = (
-        tablesInfo as Array<{table_name: string}>
-      ).map((t: {table_name: string}) => ({
-        name: t.table_name,
-        schema: [],
-      }));
+      const { data: tablesInfo = [] } = await supabaseClient.rpc('get_all_table_name');
+      const backOfficeTablesScheme: typeof tables = (tablesInfo as Array<{ table_name: string }>).map(
+        (t: { table_name: string }) => ({
+          name: t.table_name,
+          schema: [],
+        })
+      );
 
-      const allTablePromises = backOfficeTablesScheme.map(({name}) =>
-        supabaseClient.rpc('get_types', {tname: name}),
+      const allTablePromises = backOfficeTablesScheme.map(({ name }) =>
+        supabaseClient.rpc('get_types', { tname: name })
       );
       const allTableInfoResults = await Promise.all(allTablePromises);
       allTableInfoResults.forEach(
@@ -50,15 +50,15 @@ function BackOfficeAdmin() {
               default_value: string | null;
             }[]
           >,
-          i,
+          i
         ) => {
           backOfficeTablesScheme[i].schema =
-            response.data?.map(c => ({
+            response.data?.map((c) => ({
               columnName: c.column_name,
               columnType: c.data_type,
               isRequired: c.is_nullable === 'NO' && c.default_value === null,
             })) || [];
-        },
+        }
       );
 
       setTables(backOfficeTablesScheme);
@@ -71,10 +71,10 @@ function BackOfficeAdmin() {
   const [session, setSession] = useState<UserSession>();
 
   useEffect(() => {
-    supabaseClient.auth.getSession().then(({data: {session}}) => {
+    supabaseClient.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
-        authProvider.getUserRoles(session.user.id).then(profileRoles => {
-          setSession({...session, user: {...session.user, profileRoles}});
+        authProvider.getUserRoles(session.user.id).then((profileRoles) => {
+          setSession({ ...session, user: { ...session.user, profileRoles } });
         });
       }
     });
@@ -83,27 +83,39 @@ function BackOfficeAdmin() {
   const generalOverrides = getGeneralOverrides();
   const tablesToExclude = generalOverrides?.tablesToExclude || [];
 
+  const themeProps: AdminProps = {
+    lightTheme: {
+      ...defaultLightTheme,
+      palette: {
+        ...defaultLightTheme.palette,
+        secondary: {
+          ...defaultLightTheme.palette?.secondary,
+          main: '#FDCA00',
+        },
+      },
+    },
+    darkTheme: defaultDarkTheme,
+  };
+
   if (isLoading) return <p>Loading back office</p>;
 
   return (
-    <TablesContext.Provider value={{tables}}>
+    <TablesContext.Provider value={{ tables }}>
       <Admin
+        basename="/admin"
         dataProvider={dataProvider}
         authProvider={authProvider}
-        loginPage={LoginPage}>
+        loginPage={LoginPage}
+        dashboard={Dashboard}
+        {...themeProps}
+      >
         <CustomRoutes noLayout>
-          <Route
-            path="/account/update-password"
-            element={<UpdatePasswordForm />}
-          />
-          <Route
-            path={ForgotPasswordPage.path}
-            element={<ForgotPasswordForm />}
-          />
+          <Route path="/account/update-password" element={<UpdatePasswordForm />} />
+          <Route path={ForgotPasswordPage.path} element={<ForgotPasswordForm />} />
         </CustomRoutes>
 
         {session &&
-          tables.map(t => {
+          tables.map((t) => {
             const isEditable = isViewModeEnabledForResource({
               tableName: t.name,
               viewMode: 'edit',
@@ -121,38 +133,16 @@ function BackOfficeAdmin() {
               <Resource
                 key={t.name}
                 name={t.name}
-                recordRepresentation={record => {
-                  const recordRepresentationColumn =
-                    recordRepresentationForResource({
-                      tableName: t.name,
-                    });
+                recordRepresentation={(record) => {
+                  const recordRepresentationColumn = recordRepresentationForResource({
+                    tableName: t.name,
+                  });
 
-                  return (
-                    recordRepresentationColumn &&
-                    (record[recordRepresentationColumn] || record['id'])
-                  );
+                  return recordRepresentationColumn && (record[recordRepresentationColumn] || record['id']);
                 }}
                 list={() => <CustomResourceListGuesser tableInfo={t} />}
-                edit={
-                  isEditable
-                    ? () => (
-                        <CustomResourceFormGuesser
-                          tableInfo={t}
-                          viewMode="edit"
-                        />
-                      )
-                    : undefined
-                }
-                create={
-                  isCreatable
-                    ? () => (
-                        <CustomResourceFormGuesser
-                          tableInfo={t}
-                          viewMode="create"
-                        />
-                      )
-                    : undefined
-                }
+                edit={isEditable ? () => <CustomResourceFormGuesser tableInfo={t} viewMode="edit" /> : undefined}
+                create={isCreatable ? () => <CustomResourceFormGuesser tableInfo={t} viewMode="create" /> : undefined}
               />
             ) : null;
           })}
@@ -165,7 +155,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/*" element={<BackOfficeAdmin />} />
+        <Route path="/admin/*" element={<BackOfficeAdmin />} />
       </Routes>
     </BrowserRouter>
   );
