@@ -1,6 +1,7 @@
 import {supabaseAuthProvider} from 'ra-supabase';
 import {supabaseClient} from './supabase';
 import * as Sentry from '@sentry/react';
+import {DatabaseUserRoles} from '@types';
 
 const baseAuthProvider = supabaseAuthProvider(supabaseClient, {
   getIdentity: async user => {
@@ -41,17 +42,35 @@ export const authProvider = {
         .match({id: sessionData.session.user.id})
         .single();
 
+      const userRoles = data?.roles as string[];
+
       if (
         !data ||
         error ||
-        (data && !(data.roles as string[]).includes('ADMIN'))
+        (data &&
+          !userRoles.includes('ADMIN') &&
+          !userRoles.includes('SUPER_ADMIN'))
       ) {
-        throw new Error();
+        throw new Error('User is not an admin');
       }
     } else if (sessionError) {
-      throw new Error();
+      throw new Error('Error fetching session');
     }
 
     return loginPromise;
+  },
+  // get user role from supabase table profiles based on session user id
+  getUserRoles: async (userId: string): Promise<DatabaseUserRoles> => {
+    const {data, error} = await supabaseClient
+      .from('profiles')
+      .select('roles')
+      .match({id: userId})
+      .single();
+
+    if (!data || error) {
+      throw new Error();
+    }
+
+    return data.roles;
   },
 };
