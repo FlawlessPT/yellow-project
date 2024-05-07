@@ -63,7 +63,7 @@ export const Input = ({
   return (
     <View style={style}>
       {label && <Label text={label} type="h3" semibold color={titleColor || theme.colors.white} style={styles.label} />}
-      <View style={[styles.container, style]}>
+      <View style={styles.container}>
         {leftIconName && <Icon name={leftIconName} color="white" style={styles.leftIcon} size={16} />}
         <TextInput
           value={value}
