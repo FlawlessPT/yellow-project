@@ -1,16 +1,21 @@
-import { Admin, CustomRoutes, Resource } from 'react-admin';
 import { ForgotPasswordPage, LoginPage } from 'ra-supabase';
+import { Admin, CustomRoutes, Resource } from 'react-admin';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { dataProvider } from '@utils/supabase.dataProvider';
-import { authProvider } from '@utils/supabase.authProvider';
-import { UpdatePasswordForm } from '@pages/UpdatePasswordForm';
-import { ForgotPasswordForm } from '@pages/ForgotPasswordForm';
-import { CustomResourceFormGuesser } from '@components/CustomResourceFormGuesser';
+
 import { isResourceVisibleForRoles, isViewModeEnabledForResource, recordRepresentationForResource } from '@configs';
-import { TablesContext } from '@utils/contexts/tables';
-import { CustomResourceListGuesser } from '@components/CustomResourceListGuesser';
+
 import Dashboard from '@pages/Dashboard';
-import { useCustomResources, useFetchSession } from './hooks';
+import { ForgotPasswordForm } from '@pages/ForgotPasswordForm';
+import { UpdatePasswordForm } from '@pages/UpdatePasswordForm';
+
+import { CustomResourceFormGuesser } from '@components/CustomResourceFormGuesser';
+import { CustomResourceListGuesser } from '@components/CustomResourceListGuesser';
+
+import { useCustomResources, useFetchSession } from '@hooks';
+
+import { TablesContext } from '@utils/contexts/tables';
+import { authProvider } from '@utils/supabase.authProvider';
+import { dataProvider } from '@utils/supabase.dataProvider';
 import themeConfigs from '@utils/theme';
 
 function BackOfficeAdmin() {

@@ -1,32 +1,27 @@
-import {Create, DeleteButton, Edit, SaveButton, Toolbar} from 'react-admin';
-import {overridesForResource} from '@configs';
-import {TableInfoType, ViewMode} from '@types';
-import {ResourceFormWrapper} from '../ResourceFormWrapper';
-import {TableInputs} from '../TableInputs';
+import { Create, DeleteButton, Edit, SaveButton, Toolbar } from 'react-admin';
+
+import { overridesForResource } from '@configs';
+
+import { ResourceFormWrapper } from '../ResourceFormWrapper';
+import { TableInputs } from '../TableInputs';
+
+import { TableInfoType, ViewMode } from '@types';
 
 const ViewModeResourceMap: {
-  [viewMode in ViewMode]?: (props: {children: React.ReactNode}) => JSX.Element;
+  [viewMode in ViewMode]?: (props: { children: React.ReactNode }) => JSX.Element;
 } = {
   create: Create,
-  edit: ({children}: {children?: React.ReactNode}) => (
-    <Edit mutationMode="pessimistic">{children}</Edit>
-  ),
+  edit: ({ children }: { children?: React.ReactNode }) => <Edit mutationMode="pessimistic">{children}</Edit>,
 };
 
-const EditToolbar = ({isDeletable}: {isDeletable: boolean}) => (
+const EditToolbar = ({ isDeletable }: { isDeletable: boolean }) => (
   <Toolbar>
     <SaveButton />
     {isDeletable && <DeleteButton />}
   </Toolbar>
 );
 
-export function CustomResourceFormGuesser({
-  tableInfo,
-  viewMode,
-}: {
-  viewMode: ViewMode;
-  tableInfo: TableInfoType;
-}) {
+export function CustomResourceFormGuesser({ tableInfo, viewMode }: { viewMode: ViewMode; tableInfo: TableInfoType }) {
   const ResourceComponent = ViewModeResourceMap[viewMode];
 
   if (!ResourceComponent) return null;
@@ -40,10 +35,7 @@ export function CustomResourceFormGuesser({
       viewMode: 'edit',
     });
 
-    if (
-      typeof resourceEditOverrides?.isDeletable === 'boolean' &&
-      !resourceEditOverrides?.isDeletable
-    ) {
+    if (typeof resourceEditOverrides?.isDeletable === 'boolean' && !resourceEditOverrides?.isDeletable) {
       isDeletable = false;
     }
 
