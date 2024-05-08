@@ -48,6 +48,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME) needs your location to enhance your experience.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+		<string>$(PRODUCT_NAME) needs your permission to open Photo Library.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FontAwesome.ttf</string>

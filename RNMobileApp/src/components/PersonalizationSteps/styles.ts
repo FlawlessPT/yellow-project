@@ -41,4 +41,5 @@ export const getStyles = (theme?: Theme) =>
       color: theme?.colors.neutral400,
       fontFamily: theme?.fonts.semibold,
     },
+    scrollview: { flex: 1 },
   });

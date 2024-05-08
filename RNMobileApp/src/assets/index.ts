@@ -22,5 +22,6 @@ export { default as OnBoarding3 } from './images/onboarding/3.png';
 export { default as ManIcon } from './icons/personalization/man.png';
 export { default as WomanIcon } from './icons/personalization/woman.png';
 export { default as OtherIcon } from './icons/personalization/others.png';
+export { default as UploadIcon } from './icons/upload.png';
 export { default as LoadingLottie } from './lotties/loading.json';
 export { default as SuccessLottie } from './lotties/success.json';
