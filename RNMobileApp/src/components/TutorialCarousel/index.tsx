@@ -6,11 +6,11 @@ import { Dimensions, StyleSheet, View, ImageBackground, ImageSourcePropType } fr
 // Theme
 import { Theme } from '@theme';
 
-// Components
-import { Button, Label } from '@components';
-
 // Theme
 import useTheme from '@hooks/theme/useTheme';
+
+// Components
+import { Button, Label, Pagination } from '@components';
 
 // Types
 import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
@@ -36,11 +36,11 @@ type TutorialCarouselProps = {
 export const TutorialCarousel = ({ autoPlay = false, loop = false, data }: TutorialCarouselProps) => {
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLast, setIsLast] = useState<boolean>(true);
-  const [currentIndex, setCurrentIndex] = useState<number | undefined>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const { theme } = useTheme();
 
-  const styles = getStyles(theme, isLast);
+  const styles = getStyles(theme);
 
   const screenWidth = Dimensions.get('window').width;
 
@@ -106,19 +106,7 @@ export const TutorialCarousel = ({ autoPlay = false, loop = false, data }: Tutor
               style={styles.startNowButton}
             />
           )}
-          <View style={styles.paginationContainer}>
-            {Array(data.length)
-              .fill(0)
-              .map((_, i) => (
-                <View
-                  key={i}
-                  style={[
-                    styles.pagination,
-                    { backgroundColor: currentIndex === i ? theme.colors.primary : theme.colors.neutral700 },
-                  ]}
-                />
-              ))}
-          </View>
+          <Pagination length={data.length} currentIndex={currentIndex} />
           {isLast && (
             <RenderHTML
               source={{ html: t('terms.conditions.title') }}
@@ -141,14 +129,22 @@ export const TutorialCarousel = ({ autoPlay = false, loop = false, data }: Tutor
       data={data}
       scrollAnimationDuration={100}
       ref={ref}
-      onSnapToItem={() => setCurrentIndex(ref.current?.getCurrentIndex())}
+      onSnapToItem={() => setCurrentIndex(ref.current?.getCurrentIndex() ?? 0)}
       renderItem={renderItem}
     />
   );
 };
 
-const getStyles = (theme: Theme, isLast: boolean) =>
+const getStyles = (theme: Theme) =>
   StyleSheet.create({
+    contentContainer: {
+      width: 56,
+      height: 56,
+      backgroundColor: theme.colors.neutral700,
+      borderRadius: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     container: {
       flex: 1,
       paddingHorizontal: 16,
@@ -165,18 +161,6 @@ const getStyles = (theme: Theme, isLast: boolean) =>
     },
     title: {
       paddingBottom: 24,
-    },
-    paginationContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      gap: 12,
-      paddingBottom: isLast ? 32 : 86,
-      paddingTop: 46,
-    },
-    pagination: {
-      height: 6,
-      width: 32,
-      borderRadius: 6,
     },
     startNowButton: {
       width: 189,

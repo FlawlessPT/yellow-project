@@ -1,6 +1,6 @@
 // React and React Native
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 // Styles
 import { getStyles } from '../styles';
@@ -29,24 +29,26 @@ const Diet = ({ onPress }: StepProps) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.contentContainer}>
-        <SmallCard image="leaf" title="vegan" {...handleSetDietType(DietType.VEGAN)} />
-        <SmallCard image="egg" title="vegetarian" {...handleSetDietType(DietType.VEGETARIAN)} />
+    <ScrollView bounces={false} style={styles.scrollview}>
+      <View style={styles.container}>
+        <View style={styles.contentContainer}>
+          <SmallCard image="leaf" title="vegan" {...handleSetDietType(DietType.VEGAN)} />
+          <SmallCard image="egg" title="vegetarian" {...handleSetDietType(DietType.VEGETARIAN)} />
+        </View>
+        <View style={styles.contentContainer}>
+          <SmallCard image="burger" title="tradicional" {...handleSetDietType(DietType.TRADITIONAL)} />
+          <SmallCard image="bread-slice" title="other" {...handleSetDietType(DietType.OTHER)} />
+        </View>
+        <Input
+          value={dietDescription}
+          multiline
+          textStyle={styles.inputHeight}
+          style={styles.inputContainer}
+          placeholder="your_diet.input"
+          onChangeText={setDietDescription}
+        />
       </View>
-      <View style={styles.contentContainer}>
-        <SmallCard image="burger" title="tradicional" {...handleSetDietType(DietType.TRADITIONAL)} />
-        <SmallCard image="bread-slice" title="other" {...handleSetDietType(DietType.OTHER)} />
-      </View>
-      <Input
-        value={dietDescription}
-        multiline
-        textStyle={styles.inputHeight}
-        style={styles.inputContainer}
-        placeholder="your_diet.input"
-        onChangeText={setDietDescription}
-      />
-    </View>
+    </ScrollView>
   );
 };
 

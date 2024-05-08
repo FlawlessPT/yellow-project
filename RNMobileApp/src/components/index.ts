@@ -25,8 +25,10 @@ import Height from './PersonalizationSteps/Height';
 import Weight from './PersonalizationSteps/Weight';
 import Diet from './PersonalizationSteps/Diet';
 import Workout from './PersonalizationSteps/Workout';
+import UploadPhotos from './PersonalizationSteps/UploadPhotos';
 import Loading from './Loading';
 import Success from './Success';
+import Pagination from './Pagination';
 
 export {
   Button,
@@ -56,6 +58,8 @@ export {
   Weight,
   Diet,
   Workout,
+  UploadPhotos,
   Loading,
   Success,
+  Pagination,
 };

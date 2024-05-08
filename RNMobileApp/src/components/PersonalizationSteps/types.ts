@@ -43,3 +43,14 @@ export enum WorkoutType {
 }
 
 export type HandleSetTypeResult = { isSelected: boolean; onPress: () => void };
+
+export enum PhotoType {
+  FRONT = 'front',
+  BACK = 'back',
+  SIDE = 'side',
+}
+
+export type Photo = {
+  image?: string;
+  title: PhotoType;
+};
