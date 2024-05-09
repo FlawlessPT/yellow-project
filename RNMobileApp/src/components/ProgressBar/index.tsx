@@ -29,7 +29,8 @@ const ProgressBar = ({ title, progress }: ProgressBarProps) => {
           <View style={[styles.progressBar, styles.completedBar]} />
           <View style={[styles.progressBar, styles.primaryBar]} />
         </View>
-        <Label text={`${progress}%`} type="h2" color={theme.colors.neutral300} bold style={styles.progressLabel} />
+        <Label text={progress.toString()} type="h2" color={theme.colors.neutral300} bold style={styles.progressLabel} />
+        <Label text={'%'} type="footnote" color={theme.colors.neutral300} medium style={styles.percentageLabel} />
       </View>
     </>
   );
@@ -55,6 +56,7 @@ const getStyles = (theme: Theme, progressWidth: number) =>
     progressLabel: {
       marginLeft: 24,
     },
+    percentageLabel: { marginLeft: 4 },
     completedBar: {
       backgroundColor: theme.colors.neutral700,
       width: '100%',
