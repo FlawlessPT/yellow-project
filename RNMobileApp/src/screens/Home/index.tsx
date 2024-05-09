@@ -1,22 +1,32 @@
 // React and React Native
 import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, Image, StyleSheet } from 'react-native';
 
 // Stubs
 import { meals, workouts } from './stub';
 
 // Components
 import Card from '@components/Card';
-import { Label, Page } from '@components';
+import { Label, Page, ProgressBar } from '@components';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
+import { LogoImage } from '@assets';
 
 const Home = () => {
   const { theme } = useTheme();
 
   return (
-    <Page title="Hello, Bernardo" titleColor={theme.colors.primary}>
+    <Page
+      header={
+        <>
+          <Image source={LogoImage} style={styles.profileImage} />
+          <Label text="Hi, Bernardo" type="h4" color={'rgba(255,255,255,0.5)'} medium style={styles.helloLabel} />
+        </>
+      }
+      title="Let’s start your day"
+    >
+      <ProgressBar title="For the Week" progress={45} />
       <Label text="my_workouts" type="h4" color={theme.colors.neutral300} medium style={styles.title} />
       <FlatList
         data={workouts}
@@ -46,5 +56,13 @@ const styles = StyleSheet.create({
   },
   row: {
     gap: 24,
+  },
+  helloLabel: {
+    marginTop: 10,
+  },
+  profileImage: {
+    borderRadius: 20,
+    width: 40,
+    height: 40,
   },
 });

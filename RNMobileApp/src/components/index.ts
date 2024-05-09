@@ -29,6 +29,7 @@ import UploadPhotos from './PersonalizationSteps/UploadPhotos';
 import Loading from './Loading';
 import Success from './Success';
 import Pagination from './Pagination';
+import ProgressBar from './ProgressBar';
 
 export {
   Button,
@@ -62,4 +63,5 @@ export {
   Loading,
   Success,
   Pagination,
+  ProgressBar,
 };
