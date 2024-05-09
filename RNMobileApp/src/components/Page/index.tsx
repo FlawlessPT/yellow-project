@@ -26,9 +26,10 @@ type PageProps = {
   right?: React.ReactNode;
   withClose?: boolean;
   withBack?: boolean;
+  header?: React.ReactNode;
 };
 
-const Page = ({ children, titleColor, title, right, withBack, withClose }: PageProps) => {
+const Page = ({ children, titleColor, title, right, withBack, withClose, header }: PageProps) => {
   const navigation = useNavigation();
 
   const { theme } = useTheme();
@@ -37,6 +38,7 @@ const Page = ({ children, titleColor, title, right, withBack, withClose }: PageP
 
   return (
     <SafeAreaView style={styles.container}>
+      {header}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           {withBack && (
@@ -52,7 +54,7 @@ const Page = ({ children, titleColor, title, right, withBack, withClose }: PageP
           )}
         </View>
         <View style={styles.header}>
-          <Label text={title} type="h1" color={titleColor ?? theme.colors.neutral200} semibold />
+          <Label text={title} type="h2" color={titleColor ?? theme.colors.neutral200} semibold />
           {right}
         </View>
         {children}
