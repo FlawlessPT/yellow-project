@@ -1,6 +1,6 @@
 // React and React Native
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 // Theme
 import { Theme } from '@theme';
@@ -14,15 +14,16 @@ import useTheme from '@hooks/theme/useTheme';
 type ProgressBarProps = {
   title?: string;
   progress: number;
+  style?: StyleProp<ViewStyle>;
 };
 
-const ProgressBar = ({ title, progress }: ProgressBarProps) => {
+const ProgressBar = ({ title, progress, style }: ProgressBarProps) => {
   const { theme } = useTheme();
 
   const styles = getStyles(theme, progress);
 
   return (
-    <>
+    <View style={style}>
       <Label text={title} type="footnote" color={theme.colors.neutral300} medium />
       <View style={styles.container}>
         <View style={styles.contentContainer}>
@@ -32,7 +33,7 @@ const ProgressBar = ({ title, progress }: ProgressBarProps) => {
         <Label text={progress.toString()} type="h2" color={theme.colors.neutral300} bold style={styles.progressLabel} />
         <Label text={'%'} type="footnote" color={theme.colors.neutral300} medium style={styles.percentageLabel} />
       </View>
-    </>
+    </View>
   );
 };
 

@@ -1,6 +1,6 @@
 // React and React Native
 import React from 'react';
-import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, ImageSourcePropType, StyleProp, StyleSheet, TextStyle, TouchableOpacity, View } from 'react-native';
 
 // Components
 import Label from '../../Label';
@@ -11,6 +11,7 @@ export type LabelButtonProps = {
   rightIcon?: ImageSourcePropType;
   leftIconColor?: string;
   rightIconColor?: string;
+  textStyle?: StyleProp<TextStyle>;
   onPress: () => void;
 };
 
@@ -20,6 +21,7 @@ const LabelButton = ({
   leftIconColor,
   rightIconColor,
   style,
+  textStyle,
   onPress,
   ...props
 }: LabelButtonProps & LabelProps) => {
@@ -29,7 +31,7 @@ const LabelButton = ({
     <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
       <View style={styles.container}>
         {leftIcon && <Image source={leftIcon} style={styles.icon} />}
-        <Label {...props} />
+        <Label {...props} style={textStyle} />
         {rightIcon && <Image style={[styles.icon, styles.rightIcon]} source={rightIcon} />}
       </View>
     </TouchableOpacity>

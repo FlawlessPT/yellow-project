@@ -27,14 +27,24 @@ type PageProps = {
   withClose?: boolean;
   withBack?: boolean;
   header?: React.ReactNode;
+  withoutHorizontalMargin?: boolean;
 };
 
-const Page = ({ children, titleColor, title, right, withBack, withClose, header }: PageProps) => {
+const Page = ({
+  children,
+  titleColor,
+  title,
+  right,
+  withBack,
+  withClose,
+  header,
+  withoutHorizontalMargin = false,
+}: PageProps) => {
   const navigation = useNavigation();
 
   const { theme } = useTheme();
 
-  const styles = getStyles(theme);
+  const styles = getStyles(theme, withoutHorizontalMargin);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -65,11 +75,11 @@ const Page = ({ children, titleColor, title, right, withBack, withClose, header 
 
 export default Page;
 
-const getStyles = (theme: Theme) =>
+const getStyles = (theme: Theme, withoutHorizontalMargin: boolean) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingHorizontal: 16,
+      paddingHorizontal: withoutHorizontalMargin ? 0 : 16,
       paddingBottom: 50,
       backgroundColor: theme.colors.background,
     },
@@ -77,5 +87,6 @@ const getStyles = (theme: Theme) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       marginBottom: 18,
+      paddingHorizontal: !withoutHorizontalMargin ? 0 : 16,
     },
   });
