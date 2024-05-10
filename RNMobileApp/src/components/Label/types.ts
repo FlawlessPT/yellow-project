@@ -22,14 +22,7 @@ export type TypographySpecification = {
   lineHeight: number;
 };
 
-export type TypographyType =
-  | 'h1'
-  | 'h2'
-  | 'h3'
-  | 'h4'
-  | 'h5'
-  | 'body'
-  | 'footnote';
+export type TypographyType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'body' | 'footnote';
 
 export enum TypographyTypeEnum {
   H1 = 'h1',
