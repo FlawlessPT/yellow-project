@@ -16,6 +16,7 @@ export { default as ProteinIcon } from './icons/nutrients/protein.png';
 export { default as FatIcon } from './icons/nutrients/fat.png';
 export { default as CarbIcon } from './icons/nutrients/carb.png';
 export { default as PlayIcon } from './icons/nutrients/play.png';
+export { default as KcalIcon } from './icons/nutrients/kcal.png';
 export { default as OnBoarding1 } from './images/onboarding/1.png';
 export { default as OnBoarding2 } from './images/onboarding/2.png';
 export { default as OnBoarding3 } from './images/onboarding/3.png';

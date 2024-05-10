@@ -2,16 +2,18 @@
 import React from 'react';
 import { FlatList, Image, StyleSheet } from 'react-native';
 
+// Assets
+import { LogoImage } from '@assets';
+
 // Stubs
 import { meals, workouts } from './stub';
+
+// Hooks
+import useTheme from '@hooks/theme/useTheme';
 
 // Components
 import Card from '@components/Card';
 import { Label, Page, ProgressBar } from '@components';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-import { LogoImage } from '@assets';
 
 const Home = () => {
   const { theme } = useTheme();
@@ -24,7 +26,7 @@ const Home = () => {
           <Label text="Hi, Bernardo" type="h4" color={'rgba(255,255,255,0.5)'} medium style={styles.helloLabel} />
         </>
       }
-      title="Let’s start your day"
+      title="home.title"
     >
       <ProgressBar title="For the Week" progress={45} />
       <Label text="my_workouts" type="h4" color={theme.colors.neutral300} medium style={styles.title} />
@@ -32,7 +34,7 @@ const Home = () => {
         data={workouts}
         horizontal
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <Card image={item.image} title={item.title} items={item.items} />}
+        renderItem={({ item }) => <Card {...item} />}
         contentContainerStyle={styles.row}
       />
       <Label text="my_meals" type="h4" color={theme.colors.neutral300} medium style={styles.title} />
@@ -40,7 +42,7 @@ const Home = () => {
         data={meals}
         horizontal
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <Card image={item.image} title={item.title} items={item.items} />}
+        renderItem={({ item }) => <Card {...item} />}
         contentContainerStyle={styles.row}
       />
     </Page>
