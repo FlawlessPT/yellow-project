@@ -12,20 +12,26 @@ import CardItem, { ItemType } from '@components/CardItem';
 type CardProps = {
   image: string;
   title: string;
-  items?: ItemType[];
+  subtitle?: string[];
+  item?: ItemType;
 };
 
-const Card = ({ image, title, items }: CardProps) => {
+const Card = ({ image, title, subtitle, item }: CardProps) => {
   const { theme } = useTheme();
 
   const styles = getStyles();
 
   return (
     <ImageBackground source={{ uri: image }} imageStyle={styles.card} style={styles.container}>
-      <Label text={title} type="h1" semibold color={theme.colors.white} />
-      <View style={styles.row}>
-        {items?.map((item, index) => <CardItem key={index} icon={item.icon} text={item.text} />)}
+      <View>
+        <Label text={title} type="h2" semibold color={theme.colors.white} />
+        <View style={styles.row}>
+          {subtitle?.map((text, index) => (
+            <Label key={index} text={text} type="footnote" color={theme.colors.neutral300} />
+          ))}
+        </View>
       </View>
+      {item && <CardItem {...item} />}
     </ImageBackground>
   );
 };
@@ -38,7 +44,7 @@ const getStyles = () =>
       borderRadius: 24,
       opacity: 0.4,
     },
-    container: { height: 182, padding: 24, justifyContent: 'space-between' },
+    container: { height: 182, padding: 24, width: 320, justifyContent: 'space-between', flexGrow: 0 },
     row: {
       flexDirection: 'row',
       gap: 16,
