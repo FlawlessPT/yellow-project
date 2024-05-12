@@ -54,7 +54,7 @@ const Home = () => {
           data={Array(7).fill(0)}
           horizontal
           onScrollToIndexFailed={() => undefined}
-          initialScrollIndex={today - 1}
+          initialScrollIndex={today - 2}
           showsHorizontalScrollIndicator={false}
           renderItem={({ index }) => (
             <LabelButton

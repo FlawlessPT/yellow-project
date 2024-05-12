@@ -80,7 +80,7 @@ const getStyles = (theme: Theme, withoutHorizontalMargin: boolean) =>
     container: {
       flex: 1,
       paddingHorizontal: withoutHorizontalMargin ? 0 : 16,
-      paddingBottom: 50,
+      paddingBottom: 70,
       backgroundColor: theme.colors.background,
     },
     header: {
