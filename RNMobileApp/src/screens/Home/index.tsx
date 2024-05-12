@@ -14,21 +14,19 @@ import { meals, workouts } from './stub';
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
 
+// Utils
+import { getWeekdaysStrings, today } from '@utils/weekdays';
+
 // Components
 import Card from '@components/Card';
 import { Label, LabelButton, Page, ProgressBar } from '@components';
-
-// Utils
-import { getWeekdays, getWeekdaysStrings, today } from '@utils/weekdays';
 
 const Home = () => {
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
 
-  const [selectedDay, setSelectedDay] = useState<number>(today - 1);
-
-  const days = [...getWeekdays().daysBefore.reverse(), 'today', 'tomorrow', ...getWeekdays().daysAfter];
+  const [selectedDay, setSelectedDay] = useState<number>(today);
 
   return (
     <Page
@@ -53,14 +51,15 @@ const Home = () => {
       <Label text="my_meals" type="h4" color={theme.colors.neutral300} medium style={styles.title} />
       <View style={styles.weekdaysContainer}>
         <FlatList
-          data={days}
+          data={Array(7).fill(0)}
           horizontal
-          initialScrollIndex={days.findIndex((item) => item === 'today')}
+          onScrollToIndexFailed={() => undefined}
+          initialScrollIndex={today - 1}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item, index }) => (
+          renderItem={({ index }) => (
             <LabelButton
               key={index}
-              text={getWeekdaysStrings(item.toString())}
+              text={getWeekdaysStrings(index === today ? 'today' : index === today + 1 ? 'tomorrow' : index.toString())}
               color={theme.colors.white}
               textStyle={{ color: selectedDay === index ? theme.colors.neutral700 : theme.colors.neutral400 }}
               style={{
