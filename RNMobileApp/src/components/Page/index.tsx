@@ -1,6 +1,6 @@
 // React and React Native
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 // Theme
 import { Theme } from '@theme';
@@ -28,6 +28,8 @@ type PageProps = {
   withBack?: boolean;
   header?: React.ReactNode;
   withoutHorizontalMargin?: boolean;
+  bounces?: boolean;
+  contentContainerStyle?: StyleProp<ViewStyle>;
 };
 
 const Page = ({
@@ -39,6 +41,8 @@ const Page = ({
   withClose,
   header,
   withoutHorizontalMargin = false,
+  bounces = true,
+  contentContainerStyle,
 }: PageProps) => {
   const navigation = useNavigation();
 
@@ -49,7 +53,7 @@ const Page = ({
   return (
     <SafeAreaView style={styles.container}>
       {header}
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={contentContainerStyle} bounces={bounces}>
         <View style={styles.header}>
           {withBack && (
             <Icon name="chevron-left" color={theme.colors.neutral300} size={24} onPress={() => navigation.goBack()} />
@@ -80,7 +84,7 @@ const getStyles = (theme: Theme, withoutHorizontalMargin: boolean) =>
     container: {
       flex: 1,
       paddingHorizontal: withoutHorizontalMargin ? 0 : 16,
-      paddingBottom: 70,
+      paddingBottom: 50,
       backgroundColor: theme.colors.background,
     },
     header: {
@@ -88,5 +92,8 @@ const getStyles = (theme: Theme, withoutHorizontalMargin: boolean) =>
       justifyContent: 'space-between',
       marginBottom: 18,
       paddingHorizontal: !withoutHorizontalMargin ? 0 : 16,
+    },
+    scrollview: {
+      flex: 1,
     },
   });

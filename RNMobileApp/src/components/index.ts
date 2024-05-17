@@ -30,6 +30,7 @@ import Loading from './Loading';
 import Success from './Success';
 import Pagination from './Pagination';
 import ProgressBar from './ProgressBar';
+import CheckContainer from './CheckContainer';
 
 export {
   Button,
@@ -64,4 +65,5 @@ export {
   Success,
   Pagination,
   ProgressBar,
+  CheckContainer,
 };
