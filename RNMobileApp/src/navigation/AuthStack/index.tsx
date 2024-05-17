@@ -7,6 +7,7 @@ import { Success } from '@components';
 // Screens
 import Login from '@screens/Login';
 import Splash from '@screens/Splash';
+import Billing from '@screens/Billing';
 import Tutorial from '@screens/Tutorial';
 import CreateAccount from '@screens/CreateAccount';
 import Personalization from '@screens/Personalization';
@@ -32,6 +33,7 @@ export default function AuthStack(): JSX.Element {
       <Stack.Screen name={AuthStackEnum.LOGIN} component={Login} />
       <Stack.Screen name={AuthStackEnum.CREATE_ACCOUNT} component={CreateAccount} />
       <Stack.Screen name={AuthStackEnum.PERSONALIZATION} component={Personalization} />
+      <Stack.Screen name={AuthStackEnum.BILLING} component={Billing} />
       <Stack.Screen name={AuthStackEnum.SUCCESS} component={Success} />
     </Stack.Navigator>
   );

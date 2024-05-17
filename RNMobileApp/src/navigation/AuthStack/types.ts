@@ -7,6 +7,7 @@ export type AuthStackParamList = {
   Login: undefined;
   CreateAccount: undefined;
   Personalization: undefined;
+  Billing: undefined;
   Success: undefined;
 };
 
