@@ -1,6 +1,6 @@
 // React and React Native
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 // Theme
 import { Theme } from '@theme';
@@ -73,11 +73,15 @@ const Billing = () => {
             );
           })}
         </View>
-        {selectedMonth.list.map((item, index) => (
-          <View style={styles.check} key={index}>
-            <CheckContainer label={item} />
-          </View>
-        ))}
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={selectedMonth.list}
+          renderItem={({ item, index }) => (
+            <View style={styles.check} key={index}>
+              <CheckContainer label={item} />
+            </View>
+          )}
+        />
       </View>
       <Label
         text="payment.advice"

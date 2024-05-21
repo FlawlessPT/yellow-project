@@ -16,11 +16,11 @@ export type GenderCard = {
 export const genderCards: GenderCard[] = [
   {
     icon: WomanIcon,
-    label: 'woman',
+    label: 'female',
   },
   {
     icon: ManIcon,
-    label: 'man',
+    label: 'male',
   },
   {
     icon: OtherIcon,

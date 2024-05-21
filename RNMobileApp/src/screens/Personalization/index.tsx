@@ -7,7 +7,6 @@ import { Theme } from '@theme';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
-import useLoading from '@hooks/loading/useLoading';
 
 // External Libs
 import { t } from 'i18next';
@@ -21,8 +20,6 @@ import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
 import { Age, ChooseGender, Height, Header, Label, Button, Weight, Diet, Workout, UploadPhotos } from '@components';
 
 const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
-  const { setLoading } = useLoading();
-
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
@@ -65,19 +62,14 @@ const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
     if (selectedStep < steps.length - 1) {
       setSelectedStep(selectedStep + 1);
     } else {
-      setLoading({ isLoading: true, message: 'loading' });
-
-      setTimeout(() => {
-        navigation.reset({
-          routes: [
-            {
-              name: RootStackEnum.AUTH as never,
-              params: { screen: AuthStackEnum.SUCCESS },
-            },
-          ],
-        });
-        setLoading({ isLoading: false });
-      }, 2000);
+      navigation.reset({
+        routes: [
+          {
+            name: RootStackEnum.AUTH as never,
+            params: { screen: AuthStackEnum.BILLING },
+          },
+        ],
+      });
     }
   };
 

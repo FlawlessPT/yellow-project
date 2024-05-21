@@ -36,7 +36,7 @@ const Diet = ({ onPress }: StepProps) => {
           <SmallCard image="egg" title="vegetarian" {...handleSetDietType(DietType.VEGETARIAN)} />
         </View>
         <View style={styles.contentContainer}>
-          <SmallCard image="burger" title="tradicional" {...handleSetDietType(DietType.TRADITIONAL)} />
+          <SmallCard image="burger" title="traditional" {...handleSetDietType(DietType.TRADITIONAL)} />
           <SmallCard image="bread-slice" title="other" {...handleSetDietType(DietType.OTHER)} />
         </View>
         <Input
