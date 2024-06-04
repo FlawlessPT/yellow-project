@@ -1,7 +1,5 @@
-// React Native
 import { ImageSourcePropType } from 'react-native';
 
-// Assets
 import { ManIcon, OtherIcon, WomanIcon } from '@assets';
 
 export type StepProps = {

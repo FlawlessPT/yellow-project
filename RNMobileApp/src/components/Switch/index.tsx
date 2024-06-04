@@ -1,4 +1,3 @@
-// React and React Native
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
 
@@ -8,11 +7,7 @@ type SwitchProps = {
   onPress: () => void;
 };
 
-const Switch = ({
-  initialValue,
-  shouldChangeValue,
-  onPress,
-}: SwitchProps): JSX.Element => {
+const Switch = ({ initialValue, shouldChangeValue, onPress }: SwitchProps): JSX.Element => {
   const [isToggle, setIsToggle] = useState<boolean>(initialValue);
   const translateAnimate = useRef(new Animated.Value(0)).current;
 
@@ -54,10 +49,11 @@ const Switch = ({
       onPress={() => {
         if (shouldChangeValue) {
           animateElement();
-          setIsToggle(prevState => !prevState);
+          setIsToggle((prevState) => !prevState);
         }
         onPress();
-      }}>
+      }}
+    >
       <Animated.View style={[styles.contentContainer, animationStyle]} />
     </TouchableOpacity>
   );

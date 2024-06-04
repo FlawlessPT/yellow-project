@@ -1,21 +1,16 @@
-// React and React Native
 import React, { FunctionComponent, SVGAttributes } from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Components
-import { Label } from '../Label';
-
-// External Libs
 import { Icon } from 'react-native-paper';
 
-// Hooks
-import useTheme from '../../hooks/theme/useTheme';
+import Label from '@components/Label';
+import { LabelProps } from '@components/Label/types';
+
+import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
 
 // Types
-import { LabelProps } from '@components/Label/types';
 
 export type ButtonProps = {
   backgroundColor?: string;

@@ -16,6 +16,8 @@
       "@types/*": ["./src/types/*"],
       "@pages": ["./src/pages/index.ts"],
       "@pages/*": ["./src/pages/*"],
+      "@hooks": ["./src/hooks/index.ts"],
+      "@hooks/*": ["./src/hooks/*"],
       "@utils": ["./src/utils/index.ts"],
       "@utils/*": ["./src/utils/*"]
     },

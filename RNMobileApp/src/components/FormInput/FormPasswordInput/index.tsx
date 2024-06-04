@@ -2,11 +2,12 @@
 import React from 'react';
 
 // Components
+import { Control, Controller, FieldPath, FieldValues, RegisterOptions } from 'react-hook-form';
+
 import { InputProps } from '@components/Input';
 import PasswordInput from '@components/Input/PasswordInput';
 
 // External Libs
-import { Control, Controller, FieldPath, FieldValues, RegisterOptions } from 'react-hook-form';
 
 type FormPasswordInputProps = {
   rules?: Omit<RegisterOptions<FieldValues>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;

@@ -1,21 +1,14 @@
-// React and React Native
 import React from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Components
-import { Label } from '@components';
-
-// Assets
 import { RightArrow } from '@assets';
-
-// External Libs
 import { Icon } from 'react-native-paper';
 
-// Hooks
+import { Label } from '@components/Label';
+
 import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
 
 type ButtonCardProps = {
   withNoArrow?: boolean;

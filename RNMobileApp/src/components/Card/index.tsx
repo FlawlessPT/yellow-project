@@ -1,13 +1,10 @@
-// React and React Native
 import React from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
 
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// Components
-import Label from '@components/Label';
 import CardItem, { ItemType } from '@components/CardItem';
+import Label from '@components/Label';
+
+import useTheme from '@hooks/theme/useTheme';
 
 type CardProps = {
   image: string;

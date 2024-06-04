@@ -1,4 +1,4 @@
-import { InputForColumn } from '../InputForColumn';
+import { InputForColumn } from '@components/InputForColumn';
 
 import { ResourceOverrides, TableInfoType, ViewMode } from '@types';
 

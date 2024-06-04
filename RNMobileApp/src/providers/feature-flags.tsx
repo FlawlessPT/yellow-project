@@ -1,6 +1,8 @@
-import { Session } from '@supabase/supabase-js';
-import { supabase } from '@utils/supabase';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+
+import { Session } from '@supabase/supabase-js';
+
+import { supabase } from '@utils/supabase';
 
 type FeatureFlagType = {
   key: string;

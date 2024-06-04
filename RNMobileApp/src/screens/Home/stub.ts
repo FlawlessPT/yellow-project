@@ -1,8 +1,6 @@
-// Components
-import { ItemType } from '@components/CardItem';
-
-// Assets
 import { CarbIcon, FatIcon, PlayIcon, ProteinIcon } from '@assets';
+
+import { ItemType } from '@components/CardItem';
 
 export const workoutItems: ItemType[] = [
   {

@@ -1,15 +1,9 @@
-// React and React Native
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 
-// Stubs
+import { Label, Page, Card } from '@components';
+
 import { meals, workouts } from './stub';
-
-// Components
-import Card from '@components/Card';
-import { Label, Page } from '@components';
-
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
 const Home = () => {

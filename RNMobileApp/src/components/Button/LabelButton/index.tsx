@@ -3,8 +3,8 @@ import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 // Components
-import Label from '../../Label';
-import { LabelProps } from '../../Label/types';
+import { Label } from '@components/Label';
+import { LabelProps } from '@components/Label/types';
 
 export type LabelButtonProps = {
   leftIcon?: ImageSourcePropType;

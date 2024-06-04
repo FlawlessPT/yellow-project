@@ -1,25 +1,26 @@
-import { Linking, StatusBar } from 'react-native';
 import 'react-native-url-polyfill/auto';
 import 'intl-pluralrules';
 import React, { useState, useEffect } from 'react';
-import { supabase } from '@utils/supabase';
+import { Linking, StatusBar } from 'react-native';
+
+import * as Sentry from '@sentry/react-native';
 import { Session } from '@supabase/supabase-js';
 import * as WebBrowser from 'expo-web-browser';
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
-import { supabaseAnonKey, supabaseProjectURL } from '@utils/supabase.configs';
-import { getLocales } from 'react-native-localize';
-import * as Sentry from '@sentry/react-native';
+import { initReactI18next } from 'react-i18next';
 import Config from 'react-native-config';
+import { getLocales } from 'react-native-localize';
 import { LogLevel, OneSignal } from 'react-native-onesignal';
 
-// Providers
-import Providers from './src/providers';
+import { Loading } from '@components';
 
 import Navigation from './src/navigation';
-import { Loading } from '@components';
+import Providers from './src/providers';
 import { LoadingContext } from './src/providers/loading';
+
+import { supabase } from '@utils/supabase';
+import { supabaseAnonKey, supabaseProjectURL } from '@utils/supabase.configs';
 
 // Remove this method to stop OneSignal Debugging
 if (__DEV__) {

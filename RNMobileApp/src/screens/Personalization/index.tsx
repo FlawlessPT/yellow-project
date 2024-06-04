@@ -1,24 +1,17 @@
-// React and React Native
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-import useLoading from '@hooks/loading/useLoading';
-
-// External Libs
+import { AuthNavProps } from '@navigation/AuthStack/types';
+import { AuthStackEnum, RootStackEnum } from '@navigation/types';
 import { t } from 'i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// Types
-import { AuthNavProps } from '../../navigation/AuthStack/types';
-import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
-
-// Components
 import { Age, ChooseGender, Height, Header, Label, Button, Weight, Diet, Workout } from '@components';
+
+import useLoading from '@hooks/loading/useLoading';
+import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
 
 const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
   const { setLoading } = useLoading();

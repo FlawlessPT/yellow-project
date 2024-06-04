@@ -2,11 +2,12 @@
 import React from 'react';
 
 // Screens
-import Settings from '@screens/Settings';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import ChangeLanguage from '@screens/ChangeLanguage';
+import Settings from '@screens/Settings';
 
 // External Libs
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function SettingsStack(): JSX.Element {
   const Stack = createNativeStackNavigator();

@@ -1,27 +1,18 @@
-// React and React Native
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Components
-import Button from '@components/Button';
-
-// Assets
 import { SuccessLottie } from '@assets';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// External Libs
-import Modal from 'react-native-modal';
+import { AuthNavProps } from '@navigation/AuthStack/types';
+import { AppStackEnum, RootStackEnum } from '@navigation/types';
 import Lottie from 'lottie-react-native';
+import Modal from 'react-native-modal';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-// Types
-import { AuthNavProps } from '../../navigation/AuthStack/types';
-import { AppStackEnum, RootStackEnum } from '../../navigation/types';
+import Button from '@components/Button';
+
+import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
 
 export const Success = ({ navigation }: AuthNavProps<'Success'>) => {
   const { bottom } = useSafeAreaInsets();

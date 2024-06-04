@@ -1,22 +1,15 @@
-// React
 import React from 'react';
 
-// Screens
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/FontAwesome6';
+
 import Home from '@screens/Home';
 import Settings from '@screens/Settings';
 
-// Stacks
-import SettingsStack from './SettingsStack';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// External Libs
-import Icon from 'react-native-vector-icons/FontAwesome6';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-// Types
 import { AppStackEnum, defaultScreenOptions, RootStackEnum } from '../types';
+
+import SettingsStack from './SettingsStack';
+import useTheme from '@hooks/theme/useTheme';
 
 export default function AppStack(): JSX.Element {
   const Tab = createBottomTabNavigator();

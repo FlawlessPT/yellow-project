@@ -1,27 +1,14 @@
-// React and React Native
 import React, { useState } from 'react';
 
-// Styles
-import {
-  ContentContainer,
-  InnerContainer,
-  MainContainer,
-  ErrorContainer,
-  errorLabelStyle,
-} from './styles';
+import { format } from 'date-fns';
+import DatePicker from 'react-native-date-picker';
+import { HelperText } from 'react-native-paper';
 
-// Components
-import { Label } from '@components';
+import { Label } from '@components/Label';
 
-// Theme
+import { ContentContainer, InnerContainer, MainContainer, ErrorContainer, errorLabelStyle } from './styles';
 import useTheme from '@hooks/theme/useTheme';
 
-// External Libs
-import { format } from 'date-fns';
-import { HelperText } from 'react-native-paper';
-import DatePicker from 'react-native-date-picker';
-
-// Assets
 // import Alert from '@assets/icons/alert-circle.svg';
 // import CalendarIcon from '@assets/icons/calendar.svg';
 
@@ -54,7 +41,7 @@ export const CalendarPicker = ({
           date={date}
           mode="date"
           maximumDate={maximumDate}
-          onConfirm={date => {
+          onConfirm={(date) => {
             onChangeDate(date);
             setSelectedDate(date);
             setIsModalOpen(false);
@@ -67,11 +54,7 @@ export const CalendarPicker = ({
         <InnerContainer>
           <Label
             text={
-              selectedDate !== undefined
-                ? format(selectedDate, 'dd/MM/yyyy')
-                : placeholderText
-                ? placeholderText
-                : ''
+              selectedDate !== undefined ? format(selectedDate, 'dd/MM/yyyy') : placeholderText ? placeholderText : ''
             }
             color={theme.colors.disabled}
           />

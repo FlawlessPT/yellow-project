@@ -1,19 +1,14 @@
-// React and React Native
 import React, { useEffect } from 'react';
 import { Image, StatusBar, StyleSheet, View } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Assets
 import { SplashImage } from '@assets';
 
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// Types
 import { AuthNavProps } from '../../navigation/AuthStack/types';
 import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
+
+import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
 
 const Splash = ({ navigation }: AuthNavProps<'Splash'>) => {
   const { theme } = useTheme();

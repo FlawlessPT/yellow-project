@@ -2,9 +2,9 @@ import { CreateButton, Datagrid, List, ReferenceField, TextField, TopToolbar } f
 
 import { isFieldToRenderForGeneralOptions, overridesForResource, recordRepresentationForResource } from '@configs';
 
-import { TableInfoType } from '../../types';
-
 import { useTablesContext } from '@utils/contexts/tables';
+
+import { TableInfoType } from '@types';
 
 const ListActions = () => (
   <TopToolbar>

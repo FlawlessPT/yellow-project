@@ -2,21 +2,23 @@
 import React from 'react';
 
 // Components
+import { createStackNavigator } from '@react-navigation/stack';
+
+import CreateAccount from '@screens/CreateAccount';
+import Login from '@screens/Login';
+import Personalization from '@screens/Personalization';
+import Splash from '@screens/Splash';
+import Tutorial from '@screens/Tutorial';
+
+import { defaultScreenOptions, AuthStackEnum, RootStackEnum } from '../types';
 import { Success } from '@components';
 
 // Screens
-import Login from '@screens/Login';
-import Splash from '@screens/Splash';
-import Tutorial from '@screens/Tutorial';
-import CreateAccount from '@screens/CreateAccount';
-import Personalization from '@screens/Personalization';
 
 // Navigation
-import { createStackNavigator } from '@react-navigation/stack';
 
 // Types
 import { AuthStackParamList } from './types';
-import { defaultScreenOptions, AuthStackEnum, RootStackEnum } from '../types';
 
 const Stack = createStackNavigator<AuthStackParamList>();
 

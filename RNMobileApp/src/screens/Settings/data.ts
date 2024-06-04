@@ -1,12 +1,13 @@
 // External Libs
+import { AboutApp, EditProfile, Language, Notifications } from '@assets';
 import { NavigationProp } from '@react-navigation/native';
 
 // Types
-import { ProfileButton, ProfileDetail } from './types';
 import { SettingsStackEnum } from '../../navigation/types';
 
+import { ProfileButton, ProfileDetail } from './types';
+
 // Assets
-import { AboutApp, EditProfile, Language, Notifications } from '@assets';
 
 export const profileDetailsData: ProfileDetail[] = [
   { label: 'profile.start_weight', value: '70 kg' },
