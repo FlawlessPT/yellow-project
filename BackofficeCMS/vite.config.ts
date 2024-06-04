@@ -1,5 +1,5 @@
-import {sentryVitePlugin} from '@sentry/vite-plugin';
-import {defineConfig} from 'vite';
+import { sentryVitePlugin } from '@sentry/vite-plugin';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
@@ -7,10 +7,10 @@ import path from 'path';
 export default defineConfig({
   plugins: [
     react(),
-    sentryVitePlugin({
-      org: process.env.SENTRY_ORG,
-      project: process.env.SENTRY_PROJECT,
-    }),
+    // sentryVitePlugin({
+    //   org: process.env.SENTRY_ORG,
+    //   project: process.env.SENTRY_PROJECT,
+    // }),
   ],
 
   resolve: {
