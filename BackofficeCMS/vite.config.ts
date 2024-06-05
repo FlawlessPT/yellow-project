@@ -7,18 +7,19 @@ import path from 'path';
 export default defineConfig({
   plugins: [
     react(),
-    // sentryVitePlugin({
-    //   org: process.env.SENTRY_ORG,
-    //   project: process.env.SENTRY_PROJECT,
-    // }),
+    sentryVitePlugin({
+      org: process.env.SENTRY_ORG,
+      project: process.env.SENTRY_PROJECT,
+    }),
   ],
 
   resolve: {
     alias: {
-      '@configs': `${path.resolve(__dirname, './src/configs/')}`,
-      '@types': `${path.resolve(__dirname, './src/types/')}`,
       '@components': `${path.resolve(__dirname, './src/components/')}`,
+      '@configs': `${path.resolve(__dirname, './src/configs/')}`,
+      '@hooks': `${path.resolve(__dirname, './src/hooks/')}`,
       '@pages': `${path.resolve(__dirname, './src/pages/')}`,
+      '@types': `${path.resolve(__dirname, './src/types/')}`,
       '@utils': `${path.resolve(__dirname, './src/utils/')}`,
     },
   },
