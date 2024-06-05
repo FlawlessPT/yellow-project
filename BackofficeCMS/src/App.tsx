@@ -17,7 +17,7 @@ function BackOfficeAdmin() {
   const { tables, tablesToExclude, isLoading } = useCustomResources();
   const { session } = useFetchSession();
 
-  if (isLoading) return <p>Loading back office!!</p>;
+  if (isLoading) return <p>Loading back office (production)!!</p>;
 
   return (
     <TablesContext.Provider value={{ tables }}>
