@@ -1,4 +1,5 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/" }],
-  "buildCommand": "sh vercel.sh"
+  "buildCommand": "sh scripts/build.sh",
+  "devCommand": "sh scripts/run.sh"
 }
