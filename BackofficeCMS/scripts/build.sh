@@ -2,12 +2,12 @@
  
 case $VERCEL_ENV in
   "development")
-    npm run build:development
+    cd ../ && npm run build:development
     ;;
   "staging")
-    npm run build:staging
+    cd ../ && npm run build:staging
     ;;
   "production")
-    npm run build:production
+    cd ../ && npm run build:production
     ;;
 esac
