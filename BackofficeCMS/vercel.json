@@ -1,5 +1,5 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/" }],
-  "buildCommand": "sh build.sh",
+  "buildCommand": "sh scripts/build.sh",
   "devCommand": "sh scripts/run.sh"
 }
