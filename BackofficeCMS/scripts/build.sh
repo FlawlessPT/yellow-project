@@ -1,13 +1,13 @@
 #!/bin/bash
  
-case $VERCEL_ENV in
-  "development")
+case $ENVIRONMENT in
+  "DEV")
     npm run build:development
     ;;
-  "staging")
+  "STAGING")
     npm run build:staging
     ;;
-  "production")
+  "PROD")
     npm run build:production
     ;;
   *)
