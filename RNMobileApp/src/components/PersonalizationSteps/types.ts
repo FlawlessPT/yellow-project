@@ -54,3 +54,9 @@ export type Photo = {
   image?: string;
   title: PhotoType;
 };
+
+export type Birthday = {
+  day: string;
+  month: string;
+  year: string;
+};

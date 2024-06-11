@@ -12,6 +12,7 @@ import Label from '@components/Label';
 import useTheme from '@hooks/theme/useTheme';
 
 // Types
+import { LabelProps } from '@components/Label/types';
 import { AppStackEnum } from '../../navigation/types';
 
 // External Libs
@@ -30,7 +31,8 @@ type PageProps = {
   withoutHorizontalMargin?: boolean;
   bounces?: boolean;
   contentContainerStyle?: StyleProp<ViewStyle>;
-};
+  headerStyle?: StyleProp<ViewStyle>;
+} & LabelProps;
 
 const Page = ({
   children,
@@ -43,6 +45,8 @@ const Page = ({
   withoutHorizontalMargin = false,
   bounces = true,
   contentContainerStyle,
+  headerStyle,
+  ...props
 }: PageProps) => {
   const navigation = useNavigation();
 
@@ -67,8 +71,8 @@ const Page = ({
             />
           )}
         </View>
-        <View style={styles.header}>
-          <Label text={title} type="h2" color={titleColor ?? theme.colors.neutral200} semibold />
+        <View style={[styles.header, headerStyle]}>
+          <Label text={title} type="h2" color={titleColor ?? theme.colors.neutral200} semibold {...props} />
           {right}
         </View>
         {children}
@@ -84,7 +88,7 @@ const getStyles = (theme: Theme, withoutHorizontalMargin: boolean) =>
     container: {
       flex: 1,
       paddingHorizontal: withoutHorizontalMargin ? 0 : 16,
-      // paddingBottom: 50,
+      paddingBottom: 50,
       backgroundColor: theme.colors.background,
     },
     header: {

@@ -29,7 +29,13 @@ const Billing = () => {
   }, [selectedPlan.months]);
 
   return (
-    <Page title="billing_screen.title" bounces={false} contentContainerStyle={styles.contentContainer}>
+    <Page
+      title="billing_screen.title"
+      bounces={false}
+      contentContainerStyle={styles.contentContainer}
+      textAlign="center"
+      headerStyle={styles.header}
+    >
       <View style={styles.contentContainer}>
         <Label text="choose_plan.description" textAlign="center" color={theme.colors.neutral300} />
         <View style={styles.plans}>
@@ -119,10 +125,13 @@ const getStyles = (theme: Theme) =>
       gap: 24,
     },
     adviceLabel: {
-      marginVertical: 43,
+      marginVertical: 23,
     },
     check: { marginTop: 24 },
     contentContainer: {
       flex: 1,
+    },
+    header: {
+      alignSelf: 'center',
     },
   });

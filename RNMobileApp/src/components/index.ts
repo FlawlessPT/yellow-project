@@ -20,7 +20,7 @@ import Page from './Page';
 import LoginContainer from './LoginContainer';
 import SmallCard from './SmallCard';
 import ChooseGender from './PersonalizationSteps/ChooseGender';
-import Age from './PersonalizationSteps/Age';
+import Birthday from './PersonalizationSteps/Birthday';
 import Height from './PersonalizationSteps/Height';
 import Weight from './PersonalizationSteps/Weight';
 import Diet from './PersonalizationSteps/Diet';
@@ -55,7 +55,7 @@ export {
   LoginContainer,
   SmallCard,
   ChooseGender,
-  Age,
+  Birthday,
   Height,
   Weight,
   Diet,
