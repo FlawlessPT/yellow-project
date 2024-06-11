@@ -1,5 +1,5 @@
 // React and React Native
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { StyleSheet, TextInputProps, TextInput, View, StyleProp, ViewStyle, TextStyle } from 'react-native';
 
 // Theme
@@ -28,76 +28,71 @@ export type InputProps = {
   textStyle?: StyleProp<TextStyle>;
 } & TextInputProps;
 
-export const Input = ({
-  style,
-  label,
-  titleColor,
-  leftIconName,
-  right,
-  helper,
-  textStyle,
-  placeholder,
-  ...props
-}: InputProps) => {
-  const { t } = useTranslation();
-  const { theme } = useTheme();
+export const Input = forwardRef<TextInputProps, InputProps>(
+  ({ style, label, titleColor, leftIconName, right, helper, textStyle, placeholder, ...props }, ref) => {
+    const { t } = useTranslation();
+    const { theme } = useTheme();
 
-  const [value, setValue] = useState<string>('');
-  const [isSelected, setIsSelected] = useState<boolean>(false);
+    const [value, setValue] = useState<string>('');
+    const [isSelected, setIsSelected] = useState<boolean>(false);
 
-  const outlinedColor =
-    helper?.type === 'error'
-      ? theme.colors.red
-      : helper?.type === 'success'
-      ? theme.colors.green
-      : isSelected
-      ? theme.colors.primary
-      : 'transparent';
+    const outlinedColor =
+      helper?.type === 'error'
+        ? theme.colors.red
+        : helper?.type === 'success'
+        ? theme.colors.green
+        : isSelected
+        ? theme.colors.primary
+        : 'transparent';
 
-  const styles = getStyles(theme, props.multiline ?? false, outlinedColor);
+    const styles = getStyles(theme, props.multiline ?? false, outlinedColor);
 
-  const handleFocused = (newState: boolean) => {
-    setIsSelected(newState);
-  };
+    const handleFocused = (newState: boolean) => {
+      setIsSelected(newState);
+    };
 
-  return (
-    <View style={style}>
-      {label && <Label text={label} type="h3" semibold color={titleColor || theme.colors.white} style={styles.label} />}
-      <View style={styles.container}>
-        {leftIconName && <Icon name={leftIconName} color="white" style={styles.leftIcon} size={16} />}
-        <TextInput
-          value={value}
-          onChangeText={setValue}
-          cursorColor={theme.colors.primary}
-          onFocus={() => handleFocused(true)}
-          onBlur={() => handleFocused(false)}
-          style={[styles.input, textStyle]}
-          selectionColor={theme.colors.primary}
-          placeholderTextColor={theme.colors.neutral400}
-          placeholder={t(placeholder ?? '')}
-          {...props}
-        />
-        {right && <View style={styles.rightIcon}>{right}</View>}
-      </View>
-      {helper?.message && (
-        <View style={styles.helperContainer}>
-          <Icon
-            name={helper.type === 'error' ? 'triangle-exclamation' : 'check'}
-            color={helper.type === 'error' ? theme.colors.red : theme.colors.green}
-            size={14}
+    return (
+      <View style={style}>
+        {label && (
+          <Label text={label} type="h3" semibold color={titleColor || theme.colors.white} style={styles.label} />
+        )}
+        <View style={styles.container}>
+          {leftIconName && <Icon name={leftIconName} color="white" style={styles.leftIcon} size={16} />}
+          <TextInput
+            ref={ref}
+            value={value}
+            onChangeText={setValue}
+            cursorColor={theme.colors.primary}
+            onFocus={() => handleFocused(true)}
+            onBlur={() => handleFocused(false)}
+            style={[styles.input, textStyle]}
+            selectionColor={theme.colors.primary}
+            placeholderTextColor={theme.colors.neutral400}
+            placeholder={t(placeholder ?? '')}
+            {...props}
           />
-          <Label
-            text={helper.message}
-            type="footnote"
-            semibold
-            color={helper.type === 'error' ? theme.colors.red : theme.colors.green}
-            style={styles.helperLabel}
-          />
+          {right && <View style={styles.rightIcon}>{right}</View>}
         </View>
-      )}
-    </View>
-  );
-};
+        {helper?.message && (
+          <View style={styles.helperContainer}>
+            <Icon
+              name={helper.type === 'error' ? 'triangle-exclamation' : 'check'}
+              color={helper.type === 'error' ? theme.colors.red : theme.colors.green}
+              size={14}
+            />
+            <Label
+              text={helper.message}
+              type="footnote"
+              semibold
+              color={helper.type === 'error' ? theme.colors.red : theme.colors.green}
+              style={styles.helperLabel}
+            />
+          </View>
+        )}
+      </View>
+    );
+  }
+);
 
 export default Input;
 
@@ -112,11 +107,12 @@ const getStyles = (theme: Theme, isMultiline: boolean, outlinedColor: string) =>
       marginLeft: 6,
     },
     input: {
-      height: 54,
+      height: 44,
       flex: 1,
       fontFamily: theme.fonts.regular,
       fontSize: 16,
       color: theme.colors.white,
+      marginVertical: 8,
     },
     rightIcon: {
       marginLeft: 8,
