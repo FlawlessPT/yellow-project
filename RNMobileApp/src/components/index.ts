@@ -31,6 +31,7 @@ import Success from './Success';
 import Pagination from './Pagination';
 import ProgressBar from './ProgressBar';
 import CheckContainer from './CheckContainer';
+import WorkoutCard from './WorkoutCard';
 
 export {
   Button,
@@ -66,4 +67,5 @@ export {
   Pagination,
   ProgressBar,
   CheckContainer,
+  WorkoutCard,
 };
