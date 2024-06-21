@@ -13,7 +13,7 @@ import useTheme from '@hooks/theme/useTheme';
 
 // Components
 import WorkoutHeader from './WorkoutHeader';
-import { Label, Page, WorkoutCard } from '@components';
+import { WorkoutCalendar, Label, Page, WorkoutCard } from '@components';
 
 const AllWorkouts = () => {
   const { theme } = useTheme();
@@ -22,6 +22,7 @@ const AllWorkouts = () => {
 
   return (
     <Page withoutHorizontalMargin title="all_workouts.title">
+      <WorkoutCalendar />
       <WorkoutHeader />
       <Label
         type="h2"
