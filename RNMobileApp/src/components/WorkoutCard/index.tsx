@@ -48,7 +48,7 @@ const WorkoutCard = ({ item }: WorkoutCardProps) => {
             color={theme.colors.neutral300}
             style={styles.repsLabel}
           />
-          <Label type="footnote" text={notes} color={theme.colors.neutral400} />
+          {notes && <Label type="footnote" text={notes} color={theme.colors.neutral400} />}
         </View>
       </View>
       <TouchableOpacity style={styles.playContainer} onPress={() => Linking.openURL(videoUrl)}>
@@ -81,11 +81,10 @@ const getStyles = (theme: Theme) =>
     playContainer: {
       width: 40,
       height: 40,
-      backgroundColor: theme.colors.primary,
+      backgroundColor: theme.colors.opacityPrimary,
       borderRadius: 20,
       justifyContent: 'center',
       alignItems: 'center',
-      opacity: 0.25,
     },
     repsLabel: {
       marginVertical: 4,

@@ -26,6 +26,7 @@ export type Theme = {
     input_background: string;
     passwordIcon: string;
     shadow: string;
+    opacityPrimary: string;
   };
   fonts: { regular: string; medium: string; semibold: string; bold: string };
 };
@@ -60,6 +61,7 @@ export const lightTheme: Theme = {
     input_background: '#24262B',
     passwordIcon: '#50535B',
     shadow: '#F25D29',
+    opacityPrimary: '#504311',
   },
   fonts,
 };
@@ -87,6 +89,7 @@ export const darkTheme: Theme = {
     input_background: '#24262B',
     passwordIcon: '#50535B',
     shadow: '#F25D29',
+    opacityPrimary: '#504311',
   },
   fonts,
 };
