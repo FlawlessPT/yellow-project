@@ -1,4 +1,7 @@
 {
   "name": "RNMobileApp",
-  "displayName": "RNMobileApp"
+  "displayName": "RNMobileApp",
+  "plugins": [
+    "expo-secure-store"
+  ]
 }
