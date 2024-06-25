@@ -18,6 +18,7 @@ export type Theme = {
     neutral200: string;
     neutral300: string;
     neutral400: string;
+    neutral500: string;
     neutral900: string;
     background: string;
     border: string;
@@ -53,6 +54,7 @@ export const lightTheme: Theme = {
     neutral200: '#EAEAEA',
     neutral300: '#DBDBDB',
     neutral400: '#BABABA',
+    neutral500: '#7D7D7D',
     neutral900: '#161617',
     background: '#161617',
     border: '#2A2A2C',
@@ -81,6 +83,7 @@ export const darkTheme: Theme = {
     neutral200: '#EAEAEA',
     neutral300: '#DBDBDB',
     neutral400: '#BABABA',
+    neutral500: '#7D7D7D',
     neutral900: '#161617',
     background: '#161617',
     border: '#2A2A2C',

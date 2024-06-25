@@ -56,7 +56,7 @@ const WorkoutCalendar = () => {
               />
               <Label
                 text={getWeekdaysStrings(index.toString()).substring(0, 3)}
-                color={isSelected ? theme.colors.neutral900 : theme.colors.neutral400}
+                color={isSelected ? theme.colors.neutral900 : theme.colors.neutral500}
               />
             </TouchableOpacity>
           );

@@ -1,6 +1,7 @@
 export { default as LogoImage } from './images/logo.png';
 export { default as SplashImage } from './images/splash.png';
 export { default as LoginImage } from './images/login.png';
+export { default as NoWorkoutsImage } from './images/no-workouts.png';
 export { default as Calendar } from './icons/calendar.svg';
 export { default as Apple } from './icons/social/apple.svg';
 export { default as Google } from './icons/social/google.svg';

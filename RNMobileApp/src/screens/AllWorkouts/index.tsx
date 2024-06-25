@@ -1,12 +1,15 @@
 // React and React Native
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
 // Theme
 import { Theme } from '@theme';
 
 // Stub
-import stub from './stub.json';
+import workouts from './stub.json';
+
+// Assets
+import { NoWorkoutsImage } from '@assets';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
@@ -23,18 +26,32 @@ const AllWorkouts = () => {
   return (
     <Page withoutHorizontalMargin title="all_workouts.title">
       <WorkoutCalendar />
-      <WorkoutHeader />
-      <Label
-        type="h2"
-        text="Leg workout"
-        textAlign="center"
-        color={theme.colors.white}
-        semibold
-        style={styles.workoutTitle}
-      />
-      {stub.map((item, index) => (
-        <WorkoutCard key={index} item={item} />
-      ))}
+      {workouts.length ? (
+        <>
+          <WorkoutHeader />
+          <Label
+            type="h2"
+            text="Leg workout"
+            textAlign="center"
+            color={theme.colors.white}
+            semibold
+            style={styles.workoutTitle}
+          />
+          {workouts?.map((item, index) => <WorkoutCard key={index} item={item} />)}
+        </>
+      ) : (
+        <View style={styles.noWorkoutsContainer}>
+          <Label
+            type="h3"
+            text="Enjoy your rest day and get ready for a new challenge"
+            color={theme.colors.neutral500}
+            semibold
+            textAlign="center"
+            style={styles.noWorkoutsLabel}
+          />
+          <Image source={NoWorkoutsImage} />
+        </View>
+      )}
     </Page>
   );
 };
@@ -96,5 +113,12 @@ const getStyles = (theme: Theme) =>
       flexDirection: 'row',
       gap: 8,
       marginBottom: 16,
+    },
+    noWorkoutsLabel: {
+      marginVertical: 16,
+    },
+    noWorkoutsContainer: {
+      alignItems: 'center',
+      marginHorizontal: 38,
     },
   });

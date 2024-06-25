@@ -48,7 +48,7 @@ const WorkoutCard = ({ item }: WorkoutCardProps) => {
             color={theme.colors.neutral300}
             style={styles.repsLabel}
           />
-          {notes && <Label type="footnote" text={notes} color={theme.colors.neutral400} />}
+          {notes && <Label type="footnote" text={notes} color={theme.colors.neutral500} />}
         </View>
       </View>
       <TouchableOpacity style={styles.playContainer} onPress={() => Linking.openURL(videoUrl)}>
