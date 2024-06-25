@@ -8,6 +8,9 @@ import { Theme } from '@theme';
 // Assets
 import { LogoImage } from '@assets';
 
+// Utils
+import { renderTitle } from './utils';
+
 // Stubs
 import { meals, workouts } from './stub';
 
@@ -40,7 +43,7 @@ const Home = () => {
       title="home.title"
     >
       <ProgressBar title="for_week.progress" progress={45} style={styles.paddingHorizontal} />
-      <Label text="my_workouts" type="h4" color={theme.colors.neutral300} medium style={styles.title} />
+      {renderTitle('my_workouts', theme)}
       <FlatList
         data={workouts}
         horizontal
@@ -48,7 +51,7 @@ const Home = () => {
         renderItem={({ item }) => <Card {...item} />}
         contentContainerStyle={styles.row}
       />
-      <Label text="my_meals" type="h4" color={theme.colors.neutral300} medium style={styles.title} />
+      {renderTitle('my_meals', theme)}
       <View style={styles.weekdaysContainer}>
         <FlatList
           data={Array(7).fill(0)}
@@ -86,11 +89,6 @@ export default Home;
 
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
-    title: {
-      marginTop: 40,
-      marginBottom: 18,
-      paddingHorizontal: 16,
-    },
     row: {
       gap: 24,
     },

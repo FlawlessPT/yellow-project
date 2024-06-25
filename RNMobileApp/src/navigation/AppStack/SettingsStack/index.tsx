@@ -1,6 +1,9 @@
 // React
 import React from 'react';
 
+// Types
+import { SettingsStackParamList } from './types';
+
 // Screens
 import Settings from '@screens/Settings';
 import ChangeLanguage from '@screens/ChangeLanguage';
@@ -9,7 +12,7 @@ import ChangeLanguage from '@screens/ChangeLanguage';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function SettingsStack(): JSX.Element {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<SettingsStackParamList>();
 
   return (
     <Stack.Navigator initialRouteName="Settings" screenOptions={{ headerShown: false }}>
