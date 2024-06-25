@@ -2,12 +2,25 @@
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 
+// Components
+import {
+  ChooseGender,
+  Height,
+  Header,
+  Label,
+  Button,
+  Weight,
+  Diet,
+  Workout,
+  UploadPhotos,
+  Birthday,
+} from '@components';
+
 // Theme
 import { Theme } from '@theme';
 
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
-import useLoading from '@hooks/loading/useLoading';
 
 // External Libs
 import { t } from 'i18next';
@@ -17,12 +30,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthNavProps } from '../../navigation/AuthStack/types';
 import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
 
-// Components
-import { Age, ChooseGender, Height, Header, Label, Button, Weight, Diet, Workout, UploadPhotos } from '@components';
-
 const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
-  const { setLoading } = useLoading();
-
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
@@ -36,8 +44,8 @@ const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
       component: <ChooseGender onPress={(isSelected) => setIsContinueDisabled(!isSelected)} />,
     },
     {
-      title: 'select_age.title',
-      component: <Age onPress={(isSelected) => setIsContinueDisabled(!isSelected)} />,
+      title: 'your_birthday.title',
+      component: <Birthday onPress={(isSelected) => setIsContinueDisabled(!isSelected)} />,
     },
     {
       title: 'select_height.title',
@@ -65,19 +73,14 @@ const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
     if (selectedStep < steps.length - 1) {
       setSelectedStep(selectedStep + 1);
     } else {
-      setLoading({ isLoading: true, message: 'loading' });
-
-      setTimeout(() => {
-        navigation.reset({
-          routes: [
-            {
-              name: RootStackEnum.AUTH as never,
-              params: { screen: AuthStackEnum.SUCCESS },
-            },
-          ],
-        });
-        setLoading({ isLoading: false });
-      }, 2000);
+      navigation.reset({
+        routes: [
+          {
+            name: RootStackEnum.AUTH as never,
+            params: { screen: AuthStackEnum.BILLING },
+          },
+        ],
+      });
     }
   };
 
@@ -94,7 +97,7 @@ const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
       <>
         <Label
           text={steps[selectedStep].title}
-          type="h1"
+          type="h2"
           semibold
           color={theme.colors.neutral300}
           style={styles.title}
@@ -131,7 +134,7 @@ const getStyles = (theme: Theme) =>
   StyleSheet.create({
     keyboardView: { flex: 1 },
     title: {
-      marginTop: 12,
+      marginTop: 8,
       marginBottom: 12,
       padding: 16,
       paddingBottom: 20,
@@ -143,6 +146,6 @@ const getStyles = (theme: Theme) =>
     },
     contentContainer: { flex: 1 },
     continueButton: {
-      marginBottom: 20,
+      marginBottom: 16,
     },
   });

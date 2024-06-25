@@ -5,9 +5,9 @@ import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity } from 'react-
 
 // Screens
 import Home from '@screens/Home';
-import Settings from '@screens/Settings';
 
 // Stacks
+import WorkoutStack from './WorkoutStack';
 import SettingsStack from './SettingsStack';
 
 // Hooks
@@ -17,14 +17,15 @@ import useTheme from '@hooks/theme/useTheme';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Types
+import { Theme } from '@theme';
+import { AppStackParamList } from './types';
 import { AppStackEnum, defaultScreenOptions, RootStackEnum } from '../types';
 
 // Assets
 import { BottomDumbbellIcon, BottomFoodIcon, BottomHomeIcon, BottomPlusIcon, BottomProfileIcon } from '@assets';
-import { Theme } from '@theme';
 
 export default function AppStack(): JSX.Element {
-  const Tab = createBottomTabNavigator();
+  const Tab = createBottomTabNavigator<AppStackParamList>();
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
@@ -51,8 +52,8 @@ export default function AppStack(): JSX.Element {
         }}
       />
       <Tab.Screen
-        name="Workout"
-        component={Settings}
+        name="WorkoutStack"
+        component={WorkoutStack}
         options={{
           tabBarIcon: ({ focused }) => renderIcon(BottomDumbbellIcon, focused),
         }}
@@ -71,7 +72,7 @@ export default function AppStack(): JSX.Element {
       />
       <Tab.Screen
         name="Food"
-        component={Settings}
+        component={Home}
         options={{
           tabBarIcon: ({ focused }) => renderIcon(BottomFoodIcon, focused),
         }}

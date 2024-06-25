@@ -34,12 +34,21 @@ export const getStyles = (theme?: Theme) =>
       alignItems: 'center',
     },
     input: {
-      width: 138,
+      width: 118,
     },
     textInput: {
-      fontSize: 32,
+      fontSize: 22,
       color: theme?.colors.neutral400,
       fontFamily: theme?.fonts.semibold,
     },
     scrollview: { flex: 1 },
+    birthdayInput: {
+      width: 80,
+    },
+    slashLabel: {
+      marginHorizontal: 6,
+    },
+    bottomLabel: {
+      marginTop: 12,
+    },
   });
