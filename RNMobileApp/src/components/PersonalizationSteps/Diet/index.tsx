@@ -1,6 +1,6 @@
 // React and React Native
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 
 // Styles
 import { getStyles } from '../styles';
@@ -10,6 +10,9 @@ import { Input, SmallCard } from '@components';
 
 // Types
 import { DietType, StepProps, HandleSetTypeResult } from '../types';
+
+// External Libs
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Diet = ({ onPress }: StepProps) => {
   const [selectedDiet, setSelectedDiet] = useState<DietType>();
@@ -29,14 +32,14 @@ const Diet = ({ onPress }: StepProps) => {
   };
 
   return (
-    <ScrollView bounces={false} style={styles.scrollview}>
+    <KeyboardAwareScrollView style={styles.scrollview}>
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           <SmallCard image="leaf" title="vegan" {...handleSetDietType(DietType.VEGAN)} />
           <SmallCard image="egg" title="vegetarian" {...handleSetDietType(DietType.VEGETARIAN)} />
         </View>
         <View style={styles.contentContainer}>
-          <SmallCard image="burger" title="tradicional" {...handleSetDietType(DietType.TRADITIONAL)} />
+          <SmallCard image="burger" title="traditional" {...handleSetDietType(DietType.TRADITIONAL)} />
           <SmallCard image="bread-slice" title="other" {...handleSetDietType(DietType.OTHER)} />
         </View>
         <Input
@@ -48,7 +51,7 @@ const Diet = ({ onPress }: StepProps) => {
           onChangeText={setDietDescription}
         />
       </View>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 

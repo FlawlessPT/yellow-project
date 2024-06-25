@@ -1,6 +1,6 @@
 // React and React Native
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 // Theme
 import { Theme } from '@theme';
@@ -29,7 +29,13 @@ const Billing = () => {
   }, [selectedPlan.months]);
 
   return (
-    <Page title="billing_screen.title" bounces={false} contentContainerStyle={styles.contentContainer}>
+    <Page
+      title="billing_screen.title"
+      bounces={false}
+      contentContainerStyle={styles.contentContainer}
+      textAlign="center"
+      headerStyle={styles.header}
+    >
       <View style={styles.contentContainer}>
         <Label text="choose_plan.description" textAlign="center" color={theme.colors.neutral300} />
         <View style={styles.plans}>
@@ -73,11 +79,15 @@ const Billing = () => {
             );
           })}
         </View>
-        {selectedMonth.list.map((item, index) => (
-          <View style={styles.check} key={index}>
-            <CheckContainer label={item} />
-          </View>
-        ))}
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={selectedMonth.list}
+          renderItem={({ item, index }) => (
+            <View style={styles.check} key={index}>
+              <CheckContainer label={item} />
+            </View>
+          )}
+        />
       </View>
       <Label
         text="payment.advice"
@@ -115,10 +125,13 @@ const getStyles = (theme: Theme) =>
       gap: 24,
     },
     adviceLabel: {
-      marginVertical: 43,
+      marginVertical: 23,
     },
     check: { marginTop: 24 },
     contentContainer: {
       flex: 1,
+    },
+    header: {
+      alignSelf: 'center',
     },
   });

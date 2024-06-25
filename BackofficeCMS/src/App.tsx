@@ -17,7 +17,7 @@ function BackOfficeAdmin() {
   const { tables, tablesToExclude, isLoading } = useCustomResources();
   const { session } = useFetchSession();
 
-  if (isLoading) return <p>Loading back office (staging)!!!</p>;
+  if (isLoading) return <p>Loading back office {import.meta.env.VITE_APP_ENV}!!</p>;
 
   return (
     <TablesContext.Provider value={{ tables }}>
