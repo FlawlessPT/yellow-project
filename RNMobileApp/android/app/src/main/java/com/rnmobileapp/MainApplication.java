@@ -1,4 +1,4 @@
-package com.rnmobileapp;
+package pt.rainbowapps.gardao.app;
 import android.content.res.Configuration;
 import expo.modules.ApplicationLifecycleDispatcher;
 import expo.modules.ReactNativeHostWrapper;
@@ -60,7 +60,7 @@ public class MainApplication extends Application implements ReactApplication {
       // If you opted-in for the New Architecture, we load the native entry point for this app.
       DefaultNewArchitectureEntryPoint.load();
     }
-    ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+
     ApplicationLifecycleDispatcher.onApplicationCreate(this);
   }
 
