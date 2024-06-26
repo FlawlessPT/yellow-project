@@ -1,5 +1,5 @@
 {
   "name": "Gardao App",
-  "displayName": "Gardao App",
+  "displayName": "Gardão App",
   "plugins": ["expo-secure-store"]
 }
