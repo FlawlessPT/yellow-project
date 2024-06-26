@@ -1,7 +1,5 @@
 {
-  "name": "RNMobileApp",
-  "displayName": "RNMobileApp",
-  "plugins": [
-    "expo-secure-store"
-  ]
+  "name": "Gardao App",
+  "displayName": "Gardão App",
+  "plugins": ["expo-secure-store"]
 }

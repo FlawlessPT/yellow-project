@@ -1,4 +1,4 @@
-package com.rnmobileapp;
+package pt.rainbowapps.gardao.app;
 import expo.modules.ReactActivityDelegateWrapper;
 
 import com.facebook.react.ReactActivity;
@@ -15,7 +15,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "RNMobileApp";
+    return "Gardao App";
   }
 
   @Override
