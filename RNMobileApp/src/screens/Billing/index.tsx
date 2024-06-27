@@ -8,16 +8,18 @@ import { Theme } from '@theme';
 // Stubs
 import { plansStub } from './stub';
 
-// Types
-import { Month, Plan } from './types';
-
 // Hooks
 import useTheme from '@hooks/theme/useTheme';
+
+// Types
+import { Month, Plan } from './types';
+import { AuthStackEnum } from '../../navigation/types';
+import { AuthNavProps } from '../../navigation/AuthStack/types';
 
 // Components
 import { Button, CheckContainer, Label, LabelButton, Page } from '@components';
 
-const Billing = () => {
+const Billing = ({ navigation }: AuthNavProps<'Billing'>) => {
   const { theme } = useTheme();
   const styles = getStyles(theme);
 
@@ -96,7 +98,7 @@ const Billing = () => {
         type="footnote"
         style={styles.adviceLabel}
       />
-      <Button text="continue.button" onPressButton={() => undefined} />
+      <Button text="continue.button" onPressButton={() => navigation.navigate(AuthStackEnum.PERSONALIZATION)} />
     </Page>
   );
 };
