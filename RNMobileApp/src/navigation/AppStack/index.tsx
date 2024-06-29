@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity } from 'react-native';
 
+import { BottomDumbbellIcon, BottomFoodIcon, BottomHomeIcon, BottomPlusIcon, BottomProfileIcon } from '@assets';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from '@screens/Home';
@@ -8,15 +9,11 @@ import Home from '@screens/Home';
 import { AppStackEnum, defaultScreenOptions, RootStackEnum } from '../types';
 
 import SettingsStack from './SettingsStack';
+import { AppStackParamList } from './types';
 import WorkoutStack from './WorkoutStack';
-
 import useTheme from '@hooks/theme/useTheme';
 
 import { Theme } from '@theme';
-import { AppStackParamList } from './types';
-
-// Assets
-import { BottomDumbbellIcon, BottomFoodIcon, BottomHomeIcon, BottomPlusIcon, BottomProfileIcon } from '@assets';
 
 export default function AppStack(): JSX.Element {
   const Tab = createBottomTabNavigator<AppStackParamList>();

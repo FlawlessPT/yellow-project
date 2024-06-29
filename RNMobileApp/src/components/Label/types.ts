@@ -1,4 +1,3 @@
-// React and React Native
 import { StyleProp, TextStyle } from 'react-native';
 
 export type LabelProps = {

@@ -1,8 +1,6 @@
-// React and React Native
 import React from 'react';
 import { Image, ImageSourcePropType, StyleProp, StyleSheet, TextStyle, TouchableOpacity, View } from 'react-native';
 
-// Components
 import { Label } from '@components/Label';
 import { LabelProps } from '@components/Label/types';
 

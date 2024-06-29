@@ -1,11 +1,7 @@
-// React and React Native
 import React from 'react';
 
-// External Libs
 import { Apple, Google, Microsoft } from '@assets';
 import { IconButton } from 'react-native-paper';
-
-// Assets
 
 type ButtonType = 'apple' | 'microsoft' | 'google';
 

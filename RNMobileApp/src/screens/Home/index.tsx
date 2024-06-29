@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { FlatList, Image, StyleSheet, View } from 'react-native';
 
-import { Theme } from '@theme';
-
 import { LogoImage } from '@assets';
-
-import { renderTitle } from './utils';
 
 import { Label, Page, Card, ProgressBar, LabelButton } from '@components';
 
 import { meals, workouts } from './stub';
-
+import { renderTitle } from './utils';
 import useTheme from '@hooks/theme/useTheme';
 
 import { getWeekdaysStrings, today } from '@utils/weekdays';
+
+import { Theme } from '@theme';
 
 const Home = () => {
   const { theme } = useTheme();

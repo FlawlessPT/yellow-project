@@ -1,4 +1,3 @@
-// React and React Native
 import React from 'react';
 import { View, StyleSheet, ImageBackground, Image, KeyboardAvoidingView, Platform } from 'react-native';
 
@@ -16,8 +15,6 @@ import Label from '@components/Label';
 import useTheme from '@hooks/theme/useTheme';
 
 import { Theme } from '@theme';
-
-// Assets
 
 type LoginContainerProps = {
   title: string;

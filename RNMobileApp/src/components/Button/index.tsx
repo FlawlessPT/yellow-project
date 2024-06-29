@@ -10,8 +10,6 @@ import useTheme from '@hooks/theme/useTheme';
 
 import { Theme } from '@theme';
 
-// Types
-
 export type ButtonProps = {
   backgroundColor?: string;
   text?: string;

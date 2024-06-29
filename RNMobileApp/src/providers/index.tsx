@@ -1,11 +1,5 @@
-// React and React Native
 import React from 'react';
 
-// Theme
-
-// Providers
-
-// External Libs
 import { Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 

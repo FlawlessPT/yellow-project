@@ -1,4 +1,3 @@
-// React and React Native
 import React, { forwardRef, useState } from 'react';
 import { StyleSheet, TextInputProps, TextInput, View, StyleProp, ViewStyle, TextStyle } from 'react-native';
 

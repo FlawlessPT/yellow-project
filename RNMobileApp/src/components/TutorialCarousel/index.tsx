@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View, ImageBackground, ImageSourcePropType } from 'react-native';
 
-import { Button, Label, Pagination } from '@components';
+import { useNavigation } from '@react-navigation/native';
+import { t } from 'i18next';
+import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
+import RenderHTML from 'react-native-render-html';
 
 import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
-
-import { t } from 'i18next';
-import RenderHTML from 'react-native-render-html';
-import { useNavigation } from '@react-navigation/native';
-import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
+import { Button, Label, Pagination } from '@components';
 
 import useTheme from '@hooks/theme';
 

@@ -1,4 +1,3 @@
-// Types
 import { Plan } from './types';
 
 export const plansStub: Plan[] = [

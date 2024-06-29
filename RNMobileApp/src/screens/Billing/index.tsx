@@ -1,23 +1,15 @@
-// React and React Native
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
+import { AuthNavProps } from '../../navigation/AuthStack/types';
+import { AuthStackEnum } from '../../navigation/types';
+import { Button, CheckContainer, Label, LabelButton, Page } from '@components';
 
-// Stubs
 import { plansStub } from './stub';
-
-// Hooks
+import { Month, Plan } from './types';
 import useTheme from '@hooks/theme/useTheme';
 
-// Types
-import { Month, Plan } from './types';
-import { AuthStackEnum } from '../../navigation/types';
-import { AuthNavProps } from '../../navigation/AuthStack/types';
-
-// Components
-import { Button, CheckContainer, Label, LabelButton, Page } from '@components';
+import { Theme } from '@theme';
 
 const Billing = ({ navigation }: AuthNavProps<'Billing'>) => {
   const { theme } = useTheme();

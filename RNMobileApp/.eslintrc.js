@@ -1,5 +1,13 @@
 module.exports = {
   root: true,
+  env: {
+    // Lets ESLint know that React is being used
+    'react-native/react-native': true,
+    // Lets ESLint know that jest is being used
+    jest: true,
+    // Lets ESLint know that Node.js globals and NodeJS namespace should be recognized
+    node: true,
+  },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -9,7 +17,7 @@ module.exports = {
     // Disables ESLint rules that might conflict with Prettier
     'eslint-config-prettier',
   ],
-  ignorePatterns: ['babel.config.js', 'metro.config.js', 'node_modules', 'vite.config.ts'],
+  ignorePatterns: ['.eslintrc.js', 'babel.config.js', 'metro.config.js', 'node_modules'],
   plugins: [
     // TypeScript plugin for ESLint
     '@typescript-eslint',

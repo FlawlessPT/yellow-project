@@ -1,4 +1,3 @@
-// React and React Native
 import React, { useEffect, useState } from 'react';
 import { ScrollView, useWindowDimensions } from 'react-native';
 

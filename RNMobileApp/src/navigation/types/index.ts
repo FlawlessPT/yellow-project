@@ -1,4 +1,3 @@
-// Navigation
 import { CardStyleInterpolators } from '@react-navigation/stack';
 
 enum RootStackEnum {

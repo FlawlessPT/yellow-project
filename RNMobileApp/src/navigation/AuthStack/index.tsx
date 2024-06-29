@@ -2,19 +2,16 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
+import Billing from '@screens/Billing';
 import CreateAccount from '@screens/CreateAccount';
 import Login from '@screens/Login';
 import Personalization from '@screens/Personalization';
 import Splash from '@screens/Splash';
 import Tutorial from '@screens/Tutorial';
-import Billing from '@screens/Billing';
 
 import { defaultScreenOptions, AuthStackEnum, RootStackEnum } from '../types';
 import { Success } from '@components';
 
-// Navigation
-
-// Types
 import { AuthStackParamList } from './types';
 
 const Stack = createStackNavigator<AuthStackParamList>();

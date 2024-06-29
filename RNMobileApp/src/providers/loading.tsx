@@ -1,4 +1,3 @@
-// React and React Native
 import React from 'react';
 
 type Loading = {

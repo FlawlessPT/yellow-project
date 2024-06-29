@@ -36,8 +36,8 @@ if (Config.ONE_SIGNAL_APP_ID) {
   OneSignal.Notifications.requestPermission(true);
 
   // Method for listening for notification clicks
-  OneSignal.Notifications.addEventListener('click', (event) => {
-    console.log('OneSignal: notification clicked:', event);
+  OneSignal.Notifications.addEventListener('click', (_event) => {
+    //console.log('OneSignal: notification clicked:', event);
   });
 }
 

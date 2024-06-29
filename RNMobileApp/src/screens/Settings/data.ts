@@ -1,7 +1,6 @@
 import { AboutApp, Billing, EditProfile, Language, Notifications } from '@assets';
-import { NavigationProp } from '@react-navigation/native';
-
 import { SettingsStackEnum } from '@navigation/types';
+import { NavigationProp } from '@react-navigation/native';
 
 import { ProfileButton, ProfileDetail } from './types';
 

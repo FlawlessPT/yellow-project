@@ -1,16 +1,11 @@
-// React
 import React from 'react';
 
-// Types
-import { SettingsStackParamList } from './types';
-
-// Screens
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import ChangeLanguage from '@screens/ChangeLanguage';
 import Settings from '@screens/Settings';
 
-// External Libs
+import { SettingsStackParamList } from './types';
 
 export default function SettingsStack(): JSX.Element {
   const Stack = createNativeStackNavigator<SettingsStackParamList>();

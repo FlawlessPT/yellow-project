@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 import { getStyles } from '../styles';
 import { DietType, StepProps, HandleSetTypeResult } from '../types';
 import Input from '@components/Input';
 import SmallCard from '@components/SmallCard';
-
-// External Libs
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Diet = ({ onPress }: StepProps) => {
   const [selectedDiet, setSelectedDiet] = useState<DietType>();

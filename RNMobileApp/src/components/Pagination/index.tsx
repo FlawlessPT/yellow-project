@@ -1,8 +1,6 @@
-// React and React Native
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
 type PaginationProps = {

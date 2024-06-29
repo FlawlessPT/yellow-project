@@ -7,9 +7,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 
 import Label from '@components/Label';
+import { LabelProps } from '@components/Label/types';
 
 import useTheme from '@hooks/theme/useTheme';
-import { LabelProps } from '@components/Label/types';
+
 import { Theme } from '@theme';
 
 type PageProps = {
