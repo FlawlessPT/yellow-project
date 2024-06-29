@@ -12,6 +12,7 @@ enum AuthStackEnum {
   LOGIN = 'Login',
   CREATE_ACCOUNT = 'CreateAccount',
   PERSONALIZATION = 'Personalization',
+  BILLING = 'Billing',
   SUCCESS = 'Success',
 }
 

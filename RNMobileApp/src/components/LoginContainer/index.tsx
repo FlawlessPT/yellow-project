@@ -85,7 +85,7 @@ const getStyles = (theme: Theme) =>
       marginBottom: 8,
       marginTop: 16,
     },
-    contentContainer: { flex: 1, paddingHorizontal: 20, backgroundColor: theme.colors.background },
+    contentContainer: { flex: 1, paddingHorizontal: 20, paddingVertical: 20, backgroundColor: theme.colors.background },
     keyboardContainer: {
       flex: 1,
     },

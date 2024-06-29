@@ -6,6 +6,9 @@ import { DietType, StepProps, HandleSetTypeResult } from '../types';
 import Input from '@components/Input';
 import SmallCard from '@components/SmallCard';
 
+// External Libs
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 const Diet = ({ onPress }: StepProps) => {
   const [selectedDiet, setSelectedDiet] = useState<DietType>();
   const [dietDescription, setDietDescription] = useState<string>();
@@ -24,24 +27,26 @@ const Diet = ({ onPress }: StepProps) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.contentContainer}>
-        <SmallCard image="leaf" title="vegan" {...handleSetDietType(DietType.VEGAN)} />
-        <SmallCard image="egg" title="vegetarian" {...handleSetDietType(DietType.VEGETARIAN)} />
+    <KeyboardAwareScrollView style={styles.scrollview}>
+      <View style={styles.container}>
+        <View style={styles.contentContainer}>
+          <SmallCard image="leaf" title="vegan" {...handleSetDietType(DietType.VEGAN)} />
+          <SmallCard image="egg" title="vegetarian" {...handleSetDietType(DietType.VEGETARIAN)} />
+        </View>
+        <View style={styles.contentContainer}>
+          <SmallCard image="burger" title="traditional" {...handleSetDietType(DietType.TRADITIONAL)} />
+          <SmallCard image="bread-slice" title="other" {...handleSetDietType(DietType.OTHER)} />
+        </View>
+        <Input
+          value={dietDescription}
+          multiline
+          textStyle={styles.inputHeight}
+          style={styles.inputContainer}
+          placeholder="your_diet.input"
+          onChangeText={setDietDescription}
+        />
       </View>
-      <View style={styles.contentContainer}>
-        <SmallCard image="burger" title="tradicional" {...handleSetDietType(DietType.TRADITIONAL)} />
-        <SmallCard image="bread-slice" title="other" {...handleSetDietType(DietType.OTHER)} />
-      </View>
-      <Input
-        value={dietDescription}
-        multiline
-        textStyle={styles.inputHeight}
-        style={styles.inputContainer}
-        placeholder="your_diet.input"
-        onChangeText={setDietDescription}
-      />
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 

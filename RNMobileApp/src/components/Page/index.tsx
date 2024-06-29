@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { AppStackEnum } from '@navigation/types';
 import { useNavigation } from '@react-navigation/native';
@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome6';
 import Label from '@components/Label';
 
 import useTheme from '@hooks/theme/useTheme';
-
+import { LabelProps } from '@components/Label/types';
 import { Theme } from '@theme';
 
 type PageProps = {
@@ -19,18 +19,37 @@ type PageProps = {
   right?: React.ReactNode;
   withClose?: boolean;
   withBack?: boolean;
-};
+  header?: React.ReactNode;
+  withoutHorizontalMargin?: boolean;
+  bounces?: boolean;
+  contentContainerStyle?: StyleProp<ViewStyle>;
+  headerStyle?: StyleProp<ViewStyle>;
+} & LabelProps;
 
-const Page = ({ children, titleColor, title, right, withBack, withClose }: PageProps) => {
+const Page = ({
+  children,
+  titleColor,
+  title,
+  right,
+  withBack,
+  withClose,
+  header,
+  withoutHorizontalMargin = false,
+  bounces = true,
+  contentContainerStyle,
+  headerStyle,
+  ...props
+}: PageProps) => {
   const navigation = useNavigation();
 
   const { theme } = useTheme();
 
-  const styles = getStyles(theme);
+  const styles = getStyles(theme, withoutHorizontalMargin);
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      {header}
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={contentContainerStyle} bounces={bounces}>
         <View style={styles.header}>
           {withBack && (
             <Icon name="chevron-left" color={theme.colors.neutral300} size={24} onPress={() => navigation.goBack()} />
@@ -44,8 +63,8 @@ const Page = ({ children, titleColor, title, right, withBack, withClose }: PageP
             />
           )}
         </View>
-        <View style={styles.header}>
-          <Label text={title} type="h1" color={titleColor ?? theme.colors.neutral200} semibold />
+        <View style={[styles.header, headerStyle]}>
+          <Label text={title} type="h2" color={titleColor ?? theme.colors.neutral200} semibold {...props} />
           {right}
         </View>
         {children}
@@ -56,17 +75,21 @@ const Page = ({ children, titleColor, title, right, withBack, withClose }: PageP
 
 export default Page;
 
-const getStyles = (theme: Theme) =>
+const getStyles = (theme: Theme, withoutHorizontalMargin: boolean) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingHorizontal: 16,
-      paddingBottom: 20,
+      paddingHorizontal: withoutHorizontalMargin ? 0 : 16,
+      paddingBottom: 50,
       backgroundColor: theme.colors.background,
     },
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       marginBottom: 18,
+      paddingHorizontal: !withoutHorizontalMargin ? 0 : 16,
+    },
+    scrollview: {
+      flex: 1,
     },
   });

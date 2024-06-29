@@ -14,11 +14,11 @@ export type GenderCard = {
 export const genderCards: GenderCard[] = [
   {
     icon: WomanIcon,
-    label: 'woman',
+    label: 'female',
   },
   {
     icon: ManIcon,
-    label: 'man',
+    label: 'male',
   },
   {
     icon: OtherIcon,
@@ -41,3 +41,20 @@ export enum WorkoutType {
 }
 
 export type HandleSetTypeResult = { isSelected: boolean; onPress: () => void };
+
+export enum PhotoType {
+  FRONT = 'front',
+  BACK = 'back',
+  SIDE = 'side',
+}
+
+export type Photo = {
+  image?: string;
+  title: PhotoType;
+};
+
+export type Birthday = {
+  day: string;
+  month: string;
+  year: string;
+};

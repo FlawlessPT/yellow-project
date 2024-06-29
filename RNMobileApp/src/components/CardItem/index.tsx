@@ -37,6 +37,7 @@ const getStyles = (theme: Theme) =>
       backgroundColor: theme.colors.white,
       paddingHorizontal: 6,
       paddingVertical: 4,
+      alignSelf: 'flex-start',
     },
     text: {
       marginLeft: 4,

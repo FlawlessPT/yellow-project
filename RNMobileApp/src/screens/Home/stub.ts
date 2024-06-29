@@ -1,47 +1,25 @@
-import { CarbIcon, FatIcon, PlayIcon, ProteinIcon } from '@assets';
-
-import { ItemType } from '@components/CardItem';
-
-export const workoutItems: ItemType[] = [
-  {
-    icon: PlayIcon,
-    text: 'segunda-feira',
-  },
-];
-
-export const nutrientsItems: ItemType[] = [
-  {
-    icon: ProteinIcon,
-    text: '23 g',
-  },
-  {
-    icon: FatIcon,
-    text: '23 g',
-  },
-  {
-    icon: CarbIcon,
-    text: '23 g',
-  },
-];
+import { KcalIcon, PlayIcon } from '@assets';
 
 export const workouts = [
   {
-    image:
-      'https://media.istockphoto.com/id/938158500/photo/breakfast-table.jpg?s=612x612&w=0&k=20&c=Y8xB6hfe4dSPNyNrPgzP7slHbKhWdEzG7YTk2WXu4lQ=',
+    image: 'https://maxi.imgix.net/Images/Article/large/legs-workout.jpg?w=848&h=328&auto=format,compress&fit=crop',
     title: 'Legs',
-    items: workoutItems,
+    subtitle: ['8 series'],
+    item: { icon: PlayIcon, text: 'segunda-feira' },
   },
   {
     image:
-      'https://images.immediate.co.uk/production/volatile/sites/30/2023/03/Sumac-turkey-stuffed-pittas-73482d5.jpg?quality=90&resize=556,505',
+      'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2023/05/shutterstock_336330470-scaled.jpg?fit=2560%2C1707&ssl=1',
     title: 'Shoulders',
-    items: workoutItems,
+    subtitle: ['3 series'],
+    item: { icon: PlayIcon, text: 'segunda-feira' },
   },
   {
     image:
-      'https://assets.epicurious.com/photos/59a48f237e283157d14a5a6a/16:9/w_2560%2Cc_limit/How-to-Throw-a-Grocery-Store-Dinner-Party-hero-with-hands-15082017.jpg',
+      'data:image/jpeg;base64,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',
     title: 'Back',
-    items: workoutItems,
+    subtitle: ['5 series'],
+    item: { icon: PlayIcon, text: 'segunda-feira' },
   },
 ];
 
@@ -50,18 +28,21 @@ export const meals = [
     image:
       'https://media.istockphoto.com/id/938158500/photo/breakfast-table.jpg?s=612x612&w=0&k=20&c=Y8xB6hfe4dSPNyNrPgzP7slHbKhWdEzG7YTk2WXu4lQ=',
     title: 'Breakfast',
-    items: nutrientsItems,
+    subtitle: ['23 protein', '23 fat', '23 carb'],
+    item: { icon: KcalIcon, text: '548kcal' },
   },
   {
     image:
       'https://images.immediate.co.uk/production/volatile/sites/30/2023/03/Sumac-turkey-stuffed-pittas-73482d5.jpg?quality=90&resize=556,505',
     title: 'Lunch',
-    items: nutrientsItems,
+    subtitle: ['23 protein', '23 fat', '23 carb'],
+    item: { icon: KcalIcon, text: '548kcal' },
   },
   {
     image:
       'https://assets.epicurious.com/photos/59a48f237e283157d14a5a6a/16:9/w_2560%2Cc_limit/How-to-Throw-a-Grocery-Store-Dinner-Party-hero-with-hands-15082017.jpg',
     title: 'Dinner',
-    items: nutrientsItems,
+    subtitle: ['23 protein', '23 fat', '23 carb'],
+    item: { icon: KcalIcon, text: '548kcal' },
   },
 ];

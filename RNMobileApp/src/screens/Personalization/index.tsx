@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 
-import { AuthNavProps } from '@navigation/AuthStack/types';
-import { AuthStackEnum, RootStackEnum } from '@navigation/types';
-import { t } from 'i18next';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { Age, ChooseGender, Height, Header, Label, Button, Weight, Diet, Workout } from '@components';
-
-import useLoading from '@hooks/loading/useLoading';
-import useTheme from '@hooks/theme/useTheme';
+import {
+  ChooseGender,
+  Height,
+  Header,
+  Label,
+  Button,
+  Weight,
+  Diet,
+  Workout,
+  UploadPhotos,
+  Birthday,
+} from '@components';
 
 import { Theme } from '@theme';
 
-const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
-  const { setLoading } = useLoading();
+import useTheme from '@hooks/theme/useTheme';
 
+import { t } from 'i18next';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { AuthNavProps } from '../../navigation/AuthStack/types';
+
+const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
@@ -29,8 +37,8 @@ const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
       component: <ChooseGender onPress={(isSelected) => setIsContinueDisabled(!isSelected)} />,
     },
     {
-      title: 'select_age.title',
-      component: <Age onPress={(isSelected) => setIsContinueDisabled(!isSelected)} />,
+      title: 'your_birthday.title',
+      component: <Birthday onPress={(isSelected) => setIsContinueDisabled(!isSelected)} />,
     },
     {
       title: 'select_height.title',
@@ -39,6 +47,10 @@ const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
     {
       title: 'select_weight.title',
       component: <Weight onPress={(isSelected) => setIsContinueDisabled(!isSelected)} />,
+    },
+    {
+      title: 'upload_appearance.title',
+      component: <UploadPhotos onPress={(isSelected) => setIsContinueDisabled(!isSelected)} />,
     },
     {
       title: 'specific_diet.title',
@@ -54,19 +66,15 @@ const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
     if (selectedStep < steps.length - 1) {
       setSelectedStep(selectedStep + 1);
     } else {
-      setLoading({ isLoading: true, message: 'loading' });
-
-      setTimeout(() => {
-        navigation.reset({
-          routes: [
-            {
-              name: RootStackEnum.AUTH as never,
-              params: { screen: AuthStackEnum.SUCCESS },
-            },
-          ],
-        });
-        setLoading({ isLoading: false });
-      }, 2000);
+      return;
+      // navigation.reset({
+      //   routes: [
+      //     {
+      //       name: RootStackEnum.APP as never,
+      //       params: { screen: AppStackEnum.HOME },
+      //     },
+      //   ],
+      // });
     }
   };
 
@@ -83,7 +91,7 @@ const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
       <>
         <Label
           text={steps[selectedStep].title}
-          type="h1"
+          type="h2"
           semibold
           color={theme.colors.neutral300}
           style={styles.title}
@@ -102,9 +110,7 @@ const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
         onBack={handleMoveToPreviousStep}
       />
       <KeyboardAvoidingView style={styles.keyboardView} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <ScrollView bounces={false} style={styles.contentContainer}>
-          {renderSteps()}
-        </ScrollView>
+        <View style={styles.contentContainer}>{renderSteps()}</View>
         <Button
           text="continue.button"
           isDisabled={isContinueDisabled}
@@ -122,10 +128,10 @@ const getStyles = (theme: Theme) =>
   StyleSheet.create({
     keyboardView: { flex: 1 },
     title: {
-      marginTop: 32,
-      marginBottom: 50,
+      marginTop: 8,
+      marginBottom: 12,
       padding: 16,
-      paddingBottom: 50,
+      paddingBottom: 20,
     },
     container: {
       flex: 1,
@@ -134,6 +140,6 @@ const getStyles = (theme: Theme) =>
     },
     contentContainer: { flex: 1 },
     continueButton: {
-      marginBottom: 20,
+      marginVertical: 16,
     },
   });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { getStyles } from '../styles';
 import { StepProps, HandleSetTypeResult, WorkoutType } from '../types';
@@ -24,28 +24,30 @@ const Workout = ({ onPress }: StepProps) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.contentContainer}>
-        <SmallCard image="leaf" title="Start training" {...handleSetWorkoutType(WorkoutType.BEGINNER)} />
-        <SmallCard image="egg" title="1/2 times a week" {...handleSetWorkoutType(WorkoutType.IRREGULAR)} />
-      </View>
-      <View style={styles.contentContainer}>
-        <SmallCard image="burger" title="3/5 times a week" {...handleSetWorkoutType(WorkoutType.MEDIUM)} />
-        <SmallCard
-          image="bread-slice"
-          title="More than 5 times a week"
-          {...handleSetWorkoutType(WorkoutType.ADVANCED)}
+    <ScrollView bounces={false} style={styles.scrollview}>
+      <View style={styles.container}>
+        <View style={styles.contentContainer}>
+          <SmallCard image="leaf" title="Start training" {...handleSetWorkoutType(WorkoutType.BEGINNER)} />
+          <SmallCard image="egg" title="1/2 times a week" {...handleSetWorkoutType(WorkoutType.IRREGULAR)} />
+        </View>
+        <View style={styles.contentContainer}>
+          <SmallCard image="burger" title="3/5 times a week" {...handleSetWorkoutType(WorkoutType.MEDIUM)} />
+          <SmallCard
+            image="bread-slice"
+            title="More than 5 times a week"
+            {...handleSetWorkoutType(WorkoutType.ADVANCED)}
+          />
+        </View>
+        <Input
+          multiline
+          value={workoutDescription}
+          textStyle={styles.inputHeight}
+          style={styles.inputContainer}
+          placeholder="your_workout.input"
+          onChangeText={setWorkoutDescription}
         />
       </View>
-      <Input
-        multiline
-        value={workoutDescription}
-        textStyle={styles.inputHeight}
-        style={styles.inputContainer}
-        placeholder="your_workout.input"
-        onChangeText={setWorkoutDescription}
-      />
-    </View>
+    </ScrollView>
   );
 };
 
