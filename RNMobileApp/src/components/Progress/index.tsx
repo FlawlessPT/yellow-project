@@ -1,16 +1,12 @@
-// React and React Native
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-// Components
-import Label from '../Label';
-
-// External Libs
 import { t } from 'i18next';
 import { ProgressBar } from 'react-native-paper';
 
-// Theme
-import useTheme from '../../hooks/theme/useTheme';
+import Label from '@components/Label';
+
+import useTheme from '@hooks/theme';
 
 export type ProgressProps = {
   currentStep: number;

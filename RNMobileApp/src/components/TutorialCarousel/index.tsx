@@ -1,25 +1,17 @@
-// React and React Native
-import * as React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View, ImageBackground, ImageSourcePropType } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
+import { useNavigation } from '@react-navigation/native';
+import { t } from 'i18next';
+import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
+import RenderHTML from 'react-native-render-html';
 
-// Theme
-import useTheme from '@hooks/theme/useTheme';
-
-// Components
+import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
 import { Button, Label, Pagination } from '@components';
 
-// Types
-import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
+import useTheme from '@hooks/theme';
 
-// External Libs
-import { t } from 'i18next';
-import RenderHTML from 'react-native-render-html';
-import { useNavigation } from '@react-navigation/native';
-import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
+import { Theme } from '@theme';
 
 type TutorialData = {
   image: ImageSourcePropType;

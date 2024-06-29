@@ -1,13 +1,7 @@
-import {UserRole} from './user';
-import {ColumnType, ReferenceDataType} from './database';
+import { ColumnType, ReferenceDataType } from './database';
+import { UserRole } from './user';
 
-export type InputType =
-  | ColumnType
-  | 'rich_text'
-  | 'select'
-  | 'reference'
-  | 'reference_array'
-  | 'none';
+export type InputType = ColumnType | 'rich_text' | 'select' | 'reference' | 'reference_array' | 'none';
 export type ResourceOverrides = {
   isDeletable?: boolean;
   columns: {
@@ -25,8 +19,8 @@ export type ViewMode = 'edit' | 'create' | 'list';
 export type AdminOverrides = {
   general?: {
     tablesToExclude?: string[];
-    columnsToExclude?: {[view in ViewMode]?: string[]};
-    inputTypesToExclude?: {[view in ViewMode]?: InputType[]};
+    columnsToExclude?: { [view in ViewMode]?: string[] };
+    inputTypesToExclude?: { [view in ViewMode]?: InputType[] };
   };
   resources?: {
     [resourceName: string]:

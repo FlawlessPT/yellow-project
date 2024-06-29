@@ -1,8 +1,12 @@
-import { getGeneralOverrides } from '@configs';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
-import { ColumnType, TableInfoType } from '@types';
-import { supabaseClient } from '@utils/supabase';
+
 import { useEffect, useState } from 'react';
+
+import { getGeneralOverrides } from '@configs';
+
+import { supabaseClient } from '@utils/supabase';
+
+import { ColumnType, TableInfoType } from '@types';
 
 interface UseCustomResourcesResult {
   tables: TableInfoType[];

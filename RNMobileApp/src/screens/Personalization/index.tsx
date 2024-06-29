@@ -1,8 +1,10 @@
-// React and React Native
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 
-// Components
+import { t } from 'i18next';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { AuthNavProps } from '../../navigation/AuthStack/types';
 import {
   ChooseGender,
   Height,
@@ -16,18 +18,9 @@ import {
   Birthday,
 } from '@components';
 
-// Theme
-import { Theme } from '@theme';
-
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// External Libs
-import { t } from 'i18next';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-// Types
-import { AuthNavProps } from '../../navigation/AuthStack/types';
+import { Theme } from '@theme';
 
 const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
   const { theme } = useTheme();

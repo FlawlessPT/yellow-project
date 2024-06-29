@@ -1,11 +1,8 @@
-// React and React Native
-import * as React from 'react';
+import React from 'react';
 
-// Components
-import { TutorialCarousel } from '@components/TutorialCarousel';
-
-// Assets
 import { OnBoarding1, OnBoarding2, OnBoarding3 } from '@assets';
+
+import { TutorialCarousel } from '@components/TutorialCarousel';
 
 const Tutorial = () => {
   return (

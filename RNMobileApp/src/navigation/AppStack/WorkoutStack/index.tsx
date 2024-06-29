@@ -1,14 +1,10 @@
-// React
 import React from 'react';
 
-// Screens
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import AllWorkouts from '@screens/AllWorkouts';
 
-// Types
 import { WorkoutStackParamList } from './types';
-
-// External Libs
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function WorkoutStack(): JSX.Element {
   const Stack = createNativeStackNavigator<WorkoutStackParamList>();

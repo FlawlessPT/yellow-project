@@ -1,18 +1,12 @@
-// React and React Native
 import React from 'react';
 import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Assets
 import { SelectedCheckbox } from '@assets';
+import { Icon } from 'react-native-paper';
 
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// External Libs
-import { Icon } from 'react-native-paper';
+import { Theme } from '@theme';
 
 type CheckboxProps = {
   bgColor?: string;

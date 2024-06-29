@@ -1,24 +1,17 @@
-// React and React Native
 import React from 'react';
 import { ScrollView, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
+import { AppStackEnum } from '@navigation/types';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/FontAwesome6';
 
-// Components
 import Label from '@components/Label';
+import { LabelProps } from '@components/Label/types';
 
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// Types
-import { LabelProps } from '@components/Label/types';
-import { AppStackEnum } from '../../navigation/types';
-
-// External Libs
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome6';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Theme } from '@theme';
 
 type PageProps = {
   children?: React.ReactNode;

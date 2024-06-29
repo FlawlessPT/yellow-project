@@ -1,19 +1,12 @@
-// React and React Native
 import React, { useEffect, useRef, useState } from 'react';
 import { TextInput, View } from 'react-native';
 
-// Components
+import { getStyles } from '../styles';
+import { Birthday as BirthdayType, StepProps } from '../types';
 import Input from '@components/Input';
 import Label from '@components/Label';
 
-// Styles
-import { getStyles } from '../styles';
-
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
-
-// Types
-import { Birthday as BirthdayType, StepProps } from '../types';
 
 const Birthday = ({ onPress }: StepProps) => {
   const dayRef = useRef<TextInput>(null);

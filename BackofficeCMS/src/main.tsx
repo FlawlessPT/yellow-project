@@ -1,6 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
 import * as Sentry from '@sentry/react';
+import ReactDOM from 'react-dom/client';
+
+import React from 'react';
+
 import App from './App.tsx';
 
 if (process.env.NODE_ENV === 'production') {
@@ -10,10 +12,7 @@ if (process.env.NODE_ENV === 'production') {
     integrations: [
       new Sentry.BrowserTracing({
         // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
-        tracePropagationTargets: [
-          'localhost',
-          import.meta.env.VITE_SUPABASE_PROJECT_URL,
-        ],
+        tracePropagationTargets: ['localhost', import.meta.env.VITE_SUPABASE_PROJECT_URL],
       }),
       new Sentry.Replay(),
     ],
@@ -28,5 +27,5 @@ if (process.env.NODE_ENV === 'production') {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
 );

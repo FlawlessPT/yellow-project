@@ -1,18 +1,11 @@
-// React and React Native
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 
-// Types
-import { LabelProps } from './types';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// External Libs
 import { useTranslation } from 'react-i18next';
 
-// Utils
+import { LabelProps } from './types';
 import { getTypographySpecification } from './utils';
+import useTheme from '@hooks/theme/useTheme';
 
 export const Label = ({
   text,
