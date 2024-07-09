@@ -1,4 +1,4 @@
-rootProject.name = 'Gardao App'
+rootProject.name = 'gardao_app'
 
 dependencyResolutionManagement {
   versionCatalogs {

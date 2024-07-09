@@ -33,7 +33,8 @@ if (Config.ONE_SIGNAL_APP_ID) {
 
   // requestPermission will show the native iOS or Android notification permission prompt.
   // We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-  OneSignal.Notifications.requestPermission(true);
+  // TODO: Prompt permission on separate screens
+  // OneSignal.Notifications.requestPermission(true);
 
   // Method for listening for notification clicks
   OneSignal.Notifications.addEventListener('click', (_event) => {
@@ -52,6 +53,7 @@ if (!__DEV__) {
 const DEFAULT_LANGUAGE = 'en';
 const locales = getLocales() || [];
 
+// TODO: Move to external file
 i18n
   .use(initReactI18next)
   .use(Backend)
@@ -71,6 +73,7 @@ i18n
   });
 
 function App() {
+  // TODO: check this on splash screen
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
@@ -90,6 +93,7 @@ function App() {
     });
   }, []);
 
+  // TODO: Check if it makes sense to have this logic in here or in a separate file
   useEffect(() => {
     Linking.addEventListener('url', (event) => {
       const urlString = event.url.replace('#', '?');

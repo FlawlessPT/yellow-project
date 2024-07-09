@@ -30,6 +30,7 @@ const LoadingProvider = ({ children }: LoadingFeedbackProviderProps) => {
     <LoadingContext.Provider
       value={{
         loading,
+        // TODO: this can be just setLoading. Change to type of setState of useState
         setLoading: (newState: Loading): void => {
           setLoading(newState);
         },
