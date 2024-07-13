@@ -7,10 +7,9 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
-    "type-check": "tsc",
     "start": "react-native start",
     "test": "jest",
-    "pre-commit-check": "yarn lint-staged --allow-empty && yarn lint && yarn type-check",
+    "pre-commit-check": "yarn lint-staged",
     "pod-install": "cd ios && rm -rf Pods && pod install && cd ..",
     "clean-pod-install": "cd ios && rm -rf Pods && pod deintegrate && pod install && cd .."
   },
@@ -87,6 +86,7 @@
     "prettier": "^3.0.3",
     "react-native-svg-transformer": "^1.2.0",
     "react-test-renderer": "18.2.0",
+    "tsc-files": "^1.1.4",
     "typescript": "~5.3.3"
   },
   "engines": {
@@ -97,6 +97,7 @@
   },
   "lint-staged": {
     "./**/*.{js,ts,jsx,tsx}": [
+      "tsc-files --noEmit",
       "eslint --fix",
       "prettier --write -u"
     ]
