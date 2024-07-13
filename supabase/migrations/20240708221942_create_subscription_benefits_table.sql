@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS subscription_benefits (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP
+);
+
+ALTER TABLE IF EXISTS subscription_benefits ENABLE ROW LEVEL SECURITY;
