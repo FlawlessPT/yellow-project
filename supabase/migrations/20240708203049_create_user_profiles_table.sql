@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS user_profiles (
     weight NUMERIC(5,2) NOT NULL,
     diet_type diet_type_enum NOT NULL,
     diet_notes VARCHAR(2048),
-    workout_routine_type workout_routine_type_enum NOT NULL
+    workout_routine_type workout_routine_type_enum NOT NULL,
     workout_routine_notes VARCHAR(2048),
     front_photo_url VARCHAR(2048) NOT NULL,
     back_photo_url VARCHAR(2048) NOT NULL,
