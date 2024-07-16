@@ -103,7 +103,7 @@ export function InputForColumn({
     return <BooleanInput {...inputProps} />;
   }
 
-  if (['bigint', 'smallint', 'integer', 'real', 'double precision', 'numberic'].includes(inputType)) {
+  if (['bigint', 'smallint', 'integer', 'real', 'double precision', 'numeric'].includes(inputType)) {
     return <NumberInput {...inputProps} />;
   }
 
