@@ -4,7 +4,7 @@ export type ColumnType =
   | 'integer'
   | 'real'
   | 'double precision'
-  | 'numberic'
+  | 'numeric'
   | 'character varying'
   | 'json'
   | 'text'
@@ -18,7 +18,7 @@ export type ColumnType =
 
 export type TableInfoType = {
   name: string;
-  schema: {columnName: string; columnType: ColumnType; isRequired: boolean}[];
+  schema: { columnName: string; columnType: ColumnType; isRequired: boolean }[];
 };
 
 export type ReferenceDataType = {
