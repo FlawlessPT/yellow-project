@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS subscriptions (
     id SERIAL PRIMARY KEY,
-    user_id INT,
+    user_id UUID,
     subscription_type_id INT,
     status subscription_status_enum NOT NULL,
     payment_date TIMESTAMP,
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS subscriptions (
     price NUMERIC(6,2) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP,
-    CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL (user_id),
+    CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES auth.users(id) ON DELETE SET NULL (user_id),
     CONSTRAINT fk_subscription_type FOREIGN KEY(subscription_type_id) REFERENCES subscription_types(id) ON DELETE SET NULL (subscription_type_id)
 );
 

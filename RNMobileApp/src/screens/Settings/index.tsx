@@ -42,7 +42,7 @@ const Settings = ({ session }: { session?: Session }) => {
 
         const { data, error, status } = await supabase
           .from('profiles')
-          .select('username, full_name, avatar_url')
+          .select('username, first_name, last_name, avatar_url')
           .eq('id', session?.user.id)
           .single();
         if (error && status !== 406) {
@@ -51,7 +51,7 @@ const Settings = ({ session }: { session?: Session }) => {
 
         if (data) {
           setUsername(data.username);
-          setFullname(data.full_name);
+          setFullname(`${data.first_name} ${data.last_name}`);
           setAvatarUrl(data.avatar_url);
         }
       } catch (error) {
@@ -73,12 +73,14 @@ const Settings = ({ session }: { session?: Session }) => {
 
   async function updateProfile({
     newUsername,
-    newFullname,
+    newFirstName,
+    newLastName,
     avatar_url,
     newPassword,
   }: {
     newUsername: string;
-    newFullname: string;
+    newFirstName: string;
+    newLastName: string;
     avatar_url: string;
     newPassword: string;
   }) {
@@ -91,7 +93,8 @@ const Settings = ({ session }: { session?: Session }) => {
       const updates = {
         id: session?.user.id,
         username: newUsername,
-        full_name: newFullname,
+        first_name: newFirstName,
+        last_name: newLastName,
         avatar_url,
         updated_at: new Date(),
       };

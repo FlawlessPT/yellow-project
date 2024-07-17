@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS updates (
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
+    user_id UUID NOT NULL,
     weight NUMERIC(5,2) NOT NULL,
     body_fat NUMERIC(5,2),
     lean_mass NUMERIC(5,2),
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS updates (
     next_update_date TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP,
-    CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+    CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES auth.users(id) ON DELETE CASCADE
 );
 
 ALTER TABLE IF EXISTS updates ENABLE ROW LEVEL SECURITY;

@@ -1,23 +1,30 @@
 -- Create a table for public profiles
 create table profiles (
   id uuid references auth.users on delete cascade not null primary key,
-  updated_at timestamp with time zone,
-  username text unique,
-  email text unique,
-  first_name text,
-  last_name text,
-  full_name text,
-  avatar_url text,
-
-  constraint username_length check (char_length(username) >= 3)
+  first_name varchar(50),
+  last_name varchar(50),
+  avatar_url varchar(2048),
+  phone_number varchar(20),
+  gender gender_enum,
+  height numeric(5,2),
+  weight numeric(5,2),
+  diet_type diet_type_enum,
+  diet_notes varchar(2048),
+  workout_routine_type workout_routine_type_enum,
+  workout_routine_notes varchar(2048),
+  front_photo_url varchar(2048),
+  back_photo_url varchar(2048),
+  side_photo_url varchar(2048),
+  created_at timestamp with time zone default current_timestamp,
+  updated_at timestamp with time zone
 );
 -- Set up Row Level Security (RLS)
 -- See https://supabase.com/docs/guides/auth/row-level-security for more details.
 alter table profiles
   enable row level security;
 
-create policy "Public profiles are viewable by everyone." on profiles
-  for select using (true);
+create policy "Users can only see their own profile." on profiles
+  for select using (auth.uid() = id);
 
 create policy "Users can insert their own profile." on profiles
   for insert with check (auth.uid() = id);
@@ -30,8 +37,8 @@ create policy "Users can update own profile." on profiles
 create function public.handle_new_user()
 returns trigger as $$
 begin
-  insert into public.profiles (id, full_name, avatar_url, email)
-  values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'avatar_url', new.raw_user_meta_data->>'email');
+  insert into public.profiles (id, first_name, last_name, avatar_url)
+  values (new.id, new.raw_user_meta_data ->> 'first_name', new.raw_user_meta_data ->> 'last_name', new.raw_user_meta_data->>'avatar_url');
   return new;
 end;
 $$ language plpgsql security definer;
