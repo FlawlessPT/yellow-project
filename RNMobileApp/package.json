@@ -14,6 +14,7 @@
     "clean-pod-install": "cd ios && rm -rf Pods && pod deintegrate && pod install && cd .."
   },
   "dependencies": {
+    "@flawlesspt/yellow-common": "^0.0.3",
     "@hookform/resolvers": "^3.3.2",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.12",
