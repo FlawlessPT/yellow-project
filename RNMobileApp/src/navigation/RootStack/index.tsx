@@ -1,8 +1,8 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 
-import AppStack from '@navigation/AppStack';
-import AuthStack from '@navigation/AuthStack';
+import AppStack from '@navigation/AppStack/index';
+import AuthStack from '@navigation/AuthStack/index';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { RootStackEnum, defaultScreenOptions } from '../types';

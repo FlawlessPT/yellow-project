@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View, ImageBackground, ImageSourcePropType } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import { t } from 'i18next';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 import RenderHTML from 'react-native-render-html';
 
 import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
-import { Button, Label, Pagination } from '@components';
+import { Button, Label, LabelButton, Pagination } from '@components';
 
 import useTheme from '@hooks/theme';
 
@@ -36,7 +36,7 @@ export const TutorialCarousel = ({ autoPlay = false, loop = false, data }: Tutor
 
   const screenWidth = Dimensions.get('window').width;
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
   const ref = React.createRef<ICarouselInstance>();
 
@@ -100,12 +100,30 @@ export const TutorialCarousel = ({ autoPlay = false, loop = false, data }: Tutor
           )}
           <Pagination length={data.length} currentIndex={currentIndex} />
           {isLast && (
-            <RenderHTML
-              source={{ html: t('terms.conditions.title') }}
-              baseStyle={styles.termsAndConditions}
-              tagsStyles={{ a: styles.underline }}
-              contentWidth={Dimensions.get('screen').width}
-            />
+            <>
+              <View style={styles.pricesContainer}>
+                <Label
+                  text="paid_subscriptions"
+                  color={theme.colors.neutral400}
+                  type="footnote"
+                  style={styles.subscriptionsLabel}
+                />
+                <LabelButton
+                  text="see_prices"
+                  isUnderline
+                  color={theme.colors.primary}
+                  type="footnote"
+                  bold
+                  onPress={() => navigation.navigate(AuthStackEnum.BILLING, { withBack: true })}
+                />
+              </View>
+              <RenderHTML
+                source={{ html: t('terms.conditions.title') }}
+                baseStyle={styles.termsAndConditions}
+                tagsStyles={{ a: styles.underline }}
+                contentWidth={Dimensions.get('screen').width}
+              />
+            </>
           )}
         </View>
       </ImageBackground>
@@ -135,7 +153,6 @@ const getStyles = (theme: Theme) =>
       backgroundColor: theme.colors.neutral700,
       borderRadius: 8,
       justifyContent: 'center',
-      alignItems: 'center',
     },
     container: {
       flex: 1,
@@ -162,7 +179,7 @@ const getStyles = (theme: Theme) =>
       marginTop: 32,
       paddingBottom: 24,
       fontFamily: theme.fonts.regular,
-      color: theme.colors.white,
+      color: theme.colors.neutral400,
       fontSize: 12,
       textAlign: 'center',
     },
@@ -170,5 +187,12 @@ const getStyles = (theme: Theme) =>
       color: theme.colors.primary,
       textDecorationColor: theme.colors.primary,
       fontWeight: 'bold',
+    },
+    pricesContainer: {
+      flexDirection: 'row',
+      alignSelf: 'center',
+    },
+    subscriptionsLabel: {
+      marginRight: 4,
     },
   });

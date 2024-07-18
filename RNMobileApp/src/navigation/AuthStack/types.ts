@@ -6,7 +6,7 @@ export type AuthStackParamList = {
   Login: undefined;
   CreateAccount: undefined;
   Personalization: undefined;
-  Billing: undefined;
+  Billing: { withBack?: boolean };
   Success: undefined;
 };
 

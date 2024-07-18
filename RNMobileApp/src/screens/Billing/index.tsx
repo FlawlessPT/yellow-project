@@ -11,7 +11,9 @@ import useTheme from '@hooks/theme/useTheme';
 
 import { Theme } from '@theme';
 
-const Billing = ({ navigation }: AuthNavProps<'Billing'>) => {
+const Billing = ({ navigation, route }: AuthNavProps<'Billing'>) => {
+  const { withBack } = route.params;
+
   const { theme } = useTheme();
   const styles = getStyles(theme);
 
@@ -29,6 +31,7 @@ const Billing = ({ navigation }: AuthNavProps<'Billing'>) => {
       contentContainerStyle={styles.contentContainer}
       textAlign="center"
       headerStyle={styles.header}
+      withBack={withBack}
     >
       <View style={styles.contentContainer}>
         <Label text="choose_plan.description" textAlign="center" color={theme.colors.neutral300} />
@@ -90,7 +93,10 @@ const Billing = ({ navigation }: AuthNavProps<'Billing'>) => {
         type="footnote"
         style={styles.adviceLabel}
       />
-      <Button text="continue.button" onPressButton={() => navigation.navigate(AuthStackEnum.PERSONALIZATION)} />
+      <Button
+        text="continue.button"
+        onPressButton={() => navigation.navigate(withBack ? AuthStackEnum.LOGIN : AuthStackEnum.PERSONALIZATION)}
+      />
     </Page>
   );
 };
