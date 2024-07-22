@@ -17,6 +17,7 @@ enum AuthStackEnum {
 
 enum AppStackEnum {
   HOME = 'Home',
+  WORKOUT_STACK = 'WorkoutStack',
   SETTINGS_STACK = 'SettingsStack',
 }
 
