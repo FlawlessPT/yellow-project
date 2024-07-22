@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { NoWorkoutsImage } from '@assets';
+import { InfoCircleIcon, NoWorkoutsImage } from '@assets';
 
 import { WorkoutCalendar, Label, Page, WorkoutCard } from '@components';
 
@@ -17,7 +17,15 @@ const MyWorkouts = () => {
   const styles = getStyles(theme);
 
   return (
-    <Page withoutHorizontalMargin title="my_workouts">
+    <Page
+      withoutHorizontalMargin
+      title="my_workouts"
+      right={
+        <TouchableOpacity onPress={() => console.log('oiii')}>
+          <Image source={InfoCircleIcon} />
+        </TouchableOpacity>
+      }
+    >
       <WorkoutCalendar />
       {workouts.length ? (
         <>
