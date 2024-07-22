@@ -1,6 +1,6 @@
 {
   "name": "@flawlesspt/yellow-common",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/yellow-common.cjs.js",
   "types": "dist/yellow-common.d.ts",
   "scripts": {
