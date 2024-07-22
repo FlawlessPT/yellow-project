@@ -3,7 +3,7 @@ import { FlatList, Image, StyleSheet, View } from 'react-native';
 
 import { LogoImage } from '@assets';
 
-import { Label, Page, Card, ProgressBar, LabelButton } from '@components';
+import { Label, Page, Card, ProgressCard, LabelButton } from '@components';
 
 import { meals, workouts } from './stub';
 import { renderTitle } from './utils';
@@ -31,7 +31,9 @@ const Home = () => {
       }
       title="home.title"
     >
-      <ProgressBar title="for_week.progress" progress={45} style={styles.paddingHorizontal} />
+      <View style={styles.paddingHorizontal}>
+        <ProgressCard progress={45} />
+      </View>
       {renderTitle('my_workouts', theme)}
       <FlatList
         data={workouts}

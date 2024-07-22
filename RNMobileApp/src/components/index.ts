@@ -24,8 +24,7 @@ import UploadPhotos from './PersonalizationSteps/UploadPhotos';
 import Weight from './PersonalizationSteps/Weight';
 import Workout from './PersonalizationSteps/Workout';
 import ProfileDetailCard from './ProfileDetailCard';
-import Progress from './Progress';
-import ProgressBar from './ProgressBar';
+import ProgressCard from './ProgressCard';
 import Separator from './Separator';
 import SmallCard from './SmallCard';
 import SocialLoginButton from './SocialLoginButton';
@@ -42,7 +41,6 @@ export {
   Input,
   Label,
   Modal,
-  Progress,
   Separator,
   SocialLoginButton,
   Switch,
@@ -66,7 +64,7 @@ export {
   Loading,
   Success,
   Pagination,
-  ProgressBar,
+  ProgressCard,
   CheckContainer,
   WorkoutCard,
   WorkoutCalendar,
