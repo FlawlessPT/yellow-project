@@ -11,13 +11,13 @@ import useTheme from '@hooks/theme/useTheme';
 
 import { Theme } from '@theme';
 
-const AllWorkouts = () => {
+const MyWorkouts = () => {
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
 
   return (
-    <Page withoutHorizontalMargin title="all_workouts.title">
+    <Page withoutHorizontalMargin title="my_workouts">
       <WorkoutCalendar />
       {workouts.length ? (
         <>
@@ -49,7 +49,7 @@ const AllWorkouts = () => {
   );
 };
 
-export default AllWorkouts;
+export default MyWorkouts;
 
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
