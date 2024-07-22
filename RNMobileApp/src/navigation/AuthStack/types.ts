@@ -1,4 +1,3 @@
-// Navigation
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type AuthStackParamList = {
@@ -7,7 +6,7 @@ export type AuthStackParamList = {
   Login: undefined;
   CreateAccount: undefined;
   Personalization: undefined;
-  Billing: undefined;
+  Billing: { withBack?: boolean };
   Success: undefined;
 };
 

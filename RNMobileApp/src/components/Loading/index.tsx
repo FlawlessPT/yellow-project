@@ -1,22 +1,13 @@
-// React and React Native
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Components
-import Label from '@components/Label';
-
-// Assets
 import { LoadingLottie } from '@assets';
-
-// External Libs
-import Modal from 'react-native-modal';
 import Lottie from 'lottie-react-native';
+import Modal from 'react-native-modal';
 
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
 
 export type LoadingProps = {
   message?: string;

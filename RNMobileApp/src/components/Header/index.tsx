@@ -1,19 +1,13 @@
-// React and React Native
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-// Assets
 import { Back } from '@assets';
-
-// Components
-import Label from '@components/Label';
-
-// External Libs
+import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-paper';
 
-// Theme
+import Label from '@components/Label';
+
 import useTheme from '@hooks/theme/useTheme';
-import { useNavigation } from '@react-navigation/native';
 
 export type HeaderProps = {
   title?: string;

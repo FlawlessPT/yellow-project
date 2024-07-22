@@ -1,27 +1,19 @@
-// React and React Native
 import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Utils
-import { supabase } from '@utils/supabase';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// Types
-import { AuthStackEnum } from '../../navigation/types';
-import { AuthNavProps } from '../../navigation/AuthStack/types';
-
-// External Libs
+import { AuthNavProps } from '@navigation/AuthStack/types';
+import { AuthStackEnum } from '@navigation/types';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 
-// Components
 import { Label, FormInput, FormPasswordInput, LabelButton, Button, LoginContainer } from '@components';
+
+import useTheme from '@hooks/theme/useTheme';
+
+import { supabase } from '@utils/supabase';
+
+import { Theme } from '@theme';
 
 const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   const [saveLogin, setSaveLogin] = useState(false);

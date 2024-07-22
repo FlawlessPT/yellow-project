@@ -1,0 +1,32 @@
+name: GitHub Actions Publish Commons Version
+run-name: ${{ github.actor }} is Publishing Common Lib 🚀
+on:
+  pull_request:
+    branches: [main]
+    types: [closed]
+jobs:
+  Publish-New-Package:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - name: Set Git Configs
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+      - uses: actions/checkout@v3
+      - run: |
+          yarn version --patch
+          git add .
+          echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ~/.npmrc && pnpm install && yarn build && yarn publish
+          git push
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."

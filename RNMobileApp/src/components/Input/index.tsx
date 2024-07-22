@@ -1,22 +1,15 @@
-// React and React Native
 import React, { forwardRef, useState } from 'react';
 import { StyleSheet, TextInputProps, TextInput, View, StyleProp, ViewStyle, TextStyle } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Components
-import { Label } from '../Label';
-
-// Types
-import { HelperType } from './types';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// External Libs
 import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/FontAwesome6';
+
+import Label from '@components/Label';
+
+import { HelperType } from './types';
+import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
 
 export type InputProps = {
   style?: StyleProp<ViewStyle>;

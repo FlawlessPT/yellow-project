@@ -1,11 +1,8 @@
-// React and React Native
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-// External Libs
 import i18next from 'i18next';
 
-// Components
 import { ButtonCard, Page } from '@components';
 
 const languages: { key: string; label: string }[] = [

@@ -1,13 +1,8 @@
-// React and React Native
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-// Types
-import { genderCards } from '../types';
-import { StepProps } from '../types';
-
-// Components
-import { ButtonCard } from '@components';
+import { genderCards, StepProps } from '../types';
+import ButtonCard from '@components/ButtonCard';
 
 const ChooseGender = ({ onPress }: StepProps) => {
   const [selectedCard, setSelectedCard] = useState<number>();

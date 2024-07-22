@@ -1,28 +1,19 @@
-/* eslint-disable react/no-unstable-nested-components */
-// React
 import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity } from 'react-native';
 
-// Screens
-import Home from '@screens/Home';
-
-// Stacks
-import WorkoutStack from './WorkoutStack';
-import SettingsStack from './SettingsStack';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// External Libs
+import { BottomDumbbellIcon, BottomFoodIcon, BottomHomeIcon, BottomPlusIcon, BottomProfileIcon } from '@assets';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-// Types
-import { Theme } from '@theme';
-import { AppStackParamList } from './types';
+import Home from '@screens/Home';
+
 import { AppStackEnum, defaultScreenOptions, RootStackEnum } from '../types';
 
-// Assets
-import { BottomDumbbellIcon, BottomFoodIcon, BottomHomeIcon, BottomPlusIcon, BottomProfileIcon } from '@assets';
+import SettingsStack from './SettingsStack';
+import { AppStackParamList } from './types';
+import WorkoutStack from './WorkoutStack';
+import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
 
 export default function AppStack(): JSX.Element {
   const Tab = createBottomTabNavigator<AppStackParamList>();

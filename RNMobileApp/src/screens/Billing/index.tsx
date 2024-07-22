@@ -1,23 +1,19 @@
-// React and React Native
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Stubs
-import { plansStub } from './stub';
-
-// Types
-import { Month, Plan } from './types';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// Components
+import { AuthNavProps } from '../../navigation/AuthStack/types';
+import { AuthStackEnum } from '../../navigation/types';
 import { Button, CheckContainer, Label, LabelButton, Page } from '@components';
 
-const Billing = () => {
+import { plansStub } from './stub';
+import { Month, Plan } from './types';
+import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
+
+const Billing = ({ navigation, route }: AuthNavProps<'Billing'>) => {
+  const { withBack } = route.params;
+
   const { theme } = useTheme();
   const styles = getStyles(theme);
 
@@ -35,6 +31,7 @@ const Billing = () => {
       contentContainerStyle={styles.contentContainer}
       textAlign="center"
       headerStyle={styles.header}
+      withBack={withBack}
     >
       <View style={styles.contentContainer}>
         <Label text="choose_plan.description" textAlign="center" color={theme.colors.neutral300} />
@@ -96,7 +93,10 @@ const Billing = () => {
         type="footnote"
         style={styles.adviceLabel}
       />
-      <Button text="continue.button" onPressButton={() => undefined} />
+      <Button
+        text="continue.button"
+        onPressButton={() => navigation.navigate(withBack ? AuthStackEnum.LOGIN : AuthStackEnum.PERSONALIZATION)}
+      />
     </Page>
   );
 };

@@ -1,38 +1,37 @@
 import Button from './Button';
+import LabelButton from './Button/LabelButton';
+import ButtonCard from './ButtonCard';
 import CalendarPicker from './CalendarPicker';
+import Card from './Card';
+import CardItem from './CardItem';
 import Checkbox from './Checkbox';
+import CheckContainer from './CheckContainer';
+import FormInput from './FormInput';
+import FormPasswordInput from './FormInput/FormPasswordInput';
 import Header from './Header';
 import Input from './Input';
 import Label from './Label';
-import Modal from './Modal';
-import Progress from './Progress';
-import Separator from './Separator';
-import SocialLoginButton from './SocialLoginButton';
-import Switch from './Switch';
-import LabelButton from './Button/LabelButton';
-import ButtonCard from './ButtonCard';
-import ProfileDetailCard from './ProfileDetailCard';
-import FormInput from './FormInput';
-import FormPasswordInput from './FormInput/FormPasswordInput';
-import Card from './Card';
-import CardItem from './CardItem';
-import Page from './Page';
-import LoginContainer from './LoginContainer';
-import SmallCard from './SmallCard';
-import ChooseGender from './PersonalizationSteps/ChooseGender';
-import Birthday from './PersonalizationSteps/Birthday';
-import Height from './PersonalizationSteps/Height';
-import Weight from './PersonalizationSteps/Weight';
-import Diet from './PersonalizationSteps/Diet';
-import Workout from './PersonalizationSteps/Workout';
-import UploadPhotos from './PersonalizationSteps/UploadPhotos';
 import Loading from './Loading';
-import Success from './Success';
+import LoginContainer from './LoginContainer';
+import Modal from './Modal';
+import Page from './Page';
 import Pagination from './Pagination';
-import ProgressBar from './ProgressBar';
-import CheckContainer from './CheckContainer';
-import WorkoutCard from './WorkoutCard';
+import Birthday from './PersonalizationSteps/Birthday';
+import ChooseGender from './PersonalizationSteps/ChooseGender';
+import Diet from './PersonalizationSteps/Diet';
+import Height from './PersonalizationSteps/Height';
+import UploadPhotos from './PersonalizationSteps/UploadPhotos';
+import Weight from './PersonalizationSteps/Weight';
+import Workout from './PersonalizationSteps/Workout';
+import ProfileDetailCard from './ProfileDetailCard';
+import ProgressCard from './ProgressCard';
+import Separator from './Separator';
+import SmallCard from './SmallCard';
+import SocialLoginButton from './SocialLoginButton';
+import Success from './Success';
+import Switch from './Switch';
 import WorkoutCalendar from './WorkoutCalendar';
+import WorkoutCard from './WorkoutCard';
 
 export {
   Button,
@@ -42,7 +41,6 @@ export {
   Input,
   Label,
   Modal,
-  Progress,
   Separator,
   SocialLoginButton,
   Switch,
@@ -66,7 +64,7 @@ export {
   Loading,
   Success,
   Pagination,
-  ProgressBar,
+  ProgressCard,
   CheckContainer,
   WorkoutCard,
   WorkoutCalendar,

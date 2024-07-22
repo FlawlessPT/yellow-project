@@ -1,18 +1,10 @@
-import {
-  CreateButton,
-  Datagrid,
-  List,
-  ReferenceField,
-  TextField,
-  TopToolbar,
-} from 'react-admin';
-import {TableInfoType} from '../../types';
-import {
-  isFieldToRenderForGeneralOptions,
-  overridesForResource,
-  recordRepresentationForResource,
-} from '@configs';
-import {useTablesContext} from '@utils/contexts/tables';
+import { CreateButton, Datagrid, List, ReferenceField, TextField, TopToolbar } from 'react-admin';
+
+import { isFieldToRenderForGeneralOptions, overridesForResource, recordRepresentationForResource } from '@configs';
+
+import { useTablesContext } from '@utils/contexts/tables';
+
+import { TableInfoType } from '@types';
 
 const ListActions = () => (
   <TopToolbar>
@@ -20,32 +12,23 @@ const ListActions = () => (
   </TopToolbar>
 );
 
-export function CustomResourceListGuesser({
-  tableInfo,
-}: {
-  tableInfo: TableInfoType;
-}) {
+export function CustomResourceListGuesser({ tableInfo }: { tableInfo: TableInfoType }) {
   let isDeletable = true;
   const resourceEditOverrides = overridesForResource({
     tableName: tableInfo.name,
     viewMode: 'edit',
   });
 
-  if (
-    typeof resourceEditOverrides?.isDeletable === 'boolean' &&
-    !resourceEditOverrides?.isDeletable
-  ) {
+  if (typeof resourceEditOverrides?.isDeletable === 'boolean' && !resourceEditOverrides?.isDeletable) {
     isDeletable = false;
   }
 
-  const {isReference, getReferenceDataFor} = useTablesContext();
+  const { isReference, getReferenceDataFor } = useTablesContext();
 
   return (
     <List actions={<ListActions />}>
-      <Datagrid
-        rowClick="edit"
-        bulkActionButtons={isDeletable ? undefined : false}>
-        {tableInfo.schema.map(({columnName, columnType}) => {
+      <Datagrid rowClick="edit" bulkActionButtons={isDeletable ? undefined : false}>
+        {tableInfo.schema.map(({ columnName, columnType }) => {
           if (
             !isFieldToRenderForGeneralOptions({
               columnName,
@@ -60,17 +43,14 @@ export function CustomResourceListGuesser({
             return null;
           }
 
-          const dataOverridesForColumn =
-            resourceEditOverrides?.columns[columnName];
-          if (
-            dataOverridesForColumn?.type === 'reference' &&
-            dataOverridesForColumn.referenceData?.tableName
-          ) {
+          const dataOverridesForColumn = resourceEditOverrides?.columns[columnName];
+          if (dataOverridesForColumn?.type === 'reference' && dataOverridesForColumn.referenceData?.tableName) {
             return (
               <ReferenceField
                 source={columnName}
                 reference={dataOverridesForColumn.referenceData.tableName}
-                key={columnName}>
+                key={columnName}
+              >
                 <TextField
                   source={recordRepresentationForResource({
                     tableName: dataOverridesForColumn.referenceData.tableName,
@@ -80,20 +60,17 @@ export function CustomResourceListGuesser({
             );
           } else {
             // trying to discover reference
-            const referenceSearchFilter = {inputType: columnType, columnName};
-            const referenceData =
-              isReference(referenceSearchFilter) &&
-              getReferenceDataFor(referenceSearchFilter);
+            const referenceSearchFilter = { inputType: columnType, columnName };
+            const referenceData = isReference(referenceSearchFilter) && getReferenceDataFor(referenceSearchFilter);
 
             if (referenceData && referenceData.recordRepresentationColumn) {
               return (
                 <ReferenceField
                   source={referenceData.sourceColumn}
                   reference={referenceData.tableName}
-                  key={columnName}>
-                  <TextField
-                    source={referenceData.recordRepresentationColumn}
-                  />
+                  key={columnName}
+                >
+                  <TextField source={referenceData.recordRepresentationColumn} />
                 </ReferenceField>
               );
             }

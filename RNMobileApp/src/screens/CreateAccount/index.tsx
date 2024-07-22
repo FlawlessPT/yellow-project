@@ -1,27 +1,19 @@
-// React and React Native
 import React, { useEffect } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
+import { AuthNavProps } from '@navigation/AuthStack/types';
+import { AuthStackEnum } from '@navigation/types';
+import { format } from 'date-fns/format';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-// Helpers
-import { supabase } from '@utils/supabase';
+import { Button, FormInput, FormPasswordInput, Label, LabelButton, LoginContainer } from '@components';
 
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// Types
-import { AuthStackEnum } from '../../navigation/types';
-import { AuthNavProps } from '../../navigation/AuthStack/types';
+import { supabase } from '@utils/supabase';
 
-// External Libs
-import { format } from 'date-fns/format';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-
-// Components
-import { Button, FormInput, FormPasswordInput, Label, LabelButton, LoginContainer } from '@components';
+import { Theme } from '@theme';
 
 const CreateAccount = ({ navigation }: AuthNavProps<'CreateAccount'>) => {
   const { bottom } = useSafeAreaInsets();

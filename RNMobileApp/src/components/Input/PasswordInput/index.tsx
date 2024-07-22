@@ -1,15 +1,11 @@
-// React and React Native
 import React, { useState } from 'react';
 import { TextInputProps } from 'react-native';
 
-// Components
+import Icon from 'react-native-vector-icons/FontAwesome6';
+
 import Input, { InputProps } from '..';
 
-// Theme
 import useTheme from '@hooks/theme/useTheme';
-
-// External Libs
-import Icon from 'react-native-vector-icons/FontAwesome6';
 
 const PasswordInput = ({ label, ...props }: InputProps & TextInputProps) => {
   const { theme } = useTheme();
