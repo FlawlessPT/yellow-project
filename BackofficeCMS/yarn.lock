@@ -476,10 +476,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.48.0.tgz#642633964e217905436033a2bd08bf322849b7fb"
   integrity sha512-ZSjtmelB7IJfWD2Fvb7+Z+ChTIKWq6kjda95fLcQKNS5aheVHn4IkfgRQE3sIIzTcSLwLcLZUD9UBt+V7+h+Pw==
 
-"@flawlesspt/yellow-common@^0.0.3":
-  version "0.0.3"
-  resolved "https://npm.pkg.github.com/download/@flawlesspt/yellow-common/0.0.3/a8e4fdb982b345cd59559e37a55afd38d92b81b6#a8e4fdb982b345cd59559e37a55afd38d92b81b6"
-  integrity sha512-IhqdZHdXhm2aRlG7UQqmtsUhyEpDdtwAK9L7V03yQKSFQT+fUplTxavHVHCwdjcXuhKgqOf23+O5pLGlTqECcQ==
+"@flawlesspt/yellow-common@^0.0.1":
+  version "0.0.1"
+  resolved "https://npm.pkg.github.com/download/@flawlesspt/yellow-common/0.0.1/b8bcd0c834d44f6cf193672051da14744f943980#b8bcd0c834d44f6cf193672051da14744f943980"
+  integrity sha512-IFH1SuC1HJzapCDzBTh8YO/BN7Z6KFUJB65ScQGMkbl+5w0Gmo6gRc67+fGWpmC22PXWkajXsLGZ6p5J8xPlGw==
   dependencies:
     "@tanstack/react-query" "^4.29.12"
     axios "^0.19.2"
