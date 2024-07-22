@@ -1,5 +1,5 @@
 {
-  "name": "backoffice-cms",
+  "name": "@flawlesspt/yellow-backoffice",
   "private": true,
   "version": "env",
   "type": "module",
