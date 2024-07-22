@@ -1,19 +1,14 @@
-// React and React Native
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View, Linking } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
+import { PlayWhiteIcon } from '@assets';
+import { useTranslation } from 'react-i18next';
 
-// Components
 import { Label } from '@components';
 
-// Assets
-import { PlayWhiteIcon } from '@assets';
-
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
-import { useTranslation } from 'react-i18next';
+
+import { Theme } from '@theme';
 
 type Workout = {
   videoUrl: string;

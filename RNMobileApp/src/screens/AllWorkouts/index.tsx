@@ -1,22 +1,15 @@
-// React and React Native
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Stub
-import workouts from './stub.json';
-
-// Assets
 import { NoWorkoutsImage } from '@assets';
 
-// Hooks
+import { WorkoutCalendar, Label, Page, WorkoutCard } from '@components';
+
+import workouts from './stub.json';
+import WorkoutHeader from './WorkoutHeader';
 import useTheme from '@hooks/theme/useTheme';
 
-// Components
-import WorkoutHeader from './WorkoutHeader';
-import { WorkoutCalendar, Label, Page, WorkoutCard } from '@components';
+import { Theme } from '@theme';
 
 const AllWorkouts = () => {
   const { theme } = useTheme();

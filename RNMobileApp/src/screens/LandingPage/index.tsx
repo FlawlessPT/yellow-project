@@ -1,8 +1,14 @@
-// React and React Native
 import React from 'react';
 import { Alert } from 'react-native';
 
-// Styles
+import { LogoImage } from '@assets';
+import { useFeatureFlag } from '@providers/feature-flags';
+import { useNavigation } from '@react-navigation/native';
+import * as AppleAuthentication from 'expo-apple-authentication';
+import * as WebBrowser from 'expo-web-browser';
+
+import { Button, Separator, SocialLoginButton } from '@components';
+
 import {
   SafeArea,
   ButtonsContainer,
@@ -13,23 +19,9 @@ import {
   Logo,
 } from './styles';
 
-// Assets
-import { LogoImage } from '@assets';
-
-// Utils
 import { supabase } from '@utils/supabase';
-import { useFeatureFlag } from '@utils/contexts';
 
-// External Libs
-import * as WebBrowser from 'expo-web-browser';
-import { useNavigation } from '@react-navigation/native';
-import * as AppleAuthentication from 'expo-apple-authentication';
-
-// Types
-import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
-
-// Components
-import { Button, Separator, SocialLoginButton } from '@components';
+import { NoneAuthenticatedStackScreenPropsGeneric } from '@types';
 
 const LandingPage = () => {
   const navigation = useNavigation<NoneAuthenticatedStackScreenPropsGeneric<'Auth'>['navigation']>();

@@ -1,24 +1,17 @@
-// React and React Native
 import React from 'react';
 import { ScrollView, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
+import { Back } from '@assets';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { IconButton } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-// Components
 import Label from '@components/Label';
+import { LabelProps } from '@components/Label/types';
 
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// Types
-import { LabelProps } from '@components/Label/types';
-import { AppStackEnum } from '../../navigation/types';
-
-// External Libs
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome6';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Theme } from '@theme';
 
 type PageProps = {
   children?: React.ReactNode;
@@ -40,7 +33,6 @@ const Page = ({
   title,
   right,
   withBack,
-  withClose,
   header,
   withoutHorizontalMargin = false,
   bounces = true,
@@ -48,7 +40,7 @@ const Page = ({
   headerStyle,
   ...props
 }: PageProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
   const { theme } = useTheme();
 
@@ -60,15 +52,7 @@ const Page = ({
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={contentContainerStyle} bounces={bounces}>
         <View style={styles.header}>
           {withBack && (
-            <Icon name="chevron-left" color={theme.colors.neutral300} size={24} onPress={() => navigation.goBack()} />
-          )}
-          {withClose && (
-            <Icon
-              name="xmark"
-              color={theme.colors.neutral300}
-              size={24}
-              onPress={() => navigation.navigate(AppStackEnum.HOME as never)}
-            />
+            <IconButton icon={Back} size={24} iconColor={theme.colors.neutral300} onPress={() => navigation.goBack()} />
           )}
         </View>
         <View style={[styles.header, headerStyle]}>

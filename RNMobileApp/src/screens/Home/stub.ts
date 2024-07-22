@@ -1,4 +1,3 @@
-// Assets
 import { KcalIcon, PlayIcon } from '@assets';
 
 export const workouts = [

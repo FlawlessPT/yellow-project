@@ -1,16 +1,11 @@
-// React and React Native
 import React from 'react';
 
-// Theme
-import { ThemeProvider } from './theme';
-
-// Providers
-import LoadingProvider from './loading';
-import { FeatureFlagsContextProvider } from './feature-flags';
-
-// External Libs
 import { Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import { FeatureFlagsContextProvider } from './feature-flags';
+import LoadingProvider from './loading';
+import { ThemeProvider } from './theme';
 
 interface ProvidersProps {
   children: React.ReactNode;

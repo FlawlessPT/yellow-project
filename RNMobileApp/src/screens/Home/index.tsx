@@ -1,28 +1,17 @@
-// React and React Native
 import React, { useState } from 'react';
 import { FlatList, Image, StyleSheet, View } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Assets
 import { LogoImage } from '@assets';
 
-// Utils
-import { renderTitle } from './utils';
+import { Label, Page, Card, ProgressCard, LabelButton } from '@components';
 
-// Stubs
 import { meals, workouts } from './stub';
-
-// Hooks
+import { renderTitle } from './utils';
 import useTheme from '@hooks/theme/useTheme';
 
-// Utils
 import { getWeekdaysStrings, today } from '@utils/weekdays';
 
-// Components
-import Card from '@components/Card';
-import { Label, LabelButton, Page, ProgressBar } from '@components';
+import { Theme } from '@theme';
 
 const Home = () => {
   const { theme } = useTheme();
@@ -42,7 +31,9 @@ const Home = () => {
       }
       title="home.title"
     >
-      <ProgressBar title="for_week.progress" progress={45} style={styles.paddingHorizontal} />
+      <View style={styles.paddingHorizontal}>
+        <ProgressCard progress={45} />
+      </View>
       {renderTitle('my_workouts', theme)}
       <FlatList
         data={workouts}

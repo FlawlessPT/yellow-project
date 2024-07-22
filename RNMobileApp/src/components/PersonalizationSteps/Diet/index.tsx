@@ -1,18 +1,12 @@
-// React and React Native
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
-// Styles
-import { getStyles } from '../styles';
-
-// Components
-import { Input, SmallCard } from '@components';
-
-// Types
-import { DietType, StepProps, HandleSetTypeResult } from '../types';
-
-// External Libs
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+import { getStyles } from '../styles';
+import { DietType, StepProps, HandleSetTypeResult } from '../types';
+import Input from '@components/Input';
+import SmallCard from '@components/SmallCard';
 
 const Diet = ({ onPress }: StepProps) => {
   const [selectedDiet, setSelectedDiet] = useState<DietType>();

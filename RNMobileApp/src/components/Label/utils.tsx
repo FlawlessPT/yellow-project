@@ -1,4 +1,3 @@
-// Types
 import { TypographySpecification, TypographyType, TypographyTypeEnum } from './types';
 
 export function getTypographySpecification(type: TypographyType): TypographySpecification {

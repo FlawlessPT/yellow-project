@@ -1,21 +1,15 @@
-// React and React Native
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-// External Libs
 import moment from 'moment';
 
-// Theme
-import { Theme } from '@theme';
-
-// Components
 import Label from '@components/Label';
 
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// Utils
 import { getWeekdaysStrings, today } from '@utils/weekdays';
+
+import { Theme } from '@theme';
 
 const WorkoutCalendar = () => {
   const [selectedDay, setSelectedDay] = useState<number>(today);

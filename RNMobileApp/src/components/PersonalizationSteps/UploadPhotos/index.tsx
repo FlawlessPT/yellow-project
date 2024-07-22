@@ -1,27 +1,18 @@
-// React and React Native
 import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Assets
 import { UploadIcon } from '@assets';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// Types
-import { Photo, PhotoType, StepProps } from '../types';
-
-// Components
-import Label from '@components/Label';
-import Pagination from '@components/Pagination';
-import LabelButton from '@components/Button/LabelButton';
-
-// External Libs
 import { launchImageLibrary } from 'react-native-image-picker';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
+
+import { Photo, PhotoType, StepProps } from '../types';
+import LabelButton from '@components/Button/LabelButton';
+import Label from '@components/Label';
+import Pagination from '@components/Pagination';
+
+import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
 
 const UploadPhotos = ({ onPress }: StepProps) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);

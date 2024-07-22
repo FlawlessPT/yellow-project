@@ -1,18 +1,12 @@
-// React and React Native
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
-// Types
-import { Theme } from '@theme';
-
-// Components
-import { Label } from '@components';
-
-// External Libs
+import { RightPrimaryArrow } from '@assets';
 import { Icon } from 'react-native-paper';
 
-// Assets
-import { RightPrimaryArrow } from '@assets';
+import { Label } from '@components';
+
+import { Theme } from '@theme';
 
 export const renderTitle = (title: string, theme: Theme) => {
   return (

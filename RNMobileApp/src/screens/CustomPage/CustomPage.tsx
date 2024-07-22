@@ -1,16 +1,12 @@
-// React and React Native
 import React, { useEffect, useState } from 'react';
 import { ScrollView, useWindowDimensions } from 'react-native';
 
-// Types
-import { CustomPageSlugEnum, NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
-
-// Utils
-import { supabase } from '@utils/supabase';
-
-// External Libs
 import { useNavigation } from '@react-navigation/native';
 import RenderHtml, { MixedStyleRecord } from 'react-native-render-html';
+
+import { CustomPageSlugEnum, NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
+
+import { supabase } from '@utils/supabase';
 
 /* Idea got here to adjust list items: https://github.com/meliorence/react-native-render-html/issues/592 */
 const tagsStyles: MixedStyleRecord = {

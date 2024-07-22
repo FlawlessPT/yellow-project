@@ -1,19 +1,15 @@
-// React and React Native
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 
-// Utils
-import { supabase } from '@utils/supabase';
-import { useFeatureFlag } from '@utils/contexts';
-
-// External Libs
-import * as WebBrowser from 'expo-web-browser';
-import InAppReview from 'react-native-in-app-review';
-import { Button, Input } from 'react-native-elements';
+import { useFeatureFlag } from '@providers/feature-flags';
 import { useNavigation } from '@react-navigation/native';
+import * as WebBrowser from 'expo-web-browser';
+import { Button, Input } from 'react-native-elements';
+import InAppReview from 'react-native-in-app-review';
 
-// Types
-import { NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
+import { supabase } from '@utils/supabase';
+
+import { NoneAuthenticatedStackScreenPropsGeneric } from '@types';
 
 export const Auth = function Auth() {
   const [email, setEmail] = useState('');

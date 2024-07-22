@@ -1,10 +1,7 @@
-// React and React Native
 import React from 'react';
 
-// External Libs
 import { Control, Controller, FieldPath, FieldValues, RegisterOptions } from 'react-hook-form';
 
-// Components
 import Input, { InputProps } from '@components/Input';
 
 type FormInputProps = {

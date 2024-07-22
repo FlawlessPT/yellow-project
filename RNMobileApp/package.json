@@ -1,20 +1,20 @@
 {
-  "name": "RNMobileApp",
+  "name": "@flawlesspt/yellow-app",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "setup": "yarn install && yarn ios:pod-install",
+    "setup": "yarn install && yarn pod-install",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
-    "type-check": "tsc",
     "start": "react-native start",
     "test": "jest",
-    "pre-commit-check": "yarn lint-staged --allow-empty && yarn lint && yarn type-check",
-    "ios:pod-install": "cd ios && rm -rf Pods && pod install && cd ..",
-    "ios:clean:pod-install": "cd ios && rm -rf Pods && pod cache clean --all && pod deintegrate && pod setup && pod install && cd .."
+    "pre-commit-check": "yarn lint-staged",
+    "pod-install": "cd ios && rm -rf Pods && pod install && cd ..",
+    "clean-pod-install": "cd ios && rm -rf Pods && pod deintegrate && pod install && cd .."
   },
   "dependencies": {
+    "@flawlesspt/yellow-common": "^0.0.1",
     "@hookform/resolvers": "^3.3.2",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.12",
@@ -38,6 +38,7 @@
     "react-hook-form": "^7.49.2",
     "react-i18next": "^13.2.2",
     "react-native": "0.74.2",
+    "react-native-circular-progress-indicator": "^4.4.2",
     "react-native-config": "^1.5.1",
     "react-native-date-picker": "^4.3.5",
     "react-native-drop-shadow": "^1.0.0",
@@ -72,16 +73,22 @@
     "@tsconfig/react-native": "^3.0.0",
     "@types/react": "~18.2.79",
     "@types/react-test-renderer": "^18.0.0",
+    "@types/styled-components-react-native": "^5.2.5",
     "babel-jest": "^29.2.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "eslint": "^8.45.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-ft-flow": "^3.0.10",
+    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "5.0.0",
+    "eslint-plugin-react": "^7.34.1",
     "jest": "^29.2.1",
     "lint-staged": "^14.0.1",
     "metro-react-native-babel-preset": "0.76.8",
     "prettier": "^3.0.3",
     "react-native-svg-transformer": "^1.2.0",
     "react-test-renderer": "18.2.0",
+    "tsc-files": "^1.1.4",
     "typescript": "~5.3.3"
   },
   "engines": {
@@ -92,6 +99,7 @@
   },
   "lint-staged": {
     "./**/*.{js,ts,jsx,tsx}": [
+      "tsc-files --noEmit",
       "eslint --fix",
       "prettier --write -u"
     ]

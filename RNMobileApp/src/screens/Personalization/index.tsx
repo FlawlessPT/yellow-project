@@ -1,8 +1,10 @@
-// React and React Native
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 
-// Components
+import { t } from 'i18next';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { AuthNavProps } from '../../navigation/AuthStack/types';
 import {
   ChooseGender,
   Height,
@@ -16,19 +18,9 @@ import {
   Birthday,
 } from '@components';
 
-// Theme
-import { Theme } from '@theme';
-
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// External Libs
-import { t } from 'i18next';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-// Types
-import { AuthNavProps } from '../../navigation/AuthStack/types';
-import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
+import { Theme } from '@theme';
 
 const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
   const { theme } = useTheme();
@@ -73,14 +65,15 @@ const Personalization = ({ navigation }: AuthNavProps<'Personalization'>) => {
     if (selectedStep < steps.length - 1) {
       setSelectedStep(selectedStep + 1);
     } else {
-      navigation.reset({
-        routes: [
-          {
-            name: RootStackEnum.AUTH as never,
-            params: { screen: AuthStackEnum.BILLING },
-          },
-        ],
-      });
+      return;
+      // navigation.reset({
+      //   routes: [
+      //     {
+      //       name: RootStackEnum.APP as never,
+      //       params: { screen: AppStackEnum.HOME },
+      //     },
+      //   ],
+      // });
     }
   };
 
@@ -146,6 +139,6 @@ const getStyles = (theme: Theme) =>
     },
     contentContainer: { flex: 1 },
     continueButton: {
-      marginBottom: 16,
+      marginVertical: 16,
     },
   });

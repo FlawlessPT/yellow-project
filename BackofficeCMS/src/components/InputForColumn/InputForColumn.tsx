@@ -1,3 +1,4 @@
+import { RichTextInput } from 'ra-input-rich-text';
 import {
   TextInput,
   DateInput,
@@ -10,11 +11,13 @@ import {
   ReferenceInput,
   ReferenceArrayInput,
 } from 'react-admin';
-import {RichTextInput} from 'ra-input-rich-text';
-import {InputType, ReferenceDataType, ViewMode} from '@types';
-import {isFieldToRenderForGeneralOptions} from '@configs';
-import {JsonInput} from 'react-admin-json-view';
-import {useTablesContext} from '@utils/contexts/tables';
+import { JsonInput } from 'react-admin-json-view';
+
+import { isFieldToRenderForGeneralOptions } from '@configs';
+
+import { useTablesContext } from '@utils/contexts/tables';
+
+import { InputType, ReferenceDataType, ViewMode } from '@types';
 
 export function InputForColumn({
   columnName,
@@ -28,12 +31,12 @@ export function InputForColumn({
   columnName: string;
   isRequired: boolean;
   viewMode: ViewMode;
-  options?: {id: string; name: string}[];
+  options?: { id: string; name: string }[];
   referenceData?: Pick<ReferenceDataType, 'tableName'>;
 }) {
-  const {isReference, getReferenceDataFor} = useTablesContext();
+  const { isReference, getReferenceDataFor } = useTablesContext();
 
-  if (!isFieldToRenderForGeneralOptions({columnName, inputType, viewMode})) {
+  if (!isFieldToRenderForGeneralOptions({ columnName, inputType, viewMode })) {
     return null;
   }
 
@@ -58,15 +61,10 @@ export function InputForColumn({
     );
   } else {
     // trying to discover reference
-    const referenceSearchFilter = {inputType, columnName};
-    const discoveredReferenceData =
-      isReference(referenceSearchFilter) &&
-      getReferenceDataFor(referenceSearchFilter);
+    const referenceSearchFilter = { inputType, columnName };
+    const discoveredReferenceData = isReference(referenceSearchFilter) && getReferenceDataFor(referenceSearchFilter);
 
-    if (
-      discoveredReferenceData &&
-      discoveredReferenceData.recordRepresentationColumn
-    ) {
+    if (discoveredReferenceData && discoveredReferenceData.recordRepresentationColumn) {
       return (
         <ReferenceInput
           key={inputProps.key}
@@ -79,19 +77,10 @@ export function InputForColumn({
   }
 
   if (inputType === 'reference_array' && referenceData?.tableName) {
-    return (
-      <ReferenceArrayInput
-        source={columnName}
-        reference={referenceData.tableName}
-      />
-    );
+    return <ReferenceArrayInput source={columnName} reference={referenceData.tableName} />;
   }
 
-  if (
-    ['timestamp with time zone', 'timestamp without time zone'].includes(
-      inputType,
-    )
-  ) {
+  if (['timestamp with time zone', 'timestamp without time zone'].includes(inputType)) {
     return <DateTimeInput {...inputProps} />;
   }
 
@@ -114,16 +103,7 @@ export function InputForColumn({
     return <BooleanInput {...inputProps} />;
   }
 
-  if (
-    [
-      'bigint',
-      'smallint',
-      'integer',
-      'real',
-      'double precision',
-      'numberic',
-    ].includes(inputType)
-  ) {
+  if (['bigint', 'smallint', 'integer', 'real', 'double precision', 'numeric'].includes(inputType)) {
     return <NumberInput {...inputProps} />;
   }
 
