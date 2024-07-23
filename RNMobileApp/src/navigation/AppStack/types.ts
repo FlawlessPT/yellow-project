@@ -5,7 +5,7 @@ export type AppStackParamList = {
   Home: undefined;
   WorkoutStack: undefined;
   Add: undefined;
-  Food: undefined;
+  MealStack: undefined;
   SettingsStack: undefined;
 };
 
