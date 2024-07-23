@@ -1,0 +1,115 @@
+[
+  {
+    "id": 1,
+    "consumables": [
+      {
+        "name": "Pão integral",
+        "quantity": "50g",
+        "protein": "5g",
+        "carbs": "20g",
+        "fat": "2g",
+        "kcal": "125kcal"
+      },
+      {
+        "name": "Fiambre de frango",
+        "quantity": "25g",
+        "protein": "7g",
+        "carbs": "1g",
+        "fat": "1g",
+        "kcal": "125kcal"
+      },
+      {
+        "name": "Queijo flamengo",
+        "quantity": "40g",
+        "protein": "7g",
+        "carbs": "1g",
+        "fat": "1g",
+        "kcal": "125kcal"
+      },
+      {
+        "name": "Banana",
+        "quantity": "100g",
+        "protein": "1g",
+        "carbs": "7g",
+        "fat": "1g",
+        "kcal": "125kcal"
+      }
+    ],
+    "notes": "2 fatias de pão"
+  },
+  {
+    "id": 2,
+    "consumables": [
+      {
+        "name": "Pão integral",
+        "quantity": "50g",
+        "protein": "5g",
+        "carbs": "20g",
+        "fat": "2g",
+        "kcal": "125kcal"
+      },
+      {
+        "name": "Fiambre de frango",
+        "quantity": "25g",
+        "protein": "7g",
+        "carbs": "1g",
+        "fat": "1g",
+        "kcal": "125kcal"
+      },
+      {
+        "name": "Queijo flamengo",
+        "quantity": "40g",
+        "protein": "7g",
+        "carbs": "1g",
+        "fat": "1g",
+        "kcal": "125kcal"
+      },
+      {
+        "name": "Banana",
+        "quantity": "100g",
+        "protein": "1g",
+        "carbs": "7g",
+        "fat": "1g",
+        "kcal": "125kcal"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "consumables": [
+      {
+        "name": "Pão integral",
+        "quantity": "50g",
+        "protein": "5g",
+        "carbs": "20g",
+        "fat": "2g",
+        "kcal": "125kcal"
+      },
+      {
+        "name": "Fiambre de frango",
+        "quantity": "25g",
+        "protein": "7g",
+        "carbs": "1g",
+        "fat": "1g",
+        "kcal": "125kcal"
+      },
+      {
+        "name": "Queijo flamengo",
+        "quantity": "40g",
+        "protein": "7g",
+        "carbs": "1g",
+        "fat": "1g",
+        "kcal": "125kcal"
+      },
+      {
+        "name": "Banana",
+        "quantity": "100g",
+        "protein": "1g",
+        "carbs": "7g",
+        "fat": "1g",
+        "kcal": "125kcal"
+      }
+    ],
+    "notes": "ou peixe branco"
+  }
+]
