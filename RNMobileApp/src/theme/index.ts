@@ -20,6 +20,7 @@ export type Theme = {
     neutral400: string;
     neutral500: string;
     neutral900: string;
+    neutral100: string;
     background: string;
     border: string;
     icon: string;
@@ -27,7 +28,7 @@ export type Theme = {
     input_background: string;
     passwordIcon: string;
     shadow: string;
-    opacityPrimary: string;
+    mediumBlack: string;
   };
   fonts: { regular: string; medium: string; semibold: string; bold: string };
 };
@@ -56,6 +57,7 @@ export const lightTheme: Theme = {
     neutral400: '#BABABA',
     neutral500: '#7D7D7D',
     neutral900: '#161617',
+    neutral100: '#F9F9F9',
     background: '#161617',
     border: '#2A2A2C',
     icon: '#595959',
@@ -63,7 +65,7 @@ export const lightTheme: Theme = {
     input_background: '#24262B',
     passwordIcon: '#50535B',
     shadow: '#F25D29',
-    opacityPrimary: '#504311',
+    mediumBlack: 'rgba(0, 0, 0, 0.5)',
   },
   fonts,
 };
@@ -85,6 +87,7 @@ export const darkTheme: Theme = {
     neutral400: '#BABABA',
     neutral500: '#7D7D7D',
     neutral900: '#161617',
+    neutral100: '#F9F9F9',
     background: '#161617',
     border: '#2A2A2C',
     icon: '#595959',
@@ -92,7 +95,7 @@ export const darkTheme: Theme = {
     input_background: '#24262B',
     passwordIcon: '#50535B',
     shadow: '#F25D29',
-    opacityPrimary: '#504311',
+    mediumBlack: 'rgba(0, 0, 0, 0.5)',
   },
   fonts,
 };
