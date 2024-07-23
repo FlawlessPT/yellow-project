@@ -46,7 +46,7 @@ const Home = () => {
         renderItem={({ item }) => <Card {...item} />}
         contentContainerStyle={styles.row}
       />
-      {renderTitle('my_meals', () => navigation.navigate(AppStackEnum.WORKOUT_STACK), theme)}
+      {renderTitle('my_meals', () => navigation.navigate(AppStackEnum.MEAL_STACK), theme)}
       <View style={styles.weekdaysContainer}>
         <FlatList
           data={Array(7).fill(0)}
