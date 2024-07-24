@@ -80,7 +80,7 @@ android {
     namespace "pt.rainbowapps.gardao.app"
     defaultConfig {
         applicationIdSuffix project.env.get("APPLICATION_ID_SUFFIX") != null ? project.env.get("APPLICATION_ID_SUFFIX") : ""
-        applicationId project.env.get("ANDROID_APPLICATION_ID") != null ? project.env.get("ANDROID_APPLICATION_ID") : "pt.rainbowapps.gardao.app"
+        applicationId "pt.rainbowapps.gardao.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode project.env.get("VERSION_CODE") != null ? project.env.get("VERSION_CODE").toInteger() : 1
