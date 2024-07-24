@@ -5,12 +5,18 @@ import Button from '@components/Button';
 
 import useTheme from '@hooks/theme/useTheme';
 
+import { TabEnum } from '@types';
+
 const tabs = ['Meals', 'Supplements'];
 
-const Tab = () => {
+type TabProps = {
+  onChangeTab: (index: TabEnum) => void;
+};
+
+const Tab = ({ onChangeTab }: TabProps) => {
   const { theme } = useTheme();
 
-  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [selectedTab, setSelectedTab] = useState<TabEnum>(TabEnum.Meals);
 
   return (
     <View style={styles.container}>
@@ -28,7 +34,10 @@ const Tab = () => {
               },
             ]}
             color={isSelected ? theme.colors.primary : theme.colors.neutral400}
-            onPressButton={() => setSelectedTab(index)}
+            onPressButton={() => {
+              setSelectedTab(index);
+              onChangeTab(index);
+            }}
           />
         );
       })}
