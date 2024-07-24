@@ -3,11 +3,13 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { InfoCircleIcon, NoWorkoutsImage } from '@assets';
 
-import { WorkoutCalendar, Label, Page, MealCard } from '@components';
+import { WorkoutCalendar, Label, Page, MealCard, Tab } from '@components';
 
 import MealHeader from './MealHeader';
 import meals from './stub.json';
 import useTheme from '@hooks/theme/useTheme';
+
+import { TabEnum } from '@types';
 
 import { Theme } from '@theme';
 
@@ -17,6 +19,8 @@ const MyMeals = () => {
   const styles = getStyles(theme);
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
+  const [selectedTab, setSelectedTab] = useState<TabEnum>(TabEnum.Meals);
 
   return (
     <>
@@ -30,23 +34,26 @@ const MyMeals = () => {
         }
       >
         <WorkoutCalendar />
-        {meals.length ? (
-          <>
-            <MealHeader />
-            {meals?.map((meal, index) => <MealCard key={index} item={meal} />)}
-          </>
+        <MealHeader />
+        <Tab onChangeTab={setSelectedTab} />
+        {selectedTab === 0 ? (
+          meals.length ? (
+            meals?.map((meal, index) => <MealCard key={index} item={meal} />)
+          ) : (
+            <View style={styles.noWorkoutsContainer}>
+              <Label
+                type="h3"
+                text="enjoy.restday_title"
+                color={theme.colors.neutral500}
+                semibold
+                textAlign="center"
+                style={styles.noWorkoutsLabel}
+              />
+              <Image source={NoWorkoutsImage} />
+            </View>
+          )
         ) : (
-          <View style={styles.noWorkoutsContainer}>
-            <Label
-              type="h3"
-              text="enjoy.restday_title"
-              color={theme.colors.neutral500}
-              semibold
-              textAlign="center"
-              style={styles.noWorkoutsLabel}
-            />
-            <Image source={NoWorkoutsImage} />
-          </View>
+          <></>
         )}
       </Page>
       {/* <Modal isVisible={isModalVisible}>
