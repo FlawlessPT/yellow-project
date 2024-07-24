@@ -1,8 +1,9 @@
 {
-  "name": "gardao_app",
+  "name": "@flawlesspt/yellow-app",
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "setup": "yarn install && yarn pod-install",    
     "android-dev": "ENVFILE=.env.dev react-native run-android",
     "android-dev-release": "ENVFILE=.env.dev react-native run-android --mode=Release --appId=pt.rainbowapps.gardao.app.release",
     "android-staging": "ENVFILE=.env.stg react-native run-android",
@@ -16,9 +17,7 @@
     "build-android-prod": "cd android && ENVFILE=.env ./gradlew bundleRelease && cd ..",
     "build-android-prod-aab": "cd android && ENVFILE=.env ./gradlew bundleRelease && cd ..",
     "ios": "react-native run-ios",
-    "setup": "yarn install && yarn ios:pod-install",
     "lint": "eslint .",
-    "type-check": "tsc",
     "start": "react-native start",
     "start-clear": "react-native start --reset-cache",
     "test": "jest",
@@ -28,6 +27,7 @@
     "clean-pod-install": "cd ios && rm -rf Pods && pod deintegrate && pod install && cd .."
   },
   "dependencies": {
+    "@flawlesspt/yellow-common": "^0.0.1",
     "@hookform/resolvers": "^3.3.2",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.12",
@@ -51,6 +51,7 @@
     "react-hook-form": "^7.49.2",
     "react-i18next": "^13.2.2",
     "react-native": "0.74.2",
+    "react-native-circular-progress-indicator": "^4.4.2",
     "react-native-config": "^1.5.1",
     "react-native-date-picker": "^4.3.5",
     "react-native-drop-shadow": "^1.0.0",
@@ -100,6 +101,7 @@
     "prettier": "^3.0.3",
     "react-native-svg-transformer": "^1.2.0",
     "react-test-renderer": "18.2.0",
+    "tsc-files": "^1.1.4",
     "typescript": "~5.3.3"
   },
   "engines": {
@@ -110,6 +112,7 @@
   },
   "lint-staged": {
     "./**/*.{js,ts,jsx,tsx}": [
+      "tsc-files --noEmit",
       "eslint --fix",
       "prettier --write -u"
     ]

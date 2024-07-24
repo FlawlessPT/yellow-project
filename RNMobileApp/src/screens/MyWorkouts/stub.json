@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAbJtPmI7esV6Rs-BaF1MvnTqTY7VaC-rgNhw39uL2jBbcUDMpZ0fYQe-mYb4DWFvPYCE&usqp=CAU",
     "videoUrl": "https://www.youtube.com/watch?v=fcWHwYzMQwE&ab_channel=MadFit",
     "name": "Agachamento Sumo",
@@ -8,6 +9,7 @@
     "notes": "Smith Machine"
   },
   {
+    "id": 2,
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAbJtPmI7esV6Rs-BaF1MvnTqTY7VaC-rgNhw39uL2jBbcUDMpZ0fYQe-mYb4DWFvPYCE&usqp=CAU",
     "videoUrl": "https://www.youtube.com/watch?v=fcWHwYzMQwE&ab_channel=MadFit",
     "name": "Leg Extension",
@@ -16,6 +18,7 @@
     "notes": "Smith Machine"
   },
   {
+    "id": 3,
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAbJtPmI7esV6Rs-BaF1MvnTqTY7VaC-rgNhw39uL2jBbcUDMpZ0fYQe-mYb4DWFvPYCE&usqp=CAU",
     "videoUrl": "https://www.youtube.com/watch?v=fcWHwYzMQwE&ab_channel=MadFit",
     "name": "Leg Extension",
@@ -23,6 +26,7 @@
     "reps": "25"
   },
   {
+    "id": 4,
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAbJtPmI7esV6Rs-BaF1MvnTqTY7VaC-rgNhw39uL2jBbcUDMpZ0fYQe-mYb4DWFvPYCE&usqp=CAU",
     "videoUrl": "https://www.youtube.com/watch?v=fcWHwYzMQwE&ab_channel=MadFit",
     "name": "Leg Extension",

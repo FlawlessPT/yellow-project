@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { FlatList, Image, StyleSheet, View } from 'react-native';
 
 import { LogoImage } from '@assets';
+import { AppStackEnum } from '@navigation/types';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
-import { Label, Page, Card, ProgressBar, LabelButton } from '@components';
+import { Label, Page, Card, ProgressCard, LabelButton } from '@components';
 
 import { meals, workouts } from './stub';
 import { renderTitle } from './utils';
@@ -18,6 +20,8 @@ const Home = () => {
 
   const styles = getStyles(theme);
 
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+
   const [selectedDay, setSelectedDay] = useState<number>(today);
 
   return (
@@ -31,8 +35,10 @@ const Home = () => {
       }
       title="home.title"
     >
-      <ProgressBar title="for_week.progress" progress={45} style={styles.paddingHorizontal} />
-      {renderTitle('my_workouts', theme)}
+      <View style={styles.paddingHorizontal}>
+        <ProgressCard progress={45} />
+      </View>
+      {renderTitle('my_workouts', () => navigation.navigate(AppStackEnum.WORKOUT_STACK), theme)}
       <FlatList
         data={workouts}
         horizontal
@@ -40,7 +46,7 @@ const Home = () => {
         renderItem={({ item }) => <Card {...item} />}
         contentContainerStyle={styles.row}
       />
-      {renderTitle('my_meals', theme)}
+      {renderTitle('my_meals', () => navigation.navigate(AppStackEnum.WORKOUT_STACK), theme)}
       <View style={styles.weekdaysContainer}>
         <FlatList
           data={Array(7).fill(0)}
