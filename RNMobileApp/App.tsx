@@ -1,11 +1,10 @@
 import 'react-native-url-polyfill/auto';
 import 'intl-pluralrules';
 import React, { useState, useEffect } from 'react';
-import { Linking, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 
 import * as Sentry from '@sentry/react-native';
 import { Session } from '@supabase/supabase-js';
-import * as WebBrowser from 'expo-web-browser';
 import i18n from 'i18next';
 import Backend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
@@ -94,32 +93,32 @@ function App() {
   }, []);
 
   // TODO: Check if it makes sense to have this logic in here or in a separate file
-  useEffect(() => {
-    Linking.addEventListener('url', (event) => {
-      const urlString = event.url.replace('#', '?');
-      const url = new URL(urlString);
+  // useEffect(() => {
+  //   Linking.addEventListener('url', (event) => {
+  //     const urlString = event.url.replace('#', '?');
+  //     const url = new URL(urlString);
 
-      const refreshToken = url.searchParams.get('refresh_token');
-      const accessToken = url.searchParams.get('access_token');
+  //     const refreshToken = url.searchParams.get('refresh_token');
+  //     const accessToken = url.searchParams.get('access_token');
 
-      if (accessToken && refreshToken) {
-        supabase.auth
-          .setSession({
-            refresh_token: refreshToken,
-            access_token: accessToken,
-          })
-          .then(() => {
-            if (url.hostname === 'signin' && ['/github', '/google'].includes(url.pathname)) {
-              WebBrowser.dismissBrowser();
-            }
-          })
-          .catch((err) => console.log({ err }));
-      }
-    });
-    return () => {
-      Linking.removeAllListeners('url');
-    };
-  }, []);
+  //     if (accessToken && refreshToken) {
+  //       supabase.auth
+  //         .setSession({
+  //           refresh_token: refreshToken,
+  //           access_token: accessToken,
+  //         })
+  //         .then(() => {
+  //           if (url.hostname === 'signin' && ['/github', '/google'].includes(url.pathname)) {
+  //             WebBrowser.dismissBrowser();
+  //           }
+  //         })
+  //         .catch((err) => console.log({ err }));
+  //     }
+  //   });
+  //   return () => {
+  //     Linking.removeAllListeners('url');
+  //   };
+  // }, []);
 
   const isLoggedIn = Boolean(session && session.user);
 

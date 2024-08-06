@@ -10,17 +10,12 @@ jest.mock('react-native-localize', () => mockLocalize);
 
 // https://stackoverflow.com/a/70724310
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
-jest.mock('expo-secure-store', () => ({
-  getItemAsync: jest.fn(),
-  setItemAsync: jest.fn(),
-  deleteItemAsync: jest.fn(),
-}));
-jest.mock('expo-web-browser', () => ({
-  openBrowserAsync: jest.fn(),
-  dismissBrowser: jest.fn(),
-  openAuthSessionAsync: jest.fn(),
-  dismissAuthSession: jest.fn(),
-}));
+// leaving this one here just as example
+// jest.mock('expo-secure-store', () => ({
+//   getItemAsync: jest.fn(),
+//   setItemAsync: jest.fn(),
+//   deleteItemAsync: jest.fn(),
+// }));
 jest.mock('react-native-onesignal', () => ({
   LogLevel: {
     None: 0,

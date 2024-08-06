@@ -3,7 +3,6 @@ import { Alert, StyleSheet, View } from 'react-native';
 
 import { useFeatureFlag } from '@providers/feature-flags';
 import { useNavigation } from '@react-navigation/native';
-import * as WebBrowser from 'expo-web-browser';
 import { Button, Input } from 'react-native-elements';
 import InAppReview from 'react-native-in-app-review';
 
@@ -76,7 +75,7 @@ export const Auth = function Auth() {
     });
 
     if (data.url) {
-      WebBrowser.openBrowserAsync(data.url);
+      // WebBrowser.openBrowserAsync(data.url);
     }
 
     if (error) {
@@ -94,7 +93,7 @@ export const Auth = function Auth() {
     });
 
     if (data.url) {
-      WebBrowser.openBrowserAsync(data.url);
+      // WebBrowser.openBrowserAsync(data.url);
     }
 
     if (error) {

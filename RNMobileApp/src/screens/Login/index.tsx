@@ -4,6 +4,7 @@ import { Alert, StyleSheet } from 'react-native';
 import { AuthNavProps } from '@navigation/AuthStack/types';
 import { AuthStackEnum } from '@navigation/types';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import Config from 'react-native-config';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -119,6 +120,7 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   return (
     <LoginContainer title="login_page.title">
       <>
+        {Config.ENV !== 'PROD' && <Label text={Config.ENV} type="h1" color="white" textAlign="center" />}
         <FormInput
           control={control}
           rules={{

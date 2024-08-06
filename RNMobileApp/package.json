@@ -3,7 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "setup": "yarn install && yarn pod-install",    
+    "setup": "yarn install_dependencies && yarn pod-install",
+    "start": "react-native start",
+    "start-clear": "react-native start --reset-cache",
+    "clean-project": "cd ios && rm -rf build && cd ../android && ./gradlew clean && cd ..",
+    "install_dependencies": "rm -rf node_modules && yarn install",
+    "pod-install": "cd ios && rm -rf Pods && pod install && cd ..",
+    "clean-pod-install": "cd ios && rm -rf Pods && pod deintegrate && pod install && cd ..",
+    "list-ios-devices": "xcrun simctl list devices",
     "android-dev": "ENVFILE=.env.dev react-native run-android",
     "android-dev-release": "ENVFILE=.env.dev react-native run-android --mode=Release --appId=pt.rainbowapps.gardao.app.release",
     "android-staging": "ENVFILE=.env.stg react-native run-android",
@@ -16,18 +23,14 @@
     "build-android-staging-aab": "cd android && ENVFILE=.env.stg ./gradlew bundleRelease && cd ..",
     "build-android-prod": "cd android && ENVFILE=.env ./gradlew bundleRelease && cd ..",
     "build-android-prod-aab": "cd android && ENVFILE=.env ./gradlew bundleRelease && cd ..",
-    "ios": "react-native run-ios",
+    "ios-dev": "react-native run-ios --scheme DEV --simulator='iPhone 15 Pro Max'",
+    "ios-stg": "react-native run-ios --scheme STG --simulator='iPhone 15 Pro Max'",
+    "ios-prod": "react-native run-ios --scheme PROD --simulator='iPhone 15 Pro Max'",
     "lint": "eslint .",
-    "start": "react-native start",
-    "start-clear": "react-native start --reset-cache",
-    "test": "jest",
-    "clean-project": "cd android && ./gradlew clean && cd ..",
-    "pre-commit-check": "yarn lint-staged --allow-empty && yarn lint && yarn type-check",
-    "pod-install": "cd ios && rm -rf Pods && pod install && cd ..",
-    "clean-pod-install": "cd ios && rm -rf Pods && pod deintegrate && pod install && cd .."
+    "pre-commit-check": "yarn lint-staged --allow-empty",
+    "test": "jest"
   },
   "dependencies": {
-    "@flawlesspt/yellow-common": "^0.0.1",
     "@hookform/resolvers": "^3.3.2",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.12",
@@ -37,11 +40,6 @@
     "@sentry/react-native": "~5.22.0",
     "@supabase/supabase-js": "^2.33.1",
     "date-fns": "^3.2.0",
-    "expo": "^51.0.14",
-    "expo-apple-authentication": "~6.4.1",
-    "expo-linking": "~6.3.1",
-    "expo-secure-store": "~13.0.1",
-    "expo-web-browser": "~13.0.3",
     "i18next": "^23.5.1",
     "i18next-http-backend": "^2.2.2",
     "intl-pluralrules": "^2.0.1",
@@ -64,7 +62,7 @@
     "react-native-linear-gradient": "^2.8.3",
     "react-native-localize": "^3.0.2",
     "react-native-modal": "^13.0.1",
-    "react-native-onesignal": "^5.0.2",
+    "react-native-onesignal": "^5.2.2",
     "react-native-paper": "^5.11.4",
     "react-native-reanimated": "~3.10.1",
     "react-native-reanimated-carousel": "^3.5.1",
@@ -81,13 +79,14 @@
     "@babel/core": "^7.24.0",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
-    "@react-native/eslint-config": "^0.72.2",
-    "@react-native/metro-config": "^0.72.11",
+    "@react-native/babel-preset": "0.74.84",
+    "@react-native/eslint-config": "^0.74.84",
+    "@react-native/metro-config": "^0.74.84",
     "@tsconfig/react-native": "^3.0.0",
-    "@types/react": "~18.2.79",
+    "@types/react": "~18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "@types/styled-components-react-native": "^5.2.5",
-    "babel-jest": "^29.2.1",
+    "babel-jest": "^29.6.3",
     "babel-plugin-module-resolver": "^5.0.0",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^9.1.0",
@@ -95,7 +94,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "5.0.0",
     "eslint-plugin-react": "^7.34.1",
-    "jest": "^29.2.1",
+    "jest": "^29.6.3",
     "lint-staged": "^14.0.1",
     "metro-react-native-babel-preset": "0.76.8",
     "prettier": "^3.0.3",
@@ -105,10 +104,10 @@
     "typescript": "~5.3.3"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "volta": {
-    "node": "18.18.0"
+    "node": "20.16.0"
   },
   "lint-staged": {
     "./**/*.{js,ts,jsx,tsx}": [
