@@ -26,7 +26,7 @@ const Home = () => {
 
   return (
     <Page
-      withoutHorizontalMargin
+      withHorizontalMargin={false}
       header={
         <View style={styles.paddingHorizontal}>
           <Image source={LogoImage} style={styles.profileImage} />

@@ -24,7 +24,7 @@ const MyMeals = () => {
   return (
     <>
       <Page
-        withoutHorizontalMargin
+        withHorizontalMargin={false}
         title="diet_nutrition.title"
         right={
           <TouchableOpacity onPress={() => setIsModalVisible(true)}>
@@ -33,7 +33,7 @@ const MyMeals = () => {
         }
       >
         <WorkoutCalendar />
-        <MealHeader />
+        <MealHeader water={3.5} notes="Zero drinks and sauces in moderation" />
         <TopTabs onChangeTab={setSelectedTab} />
         {selectedTab === 0 ? (
           meals.length ? (

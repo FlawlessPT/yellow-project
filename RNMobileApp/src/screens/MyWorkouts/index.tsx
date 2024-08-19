@@ -22,7 +22,7 @@ const MyWorkouts = () => {
   return (
     <>
       <Page
-        withoutHorizontalMargin
+        withHorizontalMargin={false}
         title="my_workouts"
         right={
           <TouchableOpacity onPress={() => setIsModalVisible(true)}>

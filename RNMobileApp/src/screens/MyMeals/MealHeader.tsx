@@ -7,7 +7,12 @@ import useTheme from '@hooks/theme/useTheme';
 
 import { Theme } from '@theme';
 
-const MealHeader = () => {
+type MealHeaderProps = {
+  water: number;
+  notes: string;
+};
+
+const MealHeader = ({ water, notes }: MealHeaderProps) => {
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
@@ -17,19 +22,14 @@ const MealHeader = () => {
       <View style={styles.container}>
         <Label text="water" color={theme.colors.white} semibold />
         <View style={styles.timeContainer}>
-          <Label text="3,5" color={theme.colors.neutral100} bold />
+          <Label text={String(water)} color={theme.colors.neutral100} bold />
           <Label text="l" medium type="footnote" color={theme.colors.neutral100} style={styles.minLabel} />
         </View>
         <Label text="per day" type="footnote" color={theme.colors.neutral300} />
       </View>
       <View style={[styles.container, { flex: 1 }]}>
         <Label text="observations" color={theme.colors.white} semibold />
-        <Label
-          text="Zero drinks and sauces in moderation"
-          type="footnote"
-          color={theme.colors.neutral300}
-          style={styles.notesLabel}
-        />
+        <Label text={notes} type="footnote" color={theme.colors.neutral300} style={styles.notesLabel} />
       </View>
     </View>
   );
