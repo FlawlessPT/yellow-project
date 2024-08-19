@@ -38,6 +38,7 @@ const Tab = ({ onChangeTab }: TabProps) => {
               setSelectedTab(index);
               onChangeTab(index);
             }}
+            activeOpacity={1}
           />
         );
       })}
