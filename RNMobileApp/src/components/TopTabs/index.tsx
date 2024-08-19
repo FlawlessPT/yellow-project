@@ -9,11 +9,11 @@ import { TabEnum } from '@types';
 
 const tabs = ['Meals', 'Supplements'];
 
-type TabProps = {
+type TopTabsProps = {
   onChangeTab: (index: TabEnum) => void;
 };
 
-const Tab = ({ onChangeTab }: TabProps) => {
+const TopTabs = ({ onChangeTab }: TopTabsProps) => {
   const { theme } = useTheme();
 
   const [selectedTab, setSelectedTab] = useState<TabEnum>(TabEnum.Meals);
@@ -46,7 +46,7 @@ const Tab = ({ onChangeTab }: TabProps) => {
   );
 };
 
-export default Tab;
+export default TopTabs;
 
 const styles = StyleSheet.create({
   container: {

@@ -31,7 +31,7 @@ import SmallCard from './SmallCard';
 import SocialLoginButton from './SocialLoginButton';
 import Success from './Success';
 import Switch from './Switch';
-import Tab from './Tab';
+import TopTabs from './TopTabs';
 import WorkoutCalendar from './WorkoutCalendar';
 import WorkoutCard from './WorkoutCard';
 
@@ -71,5 +71,5 @@ export {
   WorkoutCard,
   WorkoutCalendar,
   MealCard,
-  Tab,
+  TopTabs,
 };
