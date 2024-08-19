@@ -58,7 +58,7 @@ const MealCard = ({ item }: MealCardProps) => {
           <DataTable.Title style={styles.centeredTitle}>{renderNutrients('kcal')}</DataTable.Title>
         </DataTable.Header>
         {consumables.map((consumable, index) => (
-          <DataTable.Row key={index} style={[styles.noBorder]}>
+          <DataTable.Row key={index} style={styles.noBorder}>
             <DataTable.Cell style={styles.flex5}>
               <Label text={consumable.name} type="footnote" color={theme.colors.neutral300} />
             </DataTable.Cell>

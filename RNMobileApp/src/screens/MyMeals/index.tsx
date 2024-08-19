@@ -6,17 +6,16 @@ import { InfoCircleIcon, NoWorkoutsImage } from '@assets';
 import { WorkoutCalendar, Label, Page, MealCard, Tab } from '@components';
 
 import MealHeader from './MealHeader';
+import MealsSummaryModal from './MealsSummaryModal';
 import meals from './stub.json';
 import useTheme from '@hooks/theme/useTheme';
 
 import { TabEnum } from '@types';
 
-import { Theme } from '@theme';
-
 const MyMeals = () => {
   const { theme } = useTheme();
 
-  const styles = getStyles(theme);
+  const styles = getStyles();
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -40,14 +39,14 @@ const MyMeals = () => {
           meals.length ? (
             meals?.map((meal, index) => <MealCard key={index} item={meal} />)
           ) : (
-            <View style={styles.noWorkoutsContainer}>
+            <View style={styles.container}>
               <Label
                 type="h3"
                 text="enjoy.restday_title"
                 color={theme.colors.neutral500}
                 semibold
                 textAlign="center"
-                style={styles.noWorkoutsLabel}
+                style={styles.label}
               />
               <Image source={NoWorkoutsImage} />
             </View>
@@ -56,55 +55,24 @@ const MyMeals = () => {
           <></>
         )}
       </Page>
-      {/* <Modal isVisible={isModalVisible}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalHeader}>
-            <Label type="h3" text="summary.week_title" color={theme.colors.white} bold />
-            <TouchableOpacity onPress={() => setIsModalVisible(false)}>
-              <Image source={CloseIcon} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
-            <Label text="ABS" color={theme.colors.white} bold />
-            <Label text="•" color={theme.colors.white} style={styles.separator} />
-            <Label text="6 séries" color={theme.colors.white} type="footnote" />
-          </View>
-        </View>
-      </Modal> */}
+      <MealsSummaryModal
+        data={{ objective: [12, 24, 56, 123], missing: [22, 45, 22, 123], total: [95, 44, 22, 123] }}
+        isVisible={isModalVisible}
+        onProceed={setIsModalVisible}
+      />
     </>
   );
 };
 
 export default MyMeals;
 
-const getStyles = (theme: Theme) =>
+const getStyles = () =>
   StyleSheet.create({
-    workoutTitle: {
-      marginBottom: 16,
-    },
-    noWorkoutsLabel: {
+    label: {
       marginVertical: 16,
     },
-    noWorkoutsContainer: {
+    container: {
       alignItems: 'center',
       marginHorizontal: 38,
-    },
-    modalContainer: {
-      backgroundColor: theme.colors.neutral800,
-      borderRadius: 12,
-      padding: 20,
-    },
-    modalHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginBottom: 24,
-      alignItems: 'center',
-    },
-    separator: {
-      marginHorizontal: 16,
-    },
-    row: {
-      flexDirection: 'row',
-      alignItems: 'center',
     },
   });
