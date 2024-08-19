@@ -18,32 +18,31 @@ const TopTabs = ({ onChangeTab }: TopTabsProps) => {
 
   const [selectedTab, setSelectedTab] = useState<TabEnum>(TabEnum.Meals);
 
-  return (
-    <View style={styles.container}>
-      {tabs.map((tab, index) => {
-        const isSelected = selectedTab === index;
+  const renderTabs = () =>
+    tabs.map((tab, index) => {
+      const isSelected = selectedTab === index;
 
-        return (
-          <Button
-            key={`${tab}${index}`}
-            text={tab}
-            style={[
-              styles.button,
-              {
-                borderBottomColor: isSelected ? theme.colors.primary : 'transparent',
-              },
-            ]}
-            color={isSelected ? theme.colors.primary : theme.colors.neutral400}
-            onPressButton={() => {
-              setSelectedTab(index);
-              onChangeTab(index);
-            }}
-            activeOpacity={1}
-          />
-        );
-      })}
-    </View>
-  );
+      return (
+        <Button
+          key={`${tab}${index}`}
+          text={tab}
+          style={[
+            styles.button,
+            {
+              borderBottomColor: isSelected ? theme.colors.primary : 'transparent',
+            },
+          ]}
+          color={isSelected ? theme.colors.primary : theme.colors.neutral400}
+          onPressButton={() => {
+            setSelectedTab(index);
+            onChangeTab(index);
+          }}
+          activeOpacity={1}
+        />
+      );
+    });
+
+  return <View style={styles.container}>{renderTabs()}</View>;
 };
 
 export default TopTabs;
