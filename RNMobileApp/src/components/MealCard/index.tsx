@@ -36,10 +36,16 @@ const MealCard = ({ item }: MealCardProps) => {
 
   const styles = getStyles(theme);
 
-  const renderNutrientsValue = (value: string) => <Label text={value} type="size10" color={theme.colors.neutral400} />;
+  const renderNutrientsValue = (value: string) => (
+    <DataTable.Cell style={styles.centeredTitle}>
+      <Label text={value} type="size10" color={theme.colors.neutral400} />
+    </DataTable.Cell>
+  );
 
   const renderNutrients = (nutrient: string) => (
-    <Label text={nutrient} type="size10" color={theme.colors.neutral300} medium />
+    <DataTable.Title style={styles.centeredTitle}>
+      <Label text={nutrient} type="size10" color={theme.colors.neutral300} medium />
+    </DataTable.Title>
   );
 
   return (
@@ -52,10 +58,10 @@ const MealCard = ({ item }: MealCardProps) => {
           <DataTable.Title style={styles.noTitle}>
             <View />
           </DataTable.Title>
-          <DataTable.Title style={styles.centeredTitle}>{renderNutrients('pro')}</DataTable.Title>
-          <DataTable.Title style={styles.centeredTitle}>{renderNutrients('fat')}</DataTable.Title>
-          <DataTable.Title style={styles.centeredTitle}>{renderNutrients('carbs')}</DataTable.Title>
-          <DataTable.Title style={styles.centeredTitle}>{renderNutrients('kcal')}</DataTable.Title>
+          {renderNutrients('pro')}
+          {renderNutrients('fat')}
+          {renderNutrients('carbs')}
+          {renderNutrients('kcal')}
         </DataTable.Header>
         {consumables.map((consumable, index) => (
           <DataTable.Row key={index} style={styles.noBorder}>
@@ -73,10 +79,10 @@ const MealCard = ({ item }: MealCardProps) => {
                 />
               </View>
             </DataTable.Cell>
-            <DataTable.Cell style={styles.centeredTitle}>{renderNutrientsValue(consumable.protein)}</DataTable.Cell>
-            <DataTable.Cell style={styles.centeredTitle}>{renderNutrientsValue(consumable.fat)}</DataTable.Cell>
-            <DataTable.Cell style={styles.centeredTitle}>{renderNutrientsValue(consumable.carbs)}</DataTable.Cell>
-            <DataTable.Cell style={styles.centeredTitle}>{renderNutrientsValue(consumable.kcal)}</DataTable.Cell>
+            {renderNutrientsValue(consumable.protein)}
+            {renderNutrientsValue(consumable.fat)}
+            {renderNutrientsValue(consumable.carbs)}
+            {renderNutrientsValue(consumable.kcal)}
           </DataTable.Row>
         ))}
         {notes && (
