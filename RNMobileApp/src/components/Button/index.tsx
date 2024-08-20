@@ -1,5 +1,5 @@
 import React, { FunctionComponent, SVGAttributes } from 'react';
-import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, TouchableOpacity, TouchableOpacityProps, View, ViewStyle } from 'react-native';
 
 import { Icon } from 'react-native-paper';
 
@@ -20,7 +20,8 @@ export type ButtonProps = {
   leftIcon?: FunctionComponent<SVGAttributes<SVGElement>>;
   style?: StyleProp<ViewStyle>;
   onPressButton?: () => void;
-} & LabelProps;
+} & LabelProps &
+  TouchableOpacityProps;
 
 const Button = ({
   backgroundColor,

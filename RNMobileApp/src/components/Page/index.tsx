@@ -21,7 +21,7 @@ type PageProps = {
   withClose?: boolean;
   withBack?: boolean;
   header?: React.ReactNode;
-  withoutHorizontalMargin?: boolean;
+  withHorizontalMargin?: boolean;
   bounces?: boolean;
   contentContainerStyle?: StyleProp<ViewStyle>;
   headerStyle?: StyleProp<ViewStyle>;
@@ -34,7 +34,7 @@ const Page = ({
   right,
   withBack,
   header,
-  withoutHorizontalMargin = false,
+  withHorizontalMargin = true,
   bounces = true,
   contentContainerStyle,
   headerStyle,
@@ -44,7 +44,7 @@ const Page = ({
 
   const { theme } = useTheme();
 
-  const styles = getStyles(theme, withoutHorizontalMargin);
+  const styles = getStyles(theme, withHorizontalMargin);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -67,11 +67,11 @@ const Page = ({
 
 export default Page;
 
-const getStyles = (theme: Theme, withoutHorizontalMargin: boolean) =>
+const getStyles = (theme: Theme, withHorizontalMargin: boolean) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingHorizontal: withoutHorizontalMargin ? 0 : 16,
+      paddingHorizontal: withHorizontalMargin ? 16 : 0,
       paddingBottom: 50,
       backgroundColor: theme.colors.background,
     },
@@ -79,7 +79,7 @@ const getStyles = (theme: Theme, withoutHorizontalMargin: boolean) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       marginBottom: 18,
-      paddingHorizontal: !withoutHorizontalMargin ? 0 : 16,
+      paddingHorizontal: withHorizontalMargin ? 0 : 16,
     },
     scrollview: {
       flex: 1,

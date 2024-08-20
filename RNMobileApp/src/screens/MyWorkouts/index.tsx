@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { CloseIcon, InfoCircleIcon, NoWorkoutsImage } from '@assets';
-import Modal from 'react-native-modal';
+import { InfoCircleIcon, NoWorkoutsImage } from '@assets';
 
 import { WorkoutCalendar, Label, Page, WorkoutCard } from '@components';
 
 import workouts from './stub.json';
 import WorkoutHeader from './WorkoutHeader';
+import WorkoutsSummaryModal from './WorkoutsSummaryModal';
 import useTheme from '@hooks/theme/useTheme';
 
 import { Theme } from '@theme';
@@ -22,7 +22,7 @@ const MyWorkouts = () => {
   return (
     <>
       <Page
-        withoutHorizontalMargin
+        withHorizontalMargin={false}
         title="my_workouts"
         right={
           <TouchableOpacity onPress={() => setIsModalVisible(true)}>
@@ -58,21 +58,17 @@ const MyWorkouts = () => {
           </View>
         )}
       </Page>
-      <Modal isVisible={isModalVisible}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalHeader}>
-            <Label type="h3" text="summary.week_title" color={theme.colors.white} bold />
-            <TouchableOpacity onPress={() => setIsModalVisible(false)}>
-              <Image source={CloseIcon} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
-            <Label text="ABS" color={theme.colors.white} bold />
-            <Label text="•" color={theme.colors.white} style={styles.separator} />
-            <Label text="6 séries" color={theme.colors.white} type="footnote" />
-          </View>
-        </View>
-      </Modal>
+      <WorkoutsSummaryModal
+        data={[
+          { name: 'ABS', series: 6 },
+          { name: 'Pernas', series: 3 },
+          { name: 'Costas', series: 3 },
+          { name: 'Peito', series: 2 },
+          { name: 'Ombro', series: 4 },
+        ]}
+        isVisible={isModalVisible}
+        onProceed={setIsModalVisible}
+      />
     </>
   );
 };
