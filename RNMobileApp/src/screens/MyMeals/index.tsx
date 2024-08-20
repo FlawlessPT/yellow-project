@@ -7,7 +7,8 @@ import { WorkoutCalendar, Label, Page, MealCard, TopTabs } from '@components';
 
 import MealHeader from './MealHeader';
 import MealsSummaryModal from './MealsSummaryModal';
-import meals from './stub.json';
+import stub from './stub.json';
+import Supplements from './Supplements';
 import useTheme from '@hooks/theme/useTheme';
 
 import { TabEnum } from '@types';
@@ -20,6 +21,8 @@ const MyMeals = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const [selectedTab, setSelectedTab] = useState<TabEnum>(TabEnum.Meals);
+
+  const { meals, supplements } = stub;
 
   return (
     <>
@@ -52,7 +55,7 @@ const MyMeals = () => {
             </View>
           )
         ) : (
-          <></>
+          <Supplements supplements={supplements} />
         )}
       </Page>
       <MealsSummaryModal
