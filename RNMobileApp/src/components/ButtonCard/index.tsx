@@ -5,21 +5,22 @@ import { RightArrow } from '@assets';
 import { Icon } from 'react-native-paper';
 
 import { Label } from '@components/Label';
+import Switch from '@components/Switch';
 
 import useTheme from '@hooks/theme/useTheme';
 
 import { Theme } from '@theme';
 
 type ButtonCardProps = {
-  withNoArrow?: boolean;
   isSelected?: boolean;
   label: string;
   icon?: any;
+  withToggle?: boolean;
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
 };
 
-const ButtonCard = ({ withNoArrow = false, isSelected = false, label, icon, style, onPress }: ButtonCardProps) => {
+const ButtonCard = ({ isSelected = false, label, icon, withToggle, style, onPress }: ButtonCardProps) => {
   const { theme } = useTheme();
 
   const styles = getStyles(theme, isSelected);
@@ -34,7 +35,7 @@ const ButtonCard = ({ withNoArrow = false, isSelected = false, label, icon, styl
         )}
         <Label text={label} color={theme.colors.white} style={styles.title} />
       </View>
-      {!withNoArrow && <Icon source={RightArrow} size={6} />}
+      {withToggle ? <Switch initialValue={true} shouldChangeValue /> : <Icon source={RightArrow} size={6} />}
     </TouchableOpacity>
   );
 };

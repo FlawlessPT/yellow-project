@@ -1,17 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
 
+import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
+
 type SwitchProps = {
   initialValue: boolean;
   shouldChangeValue: boolean;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 const Switch = ({ initialValue, shouldChangeValue, onPress }: SwitchProps): JSX.Element => {
   const [isToggle, setIsToggle] = useState<boolean>(initialValue);
   const translateAnimate = useRef(new Animated.Value(0)).current;
 
-  const styles = getStyles();
+  const { theme } = useTheme();
+
+  const styles = getStyles(theme, isToggle);
 
   useEffect(() => {
     setIsToggle(initialValue);
@@ -27,7 +33,7 @@ const Switch = ({ initialValue, shouldChangeValue, onPress }: SwitchProps): JSX.
 
     Animated.timing(translateAnimate, {
       toValue,
-      duration: 400,
+      duration: 200,
       useNativeDriver: true,
     }).start(() => {
       setIsToggle(!isToggle);
@@ -51,7 +57,8 @@ const Switch = ({ initialValue, shouldChangeValue, onPress }: SwitchProps): JSX.
           animateElement();
           setIsToggle((prevState) => !prevState);
         }
-        onPress();
+
+        if (onPress) onPress();
       }}
     >
       <Animated.View style={[styles.contentContainer, animationStyle]} />
@@ -61,13 +68,14 @@ const Switch = ({ initialValue, shouldChangeValue, onPress }: SwitchProps): JSX.
 
 export default Switch;
 
-const getStyles = () =>
+const getStyles = (theme: Theme, isToggle: boolean) =>
   StyleSheet.create({
     container: {
-      height: 24,
-      width: 40,
+      height: 14,
+      width: 34,
       borderRadius: 48,
       justifyContent: 'center',
+      backgroundColor: theme.colors.mediumBlack,
       padding: 2,
     },
     contentContainer: {
@@ -75,6 +83,9 @@ const getStyles = () =>
       width: 20,
       borderRadius: 48,
       position: 'absolute',
+      backgroundColor: isToggle ? theme.colors.primary : theme.colors.black,
       left: 4,
+      borderWidth: 0.5,
+      borderColor: theme.colors.mediumBlack,
     },
   });

@@ -6,5 +6,6 @@ export type ProfileDetail = {
 export type ProfileButton = {
   icon: any;
   label: string;
+  withToggle?: boolean;
   onPress: () => void;
 };

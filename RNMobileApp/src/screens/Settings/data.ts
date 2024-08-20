@@ -19,6 +19,7 @@ export const profileButtons = (navigation: NavigationProp<ParamListBase>): Profi
     {
       icon: Notifications,
       label: 'profile.notifications',
+      withToggle: true,
       onPress: () => undefined,
     },
     {
