@@ -33,7 +33,7 @@ const Supplements = ({ supplements }: SupplementsProps) => {
     <View style={styles.card}>
       <DataTable>
         <DataTable.Header style={styles.noBorder}>
-          <Label text={title} bold color={theme.colors.white} style={styles.title} />
+          <Label text={title} bold color={theme.colors.white} />
         </DataTable.Header>
         {array ? (
           array.map((element, index) => (
@@ -74,7 +74,6 @@ const getStyles = (theme: Theme) =>
       backgroundColor: theme.colors.neutral800,
       marginHorizontal: 16,
       paddingTop: 12,
-      paddingBottom: 16,
       borderRadius: 12,
     },
     row: {
@@ -82,16 +81,12 @@ const getStyles = (theme: Theme) =>
     },
     noBorder: {
       borderBottomWidth: 0,
-      marginBottom: -22,
     },
     circle: {
       marginRight: 8,
     },
     noInfoLabel: {
       marginHorizontal: 15,
-      marginTop: 14,
-    },
-    title: {
-      marginBottom: 16,
+      marginVertical: 12,
     },
   });
