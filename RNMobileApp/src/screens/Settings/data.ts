@@ -35,7 +35,7 @@ export const profileButtons = (navigation: NavigationProp<ParamListBase>): Profi
     {
       icon: AboutApp,
       label: 'profile.about_app',
-      onPress: () => undefined,
+      onPress: () => navigation.navigate(SettingsStackEnum.ABOUT_APP),
     },
   ];
 };
