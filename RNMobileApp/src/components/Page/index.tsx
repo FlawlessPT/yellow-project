@@ -24,7 +24,6 @@ type PageProps = {
   withHorizontalMargin?: boolean;
   bounces?: boolean;
   contentContainerStyle?: StyleProp<ViewStyle>;
-  headerStyle?: StyleProp<ViewStyle>;
 } & LabelProps;
 
 const Page = ({
@@ -37,7 +36,6 @@ const Page = ({
   withHorizontalMargin = true,
   bounces = true,
   contentContainerStyle,
-  headerStyle,
   ...props
 }: PageProps) => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
@@ -54,9 +52,7 @@ const Page = ({
           {withBack && (
             <IconButton icon={Back} size={24} iconColor={theme.colors.neutral300} onPress={() => navigation.goBack()} />
           )}
-        </View>
-        <View style={[styles.header, headerStyle]}>
-          <Label text={title} type="h2" color={titleColor ?? theme.colors.neutral200} semibold {...props} />
+          <Label text={title} type="h3" color={titleColor ?? theme.colors.neutral200} semibold {...props} />
           {right}
         </View>
         {children}
@@ -80,6 +76,7 @@ const getStyles = (theme: Theme, withHorizontalMargin: boolean) =>
       justifyContent: 'space-between',
       marginBottom: 18,
       paddingHorizontal: withHorizontalMargin ? 0 : 16,
+      alignItems: 'center',
     },
     scrollview: {
       flex: 1,
