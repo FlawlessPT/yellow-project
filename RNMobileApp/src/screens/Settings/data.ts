@@ -30,7 +30,7 @@ export const profileButtons = (navigation: NavigationProp<ParamListBase>): Profi
     {
       icon: Billing,
       label: 'profile.billing',
-      onPress: () => navigation.navigate(SettingsStackEnum.CHANGE_LANGUAGE),
+      onPress: () => navigation.navigate(SettingsStackEnum.BILLING),
     },
     {
       icon: AboutApp,

@@ -12,7 +12,7 @@ import useTheme from '@hooks/theme/useTheme';
 import { Theme } from '@theme';
 
 const Billing = ({ navigation, route }: AuthNavProps<'Billing'>) => {
-  const { withBack } = route.params;
+  const { withBack } = route.params ?? false;
 
   const { theme } = useTheme();
   const styles = getStyles(theme);
