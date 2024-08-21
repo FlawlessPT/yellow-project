@@ -26,6 +26,7 @@ enum SettingsStackEnum {
   SETTINGS = 'Settings',
   CHANGE_LANGUAGE = 'ChangeLanguage',
   ABOUT_APP = 'AboutApp',
+  BILLING = 'Billing',
 }
 
 export const defaultScreenOptions = {
