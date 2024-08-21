@@ -26,6 +26,7 @@ import Weight from './PersonalizationSteps/Weight';
 import Workout from './PersonalizationSteps/Workout';
 import ProfileDetailCard from './ProfileDetailCard';
 import ProgressCard from './ProgressCard';
+import RadioButton from './RadioButton';
 import Separator from './Separator';
 import SmallCard from './SmallCard';
 import SocialLoginButton from './SocialLoginButton';
@@ -72,4 +73,5 @@ export {
   WorkoutCalendar,
   MealCard,
   TopTabs,
+  RadioButton,
 };
