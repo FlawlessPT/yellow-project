@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import i18next from 'i18next';
 
-import { ButtonCard, Page } from '@components';
+import { RadioButton, Label, Page } from '@components';
+
+import useTheme from '@hooks/theme/useTheme';
 
 const languages: { key: string; label: string }[] = [
   { key: 'pt', label: 'portuguese' },
@@ -11,27 +13,36 @@ const languages: { key: string; label: string }[] = [
 ];
 
 const ChangeLanguage = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState<number>();
+  const getInitialLanguage = () => i18next.language;
 
-  const changeLanguage = (language: string) => {
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(getInitialLanguage());
+
+  const { theme } = useTheme();
+
+  const handleChangeLanguage = (language: string) => {
     i18next.changeLanguage(language);
+    setSelectedLanguage(language);
   };
 
   return (
     <Page title="change.language.title" withBack>
-      {languages.map((language, index) => (
-        <ButtonCard
-          key={index}
-          isSelected={selectedLanguage === index}
-          label={language.label}
-          onPress={() => {
-            changeLanguage(language.key);
-            setSelectedLanguage(index);
-          }}
-          withNoArrow
-          style={styles.settingsCard}
-        />
-      ))}
+      <View style={styles.container}>
+        {languages.map((language) => {
+          const isSelected = selectedLanguage === language.key;
+
+          return (
+            <TouchableOpacity
+              key={language.key}
+              activeOpacity={0.6}
+              onPress={() => handleChangeLanguage(language.key)}
+              style={styles.contentContainer}
+            >
+              <Label text={language.label} color={theme.colors.white} />
+              <RadioButton isSelected={isSelected} handleOnPress={() => handleChangeLanguage(language.key)} />
+            </TouchableOpacity>
+          );
+        })}
+      </View>
     </Page>
   );
 };
@@ -39,7 +50,11 @@ const ChangeLanguage = () => {
 export default ChangeLanguage;
 
 const styles = StyleSheet.create({
-  settingsCard: {
-    marginTop: 18,
+  container: {
+    gap: 24,
+  },
+  contentContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
