@@ -26,14 +26,15 @@ const Billing = ({ navigation, route }: AuthNavProps<'Billing'>) => {
 
   return (
     <Page
-      title="billing_screen.title"
+      title={withBack ? 'prices_title' : undefined}
       bounces={false}
       contentContainerStyle={styles.contentContainer}
-      textAlign="center"
-      headerStyle={styles.header}
       withBack={withBack}
+      color={theme.colors.neutral400}
+      type="h5"
     >
       <View style={styles.contentContainer}>
+        <Label text="billing_screen.title" textAlign="center" color={theme.colors.neutral300} type="h2" bold />
         <Label text="choose_plan.description" textAlign="center" color={theme.colors.neutral300} />
         <View style={styles.plans}>
           {plansStub.map((plan, index) => {
