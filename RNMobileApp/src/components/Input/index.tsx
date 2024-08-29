@@ -100,10 +100,11 @@ const getStyles = (theme: Theme, isMultiline: boolean, outlinedColor: string) =>
       marginLeft: 6,
     },
     input: {
-      height: 44,
+      height: 40,
       flex: 1,
       fontFamily: theme.fonts.regular,
-      fontSize: 16,
+      fontSize: 14,
+      lineHeight: 21,
       color: theme.colors.white,
       marginVertical: 8,
     },
