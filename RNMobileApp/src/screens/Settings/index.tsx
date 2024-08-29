@@ -125,7 +125,7 @@ const Settings = ({ session }: { session?: Session }) => {
       <Label
         text={'bernardo123@hotmail.com'}
         type="footnote"
-        color={theme.colors.neutral300}
+        color={theme.colors.neutral400}
         textAlign="center"
         style={styles.email}
       />

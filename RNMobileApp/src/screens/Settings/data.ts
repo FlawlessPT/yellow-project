@@ -14,7 +14,7 @@ export const profileButtons = (navigation: NavigationProp<ParamListBase>): Profi
     {
       icon: EditProfile,
       label: 'profile.details',
-      onPress: () => undefined,
+      onPress: () => navigation.navigate(SettingsStackEnum.PROFILE_DETAILS),
     },
     {
       icon: Notifications,
