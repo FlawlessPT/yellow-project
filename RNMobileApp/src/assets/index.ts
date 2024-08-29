@@ -36,5 +36,6 @@ export { default as PlayWhiteIcon } from './icons/play-white.png';
 export { default as BottomPlusIcon } from './icons/bottom-menu/plus.png';
 export { default as InfoCircleIcon } from './icons/info-circle.png';
 export { default as CloseIcon } from './icons/close.png';
+export { default as ArrowDownIcon } from './icons/arrow/arrow-down.png';
 export { default as LoadingLottie } from './lotties/loading.json';
 export { default as SuccessLottie } from './lotties/success.json';
