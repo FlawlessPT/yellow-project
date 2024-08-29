@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AboutApp from '@screens/AboutApp';
 import Billing from '@screens/Billing';
 import ChangeLanguage from '@screens/ChangeLanguage';
+import ProfileDetails from '@screens/ProfileDetails';
 import Settings from '@screens/Settings';
 
 import { SettingsStackParamList } from './types';
@@ -18,6 +19,7 @@ export default function SettingsStack(): JSX.Element {
       <Stack.Screen name="ChangeLanguage" component={ChangeLanguage} />
       <Stack.Screen name="Billing" component={Billing} />
       <Stack.Screen name="AboutApp" component={AboutApp} />
+      <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
     </Stack.Navigator>
   );
 }

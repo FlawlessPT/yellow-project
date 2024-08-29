@@ -6,6 +6,7 @@ export type SettingsStackParamList = {
   ChangeLanguage: undefined;
   AboutApp: undefined;
   Billing: { withBack?: boolean };
+  ProfileDetails: undefined;
 };
 
 export type SettingsNavProps<T extends keyof SettingsStackParamList> = NativeStackScreenProps<
