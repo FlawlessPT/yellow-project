@@ -24,7 +24,7 @@ const ProfileDetails = () => {
         }}
         style={styles.profileImage}
       />
-      <Label text={'bernardo123@hotmail.com'} type="footnote" color={theme.colors.neutral400} textAlign="center" />
+      <Label text={'email@email.com'} type="footnote" color={theme.colors.neutral400} textAlign="center" />
       {profileData.map((item) => (
         <React.Fragment key={item.id}>
           <Label text={item.label} type="footnote" color={theme.colors.white} bold style={styles.label} />

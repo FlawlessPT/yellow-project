@@ -6,7 +6,7 @@ import { ProfileButton, ProfileDetail } from './types';
 
 export const profileDetailsData: ProfileDetail[] = [
   { label: 'profile.weight', value: '70 kg' },
-  { label: 'profile.height', value: '1.61m' },
+  { label: 'workouts_done.title', value: '45 %' },
 ];
 
 export const profileButtons = (navigation: NavigationProp<ParamListBase>): ProfileButton[] => {

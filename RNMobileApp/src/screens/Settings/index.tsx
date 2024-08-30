@@ -114,16 +114,9 @@ const Settings = ({ session }: { session?: Session }) => {
         }}
         style={styles.profileImage}
       />
+      <Label text={'Nome'} type="h4" color={theme.colors.neutral300} semibold textAlign="center" style={styles.name} />
       <Label
-        text={'Bernardo'}
-        type="h4"
-        color={theme.colors.neutral300}
-        semibold
-        textAlign="center"
-        style={styles.name}
-      />
-      <Label
-        text={'bernardo123@hotmail.com'}
+        text={'email@email.com'}
         type="footnote"
         color={theme.colors.neutral400}
         textAlign="center"

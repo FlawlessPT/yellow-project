@@ -30,7 +30,7 @@ const Home = () => {
       header={
         <View style={styles.paddingHorizontal}>
           <Image source={LogoImage} style={styles.profileImage} />
-          <Label text="Hi, Bernardo" type="h4" color={'rgba(255,255,255,0.5)'} medium style={styles.helloLabel} />
+          <Label text="Hi, (nome)" type="h4" color={'rgba(255,255,255,0.5)'} medium style={styles.helloLabel} />
         </View>
       }
       title="home.title"
