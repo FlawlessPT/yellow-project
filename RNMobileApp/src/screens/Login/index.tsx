@@ -117,6 +117,8 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
     password: string;
   };
 
+  console.log('env', Config);
+
   return (
     <LoginContainer title="login_page.title">
       <>
