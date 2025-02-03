@@ -53,6 +53,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@flawlesspt/yellow-common": "^0.0.3",
     "@tanstack/react-query": "^4.29.12",
     "axios": "^0.19.2",
     "i18next": "^22.5.0",

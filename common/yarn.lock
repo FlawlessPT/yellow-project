@@ -64,6 +64,16 @@
   resolved "https://registry.npmjs.org/@eslint/js/-/js-8.57.0.tgz#a5417ae8427873f1dd08b70b3574b453e67b5f7f"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
+"@flawlesspt/yellow-common@^0.0.3":
+  version "0.0.3"
+  resolved "https://npm.pkg.github.com/download/@flawlesspt/yellow-common/0.0.3/c4a20d526f4d6c4f00738de0ce24f55a632e1962#c4a20d526f4d6c4f00738de0ce24f55a632e1962"
+  integrity sha512-53hh/yMfk8+V2KfwU4gqCO0OEOSxioSWHPUd/Za65LQqm+SO2eQv6b/VNkxYH8cHLM9b0Z0cwyDTHfKdLaNlgw==
+  dependencies:
+    "@tanstack/react-query" "^4.29.12"
+    axios "^0.19.2"
+    i18next "^22.5.0"
+    react-i18next "^12.3.1"
+
 "@humanwhocodes/config-array@^0.11.14":
   version "0.11.14"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.14.tgz#d78e481a039f7566ecc9660b4ea7fe6b1fec442b"
