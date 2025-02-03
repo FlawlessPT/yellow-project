@@ -34,3 +34,5 @@ CREATE POLICY "Only admins can delete supplement plans consumables."
     USING (check_user_permission(auth.uid(), array['ADMIN']));
 
 ALTER TABLE IF EXISTS supplement_plans_consumables ENABLE ROW LEVEL SECURITY;
+
+--teste
