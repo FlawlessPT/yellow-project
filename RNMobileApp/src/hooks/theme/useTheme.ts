@@ -1,17 +1,11 @@
-// React and React Native
 import { useContext, useEffect } from 'react';
 
-// Theme
-import { darkTheme, lightTheme, Theme, ThemeMode } from '@theme';
-
-// Constants
-import { storageKeys } from '@utils/storage-keys';
-
-// External Libs
+import { ThemeContext } from '@providers/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Providers
-import { ThemeContext } from '../../providers/theme';
+import { storageKeys } from '@utils/storage-keys';
+
+import { darkTheme, lightTheme, Theme, ThemeMode } from '@theme';
 
 type UseThemeResult = {
   theme: Theme;

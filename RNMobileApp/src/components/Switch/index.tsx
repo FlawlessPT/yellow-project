@@ -1,4 +1,3 @@
-// React and React Native
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
 

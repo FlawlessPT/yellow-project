@@ -1,16 +1,11 @@
-// React and React Native
 import React from 'react';
 import { StatusBar } from 'react-native';
 
-// Stacks
-import AppStack from '../AppStack';
-import AuthStack from '../AuthStack';
-
-// Types
-import { RootStackEnum, defaultScreenOptions } from '../types';
-
-// Navigation
+import AppStack from '@navigation/AppStack/index';
+import AuthStack from '@navigation/AuthStack/index';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { RootStackEnum, defaultScreenOptions } from '../types';
 
 const Stack = createNativeStackNavigator();
 

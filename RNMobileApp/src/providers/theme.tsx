@@ -1,8 +1,6 @@
-// React and React Native
-import { useColorScheme } from 'react-native';
 import React, { PropsWithChildren, createContext, useState } from 'react';
+import { useColorScheme } from 'react-native';
 
-// Theme
 import { ThemeMode } from '@theme';
 
 export const ThemeContext = createContext({

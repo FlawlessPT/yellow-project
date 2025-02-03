@@ -1,14 +1,9 @@
-import {
-  AdminOverrides,
-  DatabaseUserRoles,
-  SearchConfigsFilterType,
-  ViewMode,
-} from '@types';
+import { AdminOverrides, DatabaseUserRoles, SearchConfigsFilterType, ViewMode } from '@types';
 
 /* To be customizable for each project: by default only ADMIN role exist and no roles using empty array: [], the default for new users */
 export const rolesOptions = [
-  {id: 'SUPER_ADMIN', name: 'Super Admin'},
-  {id: 'ADMIN', name: 'Admin'},
+  { id: 'SUPER_ADMIN', name: 'Super Admin' },
+  { id: 'ADMIN', name: 'Admin' },
 ];
 
 const superAdminOptions = [rolesOptions[0]];
@@ -129,33 +124,20 @@ type OverridesForResourceSearchType = {
   tableName: string;
 };
 
-export function overridesForResource({
-  tableName,
-  viewMode,
-}: OverridesForResourceSearchType) {
-  const tableOverrides =
-    overrideConfigs.resources && overrideConfigs.resources[tableName];
+export function overridesForResource({ tableName, viewMode }: OverridesForResourceSearchType) {
+  const tableOverrides = overrideConfigs.resources && overrideConfigs.resources[tableName];
   const tableOverridesForMode = tableOverrides && tableOverrides[viewMode];
 
   return tableOverridesForMode;
 }
 
-export function recordRepresentationForResource({
-  tableName,
-}: Pick<OverridesForResourceSearchType, 'tableName'>) {
-  const tableOverrides =
-    overrideConfigs.resources && overrideConfigs.resources[tableName];
+export function recordRepresentationForResource({ tableName }: Pick<OverridesForResourceSearchType, 'tableName'>) {
+  const tableOverrides = overrideConfigs.resources && overrideConfigs.resources[tableName];
 
   return tableOverrides?.recordRepresentationColumn;
 }
 
-export const isResourceVisibleForRoles = ({
-  tableName,
-  roles,
-}: {
-  tableName: string;
-  roles: DatabaseUserRoles;
-}) => {
+export const isResourceVisibleForRoles = ({ tableName, roles }: { tableName: string; roles: DatabaseUserRoles }) => {
   const resourceOverrides = overrideConfigs.resources?.[tableName];
 
   if (!resourceOverrides) {
@@ -168,19 +150,10 @@ export const isResourceVisibleForRoles = ({
     return true;
   }
 
-  console.log(
-    rolesAllowedToView.every(item => roles.includes(item.id)),
-    tableName,
-    rolesAllowedToView,
-    roles,
-  );
-
-  return rolesAllowedToView.every(item => roles.includes(item.id));
+  return rolesAllowedToView.every((item) => roles.includes(item.id));
 };
 
-export function isViewModeEnabledForResource(
-  filter: OverridesForResourceSearchType,
-) {
+export function isViewModeEnabledForResource(filter: OverridesForResourceSearchType) {
   return overridesForResource(filter) !== null;
 }
 
@@ -188,16 +161,10 @@ export function getGeneralOverrides() {
   return overrideConfigs.general;
 }
 
-export function isFieldToRenderForGeneralOptions({
-  columnName,
-  inputType,
-  viewMode,
-}: SearchConfigsFilterType) {
+export function isFieldToRenderForGeneralOptions({ columnName, inputType, viewMode }: SearchConfigsFilterType) {
   const generalOverrides = getGeneralOverrides();
-  const columnsToExcludeForViewMode = (generalOverrides?.columnsToExclude ||
-    {})[viewMode];
-  const inputTypesToExcludeForViewMode =
-    (generalOverrides?.inputTypesToExclude || {})[viewMode];
+  const columnsToExcludeForViewMode = (generalOverrides?.columnsToExclude || {})[viewMode];
+  const inputTypesToExcludeForViewMode = (generalOverrides?.inputTypesToExclude || {})[viewMode];
 
   if (
     (columnsToExcludeForViewMode || []).includes(columnName) ||

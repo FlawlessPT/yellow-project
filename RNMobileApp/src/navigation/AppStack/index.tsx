@@ -1,30 +1,23 @@
-/* eslint-disable react/no-unstable-nested-components */
-// React
 import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity } from 'react-native';
 
-// Screens
-import Home from '@screens/Home';
-import Settings from '@screens/Settings';
-
-// Stacks
-import SettingsStack from './SettingsStack';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// External Libs
+import { BottomDumbbellIcon, BottomFoodIcon, BottomHomeIcon, BottomPlusIcon, BottomProfileIcon } from '@assets';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-// Types
+import Home from '@screens/Home';
+
 import { AppStackEnum, defaultScreenOptions, RootStackEnum } from '../types';
 
-// Assets
-import { BottomDumbbellIcon, BottomFoodIcon, BottomHomeIcon, BottomPlusIcon, BottomProfileIcon } from '@assets';
+import MealStack from './MealStack';
+import SettingsStack from './SettingsStack';
+import { AppStackParamList } from './types';
+import WorkoutStack from './WorkoutStack';
+import useTheme from '@hooks/theme/useTheme';
+
 import { Theme } from '@theme';
 
 export default function AppStack(): JSX.Element {
-  const Tab = createBottomTabNavigator();
+  const Tab = createBottomTabNavigator<AppStackParamList>();
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
@@ -51,8 +44,8 @@ export default function AppStack(): JSX.Element {
         }}
       />
       <Tab.Screen
-        name="Workout"
-        component={Settings}
+        name="WorkoutStack"
+        component={WorkoutStack}
         options={{
           tabBarIcon: ({ focused }) => renderIcon(BottomDumbbellIcon, focused),
         }}
@@ -70,8 +63,8 @@ export default function AppStack(): JSX.Element {
         }}
       />
       <Tab.Screen
-        name="Food"
-        component={Settings}
+        name="MealStack"
+        component={MealStack}
         options={{
           tabBarIcon: ({ focused }) => renderIcon(BottomFoodIcon, focused),
         }}

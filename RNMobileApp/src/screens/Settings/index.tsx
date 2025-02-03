@@ -1,25 +1,16 @@
-// React and React Native
 import React, { useState, useEffect, useCallback } from 'react';
 import { Alert, Image, StyleSheet, View } from 'react-native';
 
-// Assets
 import { Logout } from '@assets';
-
-// Utils
-import { supabase } from '@utils/supabase';
-
-// Hooks
-import useTheme from '@hooks/theme/useTheme';
-
-// External Libs
+import { useNavigation } from '@react-navigation/native';
 import { Session } from '@supabase/supabase-js';
 
-// Data
-import { profileButtons, profileDetailsData } from './data';
-
-// Components
 import { Button, ButtonCard, Label, Page, ProfileDetailCard } from '@components';
-import { useNavigation } from '@react-navigation/native';
+
+import { profileButtons, profileDetailsData } from './data';
+import useTheme from '@hooks/theme/useTheme';
+
+import { supabase } from '@utils/supabase';
 
 const Settings = ({ session }: { session?: Session }) => {
   const [loading, setLoading] = useState(true);

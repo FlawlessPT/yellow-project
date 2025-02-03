@@ -1,7 +1,8 @@
-import {Form, required, useTranslate} from 'ra-core';
-import {CardActions, styled} from '@mui/material';
-import {TextInput, SaveButton} from 'ra-ui-materialui';
-import {supabaseClient} from '@utils/supabase';
+import { CardActions, styled } from '@mui/material';
+import { Form, required, useTranslate } from 'ra-core';
+import { TextInput, SaveButton } from 'ra-ui-materialui';
+
+import { supabaseClient } from '@utils/supabase';
 
 /**
  * A component that renders a form for updating the user password.

@@ -1,4 +1,3 @@
-// React and React Native
 import { StyleProp, TextStyle } from 'react-native';
 
 export type LabelProps = {
@@ -22,7 +21,7 @@ export type TypographySpecification = {
   lineHeight: number;
 };
 
-export type TypographyType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'body' | 'footnote';
+export type TypographyType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'body' | 'footnote' | 'size10';
 
 export enum TypographyTypeEnum {
   H1 = 'h1',
@@ -32,4 +31,5 @@ export enum TypographyTypeEnum {
   H5 = 'h5',
   Body = 'body',
   Footnote = 'footnote',
+  Size10 = 'size10',
 }

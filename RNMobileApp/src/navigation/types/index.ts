@@ -1,4 +1,3 @@
-// Navigation
 import { CardStyleInterpolators } from '@react-navigation/stack';
 
 enum RootStackEnum {
@@ -18,6 +17,8 @@ enum AuthStackEnum {
 
 enum AppStackEnum {
   HOME = 'Home',
+  WORKOUT_STACK = 'WorkoutStack',
+  MEAL_STACK = 'MealStack',
   SETTINGS_STACK = 'SettingsStack',
 }
 

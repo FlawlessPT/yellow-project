@@ -1,11 +1,8 @@
-// React
 import React from 'react';
 
-// Stacks
-import RootStack from './RootStack';
-
-// Navigation
 import { NavigationContainer } from '@react-navigation/native';
+
+import RootStack from './RootStack';
 
 export default function RootNavigator({ isLoggedIn }: { isLoggedIn: boolean }): JSX.Element {
   return (

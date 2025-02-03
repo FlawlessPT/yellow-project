@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply plugin: "org.jetbrains.kotlin.android"
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**
@@ -73,11 +74,12 @@ apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
 android {
     ndkVersion rootProject.ext.ndkVersion
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.rnmobileapp"
+    namespace "pt.rainbowapps.gardao.app"
     defaultConfig {
-        applicationId project.env.get("ANDROID_APPLICATION_ID") != null ? project.env.get("ANDROID_APPLICATION_ID") : "com.rnmobileapp"
+        applicationId project.env.get("ANDROID_APPLICATION_ID") != null ? project.env.get("ANDROID_APPLICATION_ID") : "pt.rainbowapps.gardao.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode project.env.get("VERSION_CODE") != null ? project.env.get("VERSION_CODE").toInteger() : 1
@@ -99,6 +101,11 @@ android {
             }
         }
     }
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging (findProperty('expo.useLegacyPackaging')?.toBoolean() ?: false)
+        }
+    }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -117,12 +124,6 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 
-    debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.squareup.okhttp3', module:'okhttp'
-    }
-
-    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
@@ -131,6 +132,7 @@ dependencies {
     implementation 'com.onesignal:OneSignal:[5.0.0, 5.99.99]'
 }
 
+apply from: new File(["node", "--print", "require.resolve('@react-native-community/cli-platform-android/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim(), "../native_modules.gradle");
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 project.ext.vectoricons = [
     iconFontNames: [ 'FontAwesome.ttf']

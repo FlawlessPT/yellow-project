@@ -1,6 +1,8 @@
-import { supabaseAuthProvider } from 'ra-supabase';
-import { supabaseClient } from './supabase';
 import * as Sentry from '@sentry/react';
+import { supabaseAuthProvider } from 'ra-supabase';
+
+import { supabaseClient } from './supabase';
+
 import { DatabaseUserRoles } from '@types';
 
 const baseAuthProvider = supabaseAuthProvider(supabaseClient, {

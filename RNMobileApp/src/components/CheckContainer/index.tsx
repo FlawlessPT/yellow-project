@@ -1,21 +1,13 @@
-// React and React Native
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
+import Icon from 'react-native-vector-icons/FontAwesome6';
 
-// Components
-import Label from '@components/Label';
-
-// Hooks
 import useTheme from '../../hooks/theme/useTheme';
-
-// Types
+import Label from '@components/Label';
 import { LabelProps } from '@components/Label/types';
 
-// External Libs
-import Icon from 'react-native-vector-icons/FontAwesome6';
+import { Theme } from '@theme';
 
 type CheckContainerProps = {
   label?: string;

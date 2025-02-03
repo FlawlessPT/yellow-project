@@ -1,7 +1,9 @@
-import { UserSession } from '@types';
+import { useEffect, useState } from 'react';
+
 import { supabaseClient } from '@utils/supabase';
 import { authProvider } from '@utils/supabase.authProvider';
-import { useEffect, useState } from 'react';
+
+import { UserSession } from '@types';
 
 interface UseFetchSessionResult {
   session: UserSession | undefined;

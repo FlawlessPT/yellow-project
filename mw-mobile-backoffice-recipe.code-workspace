@@ -15,6 +15,10 @@
     {
       "name": "RNMobileApp",
       "path": "RNMobileApp"
+    },
+    {
+      "name": "common",
+      "path": "common"
     }
   ],
   "extensions": {
@@ -23,8 +27,16 @@
   "settings": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
     "files.exclude": {
-      "supabase/functions/": true
+      "supabase/functions/": true,
+      "BackofficeCMS/": true,
+      "RNMobileApp/": true,
+      "supabase/": true,
+      "pipelines/": true,
+      "common/": true
     },
     "i18n-ally.localesPaths": [
       "RNMobileApp/ios/Pods/Flipper-Folly/folly/lang",

@@ -1,13 +1,17 @@
 #!/bin/bash
  
-case $VERCEL_ENV in
-  "development")
-    npm run run-dev
+case $ENVIRONMENT in
+  "DEV")
+    yarn run-dev
     ;;
-  "staging")
-    npm run run-stg
+  "STAGING")
+    yarn run-stg
     ;;
-  "production")
-    npm run run-prod
+  "PROD")
+    yarn run-stg
+    ;;
+  *)
+    echo "No build script for ENVIRONMENT value of $VERCEL_ENV"
+    exit 1
     ;;
 esac

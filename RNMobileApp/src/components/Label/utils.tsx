@@ -1,4 +1,3 @@
-// Types
 import { TypographySpecification, TypographyType, TypographyTypeEnum } from './types';
 
 export function getTypographySpecification(type: TypographyType): TypographySpecification {
@@ -10,6 +9,7 @@ export function getTypographySpecification(type: TypographyType): TypographySpec
     [TypographyTypeEnum.H5]: { size: 16, lineHeight: 22 },
     [TypographyTypeEnum.Body]: { size: 14, lineHeight: 20 },
     [TypographyTypeEnum.Footnote]: { size: 12, lineHeight: 16 },
+    [TypographyTypeEnum.Size10]: { size: 10, lineHeight: 12 },
   };
 
   return typographySpecs[type];

@@ -1,11 +1,7 @@
-// React and React Native
 import React from 'react';
 import { View, StyleSheet, ImageBackground, Image, KeyboardAvoidingView, Platform } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// External Libs
+import { LoginImage, SplashImage } from '@assets';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -14,14 +10,11 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
-// Components
-import { Label } from '@components';
+import Label from '@components/Label';
 
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
-// Assets
-import { LoginImage, SplashImage } from '@assets';
+import { Theme } from '@theme';
 
 type LoginContainerProps = {
   title: string;

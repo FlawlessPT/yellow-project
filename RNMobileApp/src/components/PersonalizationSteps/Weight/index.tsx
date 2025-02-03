@@ -1,18 +1,11 @@
-// React and React Native
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
-// Types
+import { getStyles } from '../styles';
 import { StepProps } from '../types';
-
-// Components
 import Input from '@components/Input';
 import Label from '@components/Label';
 
-// Styles
-import { getStyles } from '../styles';
-
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
 const Weight = ({ onPress }: StepProps) => {

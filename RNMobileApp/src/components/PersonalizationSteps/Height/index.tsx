@@ -1,18 +1,11 @@
-// React and React Native
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
-// Types
-import { StepProps } from '../types';
-
-// Styles
 import { getStyles } from '../styles';
-
-// Components
+import { StepProps } from '../types';
 import Input from '@components/Input';
 import Label from '@components/Label';
 
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
 
 const Height = ({ onPress }: StepProps) => {

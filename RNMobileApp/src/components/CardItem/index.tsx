@@ -1,15 +1,11 @@
-// React and React Native
 import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Components
 import Label from '@components/Label';
 
-// Hooks
 import useTheme from '@hooks/theme/useTheme';
+
+import { Theme } from '@theme';
 
 export type ItemType = {
   icon: ImageSourcePropType;

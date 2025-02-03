@@ -1,16 +1,10 @@
-// React and React Native
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-// External Libs
 import Modal from 'react-native-modal';
 
-// Components
-import Button from '../Button';
-import Label from '../Label';
-
-// Assets
-// import Warning from '@assets/icons/warning.svg';
+import Button from '@components/Button';
+import Label from '@components/Label';
 
 export type ModalPopupProps = {
   title: string;

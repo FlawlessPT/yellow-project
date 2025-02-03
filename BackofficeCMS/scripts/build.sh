@@ -2,16 +2,17 @@
  
 case $ENVIRONMENT in
   "DEV")
-    npm run build:development
+    yarn build:development
     ;;
   "STAGING")
-    npm run build:staging
+    yarn build:staging
     ;;
   "PROD")
-    npm run build:production
+    yarn build:production
     ;;
   *)
-    echo "No build script for VERCEL_ENV value of $VERCEL_ENV"
-    exit 1
+    echo "Variable ENVIRONMENT not set ($ENVIRONMENT)"
+    # To check if it should be removed    
+    # exit 1
     ;;
 esac

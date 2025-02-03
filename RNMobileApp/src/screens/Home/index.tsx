@@ -1,36 +1,32 @@
-// React and React Native
 import React, { useState } from 'react';
 import { FlatList, Image, StyleSheet, View } from 'react-native';
 
-// Theme
-import { Theme } from '@theme';
-
-// Assets
 import { LogoImage } from '@assets';
+import { AppStackEnum } from '@navigation/types';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
-// Stubs
+import { Label, Page, Card, ProgressCard, LabelButton } from '@components';
+
 import { meals, workouts } from './stub';
-
-// Hooks
+import { renderTitle } from './utils';
 import useTheme from '@hooks/theme/useTheme';
 
-// Utils
 import { getWeekdaysStrings, today } from '@utils/weekdays';
 
-// Components
-import Card from '@components/Card';
-import { Label, LabelButton, Page, ProgressBar } from '@components';
+import { Theme } from '@theme';
 
 const Home = () => {
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
 
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+
   const [selectedDay, setSelectedDay] = useState<number>(today);
 
   return (
     <Page
-      withoutHorizontalMargin
+      withHorizontalMargin={false}
       header={
         <View style={styles.paddingHorizontal}>
           <Image source={LogoImage} style={styles.profileImage} />
@@ -39,8 +35,10 @@ const Home = () => {
       }
       title="home.title"
     >
-      <ProgressBar title="for_week.progress" progress={45} style={styles.paddingHorizontal} />
-      <Label text="my_workouts" type="h4" color={theme.colors.neutral300} medium style={styles.title} />
+      <View style={styles.paddingHorizontal}>
+        <ProgressCard progress={45} />
+      </View>
+      {renderTitle('my_workouts', () => navigation.navigate(AppStackEnum.WORKOUT_STACK), theme)}
       <FlatList
         data={workouts}
         horizontal
@@ -48,7 +46,7 @@ const Home = () => {
         renderItem={({ item }) => <Card {...item} />}
         contentContainerStyle={styles.row}
       />
-      <Label text="my_meals" type="h4" color={theme.colors.neutral300} medium style={styles.title} />
+      {renderTitle('my_meals', () => navigation.navigate(AppStackEnum.MEAL_STACK), theme)}
       <View style={styles.weekdaysContainer}>
         <FlatList
           data={Array(7).fill(0)}
@@ -86,11 +84,6 @@ export default Home;
 
 const getStyles = (theme: Theme) =>
   StyleSheet.create({
-    title: {
-      marginTop: 40,
-      marginBottom: 18,
-      paddingHorizontal: 16,
-    },
     row: {
       gap: 24,
     },
