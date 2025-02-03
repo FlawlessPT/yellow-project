@@ -8,7 +8,7 @@
     "start": "rm -rf dist && rollup -c -w",
     "pretest": "yarn build",
     "setup": "yarn install_dependencies",
-    "install_dependencies": "rm -rf node_modules && yarn install --force",
+    "install_dependencies": "rm -rf node_modules && yarn install",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format-staged-code": "pretty-quick --staged",
     "ts-check": "tsc --noEmit",

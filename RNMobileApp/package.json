@@ -10,6 +10,7 @@
     "start": "react-native start",
     "test": "jest",
     "pre-commit-check": "yarn lint-staged",
+    "install_dependencies": "rm -rf node_modules/",
     "pod-install": "cd ios && rm -rf Pods && pod install && cd ..",
     "clean-pod-install": "cd ios && rm -rf Pods && pod deintegrate && pod install && cd .."
   },
