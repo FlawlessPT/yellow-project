@@ -22,7 +22,7 @@
     }
   ],
   "extensions": {
-    "recommendations": ["denoland.vscode-deno", "esbenp.prettier-vscode"]
+    "recommendations": ["esbenp.prettier-vscode"]
   },
   "settings": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
