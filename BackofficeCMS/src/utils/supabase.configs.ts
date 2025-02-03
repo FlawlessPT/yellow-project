@@ -1,2 +1,2 @@
-export const supabaseProjectURL = 'https://rhvygunjwnegmompujhk.supabase.co';
-export const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJodnlndW5qd25lZ21vbXB1amhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY2NTA5NjIsImV4cCI6MjAyMjIyNjk2Mn0.J8JL7cxxrrO477G6gjGHTsf21wiqXsCfyIJFzxCuY7I';
+export const supabaseProjectURL = 'http://localhost:54321';
+export const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0';

@@ -9,7 +9,7 @@ const baseAuthProvider = supabaseAuthProvider(supabaseClient, {
   getIdentity: async (user) => {
     const { data, error } = await supabaseClient
       .from('profiles')
-      .select('id, full_name, roles')
+      .select('id, first_name, last_name, roles')
       .match({ id: user.id })
       .single();
 
@@ -24,7 +24,7 @@ const baseAuthProvider = supabaseAuthProvider(supabaseClient, {
 
     return {
       id: data.id,
-      fullName: data.full_name,
+      fullName: `${data.first_name} ${data.last_name}`,
     };
   },
 });
