@@ -8,6 +8,7 @@ import Home from '@screens/Home';
 
 import { AppStackEnum, defaultScreenOptions, RootStackEnum } from '../types';
 
+import MealStack from './MealStack';
 import SettingsStack from './SettingsStack';
 import { AppStackParamList } from './types';
 import WorkoutStack from './WorkoutStack';
@@ -62,8 +63,8 @@ export default function AppStack(): JSX.Element {
         }}
       />
       <Tab.Screen
-        name="Food"
-        component={Home}
+        name="MealStack"
+        component={MealStack}
         options={{
           tabBarIcon: ({ focused }) => renderIcon(BottomFoodIcon, focused),
         }}

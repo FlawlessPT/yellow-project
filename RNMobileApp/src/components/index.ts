@@ -13,6 +13,7 @@ import Input from './Input';
 import Label from './Label';
 import Loading from './Loading';
 import LoginContainer from './LoginContainer';
+import MealCard from './MealCard';
 import Modal from './Modal';
 import Page from './Page';
 import Pagination from './Pagination';
@@ -30,6 +31,7 @@ import SmallCard from './SmallCard';
 import SocialLoginButton from './SocialLoginButton';
 import Success from './Success';
 import Switch from './Switch';
+import TopTabs from './TopTabs';
 import WorkoutCalendar from './WorkoutCalendar';
 import WorkoutCard from './WorkoutCard';
 
@@ -68,4 +70,6 @@ export {
   CheckContainer,
   WorkoutCard,
   WorkoutCalendar,
+  MealCard,
+  TopTabs,
 };

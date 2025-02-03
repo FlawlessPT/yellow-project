@@ -9,13 +9,11 @@ import useTheme from '@hooks/theme/useTheme';
 
 import { getWeekdaysStrings, today } from '@utils/weekdays';
 
-import { Theme } from '@theme';
-
 const WorkoutCalendar = () => {
   const [selectedDay, setSelectedDay] = useState<number>(today);
   const { theme } = useTheme();
 
-  const styles = getStyles(theme);
+  const styles = getStyles();
 
   const getDayLabel = (index: number) => {
     if (index > today) {
@@ -40,7 +38,10 @@ const WorkoutCalendar = () => {
             <TouchableOpacity
               key={index}
               onPress={() => setSelectedDay(index)}
-              style={isSelected ? styles.selectedDayContainer : styles.dayContainer}
+              style={[
+                styles.dayContainer,
+                { backgroundColor: isSelected ? theme.colors.primary : theme.colors.neutral800 },
+              ]}
             >
               <Label
                 text={getDayLabel(index)}
@@ -61,7 +62,7 @@ const WorkoutCalendar = () => {
 
 export default WorkoutCalendar;
 
-const getStyles = (theme: Theme) =>
+const getStyles = () =>
   StyleSheet.create({
     container: {
       flexDirection: 'row',
@@ -71,14 +72,10 @@ const getStyles = (theme: Theme) =>
       justifyContent: 'space-between',
       alignItems: 'center',
     },
-    selectedDayContainer: {
-      backgroundColor: theme.colors.primary,
-      paddingVertical: 15,
-      paddingHorizontal: 9,
-      borderRadius: 24,
-      alignItems: 'center',
-    },
     dayContainer: {
+      paddingVertical: 15,
+      borderRadius: 12,
       alignItems: 'center',
+      width: 45,
     },
   });
