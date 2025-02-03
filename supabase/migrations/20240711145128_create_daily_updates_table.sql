@@ -15,4 +15,27 @@ CREATE TABLE IF NOT EXISTS daily_updates (
     CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES auth.users(id) ON DELETE CASCADE
 );
 
+CREATE POLICY "Users can only see their own daily updates unless they have admin role." 
+    ON daily_updates
+    FOR SELECT
+    USING (user_id = auth.uid() OR check_user_permission(auth.uid(), array['ADMIN']));
+
+CREATE POLICY "Users can only insert their own daily updates while admins can insert any."
+    ON daily_updates
+    FOR INSERT
+    TO authenticated 
+    WITH CHECK (user_id = auth.uid() OR check_user_permission(auth.uid(), array['ADMIN']));
+
+CREATE POLICY "Users can only update their own daily updates while admins can update any."
+    ON daily_updates
+    FOR UPDATE
+    TO authenticated 
+    WITH CHECK (user_id = auth.uid() OR check_user_permission(auth.uid(), array['ADMIN']));
+
+CREATE POLICY "Users can only delete their own daily updates while admins can delete any."
+    ON daily_updates
+    FOR DELETE
+    TO authenticated 
+    USING (user_id = auth.uid() OR check_user_permission(auth.uid(), array['ADMIN']));
+
 ALTER TABLE IF EXISTS daily_updates ENABLE ROW LEVEL SECURITY;

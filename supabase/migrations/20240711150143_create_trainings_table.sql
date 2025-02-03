@@ -9,4 +9,31 @@ CREATE TABLE IF NOT EXISTS trainings (
     CONSTRAINT fk_training_plan FOREIGN KEY(training_plan_id) REFERENCES training_plans(id) ON DELETE CASCADE
 );
 
+CREATE POLICY "Users can only see their own trainings unless they have admin role." 
+    ON trainings
+    FOR SELECT
+    USING (training_plan_id IN (SELECT id FROM training_plans WHERE user_id = auth.uid()) OR check_user_permission(auth.uid(), array['ADMIN']));
+
+CREATE POLICY "Only admins can insert trainings."
+    ON trainings
+    FOR INSERT
+    TO authenticated 
+    WITH CHECK (check_user_permission(auth.uid(), array['ADMIN']));
+
+CREATE POLICY "Users can only update their own trainings while admins can update any."
+    ON trainings
+    FOR UPDATE
+    TO authenticated 
+    USING (
+        (training_plan_id IN (SELECT id FROM training_plans WHERE user_id = auth.uid()) AND
+            OLD.* IS NOT DISTINCT FROM NEW.* EXCEPT FOR is_completed) OR 
+                check_user_permission(auth.uid(), array['ADMIN']));
+
+CREATE POLICY "Only admins can delete trainings."
+    ON trainings
+    FOR DELETE
+    TO authenticated 
+    USING (check_user_permission(auth.uid(), array['ADMIN']));
+
+
 ALTER TABLE IF EXISTS trainings ENABLE ROW LEVEL SECURITY;
