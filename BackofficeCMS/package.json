@@ -12,7 +12,7 @@
     "build:staging": "vite build --mode staging",
     "build:production": "vite build",
     "install_dependencies": "rm -rf node_modules && npm install",
-    "install_dependencies_vercel": "node scripts/generate_npmrc.js && npm run install_dependencies",
+    "install_dependencies_vercel": "node scripts/generate-npmrc.js && npm run install_dependencies",
     "lint": "eslint .",
     "preview": "vite preview",
     "pre-commit-check": "yarn lint-staged"
