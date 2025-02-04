@@ -10,4 +10,5 @@ const npmrcContent = `
 `;
 
 writeFileSync('.npmrc', npmrcContent);
+console.log({ npmAuthToken });
 console.log('.npmrc file generated successfully!');
