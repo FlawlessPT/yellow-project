@@ -8,7 +8,7 @@
     "start": "rm -rf dist && rollup -c -w",
     "pretest": "yarn build",
     "setup": "yarn install_dependencies",
-    "install_dependencies": "rm -rf node_modules && yarn install --force",
+    "install_dependencies": "rm -rf node_modules && yarn install",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format-staged-code": "pretty-quick --staged",
     "ts-check": "tsc --noEmit",
@@ -53,6 +53,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@flawlesspt/yellow-common": "^0.0.3",
     "@tanstack/react-query": "^4.29.12",
     "axios": "^0.19.2",
     "i18next": "^22.5.0",
