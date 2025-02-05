@@ -11,12 +11,12 @@ const npmrcContent = `
 `;
 
 // write file to .npmrc in BackOfficeCMS
-writeFileSync("./BackOfficeCMS/.npmrc", npmrcContent);
+writeFileSync("BackOfficeCMS/.npmrc", npmrcContent);
 
 // write file to .npmrc in RNMobileApp
-writeFileSync("./RNMobileApp/.npmrc", npmrcContent);
+writeFileSync("RNMobileApp/.npmrc", npmrcContent);
 
 // write file to .npmrc in common
-writeFileSync("./common/.npmrc", npmrcContent);
+writeFileSync("common/.npmrc", npmrcContent);
 
 console.log("[yellow-setup] .npmrc file generated successfully!");
