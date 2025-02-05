@@ -11,7 +11,7 @@ const npmrcContent = `
 `;
 
 // write file to .npmrc in BackOfficeCMS
-writeFileSync("BackOfficeCMS/.npmrc", npmrcContent);
+writeFileSync("BackofficeCMS/.npmrc", npmrcContent);
 
 // write file to .npmrc in RNMobileApp
 writeFileSync("RNMobileApp/.npmrc", npmrcContent);
