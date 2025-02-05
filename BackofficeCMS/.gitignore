@@ -25,7 +25,7 @@ dist-ssr
 
 # supabase configs
 # Supabase file configs to sdk integration -- ignored to not expose keys on git repository
-# **/supabase.configs.ts
+**/supabase.configs.ts
 .vercel
 
 # Sentry Auth Token
