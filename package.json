@@ -1,10 +1,11 @@
 {
-  "name": "mw-mobile-backoffice-recipe",
+  "name": "yellow",
   "version": "0.0.1-beta",
-  "description": "This is a repository that works as a starter for a full stack mobile application and includes a Back Office Web App.",
+  "description": "Yellow is a full stack application to support fitness coaches and improve their clients experience.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "// exporting this command will allow us to call this command on our local environment": "",
+    "generate-npmrc": "node ./scripts/generate-npmrc.cjs"
   },
   "keywords": [],
   "author": "",
