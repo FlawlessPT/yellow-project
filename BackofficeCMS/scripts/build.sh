@@ -12,6 +12,7 @@ case $ENVIRONMENT in
     ;;
   *)
     echo "Variable ENVIRONMENT not set ($ENVIRONMENT)"
+    yarn build:development
     # To check if it should be removed    
     # exit 1
     ;;
