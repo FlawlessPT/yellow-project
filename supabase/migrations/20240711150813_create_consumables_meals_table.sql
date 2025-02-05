@@ -14,7 +14,16 @@ CREATE TABLE IF NOT EXISTS consumables_meals (
 CREATE POLICY "Users can only see their own consumables in their meals unless they have admin role." 
     ON consumables_meals
     FOR SELECT
-    USING (check_user_permission(auth.uid(), array['ADMIN']) OR EXISTS (SELECT 1 FROM meals WHERE id = meal_id AND user_id = auth.uid()));
+    USING (
+        check_user_permission(auth.uid(), array['ADMIN']) OR 
+        EXISTS (
+            SELECT 1 
+            FROM meals 
+            JOIN food_plans ON meals.food_plan_id = food_plans.id 
+            WHERE meals.id = consumables_meals.meal_id 
+            AND food_plans.user_id = auth.uid()
+        )
+    );
 
 CREATE POLICY "Only admins can insert consumables in meals."
     ON consumables_meals

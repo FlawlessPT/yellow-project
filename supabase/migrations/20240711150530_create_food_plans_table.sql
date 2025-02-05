@@ -34,6 +34,6 @@ CREATE POLICY "Only admins can delete food plans."
     ON food_plans
     FOR DELETE
     TO authenticated 
-    USING (check_user_permission(auth.uid(), array['ADMIN']);
+    USING (check_user_permission(auth.uid(), array['ADMIN']));
 
 ALTER TABLE IF EXISTS food_plans ENABLE ROW LEVEL SECURITY;
