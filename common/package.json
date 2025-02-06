@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "main": "dist/yellow-common.cjs.js",
   "types": "dist/yellow-common.d.ts",
+  "license": "UNLICENSED",
   "scripts": {
     "build": "rm -rf dist && rollup -c",
     "start": "rm -rf dist && rollup -c -w",
