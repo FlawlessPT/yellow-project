@@ -1,4 +1,5 @@
 CREATE TABLE IF NOT EXISTS exercises_trainings (
+    id SERIAL PRIMARY KEY,
     training_id INT NOT NULL,
     exercise_id INT NOT NULL,
     series INT NOT NULL,
@@ -7,7 +8,7 @@ CREATE TABLE IF NOT EXISTS exercises_trainings (
     is_active BOOLEAN NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP,
-    PRIMARY KEY (training_id, exercise_id),
+    UNIQUE (training_id, exercise_id),
     CONSTRAINT fk_training FOREIGN KEY(training_id) REFERENCES trainings(id) ON DELETE CASCADE,
     CONSTRAINT fk_exercise FOREIGN KEY(exercise_id) REFERENCES exercises(id) ON DELETE CASCADE
 );
