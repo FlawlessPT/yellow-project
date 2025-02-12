@@ -1,6 +1,6 @@
 {
   "name": "@flawlesspt/yellow-common",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/yellow-common.cjs.js",
   "types": "dist/yellow-common.d.ts",
   "license": "UNLICENSED",
@@ -39,7 +39,10 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.22.3",
+    "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^18.15.11",
     "@types/react": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
