@@ -1,6 +1,6 @@
 {
   "name": "@flawlesspt/yellow-common",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "dist/yellow-common.cjs.js",
   "types": "dist/yellow-common.d.ts",
   "license": "UNLICENSED",
