@@ -1,18 +1,15 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { ProfileDetail } from '@screens/Settings/types';
+
 import Label from '@components/Label';
 
 import useTheme from '@hooks/theme/useTheme';
 
 import { Theme } from '@theme';
 
-type ProfileDetailCardProps = {
-  label: string;
-  value: string;
-};
-
-const ProfileDetailCard = ({ label, value }: ProfileDetailCardProps) => {
+const ProfileDetailCard = ({ label, description: { unit, value } }: ProfileDetail) => {
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
@@ -20,7 +17,7 @@ const ProfileDetailCard = ({ label, value }: ProfileDetailCardProps) => {
   return (
     <View style={styles.card}>
       <Label style={styles.title} text={label} type="footnote" color={theme.colors.outline} />
-      <Label text={value} type="h3" medium color={theme.colors.neutral200} />
+      <Label text={String(value)} type="h3" medium color={theme.colors.neutral200} />
     </View>
   );
 };

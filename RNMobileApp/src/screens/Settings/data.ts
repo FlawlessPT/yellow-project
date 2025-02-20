@@ -5,8 +5,8 @@ import { NavigationProp, ParamListBase } from '@react-navigation/native';
 import { ProfileButton, ProfileDetail } from './types';
 
 export const profileDetailsData: ProfileDetail[] = [
-  { label: 'profile.weight', value: '70 kg' },
-  { label: 'workouts_done.title', value: '45 %' },
+  { label: 'profile.weight', description: { value: 70, unit: 'kg' } },
+  { label: 'workouts_done.title', description: { value: 45, unit: '%' } },
 ];
 
 export const profileButtons = (navigation: NavigationProp<ParamListBase>): ProfileButton[] => {
