@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { Back } from '@assets';
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { IconButton } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -40,7 +40,7 @@ const Page = ({
   headerStyle,
   ...props
 }: PageProps) => {
-  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+  const navigation = useNavigation<NavigationProp>();
 
   const { theme } = useTheme();
 
@@ -72,7 +72,7 @@ const getStyles = (theme: Theme, withHorizontalMargin: boolean) =>
     container: {
       flex: 1,
       paddingHorizontal: withHorizontalMargin ? 16 : 0,
-      paddingBottom: 50,
+      paddingBottom: 70,
       backgroundColor: theme.colors.background,
     },
     header: {

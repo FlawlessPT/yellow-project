@@ -42,7 +42,6 @@ const LoginContainer = ({ title, children }: LoginContainerProps) => {
     <View style={styles.container}>
       <Animated.View style={animatedStyle}>
         <ImageBackground source={LoginImage} style={styles.imageBackgroundContainer}>
-          <Image source={SplashImage} style={styles.logoImage} resizeMode="contain" />
           <Label text={title} type="h3" bold color={theme.colors.neutral200} style={styles.loginTitle} />
           <Label text="login_page.subtitle" type="h5" color={theme.colors.light_grey} />
         </ImageBackground>
@@ -74,9 +73,6 @@ const getStyles = (theme: Theme) =>
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    logoImage: {
-      height: 50,
     },
     loginTitle: {
       marginBottom: 8,
