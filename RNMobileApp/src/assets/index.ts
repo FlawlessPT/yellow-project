@@ -1,4 +1,4 @@
-export { default as LogoImage } from './images/logo.png';
+export { default as LogoImage } from './images/logo.jpg';
 export { default as SplashImage } from './images/splash.png';
 export { default as LoginImage } from './images/login.png';
 export { default as NoWorkoutsImage } from './images/no-workouts.png';
@@ -36,5 +36,7 @@ export { default as PlayWhiteIcon } from './icons/play-white.png';
 export { default as BottomPlusIcon } from './icons/bottom-menu/plus.png';
 export { default as InfoCircleIcon } from './icons/info-circle.png';
 export { default as CloseIcon } from './icons/close.png';
+export { default as MessagesIcon } from './icons/profile/messages.svg';
+export { default as CheckIcon } from './icons/check.png';
 export { default as LoadingLottie } from './lotties/loading.json';
 export { default as SuccessLottie } from './lotties/success.json';
