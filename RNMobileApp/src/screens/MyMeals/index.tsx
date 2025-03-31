@@ -3,7 +3,7 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { InfoCircleIcon, NoWorkoutsImage } from '@assets';
 
-import { WorkoutCalendar, Label, Page, MealCard, TopTabs } from '@components';
+import { CalendarHeader, Label, Page, MealCard, TopTabs } from '@components';
 
 import MealHeader from './MealHeader';
 import MealsSummaryModal from './MealsSummaryModal';
@@ -35,9 +35,9 @@ const MyMeals = () => {
           </TouchableOpacity>
         }
       >
-        <WorkoutCalendar />
+        <CalendarHeader />
         <MealHeader water={3.5} notes="Zero drinks and sauces in moderation" />
-        <TopTabs onChangeTab={setSelectedTab} />
+        <TopTabs tabs={['Meals', 'Supplements']} onChangeTab={setSelectedTab} />
         {selectedTab === 0 ? (
           meals.length ? (
             meals?.map((meal, index) => <MealCard key={index} item={meal} />)

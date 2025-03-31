@@ -14,6 +14,7 @@ import { Theme } from '@theme';
 export type InputProps = {
   style?: StyleProp<ViewStyle>;
   label?: string;
+  labelRightElement?: JSX.Element;
   titleColor?: string;
   helper?: { type: HelperType; message: string };
   leftIconName?: string;
@@ -22,7 +23,10 @@ export type InputProps = {
 } & TextInputProps;
 
 export const Input = forwardRef<TextInputProps, InputProps>(
-  ({ style, label, titleColor, leftIconName, right, helper, textStyle, placeholder, ...props }, ref) => {
+  (
+    { style, label, labelRightElement, titleColor, leftIconName, right, helper, textStyle, placeholder, ...props },
+    ref
+  ) => {
     const { t } = useTranslation();
     const { theme } = useTheme();
 
@@ -33,10 +37,10 @@ export const Input = forwardRef<TextInputProps, InputProps>(
       helper?.type === 'error'
         ? theme.colors.red
         : helper?.type === 'success'
-        ? theme.colors.green
-        : isSelected
-        ? theme.colors.primary
-        : 'transparent';
+          ? theme.colors.green
+          : isSelected
+            ? theme.colors.primary
+            : 'transparent';
 
     const styles = getStyles(theme, props.multiline ?? false, outlinedColor);
 
@@ -47,7 +51,10 @@ export const Input = forwardRef<TextInputProps, InputProps>(
     return (
       <View style={style}>
         {label && (
-          <Label text={label} type="h3" semibold color={titleColor || theme.colors.white} style={styles.label} />
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Label text={label} type="h3" semibold color={titleColor || theme.colors.white} style={styles.label} />
+            {labelRightElement}
+          </View>
         )}
         <View style={styles.container}>
           {leftIconName && <Icon name={leftIconName} color="white" style={styles.leftIcon} size={16} />}
