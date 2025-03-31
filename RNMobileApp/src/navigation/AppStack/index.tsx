@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ImageSourcePropType, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native';
 
 import { BottomDumbbellIcon, BottomFoodIcon, BottomHomeIcon, BottomPlusIcon, BottomProfileIcon } from '@assets';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,6 +11,7 @@ import { AppStackEnum, defaultScreenOptions, RootStackEnum } from '../types';
 import MealStack from './MealStack';
 import SettingsStack from './SettingsStack';
 import { AppStackParamList } from './types';
+import UpdatesStack from './UpdatesStack';
 import WorkoutStack from './WorkoutStack';
 import useTheme from '@hooks/theme/useTheme';
 
@@ -52,13 +53,12 @@ export default function AppStack(): JSX.Element {
       />
       <Tab.Screen
         name="Add"
-        component={Home}
+        component={UpdatesStack}
         options={{
-          tabBarIcon: () => <Image source={BottomPlusIcon} />,
-          tabBarButton: ({ children, onPress }) => (
-            <TouchableOpacity style={styles.button} onPress={onPress}>
-              {children}
-            </TouchableOpacity>
+          tabBarIcon: () => (
+            <View style={styles.addButtonIcon}>
+              <Image source={BottomPlusIcon} />
+            </View>
           ),
         }}
       />
@@ -93,5 +93,19 @@ const getStyles = (theme: Theme) =>
       height: 72,
       paddingTop: 10,
       position: 'absolute',
+    },
+    addButtonIcon: {
+      width: 55,
+      height: 55,
+      borderRadius: 18,
+      backgroundColor: theme.colors.primary,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 43,
+      shadowColor: theme.colors.primary,
+      shadowOpacity: 0.25,
+      shadowOffset: { width: 0, height: 18 },
+      shadowRadius: 40,
+      elevation: 5,
     },
   });
