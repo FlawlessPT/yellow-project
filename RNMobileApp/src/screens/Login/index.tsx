@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { AuthNavProps } from '@navigation/AuthStack/types';
 import { AuthStackEnum } from '@navigation/types';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -11,11 +11,11 @@ import { Label, FormInput, FormPasswordInput, LabelButton, Button, LoginContaine
 
 import useTheme from '@hooks/theme/useTheme';
 
-import { supabase } from '@utils/supabase';
+import supabaseClient from '@utils/database';
 
 import { Theme } from '@theme';
 
-const Login = ({ navigation }: AuthNavProps) => {
+const Login = ({ navigation }: AuthNavProps<'Login'>) => {
   const [saveLogin, setSaveLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,7 +43,7 @@ const Login = ({ navigation }: AuthNavProps) => {
   };
 
   async function signInWithEmail(newEmail: string, newPassword: string) {
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabaseClient.auth.signInWithPassword({
       email: newEmail,
       password: newPassword,
     });
@@ -64,7 +64,7 @@ const Login = ({ navigation }: AuthNavProps) => {
     }
   }
 
-  const { control, formState, handleSubmit, trigger } = useForm<FieldValues>({
+  const { control, formState, handleSubmit, trigger } = useForm<FormValues>({
     mode: 'onChange',
   });
 
@@ -72,7 +72,7 @@ const Login = ({ navigation }: AuthNavProps) => {
     trigger();
   }, [trigger]);
 
-  const onSubmit: SubmitHandler = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     signInWithEmail(data.email, data.password);
 
     if (saveLogin) {

@@ -15,7 +15,7 @@
     "clean-pod-install": "cd ios && rm -rf Pods && pod deintegrate && pod install && cd .."
   },
   "dependencies": {
-    "@flawlesspt/yellow-common": "^0.0.3",
+    "@flawlesspt/yellow-common": "^0.0.11",
     "@hookform/resolvers": "^3.3.2",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.12",
@@ -23,7 +23,6 @@
     "@react-navigation/native-stack": "^6.9.13",
     "@react-navigation/stack": "^6.3.20",
     "@sentry/react-native": "~5.31.0",
-    "@supabase/supabase-js": "^2.33.1",
     "date-fns": "^3.2.0",
     "expo": "^51.0.14",
     "expo-apple-authentication": "~6.4.1",
@@ -50,6 +49,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-localize": "^3.0.2",
+    "react-native-mmkv": "^3.2.0",
     "react-native-modal": "^13.0.1",
     "react-native-onesignal": "^5.0.2",
     "react-native-paper": "^5.11.4",

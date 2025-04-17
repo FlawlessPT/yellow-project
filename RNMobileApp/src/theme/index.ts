@@ -1,3 +1,4 @@
+// TODO: Move theme to common
 export enum ThemeMode {
   LIGHT = 'light',
   DARK = 'dark',

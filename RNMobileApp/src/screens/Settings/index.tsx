@@ -2,19 +2,19 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Alert, Image, Linking, StyleSheet, View } from 'react-native';
 
 import { Logout, MessagesIcon } from '@assets';
+import { SupabaseSession } from '@flawlesspt/yellow-common';
 import { useNavigation } from '@react-navigation/native';
-import { Session } from '@supabase/supabase-js';
 
 import { Button, ButtonCard, Label, Page, ProfileDetailCard } from '@components';
 
 import { profileButtons, profileDetailsData } from './data';
 import useTheme from '@hooks/theme/useTheme';
 
-import { supabase } from '@utils/supabase';
+import supabaseClient from '@utils/database';
 
 import { Theme } from '@theme';
 
-const Settings = ({ session }: { session?: Session }) => {
+const Settings = ({ session }: { session?: SupabaseSession }) => {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState('');
   const [fullname, setFullname] = useState('');
@@ -35,7 +35,7 @@ const Settings = ({ session }: { session?: Session }) => {
           throw new Error('No user on the session!');
         }
 
-        const { data, error, status } = await supabase
+        const { data, error, status } = await supabaseClient
           .from('profiles')
           .select('username, first_name, last_name, avatar_url')
           .eq('id', session?.user.id)
@@ -94,13 +94,13 @@ const Settings = ({ session }: { session?: Session }) => {
         updated_at: new Date(),
       };
 
-      const { error } = await supabase.from('profiles').upsert(updates);
+      const { error } = await supabaseClient.from('profiles').upsert(updates);
       if (error) {
         throw error;
       }
 
       if (password) {
-        await supabase.auth.updateUser({
+        await supabaseClient.auth.updateUser({
           password: newPassword,
         });
       }
