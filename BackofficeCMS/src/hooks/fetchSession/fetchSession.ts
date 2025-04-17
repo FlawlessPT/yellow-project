@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { supabaseClient } from '@utils/supabase';
-import { authProvider } from '@utils/supabase.authProvider';
+import supabaseClient, { authProvider } from '@utils/database';
 
 import { UserSession } from '@types';
 

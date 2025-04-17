@@ -1,12 +1,13 @@
 import * as Sentry from '@sentry/react';
 import { supabaseAuthProvider } from 'ra-supabase';
 
-import { supabaseClient } from './supabase';
+import { supabaseClient } from './supabase.instance';
 
 import { DatabaseUserRoles } from '@types';
 
 const baseAuthProvider = supabaseAuthProvider(supabaseClient, {
   getIdentity: async (user) => {
+    // probably store this logic in common
     const { data, error } = await supabaseClient
       .from('profiles')
       .select('id, first_name, last_name, roles')
@@ -31,6 +32,7 @@ const baseAuthProvider = supabaseAuthProvider(supabaseClient, {
 export const authProvider = {
   ...baseAuthProvider,
   login: async (params: { email: string; password: string }) => {
+    // probably store this logic in common
     const loginPromise = await baseAuthProvider.login(params);
 
     // checking if logged in user as the ADMIN role
@@ -56,6 +58,7 @@ export const authProvider = {
   },
   // get user role from supabase table profiles based on session user id
   getUserRoles: async (userId: string): Promise<DatabaseUserRoles> => {
+    // probably store this logic in common
     const { data, error } = await supabaseClient.from('profiles').select('roles').match({ id: userId }).single();
 
     if (!data || error) {

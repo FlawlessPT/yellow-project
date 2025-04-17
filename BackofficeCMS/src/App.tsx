@@ -1,3 +1,5 @@
+import 'vite/client';
+import InitProviders from '@contexts';
 import { ForgotPasswordPage, LoginPage } from 'ra-supabase';
 import { Admin, CustomRoutes, Resource } from 'react-admin';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -13,10 +15,8 @@ import { CustomResourceListGuesser } from '@components/CustomResourceListGuesser
 
 import { useCustomResources, useFetchSession } from '@hooks';
 
-import { TablesContext } from '@utils/contexts/tables';
-import { authProvider } from '@utils/supabase.authProvider';
-import { dataProvider } from '@utils/supabase.dataProvider';
-import themeConfigs from '@utils/theme';
+import { authProvider, dataProvider } from '@utils/database';
+import theme from '@utils/theme';
 
 function BackOfficeAdmin() {
   const { tables, tablesToExclude, isLoading } = useCustomResources();
@@ -25,14 +25,14 @@ function BackOfficeAdmin() {
   if (isLoading) return <p>Loading back office {import.meta.env.VITE_APP_ENV}!!</p>;
 
   return (
-    <TablesContext.Provider value={{ tables }}>
+    <InitProviders tables={tables}>
       <Admin
         basename="/admin"
         dataProvider={dataProvider}
         authProvider={authProvider}
         loginPage={LoginPage}
         dashboard={Dashboard}
-        {...themeConfigs}
+        {...theme}
       >
         <CustomRoutes noLayout>
           <Route path="/account/update-password" element={<UpdatePasswordForm />} />
@@ -72,7 +72,7 @@ function BackOfficeAdmin() {
             ) : null;
           })}
       </Admin>
-    </TablesContext.Provider>
+    </InitProviders>
   );
 }
 

@@ -1,16 +1,13 @@
+import { TablesContext } from '@contexts';
 import pluralize from 'pluralize';
 
-import { createContext, useContext } from 'react';
+import { useContext } from 'react';
 
 import { recordRepresentationForResource } from '@configs';
 
-import { InputType, ReferenceDataType, SearchConfigsFilterType, TableInfoType } from '@types';
+import { InputType, SearchConfigsFilterType, ReferenceDataType } from '@types';
 
-export const TablesContext = createContext<{
-  tables: TableInfoType[];
-}>({ tables: [] });
-
-export const useTablesContext = () => {
+const useTablesContext = () => {
   const tablesInfo = useContext(TablesContext);
 
   const isReference = ({ inputType, columnName }: { inputType: InputType; columnName: string }) =>
@@ -38,3 +35,5 @@ export const useTablesContext = () => {
     getReferenceDataFor,
   };
 };
+
+export default useTablesContext;

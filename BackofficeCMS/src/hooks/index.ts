@@ -1,4 +1,5 @@
-import useCustomResources from './customResources/useCustomResources';
-import useFetchSession from './fetchSession/fetchSession';
+import useCustomResources from './customResources';
+import useFetchSession from './fetchSession';
+import useTablesContext from './tablesContext';
 
-export { useCustomResources, useFetchSession };
+export { useCustomResources, useFetchSession, useTablesContext };
