@@ -7,13 +7,12 @@ import useTheme from '@hooks/theme/useTheme';
 
 import { TabEnum } from '@types';
 
-const tabs = ['Meals', 'Supplements'];
-
 type TopTabsProps = {
-  onChangeTab: (index: TabEnum) => void;
+  tabs: string[];
+  onChangeTab: (index: number) => void;
 };
 
-const TopTabs = ({ onChangeTab }: TopTabsProps) => {
+const TopTabs = ({ tabs, onChangeTab }: TopTabsProps) => {
   const { theme } = useTheme();
 
   const [selectedTab, setSelectedTab] = useState<TabEnum>(TabEnum.Meals);
@@ -50,7 +49,6 @@ export default TopTabs;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginHorizontal: 20,
     marginBottom: 20,
   },
   button: {

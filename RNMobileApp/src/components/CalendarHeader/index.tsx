@@ -9,7 +9,7 @@ import useTheme from '@hooks/theme/useTheme';
 
 import { getWeekdaysStrings, today } from '@utils/weekdays';
 
-const WorkoutCalendar = () => {
+const CalendarHeader = () => {
   const [selectedDay, setSelectedDay] = useState<number>(today);
   const { theme } = useTheme();
 
@@ -60,7 +60,7 @@ const WorkoutCalendar = () => {
   );
 };
 
-export default WorkoutCalendar;
+export default CalendarHeader;
 
 const getStyles = () =>
   StyleSheet.create({

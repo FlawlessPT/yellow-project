@@ -20,7 +20,7 @@ export const Auth = function Auth() {
     featureFlagKey: 'GITHUB_SIGN_IN',
   });
 
-  const navigation = useNavigation<NoneAuthenticatedStackScreenPropsGeneric<'Auth'>['navigation']>();
+  const navigation = useNavigation<NoneAuthenticatedStackScreenPropsGeneric['navigation']>();
 
   async function signInWithEmail() {
     setLoading(true);

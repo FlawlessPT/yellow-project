@@ -3,7 +3,7 @@ import { FlatList, Image, StyleSheet, View } from 'react-native';
 
 import { LogoImage } from '@assets';
 import { AppStackEnum } from '@navigation/types';
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 import { Label, Page, Card, ProgressCard, LabelButton } from '@components';
 
@@ -20,7 +20,7 @@ const Home = () => {
 
   const styles = getStyles(theme);
 
-  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+  const navigation = useNavigation<NavigationProp>();
 
   const [selectedDay, setSelectedDay] = useState<number>(today);
 
@@ -30,7 +30,7 @@ const Home = () => {
       header={
         <View style={styles.paddingHorizontal}>
           <Image source={LogoImage} style={styles.profileImage} />
-          <Label text="Hi, Bernardo" type="h4" color={'rgba(255,255,255,0.5)'} medium style={styles.helloLabel} />
+          <Label text="Hi, PINGO DOCE" type="h4" color={'rgba(255,255,255,0.5)'} medium style={styles.helloLabel} />
         </View>
       }
       title="home.title"

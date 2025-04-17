@@ -18,6 +18,7 @@ export type ButtonProps = {
   borderColor?: string;
   isDisabled?: boolean;
   leftIcon?: FunctionComponent<SVGAttributes<SVGElement>>;
+  rightIcon?: FunctionComponent<SVGAttributes<SVGElement>>;
   style?: StyleProp<ViewStyle>;
   onPressButton?: () => void;
 } & LabelProps &
@@ -31,6 +32,7 @@ const Button = ({
   borderColor,
   isDisabled,
   leftIcon,
+  rightIcon,
   style,
   onPressButton,
   ...props
@@ -51,7 +53,7 @@ const Button = ({
     theme,
     getButtonBackgroundColor(),
     hasBorder,
-    isDisabled ? 'transparent' : borderColor ?? 'transparent',
+    isDisabled ? 'transparent' : (borderColor ?? 'transparent'),
     !!leftIcon
   );
 
@@ -60,6 +62,11 @@ const Button = ({
       <View style={styles.container}>
         {leftIcon && <Icon source={leftIcon} size={20} />}
         <Label style={styles.label} color={textColor ?? theme.colors.neutral900} text={text} bold {...props} />
+        {rightIcon && (
+          <View style={styles.rightIcon}>
+            <Icon source={rightIcon} size={20} />
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -95,5 +102,8 @@ const getStyles = (
     container: {
       flexDirection: 'row',
       alignItems: 'center',
+    },
+    rightIcon: {
+      marginLeft: 8,
     },
   });

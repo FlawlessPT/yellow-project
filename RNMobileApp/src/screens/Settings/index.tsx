@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Alert, Image, StyleSheet, View } from 'react-native';
+import { Alert, Image, Linking, StyleSheet, View } from 'react-native';
 
-import { Logout } from '@assets';
+import { Logout, MessagesIcon } from '@assets';
 import { useNavigation } from '@react-navigation/native';
 import { Session } from '@supabase/supabase-js';
 
@@ -11,6 +11,8 @@ import { profileButtons, profileDetailsData } from './data';
 import useTheme from '@hooks/theme/useTheme';
 
 import { supabase } from '@utils/supabase';
+
+import { Theme } from '@theme';
 
 const Settings = ({ session }: { session?: Session }) => {
   const [loading, setLoading] = useState(true);
@@ -22,6 +24,8 @@ const Settings = ({ session }: { session?: Session }) => {
   const { theme } = useTheme();
 
   const navigation = useNavigation();
+
+  const styles = getStyles(theme);
 
   const getProfile = useCallback(
     async function getProfile() {
@@ -113,12 +117,12 @@ const Settings = ({ session }: { session?: Session }) => {
     <Page title="profile.title">
       <Image
         source={{
-          uri: 'https://vanderluiz.com.br/wp-content/uploads/2017/08/Fundo-amarelo.jpg',
+          uri: 'https://yt3.googleusercontent.com/FGt4GTQg6dLcG3LNdNkA7nrZclWW4ygQ3VIMAseGZcaZsA-bZG85T_D-OszmgM0mztduC4RQpA=s900-c-k-c0x00ffffff-no-rj',
         }}
         style={styles.profileImage}
       />
       <Label
-        text={'Bernardo'}
+        text={'PINGO DOCE'}
         type="h4"
         color={theme.colors.neutral300}
         semibold
@@ -126,7 +130,7 @@ const Settings = ({ session }: { session?: Session }) => {
         style={styles.name}
       />
       <Label
-        text={'bernardo123@hotmail.com'}
+        text={'pingodoce123@hotmail.com'}
         type="footnote"
         color={theme.colors.neutral300}
         textAlign="center"
@@ -141,7 +145,16 @@ const Settings = ({ session }: { session?: Session }) => {
         <ButtonCard key={index} {...item} style={styles.settingsCard} />
       ))}
       <Button
-        text="profile.logout_button"
+        text="Need Something?"
+        activeOpacity={0.8}
+        leftIcon={MessagesIcon}
+        backgroundColor={theme.colors.primary}
+        textColor={theme.colors.black}
+        style={styles.messageButton}
+        onPress={() => Linking.openURL('whatsapp://send?text=hello&phone=+351918254361')}
+      />
+      <Button
+        text="Logout"
         leftIcon={Logout}
         hasBorder
         borderColor={theme.colors.disabled}
@@ -154,29 +167,41 @@ const Settings = ({ session }: { session?: Session }) => {
 
 export default Settings;
 
-const styles = StyleSheet.create({
-  detailsContainer: {
-    flexDirection: 'row',
-    gap: 8,
-    justifyContent: 'center',
-  },
-  settingsCard: {
-    marginTop: 18,
-  },
-  profileImage: {
-    alignSelf: 'center',
-    marginBottom: 16,
-    borderRadius: 62,
-    width: 124,
-    height: 124,
-  },
-  name: {
-    marginBottom: 8,
-  },
-  email: {
-    marginBottom: 32,
-  },
-  logoutButton: {
-    marginTop: 18,
-  },
-});
+const getStyles = (theme: Theme) =>
+  StyleSheet.create({
+    detailsContainer: {
+      flexDirection: 'row',
+      gap: 8,
+      justifyContent: 'center',
+    },
+    settingsCard: {
+      marginTop: 18,
+    },
+    profileImage: {
+      alignSelf: 'center',
+      marginBottom: 16,
+      borderRadius: 62,
+      width: 124,
+      height: 124,
+    },
+    name: {
+      marginBottom: 8,
+    },
+    email: {
+      marginBottom: 32,
+    },
+    logoutButton: {
+      width: 202,
+      alignSelf: 'center',
+    },
+    messageButton: {
+      marginVertical: 18,
+      shadowColor: theme.colors.black,
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.2,
+      shadowRadius: 4,
+      elevation: 5,
+      width: 258,
+      alignSelf: 'center',
+    },
+  });

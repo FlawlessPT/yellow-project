@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { AuthNavProps } from '@navigation/AuthStack/types';
 import { AuthStackEnum } from '@navigation/types';
@@ -15,7 +15,7 @@ import { supabase } from '@utils/supabase';
 
 import { Theme } from '@theme';
 
-const Login = ({ navigation }: AuthNavProps<'Login'>) => {
+const Login = ({ navigation }: AuthNavProps) => {
   const [saveLogin, setSaveLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -72,7 +72,7 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
     trigger();
   }, [trigger]);
 
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+  const onSubmit: SubmitHandler = async (data) => {
     signInWithEmail(data.email, data.password);
 
     if (saveLogin) {
@@ -118,7 +118,7 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
 
   return (
     <LoginContainer title="login_page.title">
-      <>
+      <View style={{ marginTop: 20 }}>
         <FormInput
           control={control}
           rules={{
@@ -178,16 +178,7 @@ const Login = ({ navigation }: AuthNavProps<'Login'>) => {
           <Label text="login_page.dont_have_account" color={theme.colors.neutral400} type="body" medium />
           <Label text="login_page.signup" color={theme.colors.primary} medium isUnderline type="body" />
         </LabelButton>
-        <LabelButton
-          text="login_page.forgot_password"
-          color={theme.colors.primary}
-          medium
-          isUnderline
-          type="body"
-          onPress={() => Alert.alert('To be implemented')}
-          style={styles.forgotPassword}
-        />
-      </>
+      </View>
     </LoginContainer>
   );
 };
