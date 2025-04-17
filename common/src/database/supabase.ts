@@ -1,4 +1,4 @@
-import { createClient, SupabaseClient, SupabaseClientOptions } from '@supabase/supabase-js';
+import { createClient, Session, SupabaseClient, SupabaseClientOptions } from '@supabase/supabase-js';
 
 type SetupSupabaseClientOptions = {
   projectUrl: string;
@@ -25,3 +25,5 @@ export const setupSupabaseClient = (options: SetupSupabaseClientOptions): Supaba
     },
   });
 };
+
+export type SupabaseSession = Session;
