@@ -9,6 +9,20 @@
     "jsx": "react",
     "declaration": true,
     "noResolve": false,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@configs": ["./src/configs/index.ts"],
+      "@configs/*": ["./src/configs/*"],
+      "@types": ["./src/types/index.ts"],
+      "@types/*": ["./src/types/*"],
+      "@hooks": ["./src/hooks/index.ts"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@utils": ["./src/utils/index.ts"],
+      "@utils/*": ["./src/utils/*"],
+      "@contexts": ["./src/contexts/index.ts"],
+      "@contexts/*": ["./src/contexts/*"],
+      "@database": ["./src/database/index.ts"],
+      "@database/*": ["./src/database/*"]
+    }
   }
 }
