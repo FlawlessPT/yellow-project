@@ -2,7 +2,7 @@ import { CreateButton, Datagrid, List, ReferenceField, TextField, TopToolbar } f
 
 import { isFieldToRenderForGeneralOptions, overridesForResource, recordRepresentationForResource } from '@configs';
 
-import { useTablesContext } from '@utils/contexts/tables';
+import { useTablesContext } from '@hooks';
 
 import { TableInfoType } from '@types';
 

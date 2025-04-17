@@ -12,7 +12,6 @@ export default defineConfig({
       project: process.env.SENTRY_PROJECT,
     }),
   ],
-
   resolve: {
     alias: {
       '@components': `${path.resolve(__dirname, './src/components/')}`,
@@ -21,9 +20,9 @@ export default defineConfig({
       '@pages': `${path.resolve(__dirname, './src/pages/')}`,
       '@types': `${path.resolve(__dirname, './src/types/')}`,
       '@utils': `${path.resolve(__dirname, './src/utils/')}`,
+      '@contexts': `${path.resolve(__dirname, './src/contexts/')}`,
     },
   },
-
   build: {
     sourcemap: true,
   },

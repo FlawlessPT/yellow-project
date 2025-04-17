@@ -17,3 +17,5 @@ export const themeConfigs: AdminProps = {
   lightTheme,
   darkTheme,
 };
+
+export default themeConfigs;
