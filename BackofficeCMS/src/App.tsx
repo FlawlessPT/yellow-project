@@ -1,4 +1,3 @@
-import 'vite/client';
 import InitProviders from '@contexts';
 import { ForgotPasswordPage, LoginPage } from 'ra-supabase';
 import { Admin, CustomRoutes, Resource } from 'react-admin';
