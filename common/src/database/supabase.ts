@@ -1,4 +1,5 @@
 import { createClient, Session, SupabaseClient, SupabaseClientOptions } from '@supabase/supabase-js';
+import { Database } from './database.types';
 
 type SetupSupabaseClientOptions = {
   projectUrl: string;
@@ -13,10 +14,10 @@ type SetupSupabaseClientOptions = {
  * @param {string} options.anonKey - The anonymous key for the Supabase project.
  * @returns {SupabaseClient} - The configured Supabase client.
  */
-export const setupSupabaseClient = (options: SetupSupabaseClientOptions): SupabaseClient => {
+export const setupSupabaseClient = (options: SetupSupabaseClientOptions): SupabaseClient<Database> => {
   const { projectUrl, anonKey } = options;
 
-  return createClient(projectUrl, anonKey, {
+  return createClient<Database>(projectUrl, anonKey, {
     auth: {
       autoRefreshToken: true,
       persistSession: true,
