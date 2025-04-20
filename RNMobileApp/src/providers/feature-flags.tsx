@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-import { Session } from '@supabase/supabase-js';
+import { SupabaseSession } from '@flawlesspt/yellow-common';
 
-import { supabase } from '@utils/supabase';
+import supabaseClient from '@utils/database';
 
 type FeatureFlagType = {
   key: string;
@@ -27,13 +27,18 @@ export const FeatureFlagsContextProvider = ({ children }: { children: React.Reac
   const [signedInUser, setSignedInUser] = useState<SignedInUserType>();
 
   useEffect(() => {
-    const updateSignedInUser = async (session: Session | null) => {
+    // FIXME: Any was replaced by Session which was previously Session imported from @supabase/supabase-js
+    const updateSignedInUser = async (session: SupabaseSession | null) => {
       let user: SignedInUserType | null = null;
       if (session?.user.id) {
         user = {
           id: session.user.id,
         };
-        const { data } = await supabase.from('profiles').select('id, roles').match({ id: session.user.id }).single();
+        const { data } = await supabaseClient
+          .from('profiles')
+          .select('id, roles')
+          .match({ id: session.user.id })
+          .single();
 
         if (data) {
           user.roles = data.roles;
@@ -43,18 +48,18 @@ export const FeatureFlagsContextProvider = ({ children }: { children: React.Reac
       setSignedInUser(user || undefined);
     };
 
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
+    supabaseClient.auth.getSession().then(({ data: { session: s } }) => {
       updateSignedInUser(s);
     });
 
-    supabase.auth.onAuthStateChange((_event, s) => {
+    supabaseClient.auth.onAuthStateChange((_event, s) => {
       updateSignedInUser(s);
     });
   }, []);
 
   useEffect(() => {
     const fetchFeatureFlags = async () => {
-      const { data } = await supabase.from('feature_flags').select('key, users_ids, active, roles');
+      const { data } = await supabaseClient.from('feature_flags').select('key, users_ids, active, roles');
 
       if (data) {
         setFeatureFlags(

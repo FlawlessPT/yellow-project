@@ -7,7 +7,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { Button, Input } from 'react-native-elements';
 import InAppReview from 'react-native-in-app-review';
 
-import { supabase } from '@utils/supabase';
+import supabaseClient from '@utils/database';
 
 import { NoneAuthenticatedStackScreenPropsGeneric } from '@types';
 
@@ -20,11 +20,11 @@ export const Auth = function Auth() {
     featureFlagKey: 'GITHUB_SIGN_IN',
   });
 
-  const navigation = useNavigation<NoneAuthenticatedStackScreenPropsGeneric<'Auth'>['navigation']>();
+  const navigation = useNavigation<NoneAuthenticatedStackScreenPropsGeneric['navigation']>();
 
   async function signInWithEmail() {
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabaseClient.auth.signInWithPassword({
       email: email,
       password: password,
     });
@@ -37,7 +37,7 @@ export const Auth = function Auth() {
 
   async function signUpWithEmail() {
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
+    const { error } = await supabaseClient.auth.signUp({
       email: email,
       password: password,
       options: {
@@ -57,7 +57,7 @@ export const Auth = function Auth() {
   async function forgotPassword() {
     setLoading(true);
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
       redirectTo: 'mw://recoverpassword',
     });
 
@@ -68,7 +68,7 @@ export const Auth = function Auth() {
   }
 
   async function gitHubSignIn() {
-    const { error, data } = await supabase.auth.signInWithOAuth({
+    const { error, data } = await supabaseClient.auth.signInWithOAuth({
       provider: 'github',
       options: {
         redirectTo: 'mw://signin/github',
@@ -86,7 +86,7 @@ export const Auth = function Auth() {
   }
 
   async function googleSignIn() {
-    const { error, data } = await supabase.auth.signInWithOAuth({
+    const { error, data } = await supabaseClient.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: 'mw://signin/google',

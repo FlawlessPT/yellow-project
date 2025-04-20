@@ -28,10 +28,10 @@ export const Label = ({
   const fontFamily = bold
     ? theme.fonts.bold
     : semibold
-    ? theme.fonts.semibold
-    : medium
-    ? theme.fonts.medium
-    : theme.fonts.regular;
+      ? theme.fonts.semibold
+      : medium
+        ? theme.fonts.medium
+        : theme.fonts.regular;
 
   const styles = getStyles(
     fontFamily,

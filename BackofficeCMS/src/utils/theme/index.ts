@@ -1,3 +1,3 @@
-import { themeConfigs } from './theme';
+import themeConfigs from './theme';
 
 export default themeConfigs;

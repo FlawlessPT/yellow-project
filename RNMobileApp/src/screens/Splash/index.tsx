@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { Image, StatusBar, StyleSheet, View } from 'react-native';
-
-import { SplashImage } from '@assets';
+import { StatusBar, StyleSheet, View } from 'react-native';
 
 import { AuthNavProps } from '../../navigation/AuthStack/types';
 import { AuthStackEnum, RootStackEnum } from '../../navigation/types';
@@ -10,7 +8,7 @@ import useTheme from '@hooks/theme/useTheme';
 
 import { Theme } from '@theme';
 
-const Splash = ({ navigation }: AuthNavProps<'Splash'>) => {
+const Splash = ({ navigation }: AuthNavProps) => {
   const { theme } = useTheme();
 
   const styles = getStyles(theme);
@@ -32,9 +30,7 @@ const Splash = ({ navigation }: AuthNavProps<'Splash'>) => {
   return (
     <>
       <StatusBar barStyle="light-content" />
-      <View style={styles.background}>
-        <Image source={SplashImage} />
-      </View>
+      <View style={styles.background} />
     </>
   );
 };

@@ -32,4 +32,4 @@ CREATE POLICY "Only admins can delete subscription types benefits."
     TO authenticated 
     USING (check_user_permission(auth.uid(), array['ADMIN']));
 
-ALTER TABLE IF EXISTS subscription_benefits ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS subscription_types_benefits ENABLE ROW LEVEL SECURITY;

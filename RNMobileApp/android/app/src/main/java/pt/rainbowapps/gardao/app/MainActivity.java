@@ -1,4 +1,4 @@
-package pt.rainbowapps.gardao.app;
+package pt.rainbowapps.fitness.app;
 import expo.modules.ReactActivityDelegateWrapper;
 
 import com.facebook.react.ReactActivity;
@@ -15,7 +15,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "gardao_app";
+    return "fitness_app";
   }
 
   @Override

@@ -1,6 +1,7 @@
 import Button from './Button';
 import LabelButton from './Button/LabelButton';
 import ButtonCard from './ButtonCard';
+import CalendarHeader from './CalendarHeader';
 import CalendarPicker from './CalendarPicker';
 import Card from './Card';
 import CardItem from './CardItem';
@@ -26,13 +27,13 @@ import Weight from './PersonalizationSteps/Weight';
 import Workout from './PersonalizationSteps/Workout';
 import ProfileDetailCard from './ProfileDetailCard';
 import ProgressCard from './ProgressCard';
+import SelectableValueCard from './SelectableValueCard';
 import Separator from './Separator';
 import SmallCard from './SmallCard';
 import SocialLoginButton from './SocialLoginButton';
 import Success from './Success';
 import Switch from './Switch';
 import TopTabs from './TopTabs';
-import WorkoutCalendar from './WorkoutCalendar';
 import WorkoutCard from './WorkoutCard';
 
 export {
@@ -69,7 +70,8 @@ export {
   ProgressCard,
   CheckContainer,
   WorkoutCard,
-  WorkoutCalendar,
+  CalendarHeader,
   MealCard,
   TopTabs,
+  SelectableValueCard,
 };

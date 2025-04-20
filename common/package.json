@@ -1,8 +1,9 @@
 {
   "name": "@flawlesspt/yellow-common",
-  "version": "0.0.2",
+  "version": "0.0.11",
   "main": "dist/yellow-common.cjs.js",
   "types": "dist/yellow-common.d.ts",
+  "license": "UNLICENSED",
   "scripts": {
     "build": "rm -rf dist && rollup -c",
     "start": "rm -rf dist && rollup -c -w",
@@ -29,9 +30,19 @@
   "peerDependencies": {
     "react": ">=18"
   },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.48.1",
+    "@tanstack/react-query": "^4.29.12",
+    "axios": "^0.19.2",
+    "i18next": "^22.5.0",
+    "react-i18next": "^12.3.1"
+  },
   "devDependencies": {
     "@babel/runtime": "^7.22.3",
+    "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^18.15.11",
     "@types/react": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
@@ -51,12 +62,5 @@
     "rollup-plugin-typescript2": "^0.34.1",
     "tslib": "^2.5.0",
     "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@flawlesspt/yellow-common": "^0.0.3",
-    "@tanstack/react-query": "^4.29.12",
-    "axios": "^0.19.2",
-    "i18next": "^22.5.0",
-    "react-i18next": "^12.3.1"
   }
 }

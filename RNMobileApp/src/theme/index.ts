@@ -1,3 +1,4 @@
+// TODO: Move theme to common
 export enum ThemeMode {
   LIGHT = 'light',
   DARK = 'dark',
@@ -42,7 +43,7 @@ const fonts = {
 
 export const lightTheme: Theme = {
   colors: {
-    primary: '#FDCA00',
+    primary: '#83C4AC',
     secondary: '#E4B600',
     red: '#EA2A2A',
     green: '#0FA456',
