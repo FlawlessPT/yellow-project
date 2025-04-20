@@ -1,1 +1,1 @@
-export const test = 'abc';
+export * from './database';

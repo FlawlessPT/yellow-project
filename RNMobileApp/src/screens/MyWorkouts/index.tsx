@@ -3,7 +3,7 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { InfoCircleIcon, NoWorkoutsImage } from '@assets';
 
-import { WorkoutCalendar, Label, Page, WorkoutCard } from '@components';
+import { Label, Page, WorkoutCard, CalendarHeader } from '@components';
 
 import workouts from './stub.json';
 import WorkoutHeader from './WorkoutHeader';
@@ -30,7 +30,7 @@ const MyWorkouts = () => {
           </TouchableOpacity>
         }
       >
-        <WorkoutCalendar />
+        <CalendarHeader />
         {workouts.length ? (
           <>
             <WorkoutHeader />

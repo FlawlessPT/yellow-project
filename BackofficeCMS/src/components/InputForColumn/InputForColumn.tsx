@@ -15,7 +15,7 @@ import { JsonInput } from 'react-admin-json-view';
 
 import { isFieldToRenderForGeneralOptions } from '@configs';
 
-import { useTablesContext } from '@utils/contexts/tables';
+import { useTablesContext } from '@hooks';
 
 import { InputType, ReferenceDataType, ViewMode } from '@types';
 

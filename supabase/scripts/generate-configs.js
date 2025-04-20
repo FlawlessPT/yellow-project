@@ -7,17 +7,23 @@ const mock = Boolean(process.argv[3]);
 const supabaseProjectURL = mock ? "mock" : process.env.SUPABASE_URL;
 const supabaseAnonKey = mock ? "mock" : process.env.SUPABASE_API_KEY;
 
-console.log("SUPABASE_URL: ", supabaseProjectURL);
-console.log("SUPABASE_API_KEY: ", supabaseAnonKey);
+console.log(`
+💻 Generating supabase configs file with provided keys:
+
+  SUPABASE_URL: ${supabaseProjectURL}
+  SUPABASE_API_KEY: ${supabaseAnonKey}
+`);
 
 function createConfigsFile() {
   const writeStream = fs.createWriteStream(configsFilePath);
   writeStream.write(
     `export const supabaseProjectURL = '${supabaseProjectURL}';\n`
   );
-  writeStream.write(`export const supabaseAnonKey = '${supabaseAnonKey}';\n`);
+  writeStream.write(`export const supabaseAnonKey =
+  '${supabaseAnonKey}';
+  `);
   writeStream.end();
-  console.log("Configs file was created.");
+  console.log("\nConfigs file was created successfully 🚀\n\n");
 }
 
 if (supabaseProjectURL && supabaseAnonKey) {
@@ -27,8 +33,8 @@ if (supabaseProjectURL && supabaseAnonKey) {
     } else {
       fs.unlink(configsFilePath, function (err) {
         if (err) return console.log(err);
-        console.log(
-          `${configsFilePath} file deleted successfully. A new one will be created.`
+        console.warn(
+          `❌ "${configsFilePath}" file deleted successfully. A new one will be created.`
         );
 
         createConfigsFile();
@@ -37,6 +43,6 @@ if (supabaseProjectURL && supabaseAnonKey) {
   });
 } else {
   console.err(
-    "Not all needed environment variables were defined: SUPABASE_URL, SUPABASE_API_KEY"
+    "⚠️ Not all needed environment variables were defined: SUPABASE_URL, SUPABASE_API_KEY"
   );
 }

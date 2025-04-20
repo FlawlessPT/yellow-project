@@ -1,6 +1,6 @@
 import { AdminProps, defaultDarkTheme, defaultLightTheme } from 'react-admin';
 
-const lightTheme = {
+const lightTheme: AdminProps['theme'] = {
   ...defaultLightTheme,
   palette: {
     ...defaultLightTheme.palette,
@@ -11,9 +11,11 @@ const lightTheme = {
   },
 };
 
-const darkTheme = defaultDarkTheme;
+const darkTheme: AdminProps['theme'] = defaultDarkTheme;
 
 export const themeConfigs: AdminProps = {
   lightTheme,
   darkTheme,
 };
+
+export default themeConfigs;

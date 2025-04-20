@@ -18,7 +18,9 @@
       "@hooks": ["./src/hooks/index.ts"],
       "@hooks/*": ["./src/hooks/*"],
       "@utils": ["./src/utils/index.ts"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@contexts": ["./src/contexts/index.ts"],
+      "@contexts/*": ["./src/contexts/*"]
     },
 
     /* Bundler mode */

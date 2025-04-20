@@ -23,9 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# supabase configs
-# Supabase file configs to sdk integration -- ignored to not expose keys on git repository
-# **/supabase.configs.ts
+# Vercel
 .vercel
 
 # Sentry Auth Token
@@ -33,3 +31,7 @@ dist-ssr
 
 # npmrc
 .npmrc
+
+# supabase configs
+# Supabase file configs to sdk integration -- ignored to not expose keys on git repository
+**/supabase.configs.ts

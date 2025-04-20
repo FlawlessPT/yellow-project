@@ -3,8 +3,8 @@ import 'intl-pluralrules';
 import React, { useState, useEffect } from 'react';
 import { Linking, StatusBar } from 'react-native';
 
+import { SupabaseSession } from '@flawlesspt/yellow-common';
 import * as Sentry from '@sentry/react-native';
-import { Session } from '@supabase/supabase-js';
 import * as WebBrowser from 'expo-web-browser';
 import i18n from 'i18next';
 import Backend from 'i18next-http-backend';
@@ -19,8 +19,8 @@ import Navigation from './src/navigation';
 import Providers from './src/providers';
 import { LoadingContext } from './src/providers/loading';
 
-import { supabase } from '@utils/supabase';
-import { supabaseAnonKey, supabaseProjectURL } from '@utils/supabase.configs';
+import supabaseClient from '@utils/database';
+import { supabaseAnonKey, supabaseProjectURL } from '@utils/database/supabase.configs';
 
 // Remove this method to stop OneSignal Debugging
 if (__DEV__) {
@@ -71,14 +71,14 @@ i18n
   });
 
 function App() {
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<SupabaseSession | null>(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
+    supabaseClient.auth.getSession().then(({ data: { session: s } }) => {
       setSession(s);
     });
 
-    supabase.auth.onAuthStateChange((_event, s) => {
+    supabaseClient.auth.onAuthStateChange((_event, s) => {
       if (s?.user) {
         Sentry.setUser({
           id: s?.user.id,
@@ -99,7 +99,7 @@ function App() {
       const accessToken = url.searchParams.get('access_token');
 
       if (accessToken && refreshToken) {
-        supabase.auth
+        supabaseClient.auth
           .setSession({
             refresh_token: refreshToken,
             access_token: accessToken,

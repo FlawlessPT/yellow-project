@@ -1,15 +1,15 @@
 import { AboutApp, Billing, EditProfile, Language, Notifications } from '@assets';
 import { SettingsStackEnum } from '@navigation/types';
-import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
 
 import { ProfileButton, ProfileDetail } from './types';
 
 export const profileDetailsData: ProfileDetail[] = [
-  { label: 'profile.weight', value: '70 kg' },
-  { label: 'profile.height', value: '1.61m' },
+  { label: 'profile.weight', value: '79 kg' },
+  { label: 'profile.height', value: '1.65m' },
 ];
 
-export const profileButtons = (navigation: NavigationProp<ParamListBase>): ProfileButton[] => {
+export const profileButtons = (navigation: NavigationProp): ProfileButton[] => {
   return [
     {
       icon: EditProfile,
@@ -29,7 +29,7 @@ export const profileButtons = (navigation: NavigationProp<ParamListBase>): Profi
     {
       icon: Billing,
       label: 'profile.billing',
-      onPress: () => navigation.navigate(SettingsStackEnum.CHANGE_LANGUAGE),
+      onPress: () => undefined,
     },
     {
       icon: AboutApp,

@@ -19,7 +19,7 @@ import {
   Logo,
 } from './styles';
 
-import { supabase } from '@utils/supabase';
+import supabaseClient from '@utils/database';
 
 import { NoneAuthenticatedStackScreenPropsGeneric } from '@types';
 
@@ -27,7 +27,7 @@ const LandingPage = () => {
   const navigation = useNavigation<NoneAuthenticatedStackScreenPropsGeneric<'Auth'>['navigation']>();
 
   async function googleSignIn() {
-    const { error, data } = await supabase.auth.signInWithOAuth({
+    const { error, data } = await supabaseClient.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: 'mw://signin/google',
@@ -55,13 +55,12 @@ const LandingPage = () => {
         const {
           error,
           data: { user },
-        } = await supabase.auth.signInWithIdToken({
+        } = await supabaseClient.auth.signInWithIdToken({
           provider: 'apple',
           token: credential.identityToken,
         });
-        console.log(JSON.stringify({ error, user }, null, 2));
         if (!error && user != null) {
-          const { data: userProfile, error: profileError } = await supabase
+          const { data: userProfile, error: profileError } = await supabaseClient
             .from('profiles')
             .select('first_name, last_name')
             .eq('id', user.id)

@@ -6,7 +6,7 @@ import RenderHtml, { MixedStyleRecord } from 'react-native-render-html';
 
 import { CustomPageSlugEnum, NoneAuthenticatedStackScreenPropsGeneric } from '../../types';
 
-import { supabase } from '@utils/supabase';
+import supabaseClient from '@utils/database';
 
 /* Idea got here to adjust list items: https://github.com/meliorence/react-native-render-html/issues/592 */
 const tagsStyles: MixedStyleRecord = {
@@ -46,7 +46,7 @@ export const CustomPage = function CustomPage({ slug }: { slug: CustomPageSlugEn
 
   useEffect(() => {
     async function fetchTermsAndConditionsInfo() {
-      const { data } = await supabase.from('custom_pages').select('title, content').eq('slug', slug).single();
+      const { data } = await supabaseClient.from('custom_pages').select('title, content').eq('slug', slug).single();
 
       if (data) {
         setHtmlContent(data.content);

@@ -11,7 +11,7 @@ import { Button, FormInput, FormPasswordInput, Label, LabelButton, LoginContaine
 
 import useTheme from '@hooks/theme/useTheme';
 
-import { supabase } from '@utils/supabase';
+import supabaseClient from '@utils/database';
 
 import { Theme } from '@theme';
 
@@ -30,7 +30,7 @@ const CreateAccount = ({ navigation }: AuthNavProps<'CreateAccount'>) => {
     dob: string,
     contact: string
   ) {
-    const { error } = await supabase.auth.signUp({
+    const { error } = await supabaseClient.auth.signUp({
       email,
       password,
       options: {
